@@ -2,16 +2,20 @@ package nz.ac.auckland.se206;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.controllers.CanvasController;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should
  * remain as the class that runs the JavaFX application.
  */
 public class App extends Application {
+
   public static void main(final String[] args) {
     launch();
   }
@@ -28,6 +32,12 @@ public class App extends Application {
     return new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml")).load();
   }
 
+  private static FXMLLoader getFxmlLoader(final String fxml) {
+    return new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
+  }
+
+  private Scene scene;
+
   /**
    * This method is invoked when the application starts. It loads and shows the "Canvas" scene.
    *
@@ -36,8 +46,20 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    final Scene scene = new Scene(loadFxml("canvas"), 840, 680);
+    stage.setOnCloseRequest(
+        e -> {
+          Platform.exit();
+          // Terminate TTS so app closes fully on close
+          CanvasController controller = (CanvasController) SceneManager.getController(AppUi.CANVAS);
+          controller.textToSpeech.terminate();
+        });
 
+    // add scenes to scene manager
+    SceneManager.addUi(AppUi.CANVAS, getFxmlLoader("canvas"));
+    SceneManager.addUi(AppUi.MAIN_MENU, getFxmlLoader("main_menu"));
+    SceneManager.addUi(AppUi.CATEGORY_DISPLAY, getFxmlLoader("category_display"));
+
+    scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN_MENU), 840, 680);
     stage.setScene(scene);
     stage.show();
   }

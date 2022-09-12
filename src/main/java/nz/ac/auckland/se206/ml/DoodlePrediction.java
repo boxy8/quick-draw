@@ -70,6 +70,35 @@ public class DoodlePrediction {
     System.out.println(sb);
   }
 
+  /**
+   * Returns the formatted prediction class names and confidence levels.
+   *
+   * @param predictions The list of predictions to format.
+   * @return The formatted list
+   */
+  public static String getFormattedPredictions(
+      final List<Classifications.Classification> predictions) {
+    final StringBuilder sb = new StringBuilder();
+
+    int i = 1; // prediction number
+
+    // go through each prediction
+    for (final Classifications.Classification classification : predictions) {
+      // append the formatted prediction to StringBuilder
+      sb.append("TOP ")
+          .append(i)
+          .append(" : ")
+          .append(classification.getClassName())
+          .append(" : ")
+          .append(String.format("%.2f%%", 100 * classification.getProbability()))
+          .append(System.lineSeparator());
+
+      i++;
+    }
+
+    return sb.toString();
+  }
+
   private final ZooModel<Image, Classifications> model;
 
   /**
