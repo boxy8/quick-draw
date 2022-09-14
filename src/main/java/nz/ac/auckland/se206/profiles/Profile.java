@@ -1,8 +1,8 @@
 package nz.ac.auckland.se206.profiles;
 
 import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
 import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class Profile {
 
   private String username;
@@ -20,18 +19,18 @@ public class Profile {
   private int wins;
   private int losses;
   private List<String> wordHistory;
-  private int fastestWonGame;
+  private int fastestWinTime;
 
   private File csvFile;
   private List<String[]> csvList;
 
   public Profile(String username) throws URISyntaxException, IOException, CsvException {
     this.username = username.toLowerCase();
-    
+
     // location of file
     String filePath = "./" + this.username + ".csv";
     File csvNewFile = new File(filePath);
-    
+
     this.csvFile =
         new File(Profile.class.getResource("/profiles/" + this.username + ".csv").toURI());
 
@@ -40,7 +39,7 @@ public class Profile {
       this.wins = Integer.valueOf(this.csvList.get(1)[1]);
       this.losses = Integer.valueOf(this.csvList.get(2)[1]);
       this.wordHistory = Arrays.asList(this.csvList.get(3)).subList(1, this.csvList.get(3).length);
-      this.fastestWonGame = Integer.valueOf(this.csvList.get(2)[1]);
+      this.fastestWinTime = Integer.valueOf(this.csvList.get(2)[1]);
 
     } else {
       // create {username}.csv file with default values
@@ -89,9 +88,9 @@ public class Profile {
     this.wordHistory.add(word);
   }
 
-  public void setFastestWonGame(int time) {
+  public void setfastestWinTime(int time) {
     // TODO: Write to CSV file
-    this.fastestWonGame = time;
+    this.fastestWinTime = time;
   }
 
   public List<String[]> getCsvList() {
@@ -114,8 +113,7 @@ public class Profile {
     return this.wordHistory;
   }
 
-  public int getFastestWonGame() {
-    return this.fastestWonGame;
+  public int getfastestWinTime() {
+    return this.fastestWinTime;
   }
-
 }
