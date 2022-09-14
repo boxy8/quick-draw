@@ -2,17 +2,21 @@ package nz.ac.auckland.se206.profiles;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import com.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class Profile {
 
   private String username;
+
   private int wins;
   private int losses;
   private List<String> wordHistory;
@@ -23,6 +27,11 @@ public class Profile {
 
   public Profile(String username) throws URISyntaxException, IOException, CsvException {
     this.username = username.toLowerCase();
+    
+    // location of file
+    String filePath = "./" + this.username + ".csv";
+    File csvNewFile = new File(filePath);
+    
     this.csvFile =
         new File(Profile.class.getResource("/profiles/" + this.username + ".csv").toURI());
 
@@ -34,14 +43,27 @@ public class Profile {
       this.fastestWonGame = Integer.valueOf(this.csvList.get(2)[1]);
 
     } else {
-      // TODO: create {username}.csv file with default values
-
-      // this.csvList = this.getCsvLines();
-      // this.wins = 0;
-      // this.losses = 0;
-      // this.wordHistory = new ArrayList<String>();
-      // this.fastestWonGame = 60;
-      // };
+      // create {username}.csv file with default values
+      try {
+        // create a new csv file writer
+        FileWriter outputfile = new FileWriter(csvNewFile);
+        CSVWriter writer = new CSVWriter(outputfile);
+        // Creating the default beginning file
+        String[] name = {"Name", username};
+        writer.writeNext(name);
+        String[] win = {"Win", "0"};
+        writer.writeNext(win);
+        String[] loss = {"loss", "0"};
+        writer.writeNext(loss);
+        String[] words = {"words"};
+        writer.writeNext(words);
+        String[] fastestWinTime = {"fastestWinTime", "50"};
+        writer.writeNext(fastestWinTime);
+        // closing writer after it is complete
+        writer.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 
@@ -95,4 +117,5 @@ public class Profile {
   public int getFastestWonGame() {
     return this.fastestWonGame;
   }
+
 }
