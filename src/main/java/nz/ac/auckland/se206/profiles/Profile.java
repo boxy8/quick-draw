@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
@@ -24,28 +23,18 @@ public class Profile {
   private File csvFile;
   private List<String[]> csvList;
 
-  public Profile(String username) throws URISyntaxException, IOException, CsvException {
+  public Profile(String username) throws IOException, CsvException {
     this.username = username.toLowerCase();
 
     // location of file
-    String filePath = "./" + this.username + ".csv";
-    File csvNewFile = new File(filePath);
+    String filePath = "./profiles/" + this.username + ".csv";
+    this.csvFile = new File(filePath);
 
-    this.csvFile =
-        new File(Profile.class.getResource("/profiles/" + this.username + ".csv").toURI());
-
-    if (this.csvFile.isFile()) {
-      this.csvList = this.getCsvLines();
-      this.wins = Integer.valueOf(this.csvList.get(1)[1]);
-      this.losses = Integer.valueOf(this.csvList.get(2)[1]);
-      this.wordHistory = Arrays.asList(this.csvList.get(3)).subList(1, this.csvList.get(3).length);
-      this.fastestWinTime = Integer.valueOf(this.csvList.get(2)[1]);
-
-    } else {
+    if (!this.csvFile.isFile()) {
       // create {username}.csv file with default values
       try {
         // create a new csv file writer
-        FileWriter outputfile = new FileWriter(csvNewFile);
+        FileWriter outputfile = new FileWriter(this.csvFile);
         CSVWriter writer = new CSVWriter(outputfile);
         // Creating the default beginning file
         String[] name = {"Name", username};
@@ -56,7 +45,7 @@ public class Profile {
         writer.writeNext(loss);
         String[] words = {"words"};
         writer.writeNext(words);
-        String[] fastestWinTime = {"fastestWinTime", "50"};
+        String[] fastestWinTime = {"fastestWinTime", "60"};
         writer.writeNext(fastestWinTime);
         // closing writer after it is complete
         writer.close();
@@ -64,8 +53,31 @@ public class Profile {
         e.printStackTrace();
       }
     }
+    readCsv();
   }
 
+  /**
+   * reads the .csv file and converts relevant data into the correct data types. Updates the wins,
+   * losses, word history, and fastest win time as per the values in the .csv file
+   *
+   * @throws IOException
+   * @throws CsvException
+   */
+  private void readCsv() throws IOException, CsvException {
+    this.csvList = this.getCsvLines();
+    this.wins = Integer.valueOf(this.csvList.get(1)[1]);
+    this.losses = Integer.valueOf(this.csvList.get(2)[1]);
+    this.wordHistory = Arrays.asList(this.csvList.get(3)).subList(1, this.csvList.get(3).length);
+    this.fastestWinTime = Integer.valueOf(this.csvList.get(4)[1]);
+  }
+
+  /**
+   * Reads all lines of a .csv file and returns all the lines as a list of strings
+   *
+   * @return all lines of the csv file as strings
+   * @throws IOException
+   * @throws CsvException
+   */
   private List<String[]> getCsvLines() throws IOException, CsvException {
     try (FileReader fr = new FileReader(this.csvFile, StandardCharsets.UTF_8);
         CSVReader reader = new CSVReader(fr)) {
