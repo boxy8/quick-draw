@@ -38,8 +38,8 @@ public class Profile {
         writer.writeNext(loss);
         String[] words = {"words"};
         writer.writeNext(words);
-        String[] gameWinTime = {"gameWinTime", "50"};
-        writer.writeNext(gameWinTime);
+        String[] fastestWinTime = {"fastestWinTime", "50"};
+        writer.writeNext(fastestWinTime);
         // closing writer after it is complete
         writer.close();
       } catch (IOException e) {
