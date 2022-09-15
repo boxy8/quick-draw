@@ -27,7 +27,7 @@ public class Profile {
     this.username = username.toLowerCase();
 
     // location of file
-    String filePath = "./profiles/" + this.username + ".csv";
+    String filePath = "src/main/resources/profiles/" + this.username + ".csv";
     this.csvFile = new File(filePath);
 
     if (!this.csvFile.isFile()) {
