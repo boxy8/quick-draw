@@ -45,7 +45,9 @@ public class App extends Application {
           Platform.exit();
           // Terminate TTS so app closes fully on close
           CanvasController controller = (CanvasController) SceneManager.getController(AppUi.CANVAS);
-          controller.textToSpeech.terminate();
+          if (controller.getTTS() != null) {
+            controller.getTTS().terminate();
+          }
         });
 
     // add scenes to scene manager
