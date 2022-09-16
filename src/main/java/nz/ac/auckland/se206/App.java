@@ -4,7 +4,6 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -21,17 +20,12 @@ public class App extends Application {
   }
 
   /**
-   * Returns the node associated to the input file. The method expects that the file is located in
-   * "src/main/resources/fxml".
+   * Returns an FXMLLoader instance for the input file. The method expects that the file is located
+   * in "src/main/resources/fxml".
    *
    * @param fxml The name of the FXML file (without extension).
-   * @return The node of the input file.
-   * @throws IOException If the file is not found.
+   * @return An FXMLLoader for the input file.
    */
-  private static Parent loadFxml(final String fxml) throws IOException {
-    return new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml")).load();
-  }
-
   private static FXMLLoader getFxmlLoader(final String fxml) {
     return new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
   }
