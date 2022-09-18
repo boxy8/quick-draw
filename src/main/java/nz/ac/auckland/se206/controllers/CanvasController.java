@@ -78,7 +78,7 @@ public class CanvasController implements SwitchListener {
   private int timeLeft;
   private Timeline timeline;
   private boolean gameWon;
-  public TextToSpeech textToSpeech;
+  private TextToSpeech textToSpeech;
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
@@ -342,6 +342,10 @@ public class CanvasController implements SwitchListener {
     graphics.dispose();
 
     return imageBinary;
+  }
+
+  public TextToSpeech getTTS() {
+    return textToSpeech;
   }
 
   /**
