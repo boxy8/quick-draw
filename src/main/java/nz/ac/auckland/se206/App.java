@@ -10,7 +10,8 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.controllers.CanvasController;
 
 /**
- * This is the entry point of the JavaFX application, while you can change this class, it should
+ * This is the entry point of the JavaFX application, while you can change this
+ * class, it should
  * remain as the class that runs the JavaFX application.
  */
 public class App extends Application {
@@ -20,7 +21,8 @@ public class App extends Application {
   }
 
   /**
-   * Returns an FXMLLoader instance for the input file. The method expects that the file is located
+   * Returns an FXMLLoader instance for the input file. The method expects that
+   * the file is located
    * in "src/main/resources/fxml".
    *
    * @param fxml The name of the FXML file (without extension).
@@ -33,7 +35,8 @@ public class App extends Application {
   private Scene scene;
 
   /**
-   * This method is invoked when the application starts. It loads and shows the "Canvas" scene.
+   * This method is invoked when the application starts. It loads and shows the
+   * "Canvas" scene.
    *
    * @param stage The primary stage of the application.
    * @throws IOException If "src/main/resources/fxml/canvas.fxml" is not found.
@@ -54,6 +57,7 @@ public class App extends Application {
     SceneManager.addUi(AppUi.CANVAS, getFxmlLoader("canvas"));
     SceneManager.addUi(AppUi.MAIN_MENU, getFxmlLoader("main_menu"));
     SceneManager.addUi(AppUi.CATEGORY_DISPLAY, getFxmlLoader("category_display"));
+    SceneManager.addUi(AppUi.PROFILE_PAGE, getFxmlLoader("profile_page"));
 
     scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN_MENU), 840, 680);
     stage.setScene(scene);
