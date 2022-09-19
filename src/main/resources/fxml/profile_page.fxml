@@ -17,7 +17,7 @@
          <children>
             <HBox prefHeight="25.0" prefWidth="840.0">
                <children>
-                  <Button mnemonicParsing="false" text="Quick, Draw!" />
+                  <Button fx:id="quickDrawButton" mnemonicParsing="false" onAction="#onGoHome" text="Quick, Draw!" />
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                   <Button mnemonicParsing="false" text="User" />
                   <Button mnemonicParsing="false" text="Settings" />
