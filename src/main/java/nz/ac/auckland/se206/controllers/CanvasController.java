@@ -173,7 +173,7 @@ public class CanvasController implements SwitchListener {
                 e -> {
                   // update predictions and timer
                   onPredict(getCurrentSnapshot());
-                  countdown();
+                  countDown();
                 }));
     timeline.setCycleCount(Animation.INDEFINITE); // countdown value (seconds)
     timeline.play();
@@ -184,7 +184,7 @@ public class CanvasController implements SwitchListener {
     updateTimerDisplay(timeLeft);
   }
 
-  private void countdown() {
+  private void countDown() {
     timeLeft--;
     updateTimerDisplay(timeLeft);
     if (timeLeft == 0) {
@@ -262,6 +262,7 @@ public class CanvasController implements SwitchListener {
           }
         };
 
+    // after prediction has finished, end game if player won
     backgroundTask.setOnSucceeded(
         event -> {
           if (gameWon) {
@@ -295,7 +296,14 @@ public class CanvasController implements SwitchListener {
     }
   }
 
+  /**
+   * Checks whether the player has won, i.e. whether the current word is in top 3 predictions.
+   *
+   * @param classifications The list of predictions
+   * @return whether the player has won or not
+   */
   private boolean isWin(List<Classifications.Classification> classifications) {
+    // go through top three predictions
     for (int i = 0; i < 3; i++) {
       if (classifications
           .get(i)
@@ -340,8 +348,14 @@ public class CanvasController implements SwitchListener {
     return textToSpeech;
   }
 
+  /**
+   * Takes in a string message and uses text to speech to speak the message.
+   *
+   * @param msg The message to be spoken.
+   */
   private void speak(String msg) {
 
+    // Do task in background so it doesn't freeze GUI
     Task<Void> backgroundTask =
         new Task<>() {
 
