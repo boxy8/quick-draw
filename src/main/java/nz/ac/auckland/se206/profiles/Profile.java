@@ -1,10 +1,13 @@
 package nz.ac.auckland.se206.profiles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Profile {
   private String username;
   private int wins;
   private int losses;
-  private String[] wordHistory;
+  private List<String> wordHistory = new ArrayList<>();
   private int fastestWinTime;
 
 
@@ -48,11 +51,27 @@ public class Profile {
     this.fastestWinTime = time;
   }
 
+  public List<String> getHistory() {
+    return wordHistory;
+  }
+
+  public void addToList(String something) {
+    wordHistory.add(something);
+  }
+
+  public boolean containsWord(String word) {
+    if (wordHistory.contains(word)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
   // Creating toString
   @Override
   public String toString() {
-    return "Organisation [username=" + username + ", wins=" + wins + ", losses=" + losses
-        + ", fastestWinTime=" + fastestWinTime + "]";
+    return "{\"username\":\"" + username + "\",\"wins\":" + wins + ",\"losses\":" + losses
+        + ",\"wordHistory\":" + wordHistory + ",\"fastestWinTime\":" + fastestWinTime + "}";
   }
 }

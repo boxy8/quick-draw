@@ -11,6 +11,12 @@ public class ProfileLoader {
 
   String username;
 
+  /**
+   * constructor for profile loader, Just one is reuqired for all loading reading and writing
+   * purposes
+   * 
+   * @param username
+   */
   public ProfileLoader(String username) {
     this.username = username;
   }
@@ -26,7 +32,7 @@ public class ProfileLoader {
     Profile profile = new Profile();
     String filePath = "src/main/resources/profiles/" + username + ".json";
     profile.setName(username);
-    // create json format using jon
+    // create json format using gson
     Gson gson = new Gson();
     String json = gson.toJson(profile);
     try {
@@ -58,6 +64,29 @@ public class ProfileLoader {
       e.printStackTrace();
     }
     return null;
+  }
+
+  /**
+   * This takes a profile and name of file/user profile as a input and updates the profile
+   * 
+   * @param profile
+   * @param name
+   * @throws IOException
+   * @throws CsvException
+   */
+  public void updateJSON(Profile profile, String name) throws IOException, CsvException {
+    String filePath = "src/main/resources/profiles/" + name + ".json";
+    // create json format using gjon with passed in profile
+    Gson gson = new Gson();
+    String json = gson.toJson(profile);
+    try {
+      // write to a new file at correct path
+      FileWriter writer = new FileWriter(filePath);
+      writer.write(json);
+      writer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
 }
