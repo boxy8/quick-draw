@@ -27,7 +27,7 @@
                   <Label fx:id="titleLabel" text="Quick, Draw!" />
                   <Label text="SE206 Edition" />
                   <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlay" text="Play as guest" />
-                  <Button mnemonicParsing="false" text="Sign Up" />
+                  <Button fx:id="profilesButton" mnemonicParsing="false" onAction="#onChooseProfile" text="Choose Profile" />
                </children>
             </VBox>
          </children>

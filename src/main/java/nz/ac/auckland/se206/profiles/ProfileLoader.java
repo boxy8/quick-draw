@@ -12,7 +12,8 @@ public class ProfileLoader {
   String username;
 
   /**
-   * constructor for profile loader, Just one is reuqired for all loading reading and writing
+   * constructor for profile loader, Just one is reuqired for all loading reading
+   * and writing
    * purposes
    * 
    * @param username
@@ -46,7 +47,8 @@ public class ProfileLoader {
   }
 
   /**
-   * This creates a new instance of profile and returns the profile so its info can be accessed
+   * This creates a new instance of profile and returns the profile so its info
+   * can be accessed
    * 
    * @return loaded profile
    */
@@ -67,7 +69,8 @@ public class ProfileLoader {
   }
 
   /**
-   * This takes a profile and name of file/user profile as a input and updates the profile
+   * This takes a profile and name of file/user profile as a input and updates the
+   * profile
    * 
    * @param profile
    * @param name

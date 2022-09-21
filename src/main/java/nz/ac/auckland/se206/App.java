@@ -58,6 +58,7 @@ public class App extends Application {
     SceneManager.addUi(AppUi.MAIN_MENU, getFxmlLoader("main_menu"));
     SceneManager.addUi(AppUi.CATEGORY_DISPLAY, getFxmlLoader("category_display"));
     SceneManager.addUi(AppUi.PROFILE_PAGE, getFxmlLoader("profile_page"));
+    SceneManager.addUi(AppUi.PROFILE_LIST, getFxmlLoader("profile_list"));
 
     scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN_MENU), 840, 680);
     stage.setScene(scene);
