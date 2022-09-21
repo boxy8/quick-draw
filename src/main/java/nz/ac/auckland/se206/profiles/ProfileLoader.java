@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import com.google.gson.Gson;
-import com.opencsv.exceptions.CsvException;
 
 public class ProfileLoader {
 
@@ -26,9 +25,8 @@ public class ProfileLoader {
    * This method creates a new json file to be read and sets default values
    * 
    * @throws IOException
-   * @throws CsvException
    */
-  public void create() throws IOException, CsvException {
+  public void create() throws IOException {
     // create New Profile and make it default settings with name as user name
     Profile profile = new Profile();
     String filePath = "src/main/resources/profiles/" + username + ".json";
@@ -75,9 +73,8 @@ public class ProfileLoader {
    * @param profile
    * @param name
    * @throws IOException
-   * @throws CsvException
    */
-  public void updateJSON(Profile profile, String name) throws IOException, CsvException {
+  public void updateJSON(Profile profile, String name) throws IOException {
     String filePath = "src/main/resources/profiles/" + name + ".json";
     // create json format using gjon with passed in profile
     Gson gson = new Gson();
