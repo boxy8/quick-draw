@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.apache.commons.text.TextStringBuilder;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -36,6 +37,16 @@ public class ProfileListController {
     @FXML
     private VBox profileCards;
 
+    private EventHandler<MouseEvent> selectProfileLabel = event -> {
+        Label profileLabel = (Label) event.getSource();
+        for (Node child : profileCards.getChildren()) {
+            Label childLabel = (Label) child;
+            childLabel.setTextFill(Color.BLACK);
+        }
+
+        profileLabel.setTextFill(Color.BLUE);
+    };
+
     public void initialize() {
         String folderPath = "src/main/resources/profiles/";
         File folder = new File(folderPath);
@@ -44,22 +55,15 @@ public class ProfileListController {
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
                 String username = listOfFiles[i].getName();
-                Label profileLabel = new Label(username);
-                profileLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-                    public void handle(MouseEvent event) {
-                        Label profileLabel = (Label) event.getSource();
-                        for (Node child : profileCards.getChildren()) {
-                            Label childLabel = (Label) child;
-                            childLabel.setTextFill(Color.BLACK);
-                        }
-
-                        profileLabel.setTextFill(Color.BLUE);
-                    }
-                });
-                profileCards.getChildren().add(profileLabel);
+                createProfileLabel(username);
             }
         }
+    }
+
+    public void createProfileLabel(String username) {
+        Label profileLabel = new Label(username);
+        profileLabel.setOnMouseClicked(selectProfileLabel);
+        profileCards.getChildren().add(profileLabel);
     }
 
     @FXML
@@ -74,6 +78,7 @@ public class ProfileListController {
             ProfileLoader profileLoader = new ProfileLoader(username);
             try {
                 profileLoader.create();
+                createProfileLabel(username);
                 usernameField.clear();
             } catch (IOException e) {
                 usernameField.setText("Invalid Input. Try Again");
