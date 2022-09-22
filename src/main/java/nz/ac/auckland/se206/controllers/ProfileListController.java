@@ -41,33 +41,49 @@ public class ProfileListController {
 
         Label profileLabel = (Label) event.getSource();
         selectedUsername = profileLabel.getText();
+        // Set all profile labels to black
         for (Node child : profileCards.getChildren()) {
             Label childLabel = (Label) child;
             childLabel.setTextFill(Color.BLACK);
         }
-
+        // Set selected profile label to blue
         profileLabel.setTextFill(Color.BLUE);
     };
 
     public void initialize() {
+        // Find all profile files
         String folderPath = "src/main/resources/profiles/";
         File folder = new File(folderPath);
-        File[] listOfFiles = folder.listFiles();
+        File[] fileArray = folder.listFiles();
 
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile()) {
-                String username = listOfFiles[i].getName();
+        // Create profile label for each profile file on show it on the GUI
+        for (int i = 0; i < fileArray.length; i++) {
+            if (fileArray[i].isFile()) {
+                String fileName = fileArray[i].getName();
+                String username = fileName.substring(0, fileName.length() - 5);
                 createProfileLabel(username);
             }
         }
     }
 
+    /**
+     * Creates profile label with configured mouse click events and adds it to the
+     * GUI
+     * 
+     * @param username a string of the profile's username
+     */
     private void createProfileLabel(String username) {
         Label profileLabel = new Label(username);
         profileLabel.setOnMouseClicked(selectProfileLabel);
         profileCards.getChildren().add(profileLabel);
     }
 
+    /**
+     * Sets the current profile based on the current selected profile, and returns
+     * to the main menu
+     * 
+     * @param event the event of activating the Choose Profile Button
+     */
     @FXML
     public void onChooseProfile(ActionEvent event) {
         if (selectedUsername != null) {
@@ -76,12 +92,16 @@ public class ProfileListController {
         }
     }
 
+    /**
+     * Adds a profile to the game and shows it on the GUI
+     */
     @FXML
     public void onAddProfile() {
         String username = usernameField.getText();
         if (username.length() > 0) {
             ProfileLoader profileLoader = new ProfileLoader(username);
             try {
+                // Create valid user profile
                 profileLoader.create();
                 createProfileLabel(username);
                 usernameField.clear();
@@ -91,6 +111,10 @@ public class ProfileListController {
         }
     }
 
+    /**
+     * Deletes the currently selected profile and removes it from the GUI. Warns the
+     * user and requires confirmation
+     */
     @FXML
     public void onDeleteProfile() {
         // TODO
