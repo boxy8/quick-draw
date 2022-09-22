@@ -3,10 +3,7 @@ package nz.ac.auckland.se206.controllers;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.text.TextStringBuilder;
-
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -18,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.profiles.ProfileLoader;
 
 public class ProfileListController {
@@ -37,8 +35,12 @@ public class ProfileListController {
     @FXML
     private VBox profileCards;
 
+    private String selectedUsername;
+
     private EventHandler<MouseEvent> selectProfileLabel = event -> {
+
         Label profileLabel = (Label) event.getSource();
+        selectedUsername = profileLabel.getText();
         for (Node child : profileCards.getChildren()) {
             Label childLabel = (Label) child;
             childLabel.setTextFill(Color.BLACK);
@@ -60,7 +62,7 @@ public class ProfileListController {
         }
     }
 
-    public void createProfileLabel(String username) {
+    private void createProfileLabel(String username) {
         Label profileLabel = new Label(username);
         profileLabel.setOnMouseClicked(selectProfileLabel);
         profileCards.getChildren().add(profileLabel);
@@ -68,7 +70,10 @@ public class ProfileListController {
 
     @FXML
     public void onChooseProfile(ActionEvent event) {
-        SceneManager.changeScene(event, AppUi.MAIN_MENU);
+        if (selectedUsername != null) {
+            ProfileHolder.getInstance().setCurrentProfile(selectedUsername);
+            SceneManager.changeScene(event, AppUi.MAIN_MENU);
+        }
     }
 
     @FXML
