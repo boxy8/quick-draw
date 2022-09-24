@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.profiles.ProfileLoader;
 
@@ -37,6 +39,8 @@ public class ProfileListController {
 
     private String selectedUsername;
 
+    private ArrayList<Profile> profiles;
+
     private EventHandler<MouseEvent> selectProfileLabel = event -> {
 
         Label profileLabel = (Label) event.getSource();
@@ -47,10 +51,16 @@ public class ProfileListController {
             childLabel.setTextFill(Color.BLACK);
         }
         // Set selected profile label to blue
-        profileLabel.setTextFill(Color.BLUE);
+        for (Profile profile : profiles) {
+            if (profile.getUsername().equals(selectedUsername)) {
+                profileLabel.setTextFill(Color.BLUE);
+            }
+        }
     };
 
-    public void initialize() {
+    public void initialize() throws IOException {
+        profiles = new ArrayList<Profile>();
+
         // Find all profile files
         String folderPath = "profiles/";
         File folder = new File(folderPath);
@@ -64,6 +74,7 @@ public class ProfileListController {
             if (fileArray[i].isFile()) {
                 String fileName = fileArray[i].getName();
                 String username = fileName.substring(0, fileName.length() - 5);
+                profiles.add(new Profile(username));
                 createProfileLabel(username);
             }
         }
@@ -90,7 +101,8 @@ public class ProfileListController {
     @FXML
     public void onChooseProfile(ActionEvent event) {
         if (selectedUsername != null) {
-            ProfileHolder.getInstance().setCurrentProfile(selectedUsername);
+            Profile selectedProfile = ProfileLoader.read(selectedUsername);
+            ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
             SceneManager.changeScene(event, AppUi.MAIN_MENU);
         }
     }
@@ -102,14 +114,12 @@ public class ProfileListController {
     public void onAddProfile() {
         String username = usernameField.getText();
         if (username.length() > 0) {
-            ProfileLoader profileLoader = new ProfileLoader(username);
             try {
-                // Create valid user profile
-                profileLoader.create();
+                Profile newProfile = new Profile(username);
+                profiles.add(newProfile);
                 createProfileLabel(username);
-                usernameField.clear();
-            } catch (IOException e) {
-                usernameField.setText("Invalid Input. Try Again");
+            } catch (Exception e) {
+                usernameField.setText("Try Again");
             }
         }
     }
