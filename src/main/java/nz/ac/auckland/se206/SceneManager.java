@@ -2,7 +2,6 @@ package nz.ac.auckland.se206;
 
 import java.io.IOException;
 import java.util.HashMap;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +14,8 @@ public class SceneManager {
     MAIN_MENU,
     CATEGORY_DISPLAY,
     PROFILE_PAGE,
-    PROFILE_LIST
+    PROFILE_LIST,
+    MAIN
   }
 
   private static HashMap<AppUi, Scene> sceneMap = new HashMap<>();
