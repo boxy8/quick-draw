@@ -1,13 +1,12 @@
 package nz.ac.auckland.se206.profiles;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Profile {
   private String username;
   private int wins;
   private int losses;
-  private List<String> wordHistory = new ArrayList<>();
+  private ArrayList<String> wordHistory = new ArrayList<>();
   private int fastestWinTime;
 
 
@@ -51,7 +50,7 @@ public class Profile {
     this.fastestWinTime = time;
   }
 
-  public List<String> getHistory() {
+  public ArrayList<String> getHistory() {
     return wordHistory;
   }
 

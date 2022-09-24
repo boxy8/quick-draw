@@ -1,7 +1,5 @@
 package nz.ac.auckland.se206.words;
 
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,13 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 
 public class CategorySelector {
 
   public enum Difficulty {
-    E,
-    M,
-    H
+    E, M, H
   }
 
   private Map<Difficulty, List<String>> difficulty2categories;
@@ -34,10 +32,20 @@ public class CategorySelector {
     }
   }
 
-  public String getRandomCategory(Difficulty difficulty) {
-    return difficulty2categories
-        .get(difficulty)
+  public String getRandomCategory(Difficulty difficulty, ArrayList<String> usedWords) {
+    String temp = difficulty2categories.get(difficulty)
         .get(new Random().nextInt(difficulty2categories.get(difficulty).size()));
+    boolean foundWord = true;
+    while (foundWord && (usedWords.size() < 144)) {
+      if (!usedWords.contains(temp)) {
+        foundWord = false;
+        return temp;
+      } else {
+        temp = difficulty2categories.get(difficulty)
+            .get(new Random().nextInt(difficulty2categories.get(difficulty).size()));
+      }
+    }
+    return temp;
   }
 
   protected List<String[]> getLines() throws IOException, CsvException, URISyntaxException {
