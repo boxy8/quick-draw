@@ -5,14 +5,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import com.google.gson.Gson;
-import com.opencsv.exceptions.CsvException;
 
 public class ProfileLoader {
 
   String username;
 
   /**
-   * constructor for profile loader, Just one is reuqired for all loading reading and writing
+   * constructor for profile loader, Just one is reuqired for all loading reading
+   * and writing
    * purposes
    * 
    * @param username
@@ -25,9 +25,8 @@ public class ProfileLoader {
    * This method creates a new json file to be read and sets default values
    * 
    * @throws IOException
-   * @throws CsvException
    */
-  public void create() throws IOException, CsvException {
+  public void create() throws IOException {
     // create New Profile and make it default settings with name as user name
     Profile profile = new Profile();
     String filePath = "src/main/resources/profiles/" + username + ".json";
@@ -46,7 +45,8 @@ public class ProfileLoader {
   }
 
   /**
-   * This creates a new instance of profile and returns the profile so its info can be accessed
+   * This creates a new instance of profile and returns the profile so its info
+   * can be accessed
    * 
    * @return loaded profile
    */
@@ -67,14 +67,14 @@ public class ProfileLoader {
   }
 
   /**
-   * This takes a profile and name of file/user profile as a input and updates the profile
+   * This takes a profile and name of file/user profile as a input and updates the
+   * profile
    * 
    * @param profile
    * @param name
    * @throws IOException
-   * @throws CsvException
    */
-  public void updateJSON(Profile profile, String name) throws IOException, CsvException {
+  public void updateJSON(Profile profile, String name) throws IOException {
     String filePath = "src/main/resources/profiles/" + name + ".json";
     // create json format using gjon with passed in profile
     Gson gson = new Gson();

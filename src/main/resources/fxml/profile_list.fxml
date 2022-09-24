@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfileListController">
+   <children>
+      <TextField fx:id="usernameField" layoutX="399.0" layoutY="111.0" />
+      <Button fx:id="addButton" layoutX="436.0" layoutY="175.0" mnemonicParsing="false" onAction="#onAddProfile" text="Add Profile" />
+      <Button fx:id="deleteButton" layoutX="430.0" layoutY="214.0" mnemonicParsing="false" onAction="#onDeleteProfile" text="Delete Profile" />
+      <Button fx:id="chooseButton" layoutX="427.0" layoutY="322.0" mnemonicParsing="false" onAction="#onChooseProfile" text="Choose Profile" />
+      <VBox fx:id="profileCards" layoutX="47.0" layoutY="50.0" prefHeight="300.0" prefWidth="300.0" />
+   </children>
+</AnchorPane>

@@ -19,12 +19,20 @@ public class MainMenuController {
   private Button profileButton;
 
   @FXML
+  private Button profilesButton;
+
+  @FXML
   private void onPlay(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
   }
 
   @FXML
-  void onShowProfile(ActionEvent event) {
+  private void onShowProfile(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.PROFILE_PAGE);
+  }
+
+  @FXML
+  private void onChooseProfile(ActionEvent event) {
+    SceneManager.changeScene(event, AppUi.PROFILE_LIST);
   }
 }

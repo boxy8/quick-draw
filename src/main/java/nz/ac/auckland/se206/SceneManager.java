@@ -14,7 +14,8 @@ public class SceneManager {
     CANVAS,
     MAIN_MENU,
     CATEGORY_DISPLAY,
-    PROFILE_PAGE
+    PROFILE_PAGE,
+    PROFILE_LIST
   }
 
   private static HashMap<AppUi, Scene> sceneMap = new HashMap<>();
