@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 public class ProfileLoader {
 
   String username;
+  String filePath;
 
   /**
    * constructor for profile loader, Just one is reuqired for all loading reading
@@ -19,6 +20,7 @@ public class ProfileLoader {
    */
   public ProfileLoader(String username) {
     this.username = username;
+    this.filePath = "profiles/" + username + ".json";
   }
 
   /**
@@ -29,7 +31,6 @@ public class ProfileLoader {
   public void create() throws IOException {
     // create New Profile and make it default settings with name as user name
     Profile profile = new Profile();
-    String filePath = "src/main/resources/profiles/" + username + ".json";
     profile.setName(username);
     // create json format using gson
     Gson gson = new Gson();
@@ -55,7 +56,6 @@ public class ProfileLoader {
     Gson gson = new Gson();
     try {
       // get file and read it
-      String filePath = "src/main/resources/profiles/" + username + ".json";
       BufferedReader buffReader = new BufferedReader(new FileReader(filePath));
       // read the file and make it into a profile
       Profile readProfile = gson.fromJson(buffReader, Profile.class);
@@ -75,7 +75,6 @@ public class ProfileLoader {
    * @throws IOException
    */
   public void updateJSON(Profile profile, String name) throws IOException {
-    String filePath = "src/main/resources/profiles/" + name + ".json";
     // create json format using gjon with passed in profile
     Gson gson = new Gson();
     String json = gson.toJson(profile);

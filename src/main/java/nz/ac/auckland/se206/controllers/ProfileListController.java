@@ -52,8 +52,11 @@ public class ProfileListController {
 
     public void initialize() {
         // Find all profile files
-        String folderPath = "src/main/resources/profiles/";
+        String folderPath = "profiles/";
         File folder = new File(folderPath);
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
         File[] fileArray = folder.listFiles();
 
         // Create profile label for each profile file on show it on the GUI
