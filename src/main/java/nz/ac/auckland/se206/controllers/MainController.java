@@ -10,6 +10,11 @@ public class MainController {
   @FXML private BorderPane border;
 
   public void setContent(AppUi appUi) {
+    Object controller = SceneManager.getController(appUi);
+    if (controller instanceof SwitchListener switchListener) {
+      switchListener.onSwitch();
+    }
+
     border.setCenter(SceneManager.getUiRoot(appUi));
   }
 }
