@@ -2,14 +2,15 @@ package nz.ac.auckland.se206.profiles;
 
 import java.util.ArrayList;
 import java.util.List;
+import nz.ac.auckland.se206.games.Game;
 
 public class Profile {
   private String username;
   private int wins;
   private int losses;
-  private List<String> wordHistory = new ArrayList<>();
   private int fastestWinTime;
-
+  private List<String> wordHistory = new ArrayList<>();
+  private List<Game> gameHistory = new ArrayList<>();
 
   // Calling getters and setters
   public String getUsername() {
@@ -51,12 +52,8 @@ public class Profile {
     this.fastestWinTime = time;
   }
 
-  public List<String> getHistory() {
+  public List<String> getWordHistory() {
     return wordHistory;
-  }
-
-  public void addToList(String something) {
-    wordHistory.add(something);
   }
 
   public boolean containsWord(String word) {
@@ -67,11 +64,19 @@ public class Profile {
     }
   }
 
-
   // Creating toString
   @Override
   public String toString() {
-    return "{\"username\":\"" + username + "\",\"wins\":" + wins + ",\"losses\":" + losses
-        + ",\"wordHistory\":" + wordHistory + ",\"fastestWinTime\":" + fastestWinTime + "}";
+    return "{\"username\":\""
+        + username
+        + "\",\"wins\":"
+        + wins
+        + ",\"losses\":"
+        + losses
+        + ",\"wordHistory\":"
+        + wordHistory
+        + ",\"fastestWinTime\":"
+        + fastestWinTime
+        + "}";
   }
 }
