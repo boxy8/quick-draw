@@ -17,7 +17,7 @@
             <Canvas fx:id="canvas" height="400.0" width="500.0" />
          </children>
       </Pane>
-      <VBox id="predictionsContainer" layoutX="595.0" layoutY="115.0" prefHeight="344.0" prefWidth="200.0" stylesheets="@../css/styles.css">
+      <VBox id="predictionsContainer" layoutX="595.0" layoutY="115.0" prefHeight="344.0" prefWidth="228.0" stylesheets="@../css/styles.css">
          <children>
             <Label alignment="CENTER" prefHeight="25.0" prefWidth="200.0" text="Predictions:" textAlignment="CENTER" />
             <Label fx:id="predictionsLabel" alignment="TOP_LEFT" prefHeight="319.0" prefWidth="200.0" text="Label" />
@@ -43,7 +43,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <AnchorPane fx:id="endGameContainer" layoutX="595.0" layoutY="441.0" prefHeight="157.0" prefWidth="200.0">
+      <AnchorPane fx:id="endGameContainer" layoutX="595.0" layoutY="451.0" prefHeight="132.0" prefWidth="200.0">
          <children>
             <Button fx:id="newGameButton" layoutX="112.0" layoutY="64.0" mnemonicParsing="false" onAction="#onNewGame">
                <graphic>
