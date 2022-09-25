@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -26,16 +24,8 @@ public class CategoryDisplayController implements SwitchListener {
 
   @FXML
   private void onStart(ActionEvent event) {
-
-    Object controller = SceneManager.getController(AppUi.CANVAS);
-    if (controller instanceof SwitchListener switchListener) {
-      switchListener.onSwitch();
-    }
-
-    // switch view
-    Button button = (Button) event.getSource();
-    Scene scene = button.getScene();
-    scene.setRoot(SceneManager.getUiRoot(AppUi.CANVAS));
+    // go to canvas view
+    SceneManager.changeScene(event, AppUi.CANVAS);
   }
 
   @Override

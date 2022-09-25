@@ -19,9 +19,7 @@ public class MainMenuController {
 
   @FXML
   private void onPlay(ActionEvent event) {
-    SceneManager.changeScene(event, AppUi.MAIN);
-    MainController controller = (MainController) SceneManager.getController(AppUi.MAIN);
-    controller.setContent(AppUi.CATEGORY_DISPLAY);
+    SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
   }
 
   @FXML

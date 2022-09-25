@@ -15,6 +15,7 @@ public class MainController {
       switchListener.onSwitch();
     }
 
+    // switch main content
     border.setCenter(SceneManager.getUiRoot(appUi));
   }
 }

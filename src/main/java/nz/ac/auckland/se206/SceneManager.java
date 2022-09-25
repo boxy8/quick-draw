@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import nz.ac.auckland.se206.controllers.SwitchListener;
 
 public class SceneManager {
@@ -41,6 +42,7 @@ public class SceneManager {
     // switch views
     Button button = (Button) event.getSource();
     javafx.scene.Scene scene = button.getScene();
-    scene.setRoot(SceneManager.getUiRoot(appUi));
+    ((BorderPane) scene.getRoot()).setCenter(SceneManager.getUiRoot(appUi));
+    //    scene.setRoot(SceneManager.getUiRoot(appUi));
   }
 }

@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.controllers.CanvasController;
@@ -51,14 +52,19 @@ public class App extends Application {
         });
 
     // add scenes to scene manager
-    SceneManager.addUi(AppUi.CANVAS, getFxmlLoader("canvas"));
     SceneManager.addUi(AppUi.MAIN_MENU, getFxmlLoader("main_menu"));
+
     SceneManager.addUi(AppUi.MAIN, getFxmlLoader("main"));
+    // these views all use the main border pane
+    SceneManager.addUi(AppUi.CANVAS, getFxmlLoader("canvas"));
     SceneManager.addUi(AppUi.CATEGORY_DISPLAY, getFxmlLoader("category_display"));
     SceneManager.addUi(AppUi.PROFILE_PAGE, getFxmlLoader("profile_page"));
     SceneManager.addUi(AppUi.PROFILE_LIST, getFxmlLoader("profile_list"));
 
-    scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN_MENU), 840, 680);
+    scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN), 840, 680);
+    // scene will always be main scene
+    // change views by setting content of main border pane
+    ((BorderPane) scene.getRoot()).setCenter(SceneManager.getUiRoot(AppUi.MAIN_MENU));
     stage.setScene(scene);
     stage.show();
   }
