@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
@@ -85,32 +86,47 @@ public class ProfileListController {
     profileCards.getChildren().add(profileLabel);
   }
 
-  /**
-   * Sets the current profile based on the current selected profile, and returns to the main menu
-   *
-   * @param event the event of activating the Choose Profile Button
-   */
-  @FXML
-  public void onChooseProfile(ActionEvent event) {
-    if (selectedUsername != null) {
-      Profile selectedProfile = ProfileLoader.read(selectedUsername);
-      ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
-      SceneManager.changeScene(event, AppUi.MAIN_MENU);
+    /**
+     * Sets the current profile based on the current selected profile, and returns
+     * to the main menu
+     * 
+     * @param event the event of activating the Choose Profile Button
+     * @throws FileNotFoundException
+     */
+    @FXML
+    public void onChooseProfile(ActionEvent event) throws FileNotFoundException {
+        if (selectedUsername != null) {
+            Profile selectedProfile = ProfileLoader.read(selectedUsername);
+            ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
+            SceneManager.changeScene(event, AppUi.MAIN_MENU);
+        }
     }
-  }
 
-  /** Adds a profile to the game and shows it on the GUI */
-  @FXML
-  public void onAddProfile() {
-    String username = usernameField.getText();
-    if (username.length() > 0) {
-      try {
-        Profile newProfile = new Profile(username);
-        profiles.add(newProfile);
-        createProfileLabel(username);
-      } catch (Exception e) {
-        usernameField.setText("Try Again");
-      }
+    /**
+     * Adds a profile to the game and shows it on the GUI
+     */
+    @FXML
+    public void onAddProfile() {
+        String username = usernameField.getText();
+        if (username.length() > 0) {
+            try {
+                Profile newProfile = new Profile(username, true);
+                profiles.add(newProfile);
+                createProfileLabel(username);
+            } catch (Exception e) {
+                usernameField.setText("Try Again");
+            }
+        }
+    }
+
+    /**
+     * Deletes the currently selected profile and removes it from the GUI. Warns the
+     * user and requires confirmation
+     */
+    @FXML
+    public void onDeleteProfile() {
+        // TODO
+        return;
     }
   }
 
