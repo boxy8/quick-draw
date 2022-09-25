@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.profiles;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import nz.ac.auckland.se206.games.Game;
 
@@ -82,6 +83,12 @@ public class Profile {
 
   public List<Game> getGameHistory() {
     return gameHistory;
+  }
+
+  public List<Game> getReversedGameHistory() {
+    List<Game> reversed = new ArrayList<>(gameHistory);
+    Collections.reverse(reversed);
+    return reversed;
   }
 
   public void addToGameHistory(Game game) throws IOException {

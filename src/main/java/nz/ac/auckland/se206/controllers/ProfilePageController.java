@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.controllers;
 
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -60,7 +61,7 @@ public class ProfilePageController implements SwitchListener {
             new PieChart.Data("Wins", wins), new PieChart.Data("Losses", losses));
     gamesPie.setData(pieChartData);
 
-    //		ObservableList<Game>
-    table.setItems(FXCollections.observableArrayList(profile.getGameHistory()));
+    List<Game> gameHistory = profile.getReversedGameHistory();
+    table.setItems(FXCollections.observableArrayList(gameHistory));
   }
 }
