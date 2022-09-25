@@ -44,3 +44,10 @@
 #usernameLabel {
     -fx-font-size: 18px;
 }
+
+/* Main / navbar */
+
+.navButton {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
