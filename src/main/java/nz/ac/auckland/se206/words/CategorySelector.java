@@ -41,7 +41,7 @@ public class CategorySelector {
    * @param usedWords
    * @return
    */
-  public String getRandomCategory(Difficulty difficulty, ArrayList<String> usedWords) {
+  public String getRandomCategory(Difficulty difficulty, List<String> usedWords) {
     // gets a random word
     String temp =
         difficulty2categories

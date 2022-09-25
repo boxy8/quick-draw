@@ -35,12 +35,12 @@ public class CategoryDisplayController implements SwitchListener {
     WordHolder.getInstance()
         .setCurrentWord(
             categorySelector.getRandomCategory(
-                Difficulty.E, ProfileHolder.getInstance().getCurrentProfile().getHistory()));
+                Difficulty.E, ProfileHolder.getInstance().getCurrentProfile().getWordHistory()));
     // save the word that is generated to the profile
     try {
       ProfileHolder.getInstance()
           .getCurrentProfile()
-          .addToList(WordHolder.getInstance().getCurrentWord());
+          .addToWordHistory(WordHolder.getInstance().getCurrentWord());
     } catch (IOException e) {
       e.printStackTrace();
     }
