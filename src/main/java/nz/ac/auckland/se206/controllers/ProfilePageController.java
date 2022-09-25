@@ -36,6 +36,7 @@ public class ProfilePageController implements SwitchListener {
   @FXML private TableColumn<Game, Boolean> wonCol;
 
   public void initialize() {
+    // initialise table columns
     wordCol.setCellValueFactory(new PropertyValueFactory<Game, String>("word"));
     modeCol.setCellValueFactory(new PropertyValueFactory<Game, GameMode>("mode"));
     lengthCol.setCellValueFactory(new PropertyValueFactory<Game, Integer>("time"));
@@ -44,23 +45,29 @@ public class ProfilePageController implements SwitchListener {
 
   @Override
   public void onSwitch() {
-    // populate statistics section
     Profile profile = ProfileHolder.getInstance().getCurrentProfile();
+    // TODO User section (name, winstreak, badges)
+
+    // populate statistics section with profile values
 
     int wins = profile.getWins();
     int losses = profile.getLosses();
     int totalGames = wins + losses;
+
+    // statistics section
     finishedGamesLabel.setText("Finished games: " + totalGames);
     gamesWonLabel.setText("Games won: " + wins);
     gamesLostLabel.setText("Games lost: " + losses);
     fastestGameLabel.setText("Fastest game won: " + profile.getFastestWinTime());
     averageGameLabel.setText("didn't do this shet yet");
 
+    // pie chart
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(
             new PieChart.Data("Wins", wins), new PieChart.Data("Losses", losses));
     gamesPie.setData(pieChartData);
 
+    // game history table
     List<Game> gameHistory = profile.getReversedGameHistory();
     table.setItems(FXCollections.observableArrayList(gameHistory));
   }
