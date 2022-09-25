@@ -9,26 +9,15 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class MainMenuController {
 
-  @FXML
-  private Button playButton;
+  @FXML private Button playButton;
 
-  @FXML
-  private Label titleLabel;
+  @FXML private Label titleLabel;
 
-  @FXML
-  private Button profileButton;
-
-  @FXML
-  private Button profilesButton;
+  @FXML private Button profilesButton;
 
   @FXML
   private void onPlay(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
-  }
-
-  @FXML
-  private void onShowProfile(ActionEvent event) {
-    SceneManager.changeScene(event, AppUi.PROFILE_PAGE);
   }
 
   @FXML
