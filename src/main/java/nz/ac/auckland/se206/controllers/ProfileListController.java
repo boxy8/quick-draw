@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -97,9 +98,10 @@ public class ProfileListController {
      * to the main menu
      * 
      * @param event the event of activating the Choose Profile Button
+     * @throws FileNotFoundException
      */
     @FXML
-    public void onChooseProfile(ActionEvent event) {
+    public void onChooseProfile(ActionEvent event) throws FileNotFoundException {
         if (selectedUsername != null) {
             Profile selectedProfile = ProfileLoader.read(selectedUsername);
             ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
@@ -115,7 +117,7 @@ public class ProfileListController {
         String username = usernameField.getText();
         if (username.length() > 0) {
             try {
-                Profile newProfile = new Profile(username);
+                Profile newProfile = new Profile(username, true);
                 profiles.add(newProfile);
                 createProfileLabel(username);
             } catch (Exception e) {

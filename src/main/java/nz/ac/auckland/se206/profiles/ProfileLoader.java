@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.profiles;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,21 +14,17 @@ public class ProfileLoader {
    * can be accessed
    * 
    * @return loaded profile
+   * @throws FileNotFoundException
    */
-  public static Profile read(String username) {
+  public static Profile read(String username) throws FileNotFoundException {
     // create new gson so it can read
     Gson gson = new Gson();
-    try {
-      // get file and read it
-      String filePath = "profiles/" + username + ".json";
-      BufferedReader buffReader = new BufferedReader(new FileReader(filePath));
-      // read the file and make it into a profile
-      Profile readProfile = gson.fromJson(buffReader, Profile.class);
-      return readProfile;
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return null;
+    // get file and read it
+    String filePath = "profiles/" + username + ".json";
+    BufferedReader buffReader = new BufferedReader(new FileReader(filePath));
+    // read the file and make it into a profile
+    Profile readProfile = gson.fromJson(buffReader, Profile.class);
+    return readProfile;
   }
 
   /**
