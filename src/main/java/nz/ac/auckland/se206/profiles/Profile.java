@@ -2,15 +2,17 @@ package nz.ac.auckland.se206.profiles;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import nz.ac.auckland.se206.games.Game;
 
 public class Profile {
   private String username;
   private int wins;
   private int losses;
-  private List<String> wordHistory;
-
   private int fastestWinTime;
+  private List<String> wordHistory;
+  private List<Game> gameHistory;
 
   public Profile(String username) throws IOException {
     this(username, false);
@@ -27,10 +29,9 @@ public class Profile {
     } else {
       this.wins = ProfileLoader.read(username).getWins();
       this.losses = ProfileLoader.read(username).getLosses();
-      this.wordHistory = ProfileLoader.read(username).getHistory();
+      this.wordHistory = ProfileLoader.read(username).getWordHistory();
       this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
     }
-
   }
 
   // Calling getters and setters
@@ -65,21 +66,27 @@ public class Profile {
     ProfileLoader.updateJSON(this);
   }
 
-  public ArrayList<String> getHistory() {
-    return (ArrayList<String>) wordHistory;
-  }
-
-  public void addToList(String something) throws IOException {
-    wordHistory.add(something);
-    ProfileLoader.updateJSON(this);
-  }
-
-  public boolean containsWord(String word) {
-    if (wordHistory.contains(word)) {
-      return true;
-    } else {
-      return false;
+  public int getAverageTime() {
+    if (gameHistory.size() == 0) {
+      return 60; // default value
     }
+
+    int sum = 0;
+    // sum up game times
+    for (Game game : gameHistory) {
+      sum += game.getTime();
+    }
+    // calculate average
+    return Math.round(sum / gameHistory.size());
+  }
+
+  public List<String> getWordHistory() {
+    return wordHistory;
+  }
+
+  public void addToWordHistory(String word) throws IOException {
+    wordHistory.add(word);
+    ProfileLoader.updateJSON(this);
   }
 
   // Creating toString
@@ -96,5 +103,20 @@ public class Profile {
         + ",\"fastestWinTime\":"
         + fastestWinTime
         + "}";
+  }
+
+  public List<Game> getGameHistory() {
+    return gameHistory;
+  }
+
+  public List<Game> getReversedGameHistory() {
+    List<Game> reversed = new ArrayList<>(gameHistory);
+    Collections.reverse(reversed);
+    return reversed;
+  }
+
+  public void addToGameHistory(Game game) throws IOException {
+    gameHistory.add(game);
+    ProfileLoader.updateJSON(this);
   }
 }
