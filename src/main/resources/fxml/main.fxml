@@ -23,18 +23,15 @@
                </graphic>
             </Button>
             <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <AnchorPane prefHeight="0.0" prefWidth="104.0">
+            <AnchorPane prefHeight="68.0" prefWidth="420.0">
                <children>
-                  <Button fx:id="profileButton" layoutX="8.0" layoutY="20.0" mnemonicParsing="false" onAction="#onShowProfile" styleClass="navButton" text="User" />
-                  <Button fx:id="settingsButton" layoutX="52.0" layoutY="14.0" mnemonicParsing="false" styleClass="navButton">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/baseline_settings_white_48dp.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
+                  <Button id="navUsername" fx:id="profileButton" alignment="CENTER_RIGHT" layoutX="46.0" layoutY="15.0" mnemonicParsing="false" onAction="#onShowProfile" prefHeight="39.0" prefWidth="322.0" styleClass="navButton" text="Guest" />
+                  <Button fx:id="settingsButton" layoutX="195.0" layoutY="14.0" mnemonicParsing="false" styleClass="navButton" />
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="369.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/baseline_settings_white_48dp.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </children>

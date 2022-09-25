@@ -51,3 +51,7 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+
+#navUsername {
+    -fx-font-size: 18px;
+}
