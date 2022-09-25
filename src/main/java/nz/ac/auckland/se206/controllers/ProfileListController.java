@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.profiles.Profile;
@@ -47,12 +47,14 @@ public class ProfileListController {
     // Set all profile labels to black
     for (Node child : profileCards.getChildren()) {
       Label childLabel = (Label) child;
-      childLabel.setTextFill(Color.BLACK);
+      if (childLabel.getStyleClass().contains("selectedProfile")) {
+        childLabel.getStyleClass().remove("selectedProfile");
+      }
     }
     // Set selected profile label to blue
     for (Profile profile : profiles) {
       if (profile.getUsername().equals(selectedUsername)) {
-        profileLabel.setTextFill(Color.BLUE);
+        profileLabel.getStyleClass().add("selectedProfile");
       }
     }
   };
@@ -73,8 +75,10 @@ public class ProfileListController {
       if (fileArray[i].isFile()) {
         String fileName = fileArray[i].getName();
         String username = fileName.substring(0, fileName.length() - 5);
-        profiles.add(new Profile(username));
-        createProfileLabel(username);
+        if (!username.equals("Guest")) {
+          profiles.add(new Profile(username));
+          createProfileLabel(username);
+        }
       }
     }
   }
@@ -88,6 +92,7 @@ public class ProfileListController {
   private void createProfileLabel(String username) {
     Label profileLabel = new Label(username);
     profileLabel.setOnMouseClicked(selectProfileLabel);
+    profileLabel.getStyleClass().add("profileLabel");
     profileCards.getChildren().add(profileLabel);
   }
 
