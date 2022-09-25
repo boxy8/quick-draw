@@ -1,25 +1,24 @@
 package nz.ac.auckland.se206.profiles;
 
 public class ProfileHolder {
-    private static ProfileHolder instance;
+  private static ProfileHolder instance;
 
-    public static ProfileHolder getInstance() {
-        if (instance == null) {
-            instance = new ProfileHolder();
-        }
-        return instance;
+  public static ProfileHolder getInstance() {
+    if (instance == null) {
+      instance = new ProfileHolder();
     }
+    return instance;
+  }
 
-    private Profile currentProfile;
+  private Profile currentProfile;
 
-    private ProfileHolder() {
-    }
+  private ProfileHolder() {}
 
-    public void setCurrentProfile(Profile profile) {
-        this.currentProfile = profile;
-    }
+  public void setCurrentProfile(Profile profile) {
+    this.currentProfile = profile;
+  }
 
-    public Profile getCurrentProfile() {
-        return this.currentProfile;
-    }
+  public Profile getCurrentProfile() {
+    return this.currentProfile;
+  }
 }

@@ -1,18 +1,17 @@
 package nz.ac.auckland.se206.profiles;
 
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import com.google.gson.Gson;
 
 public class ProfileLoader {
 
   /**
-   * This creates a new instance of profile and returns the profile so its info
-   * can be accessed
-   * 
+   * This creates a new instance of profile and returns the profile so its info can be accessed
+   *
    * @return loaded profile
    * @throws FileNotFoundException
    */
@@ -28,15 +27,15 @@ public class ProfileLoader {
   }
 
   /**
-   * This takes a profile and name of file/user profile as a input and updates the
-   * profile
-   * 
+   * This takes a profile and name of file/user profile as a input and updates the profile
+   *
    * @param profile
    * @param name
    * @throws IOException
    */
   public static void updateJSON(Profile profile) throws IOException {
     String filePath = "profiles/" + profile.getUsername() + ".json";
+
     // create json format using gjon with passed in profile
     Gson gson = new Gson();
     String json = gson.toJson(profile);
@@ -49,5 +48,4 @@ public class ProfileLoader {
       e.printStackTrace();
     }
   }
-
 }

@@ -9,6 +9,7 @@ public class Profile {
   private int wins;
   private int losses;
   private List<String> wordHistory;
+
   private int fastestWinTime;
 
   public Profile(String username) throws IOException {
@@ -44,7 +45,6 @@ public class Profile {
   public void incrementWins() throws IOException {
     this.wins++;
     ProfileLoader.updateJSON(this);
-
   }
 
   public int getLosses() {
@@ -65,8 +65,8 @@ public class Profile {
     ProfileLoader.updateJSON(this);
   }
 
-  public List<String> getHistory() {
-    return wordHistory;
+  public ArrayList<String> getHistory() {
+    return (ArrayList<String>) wordHistory;
   }
 
   public void addToList(String something) throws IOException {
@@ -85,7 +85,16 @@ public class Profile {
   // Creating toString
   @Override
   public String toString() {
-    return "{\"username\":\"" + username + "\",\"wins\":" + wins + ",\"losses\":" + losses
-        + ",\"wordHistory\":" + wordHistory + ",\"fastestWinTime\":" + fastestWinTime + "}";
+    return "{\"username\":\""
+        + username
+        + "\",\"wins\":"
+        + wins
+        + ",\"losses\":"
+        + losses
+        + ",\"wordHistory\":"
+        + wordHistory
+        + ",\"fastestWinTime\":"
+        + fastestWinTime
+        + "}";
   }
 }
