@@ -80,6 +80,7 @@ public class CanvasController implements SwitchListener {
   private DoodlePrediction model;
   private Game game;
   private int timeLeft;
+  private boolean drawingStarted; // Tells label to update
   private Timeline timeline;
   private TextToSpeech textToSpeech;
 
@@ -95,12 +96,6 @@ public class CanvasController implements SwitchListener {
   public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
 
     model = new DoodlePrediction();
-    try {
-      predictionsLabel.setText(
-          getFormattedPredictions(model.getPredictions(getCurrentSnapshot(), 10)));
-    } catch (TranslateException e) {
-      e.printStackTrace();
-    }
 
     graphic = canvas.getGraphicsContext2D();
     graphic.setLineWidth(4);
@@ -147,6 +142,16 @@ public class CanvasController implements SwitchListener {
             graphic.closePath();
           }
         });
+
+    // Tells label to update when user starts drawing
+    canvas.addEventHandler(
+        MouseEvent.MOUSE_PRESSED,
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            drawingStarted = true;
+          }
+        });
   }
 
   @Override
@@ -154,6 +159,10 @@ public class CanvasController implements SwitchListener {
     String currentWord = WordHolder.getInstance().getCurrentWord();
     wordLabel.setText(currentWord); // display new category
     resultLabel.setText(""); // reset win/lose indicator
+    // stop predictions from taking place
+    drawingStarted = false;
+    // empty label when starting game
+    resetPredictionLabel();
     // hide end game buttons
     saveButton.setVisible(false);
     newGameButton.setVisible(false);
@@ -176,7 +185,10 @@ public class CanvasController implements SwitchListener {
                 Duration.seconds(1),
                 e -> {
                   // update predictions and timer
-                  onPredict(getCurrentSnapshot());
+                  if (drawingStarted) {
+                    onPredict(getCurrentSnapshot());
+                  }
+
                   countDown();
                 }));
     timeline.setCycleCount(Animation.INDEFINITE); // countdown value (seconds)
@@ -186,6 +198,10 @@ public class CanvasController implements SwitchListener {
   private void resetTimer() {
     timeLeft = 60;
     updateTimerDisplay(timeLeft);
+  }
+
+  private void resetPredictionLabel() {
+    predictionsLabel.setText(" ");
   }
 
   private void countDown() {

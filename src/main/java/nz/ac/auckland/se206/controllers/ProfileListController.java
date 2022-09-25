@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
@@ -89,9 +90,10 @@ public class ProfileListController {
    * Sets the current profile based on the current selected profile, and returns to the main menu
    *
    * @param event the event of activating the Choose Profile Button
+   * @throws FileNotFoundException
    */
   @FXML
-  public void onChooseProfile(ActionEvent event) {
+  public void onChooseProfile(ActionEvent event) throws FileNotFoundException {
     if (selectedUsername != null) {
       Profile selectedProfile = ProfileLoader.read(selectedUsername);
       ProfileHolder.getInstance().setCurrentProfile(selectedProfile);

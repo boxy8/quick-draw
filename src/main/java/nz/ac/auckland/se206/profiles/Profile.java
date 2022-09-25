@@ -15,13 +15,23 @@ public class Profile {
   private List<Game> gameHistory;
 
   public Profile(String username) throws IOException {
+    this(username, false);
+  }
+
+  public Profile(String username, boolean isDefault) throws IOException {
     this.username = username;
-    this.wins = 0;
-    this.losses = 0;
-    this.fastestWinTime = 60;
-    this.wordHistory = new ArrayList<String>();
-    this.gameHistory = new ArrayList<Game>();
-    ProfileLoader.updateJSON(this);
+    if (isDefault) {
+      this.wins = 0;
+      this.losses = 0;
+      this.wordHistory = new ArrayList<String>();
+      this.fastestWinTime = 60;
+      ProfileLoader.updateJSON(this);
+    } else {
+      this.wins = ProfileLoader.read(username).getWins();
+      this.losses = ProfileLoader.read(username).getLosses();
+      this.wordHistory = ProfileLoader.read(username).getWordHistory();
+      this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
+    }
   }
 
   // Calling getters and setters
