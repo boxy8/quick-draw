@@ -18,18 +18,33 @@ public class Game {
   private GameMode mode;
 
   // update on game end
-  private int time = 60 * 1000; // ms
-  private boolean isWin;
+  private int time = 60;
+  private boolean isWin = false;
 
+  /**
+   * Constructor for a Game. Takes in the word and gamemode.
+   *
+   * @param word the word to be guessed
+   * @param mode the game mode
+   */
   public Game(String word, GameMode mode) {
     this.word = word;
     this.mode = mode;
   }
 
-  public void setGameResult(boolean isWin, int time) {
+  public int getTime() {
+    return time;
+  }
+
+  public void setTime(int time) {
+    this.time = time;
+  }
+
+  public boolean isWin() {
+    return isWin;
+  }
+
+  public void setIsWin(boolean isWin) {
     this.isWin = isWin;
-    if (isWin) {
-      this.time = time;
-    }
   }
 }

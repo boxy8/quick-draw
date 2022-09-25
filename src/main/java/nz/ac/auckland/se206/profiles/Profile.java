@@ -17,9 +17,9 @@ public class Profile {
     this.username = username;
     this.wins = 0;
     this.losses = 0;
-    this.wordHistory = new ArrayList<String>();
-    this.gameHistory = new ArrayList<>();
     this.fastestWinTime = 60;
+    this.wordHistory = new ArrayList<String>();
+    this.gameHistory = new ArrayList<Game>();
     ProfileLoader.updateJSON(this);
   }
 
@@ -78,5 +78,14 @@ public class Profile {
         + ",\"fastestWinTime\":"
         + fastestWinTime
         + "}";
+  }
+
+  public List<Game> getGameHistory() {
+    return gameHistory;
+  }
+
+  public void addToGameHistory(Game game) throws IOException {
+    gameHistory.add(game);
+    ProfileLoader.updateJSON(this);
   }
 }

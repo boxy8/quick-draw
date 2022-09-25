@@ -36,7 +36,11 @@ import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.games.Game;
+import nz.ac.auckland.se206.games.Game.GameMode;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
+import nz.ac.auckland.se206.profiles.Profile;
+import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.words.WordHolder;
 
@@ -74,9 +78,9 @@ public class CanvasController implements SwitchListener {
 
   private GraphicsContext graphic;
   private DoodlePrediction model;
+  private Game game;
   private int timeLeft;
   private Timeline timeline;
-  private boolean gameWon;
   private TextToSpeech textToSpeech;
 
   /**
@@ -147,7 +151,8 @@ public class CanvasController implements SwitchListener {
 
   @Override
   public void onSwitch() {
-    wordLabel.setText(WordHolder.getInstance().getCurrentWord()); // display new category
+    String currentWord = WordHolder.getInstance().getCurrentWord();
+    wordLabel.setText(currentWord); // display new category
     resultLabel.setText(""); // reset win/lose indicator
     // hide end game buttons
     saveButton.setVisible(false);
@@ -158,7 +163,7 @@ public class CanvasController implements SwitchListener {
     eraserButton.setDisable(false);
     // reset to pen function
     graphic.setStroke(Color.BLACK);
-    gameWon = false;
+    game = new Game(currentWord, GameMode.NORMAL);
     onClear(); // clear canvas
     startTimer();
   }
@@ -202,7 +207,7 @@ public class CanvasController implements SwitchListener {
     eraserButton.setDisable(true);
 
     // display and announce a message based on game result
-    if (gameWon) {
+    if (game.isWin()) {
       resultLabel.setText("You win!");
       speak("Congratulations!");
     } else {
@@ -212,6 +217,34 @@ public class CanvasController implements SwitchListener {
 
     saveButton.setVisible(true);
     newGameButton.setVisible(true);
+
+    // update statistics
+    Profile userProfile = ProfileHolder.getInstance().getCurrentProfile();
+    try {
+
+      // update wins/losses
+      if (game.isWin()) {
+        userProfile.incrementWins();
+      } else {
+        userProfile.incrementLosses();
+      }
+
+      // update fastest wintime
+      int gameDuration = 60 - timeLeft;
+      if (gameDuration < userProfile.getFastestWinTime()) {
+        userProfile.setFastestWinTime(gameDuration);
+      }
+
+      // update word history
+      userProfile.addToWordHistory(WordHolder.getInstance().getCurrentWord());
+
+      // update game history
+      game.setTime(gameDuration);
+      userProfile.addToGameHistory(game);
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @FXML
@@ -247,7 +280,7 @@ public class CanvasController implements SwitchListener {
 
             // update gameWon boolean if player has won after the last prediction update
             if (isWin(predictions)) {
-              gameWon = true;
+              game.setIsWin(true);
             }
             return null;
           }
@@ -256,7 +289,7 @@ public class CanvasController implements SwitchListener {
     // after prediction has finished, end game if player won
     backgroundTask.setOnSucceeded(
         event -> {
-          if (gameWon) {
+          if (game.isWin()) {
             endGame();
           }
         });
