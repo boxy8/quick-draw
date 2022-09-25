@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.profiles.Profile;
@@ -22,36 +22,42 @@ import nz.ac.auckland.se206.profiles.ProfileLoader;
 
 public class ProfileListController {
 
-  @FXML private TextField usernameField;
+  @FXML
+  private TextField usernameField;
 
-  @FXML private Button addButton;
+  @FXML
+  private Button addButton;
 
-  @FXML private Button deleteButton;
+  @FXML
+  private Button deleteButton;
 
-  @FXML private Button chooseButton;
+  @FXML
+  private Button chooseButton;
 
-  @FXML private VBox profileCards;
+  @FXML
+  private VBox profileCards;
 
   private String selectedUsername;
 
   private ArrayList<Profile> profiles;
 
-  private EventHandler<MouseEvent> selectProfileLabel =
-      event -> {
-        Label profileLabel = (Label) event.getSource();
-        selectedUsername = profileLabel.getText();
-        // Set all profile labels to black
-        for (Node child : profileCards.getChildren()) {
-          Label childLabel = (Label) child;
-          childLabel.setTextFill(Color.BLACK);
-        }
-        // Set selected profile label to blue
-        for (Profile profile : profiles) {
-          if (profile.getUsername().equals(selectedUsername)) {
-            profileLabel.setTextFill(Color.BLUE);
-          }
-        }
-      };
+  private EventHandler<MouseEvent> selectProfileLabel = event -> {
+    Label profileLabel = (Label) event.getSource();
+    selectedUsername = profileLabel.getText();
+    // Set all profile labels to black
+    for (Node child : profileCards.getChildren()) {
+      Label childLabel = (Label) child;
+      if (childLabel.getStyleClass().contains("selectedProfile")) {
+        childLabel.getStyleClass().remove("selectedProfile");
+      }
+    }
+    // Set selected profile label to blue
+    for (Profile profile : profiles) {
+      if (profile.getUsername().equals(selectedUsername)) {
+        profileLabel.getStyleClass().add("selectedProfile");
+      }
+    }
+  };
 
   public void initialize() throws IOException {
     profiles = new ArrayList<Profile>();
@@ -69,25 +75,30 @@ public class ProfileListController {
       if (fileArray[i].isFile()) {
         String fileName = fileArray[i].getName();
         String username = fileName.substring(0, fileName.length() - 5);
-        profiles.add(new Profile(username));
-        createProfileLabel(username);
+        if (!username.equals("Guest")) {
+          profiles.add(new Profile(username));
+          createProfileLabel(username);
+        }
       }
     }
   }
 
   /**
-   * Creates profile label with configured mouse click events and adds it to the GUI
+   * Creates profile label with configured mouse click events and adds it to the
+   * GUI
    *
    * @param username a string of the profile's username
    */
   private void createProfileLabel(String username) {
     Label profileLabel = new Label(username);
     profileLabel.setOnMouseClicked(selectProfileLabel);
+    profileLabel.getStyleClass().add("profileLabel");
     profileCards.getChildren().add(profileLabel);
   }
 
   /**
-   * Sets the current profile based on the current selected profile, and returns to the main menu
+   * Sets the current profile based on the current selected profile, and returns
+   * to the main menu
    *
    * @param event the event of activating the Choose Profile Button
    * @throws FileNotFoundException
@@ -110,6 +121,7 @@ public class ProfileListController {
         Profile newProfile = new Profile(username);
         profiles.add(newProfile);
         createProfileLabel(username);
+        usernameField.clear();
       } catch (Exception e) {
         usernameField.setText("Try Again");
       }
@@ -117,7 +129,8 @@ public class ProfileListController {
   }
 
   /**
-   * Deletes the currently selected profile and removes it from the GUI. Warns the user and requires
+   * Deletes the currently selected profile and removes it from the GUI. Warns the
+   * user and requires
    * confirmation
    */
   @FXML
