@@ -10,16 +10,16 @@ public class ProfileHolder {
         return instance;
     }
 
-    private String currentUsername;
+    private Profile currentProfile;
 
     private ProfileHolder() {
     }
 
-    public void setCurrentProfile(String username) {
-        this.currentUsername = username;
+    public void setCurrentProfile(Profile profile) {
+        this.currentProfile = profile;
     }
 
-    public String getCurrentProfile() {
-        return this.currentUsername;
+    public Profile getCurrentProfile() {
+        return this.currentProfile;
     }
 }
