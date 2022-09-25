@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.profiles;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import nz.ac.auckland.se206.games.Game;
@@ -9,59 +10,58 @@ public class Profile {
   private int wins;
   private int losses;
   private int fastestWinTime;
-  private List<String> wordHistory = new ArrayList<>();
-  private List<Game> gameHistory = new ArrayList<>();
+  private List<String> wordHistory;
+  private List<Game> gameHistory;
+
+  public Profile(String username) throws IOException {
+    this.username = username;
+    this.wins = 0;
+    this.losses = 0;
+    this.wordHistory = new ArrayList<String>();
+    this.gameHistory = new ArrayList<>();
+    this.fastestWinTime = 60;
+    ProfileLoader.updateJSON(this);
+  }
 
   // Calling getters and setters
   public String getUsername() {
     return username;
   }
 
-  public void setName(String usernameEntered) {
-    this.username = usernameEntered;
-  }
-
   public int getWins() {
     return wins;
   }
 
-  public void setWins() {
+  public void incrementWins() throws IOException {
     this.wins++;
+    ProfileLoader.updateJSON(this);
   }
 
   public int getLosses() {
     return this.losses;
   }
 
-  public void setLosses() {
+  public void incrementLosses() throws IOException {
     this.losses++;
-  }
-
-  public void setDefault(String name) {
-    this.username = name;
-    this.wins = 0;
-    this.losses = 0;
-    this.fastestWinTime = 60;
+    ProfileLoader.updateJSON(this);
   }
 
   public int getFastestWinTime() {
     return this.fastestWinTime;
   }
 
-  public void setFastestWinTime(int time) {
+  public void setFastestWinTime(int time) throws IOException {
     this.fastestWinTime = time;
+    ProfileLoader.updateJSON(this);
   }
 
   public List<String> getWordHistory() {
     return wordHistory;
   }
 
-  public boolean containsWord(String word) {
-    if (wordHistory.contains(word)) {
-      return true;
-    } else {
-      return false;
-    }
+  public void addToWordHistory(String word) throws IOException {
+    wordHistory.add(word);
+    ProfileLoader.updateJSON(this);
   }
 
   // Creating toString

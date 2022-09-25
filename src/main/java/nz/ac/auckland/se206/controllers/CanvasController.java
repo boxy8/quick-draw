@@ -22,7 +22,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -217,15 +216,7 @@ public class CanvasController implements SwitchListener {
 
   @FXML
   private void onNewGame(ActionEvent event) {
-    Object controller = SceneManager.getController(AppUi.CATEGORY_DISPLAY);
-    if (controller instanceof SwitchListener switchListener) {
-      switchListener.onSwitch();
-    }
-
-    // switch view
-    Button button = (Button) event.getSource();
-    Scene scene = button.getScene();
-    scene.setRoot(SceneManager.getUiRoot(AppUi.CATEGORY_DISPLAY));
+    SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
   }
 
   /** This method is called when the "Clear" button is pressed. */

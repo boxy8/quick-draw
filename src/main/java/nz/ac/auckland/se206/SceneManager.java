@@ -2,11 +2,11 @@ package nz.ac.auckland.se206;
 
 import java.io.IOException;
 import java.util.HashMap;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import nz.ac.auckland.se206.controllers.SwitchListener;
 
 public class SceneManager {
@@ -15,7 +15,8 @@ public class SceneManager {
     MAIN_MENU,
     CATEGORY_DISPLAY,
     PROFILE_PAGE,
-    PROFILE_LIST
+    PROFILE_LIST,
+    MAIN
   }
 
   private static HashMap<AppUi, Scene> sceneMap = new HashMap<>();
@@ -41,6 +42,7 @@ public class SceneManager {
     // switch views
     Button button = (Button) event.getSource();
     javafx.scene.Scene scene = button.getScene();
-    scene.setRoot(SceneManager.getUiRoot(appUi));
+    ((BorderPane) scene.getRoot()).setCenter(SceneManager.getUiRoot(appUi));
+    //    scene.setRoot(SceneManager.getUiRoot(appUi));
   }
 }
