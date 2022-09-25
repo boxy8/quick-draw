@@ -36,14 +36,6 @@ public class CategoryDisplayController implements SwitchListener {
         .setCurrentWord(
             categorySelector.getRandomCategory(
                 Difficulty.E, ProfileHolder.getInstance().getCurrentProfile().getWordHistory()));
-    // save the word that is generated to the profile
-    try {
-      ProfileHolder.getInstance()
-          .getCurrentProfile()
-          .addToWordHistory(WordHolder.getInstance().getCurrentWord());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
     // update the text label for the game
     categoryLabel.setText(
         "Draw " + WordHolder.getInstance().getCurrentWord() + " in under a minute");
