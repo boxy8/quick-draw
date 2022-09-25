@@ -25,21 +25,16 @@ public class Profile {
       this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
       this.wordHistory = ProfileLoader.read(username).getWordHistory();
       this.gameHistory = ProfileLoader.read(username).getGameHistory();
+    } else {
+      this.wins = 0;
+      this.losses = 0;
+      this.fastestWinTime = 60;
+      this.wordHistory = new ArrayList<String>();
+      this.gameHistory = new ArrayList<Game>();
+      saveToFile();
     }
   }
-
-  //	public Profile(String username, boolean isDefault) throws IOException {
-  //		this.username = username;
-  //		if (!isDefault) {
-  //			// read in from existing JSON
-  //			this.wins = ProfileLoader.read(username).getWins();
-  //			this.losses = ProfileLoader.read(username).getLosses();
-  //			this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
-  //			this.wordHistory = ProfileLoader.read(username).getWordHistory();
-  //			this.gameHistory = ProfileLoader.read(username).getGameHistory();
-  //		}
-  //	}
-
+  
   // Calling getters and setters
   public String getUsername() {
     return username;

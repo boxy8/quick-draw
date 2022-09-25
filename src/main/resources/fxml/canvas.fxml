@@ -1,72 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="435.0" prefWidth="500.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
-  <children>
-      <HBox prefHeight="0.0" prefWidth="400.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="840.0" styleClass="body" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
+   <children>
+      <Pane layoutX="75.0" layoutY="61.0" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: white;">
          <children>
-          <Label alignment="CENTER" prefHeight="23.0" prefWidth="216.0" text="Quick, Draw! SE206  Edition" textAlignment="CENTER">
-            <font>
-              <Font size="18.0" />
-            </font>
-          </Label>
-            <Pane HBox.hgrow="ALWAYS" />
-            <Button fx:id="eraserButton" mnemonicParsing="false" onAction="#onToggleErase" text="Toggle Erase" textAlignment="CENTER" />
-        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#onClear" text="Clear" />
+            <Canvas fx:id="canvas" height="400.0" width="500.0" />
          </children>
-      </HBox>
-      <VBox alignment="CENTER" prefHeight="0.0" prefWidth="400.0">
+      </Pane>
+      <VBox id="predictionsContainer" layoutX="595.0" layoutY="115.0" prefHeight="344.0" prefWidth="228.0" stylesheets="@../css/styles.css">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label alignment="CENTER" prefHeight="23.0" prefWidth="50.0" text="Draw: " textAlignment="CENTER">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="wordLabel" text="Cat" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" text="00:00" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="200.0" text="Predictions:" textAlignment="CENTER" />
+            <Label fx:id="predictionsLabel" alignment="TOP_LEFT" prefHeight="319.0" prefWidth="200.0" text="Label" />
          </children>
       </VBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="243.0" prefWidth="723.0">
+      <Label fx:id="wordLabel" alignment="CENTER" layoutX="136.0" prefHeight="43.0" prefWidth="390.0" text="Word" />
+      <Label fx:id="timerLabel" layoutX="664.0" layoutY="4.0" text="timer" />
+      <Button fx:id="eraserButton" layoutX="227.0" layoutY="496.0" mnemonicParsing="false" onAction="#onToggleErase" styleClass="eraserButton">
+         <graphic>
+            <ImageView fx:id="eraserImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/erase.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="clearButton" layoutX="359.0" layoutY="496.0" mnemonicParsing="false" onAction="#onClear">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/trash.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <AnchorPane fx:id="endGameContainer" layoutX="595.0" layoutY="451.0" prefHeight="132.0" prefWidth="200.0">
          <children>
-          <Canvas fx:id="canvas" height="243.0" width="324.0" HBox.hgrow="ALWAYS">
-            <cursor>
-              <Cursor fx:constant="HAND" />
-            </cursor>
-          </Canvas>
-            <VBox prefHeight="243.0" prefWidth="66.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label text="Predictions:" />
-                  <Label fx:id="predictionsLabel" text="Label" />
-               </children>
-            </VBox>
+            <Button fx:id="newGameButton" layoutX="112.0" layoutY="64.0" mnemonicParsing="false" onAction="#onNewGame">
+               <graphic>
+                  <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/play-button-o.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="saveButton" layoutX="32.0" layoutY="64.0" mnemonicParsing="false" onAction="#onSave">
+               <graphic>
+                  <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/software-download.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label fx:id="resultLabel" alignment="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="35.0" prefWidth="150.0" text="Result">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="27.0" layoutY="46.0" text="Save Image" />
+            <Label layoutX="112.0" layoutY="46.0" text="Play Again" />
          </children>
-      </HBox>
-      <Label fx:id="resultLabel" />
-    <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="400.0">
-      <children>
-            <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#onNewGame" text="New Game" visible="false" />
-            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" text="Save" visible="false" />
-      </children>
-    </HBox>
-  </children>
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-  </padding>
-</VBox>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -7,7 +7,7 @@
 }
 
 .body {
-    -fx-background-color: rgb(36, 81, 149)
+    -fx-background-color: #245195;
 }
 
 /* Main Menu */
@@ -54,4 +54,60 @@
 
 #navUsername {
     -fx-font-size: 18px;
+    
+/* Canvas */
+
+.penButton {
+    -fx-graphic: url("../images/pen.png")
+}
+
+.eraserButton {
+    -fx-graphic: url("../images/erase.png")
+}
+
+
+#timerLabel {
+    -fx-font-size: 24px;
+}
+
+#wordLabel {
+    -fx-font-size: 24px;
+}
+
+#predictionsContainer * {
+    -fx-font-size: 16px;
+}
+
+/* Choose Profile */
+
+#listContainer {
+    -fx-background-color: #377DE6;
+    -fx-background-radius: 6px;
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+    -fx-border-color: #2D65BA;
+    -fx-border-radius: 4px;
+}
+
+.profileLabel {
+    -fx-pref-width: 372;
+    -fx-pref-height: 25;
+    -fx-background-color: #3D8BFF;
+    -fx-font-size: 24;
+    -fx-padding: 10px 16px;
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+    -fx-border-color: transparent transparent #579AFF transparent;
+}
+
+.selectedProfile {
+    -fx-background-color: #247BFF;
+}
+
+.chooseButton {
+    -fx-text-fill: black;
+}
+
+.textField {
+    -fx-text-fill: black;
 }
