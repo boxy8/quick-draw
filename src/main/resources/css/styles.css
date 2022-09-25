@@ -44,3 +44,26 @@
 #usernameLabel {
     -fx-font-size: 18px;
 }
+
+/* Canvas */
+
+.penButton {
+    -fx-graphic: url("../images/pen.png")
+}
+
+.eraserButton {
+    -fx-graphic: url("../images/erase.png")
+}
+
+
+#timerLabel {
+    -fx-font-size: 24px;
+}
+
+#wordLabel {
+    -fx-font-size: 24px;
+}
+
+#predictionsContainer * {
+    -fx-font-size: 18px;
+}
