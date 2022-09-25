@@ -34,19 +34,7 @@ public class Profile {
       saveToFile();
     }
   }
-
-  // public Profile(String username, boolean isDefault) throws IOException {
-  // this.username = username;
-  // if (!isDefault) {
-  // // read in from existing JSON
-  // this.wins = ProfileLoader.read(username).getWins();
-  // this.losses = ProfileLoader.read(username).getLosses();
-  // this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
-  // this.wordHistory = ProfileLoader.read(username).getWordHistory();
-  // this.gameHistory = ProfileLoader.read(username).getGameHistory();
-  // }
-  // }
-
+  
   // Calling getters and setters
   public String getUsername() {
     return username;
