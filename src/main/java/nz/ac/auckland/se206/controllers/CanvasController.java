@@ -207,7 +207,7 @@ public class CanvasController implements SwitchListener {
     eraserButton.setDisable(true);
 
     // display and announce a message based on game result
-    if (game.isWin()) {
+    if (game.getIsWin()) {
       resultLabel.setText("You win!");
       speak("Congratulations!");
     } else {
@@ -223,7 +223,7 @@ public class CanvasController implements SwitchListener {
     try {
 
       // update wins/losses
-      if (game.isWin()) {
+      if (game.getIsWin()) {
         userProfile.incrementWins();
       } else {
         userProfile.incrementLosses();
@@ -289,7 +289,7 @@ public class CanvasController implements SwitchListener {
     // after prediction has finished, end game if player won
     backgroundTask.setOnSucceeded(
         event -> {
-          if (game.isWin()) {
+          if (game.getIsWin()) {
             endGame();
           }
         });

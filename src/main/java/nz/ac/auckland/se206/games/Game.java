@@ -40,11 +40,19 @@ public class Game {
     this.time = time;
   }
 
-  public boolean isWin() {
+  public boolean getIsWin() {
     return isWin;
   }
 
   public void setIsWin(boolean isWin) {
     this.isWin = isWin;
+  }
+
+  public GameMode getMode() {
+    return mode;
+  }
+
+  public String getWord() {
+    return word;
   }
 }
