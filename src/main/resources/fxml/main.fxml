@@ -12,14 +12,18 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/logo.png" />
-               </image>
-            </ImageView>
+            <Button mnemonicParsing="false" onAction="#onGoHome" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-border-color: transparent; -fx-cursor: hand;">
+               <graphic>
+                  <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onGoHome" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button fx:id="profileButton" mnemonicParsing="false" onAction="#onShowProfile" text="User" />
+            <Button fx:id="settingsButton" mnemonicParsing="false" text="Settings" />
          </children>
          <padding>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
