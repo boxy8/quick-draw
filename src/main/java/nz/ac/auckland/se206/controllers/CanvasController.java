@@ -236,30 +236,34 @@ public class CanvasController implements SwitchListener {
 
     // update statistics
     Profile userProfile = ProfileHolder.getInstance().getCurrentProfile();
-    try {
 
-      // update wins/losses
-      if (game.getIsWin()) {
-        userProfile.incrementWins();
-      } else {
-        userProfile.incrementLosses();
+    // update wins/losses
+    if (game.getIsWin()) {
+      userProfile.incrementWins();
+    } else {
+      userProfile.incrementLosses();
+    }
+
+    // update fastest wintime
+    int gameDuration = 60 - timeLeft;
+    if (gameDuration < userProfile.getFastestWinTime()) {
+      userProfile.setFastestWinTime(gameDuration);
+    }
+
+    // update word history
+    userProfile.addToWordHistory(WordHolder.getInstance().getCurrentWord());
+
+    // update game history
+    game.setTime(gameDuration);
+    userProfile.addToGameHistory(game);
+
+    // save to profile json if non-guest user
+    if (!userProfile.isGuest()) {
+      try {
+        userProfile.saveToFile();
+      } catch (IOException e) {
+        e.printStackTrace();
       }
-
-      // update fastest wintime
-      int gameDuration = 60 - timeLeft;
-      if (gameDuration < userProfile.getFastestWinTime()) {
-        userProfile.setFastestWinTime(gameDuration);
-      }
-
-      // update word history
-      userProfile.addToWordHistory(WordHolder.getInstance().getCurrentWord());
-
-      // update game history
-      game.setTime(gameDuration);
-      userProfile.addToGameHistory(game);
-
-    } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 

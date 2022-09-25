@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.profiles;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,16 +16,10 @@ public class Profile {
   private List<Game> gameHistory = new ArrayList<Game>();
 
   public Profile(String username) throws IOException {
-    this(username, false);
-  }
-
-  public Profile(String username, boolean isDefault) throws IOException {
     this.username = username;
-    if (isDefault) {
-      // create a new JSON with default values
-      ProfileLoader.updateJSON(this);
-    } else {
-      // read in from existing JSON
+    String filePath = "profiles/" + username + ".json";
+    File f = new File(filePath);
+    if (f.exists()) {
       this.wins = ProfileLoader.read(username).getWins();
       this.losses = ProfileLoader.read(username).getLosses();
       this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
@@ -32,6 +27,18 @@ public class Profile {
       this.gameHistory = ProfileLoader.read(username).getGameHistory();
     }
   }
+
+  //	public Profile(String username, boolean isDefault) throws IOException {
+  //		this.username = username;
+  //		if (!isDefault) {
+  //			// read in from existing JSON
+  //			this.wins = ProfileLoader.read(username).getWins();
+  //			this.losses = ProfileLoader.read(username).getLosses();
+  //			this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
+  //			this.wordHistory = ProfileLoader.read(username).getWordHistory();
+  //			this.gameHistory = ProfileLoader.read(username).getGameHistory();
+  //		}
+  //	}
 
   // Calling getters and setters
   public String getUsername() {
@@ -42,27 +49,24 @@ public class Profile {
     return wins;
   }
 
-  public void incrementWins() throws IOException {
+  public void incrementWins() {
     this.wins++;
-    ProfileLoader.updateJSON(this);
   }
 
   public int getLosses() {
     return this.losses;
   }
 
-  public void incrementLosses() throws IOException {
+  public void incrementLosses() {
     this.losses++;
-    ProfileLoader.updateJSON(this);
   }
 
   public int getFastestWinTime() {
     return this.fastestWinTime;
   }
 
-  public void setFastestWinTime(int time) throws IOException {
+  public void setFastestWinTime(int time) {
     this.fastestWinTime = time;
-    ProfileLoader.updateJSON(this);
   }
 
   public int getAverageTime() {
@@ -83,9 +87,8 @@ public class Profile {
     return wordHistory;
   }
 
-  public void addToWordHistory(String word) throws IOException {
+  public void addToWordHistory(String word) {
     wordHistory.add(word);
-    ProfileLoader.updateJSON(this);
   }
 
   // Creating toString
@@ -114,8 +117,15 @@ public class Profile {
     return reversed;
   }
 
-  public void addToGameHistory(Game game) throws IOException {
+  public void addToGameHistory(Game game) {
     gameHistory.add(game);
+  }
+
+  public void saveToFile() throws IOException {
     ProfileLoader.updateJSON(this);
+  }
+
+  public boolean isGuest() {
+    return username.equals("Guest");
   }
 }
