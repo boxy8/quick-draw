@@ -10,9 +10,9 @@ public class Profile {
   private String username;
   private int wins;
   private int losses;
-  private int fastestWinTime;
-  private List<String> wordHistory;
-  private List<Game> gameHistory;
+  private int fastestWinTime = 60;
+  private List<String> wordHistory = new ArrayList<String>();
+  private List<Game> gameHistory = new ArrayList<Game>();
 
   public Profile(String username) throws IOException {
     this(username, false);
@@ -21,16 +21,15 @@ public class Profile {
   public Profile(String username, boolean isDefault) throws IOException {
     this.username = username;
     if (isDefault) {
-      this.wins = 0;
-      this.losses = 0;
-      this.wordHistory = new ArrayList<String>();
-      this.fastestWinTime = 60;
+      // create a new JSON with default values
       ProfileLoader.updateJSON(this);
     } else {
+      // read in from existing JSON
       this.wins = ProfileLoader.read(username).getWins();
       this.losses = ProfileLoader.read(username).getLosses();
-      this.wordHistory = ProfileLoader.read(username).getWordHistory();
       this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
+      this.wordHistory = ProfileLoader.read(username).getWordHistory();
+      this.gameHistory = ProfileLoader.read(username).getGameHistory();
     }
   }
 
