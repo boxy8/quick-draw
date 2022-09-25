@@ -45,6 +45,16 @@
     -fx-font-size: 18px;
 }
 
+/* Main / navbar */
+
+.navButton {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#navUsername {
+    -fx-font-size: 18px;
+    
 /* Canvas */
 
 .penButton {
