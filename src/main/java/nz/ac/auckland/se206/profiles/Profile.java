@@ -56,6 +56,20 @@ public class Profile {
     ProfileLoader.updateJSON(this);
   }
 
+  public int getAverageTime() {
+    if (gameHistory.size() == 0) {
+      return 60; // default value
+    }
+
+    int sum = 0;
+    // sum up game times
+    for (Game game : gameHistory) {
+      sum += game.getTime();
+    }
+    // calculate average
+    return Math.round(sum / gameHistory.size());
+  }
+
   public List<String> getWordHistory() {
     return wordHistory;
   }

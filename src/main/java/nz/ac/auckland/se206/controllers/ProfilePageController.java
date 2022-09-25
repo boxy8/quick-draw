@@ -59,7 +59,7 @@ public class ProfilePageController implements SwitchListener {
     gamesWonLabel.setText("Games won: " + wins);
     gamesLostLabel.setText("Games lost: " + losses);
     fastestGameLabel.setText("Fastest game won: " + profile.getFastestWinTime());
-    averageGameLabel.setText("didn't do this shet yet");
+    averageGameLabel.setText("Average game length: " + profile.getAverageTime());
 
     // pie chart
     ObservableList<PieChart.Data> pieChartData =
