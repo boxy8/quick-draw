@@ -31,10 +31,9 @@ public class Profile {
       this.fastestWinTime = 60;
       this.wordHistory = new ArrayList<String>();
       this.gameHistory = new ArrayList<Game>();
-      saveToFile();
     }
   }
-  
+
   // Calling getters and setters
   public String getUsername() {
     return username;

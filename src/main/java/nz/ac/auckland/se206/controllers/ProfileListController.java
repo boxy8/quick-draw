@@ -75,10 +75,8 @@ public class ProfileListController {
       if (fileArray[i].isFile()) {
         String fileName = fileArray[i].getName();
         String username = fileName.substring(0, fileName.length() - 5);
-        if (!username.equals("Guest")) {
-          profiles.add(new Profile(username));
-          createProfileLabel(username);
-        }
+        profiles.add(new Profile(username));
+        createProfileLabel(username);
       }
     }
   }
@@ -119,6 +117,7 @@ public class ProfileListController {
     if (username.length() > 0) {
       try {
         Profile newProfile = new Profile(username);
+        newProfile.saveToFile();
         profiles.add(newProfile);
         createProfileLabel(username);
         usernameField.clear();
