@@ -107,7 +107,7 @@ public class ProfileListController {
     String username = usernameField.getText();
     if (username.length() > 0) {
       try {
-        Profile newProfile = new Profile(username);
+        Profile newProfile = new Profile(username, true);
         profiles.add(newProfile);
         createProfileLabel(username);
       } catch (Exception e) {
