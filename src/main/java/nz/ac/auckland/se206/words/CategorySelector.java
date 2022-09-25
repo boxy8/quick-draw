@@ -1,5 +1,7 @@
 package nz.ac.auckland.se206.words;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,13 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
 
 public class CategorySelector {
 
   public enum Difficulty {
-    E, M, H
+    E,
+    M,
+    H
   }
 
   private Map<Difficulty, List<String>> difficulty2categories;
@@ -32,19 +34,35 @@ public class CategorySelector {
     }
   }
 
+  /**
+   * Find a random word for the player to draw that they haven't encountered
+   *
+   * @param difficulty
+   * @param usedWords
+   * @return
+   */
   public String getRandomCategory(Difficulty difficulty, ArrayList<String> usedWords) {
-    String temp = difficulty2categories.get(difficulty)
-        .get(new Random().nextInt(difficulty2categories.get(difficulty).size()));
+    // gets a random word
+    String temp =
+        difficulty2categories
+            .get(difficulty)
+            .get(new Random().nextInt(difficulty2categories.get(difficulty).size()));
+    // stores if the random word has not been encountered
     boolean foundWord = true;
     while (foundWord && (usedWords.size() < 144)) {
+      // check if the word has been encountered
       if (!usedWords.contains(temp)) {
         foundWord = false;
         return temp;
       } else {
-        temp = difficulty2categories.get(difficulty)
-            .get(new Random().nextInt(difficulty2categories.get(difficulty).size()));
+        // return the word that is found
+        temp =
+            difficulty2categories
+                .get(difficulty)
+                .get(new Random().nextInt(difficulty2categories.get(difficulty).size()));
       }
     }
+    // if all words used. then return any random word
     return temp;
   }
 

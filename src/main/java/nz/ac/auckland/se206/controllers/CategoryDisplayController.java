@@ -5,11 +5,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.CategorySelector.Difficulty;
 import nz.ac.auckland.se206.words.WordHolder;
@@ -26,21 +25,26 @@ public class CategoryDisplayController implements SwitchListener {
 
   @FXML
   private void onStart(ActionEvent event) {
-
-    Object controller = SceneManager.getController(AppUi.CANVAS);
-    if (controller instanceof SwitchListener switchListener) {
-      switchListener.onSwitch();
-    }
-
-    // switch view
-    Button button = (Button) event.getSource();
-    Scene scene = button.getScene();
-    scene.setRoot(SceneManager.getUiRoot(AppUi.CANVAS));
+    // go to canvas view
+    SceneManager.changeScene(event, AppUi.CANVAS);
   }
 
   @Override
   public void onSwitch() {
-    WordHolder.getInstance().setCurrentWord(categorySelector.getRandomCategory(Difficulty.E));
+    // get a new word that hasn't been used
+    WordHolder.getInstance()
+        .setCurrentWord(
+            categorySelector.getRandomCategory(
+                Difficulty.E, ProfileHolder.getInstance().getCurrentProfile().getHistory()));
+    // save the word that is generated to the profile
+    try {
+      ProfileHolder.getInstance()
+          .getCurrentProfile()
+          .addToList(WordHolder.getInstance().getCurrentWord());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    // update the text label for the game
     categoryLabel.setText(
         "Draw " + WordHolder.getInstance().getCurrentWord() + " in under a minute");
   }
