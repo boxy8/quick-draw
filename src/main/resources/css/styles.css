@@ -1,0 +1,46 @@
+/* General */
+
+* {
+    -fx-text-fill: white;
+    -fx-font-family: "Comic Sans MS", "Comic Sans", cursive;
+    -fx-font-weight: 400;
+}
+
+.body {
+    -fx-background-color: rgb(36, 81, 149)
+}
+
+/* Main Menu */
+
+#menuContainer {
+    -fx-pref-width: 520px;
+    -fx-background-color: white;
+    -fx-background-radius: 2px;
+}
+
+.menuButton {
+    -fx-pref-width: 448px;
+    -fx-padding: 6px 12px;
+    -fx-background-color: #5bc0de;
+    -fx-background-radius: 4px;
+    -fx-border-size: 1px;
+    -fx-border-style: solid;
+    -fx-border-color: #46b8da;
+    -fx-border-radius: 4px;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+}
+
+#playButton {
+    -fx-pref-width: 444px;
+    -fx-padding: 10px 16px;
+    -fx-background-color: #5cb85c;
+    -fx-border-size: 1px;
+    -fx-border-style: solid;
+    -fx-border-color: #4cae4c;
+    -fx-font-size: 18px;
+}
+
+#usernameLabel {
+    -fx-font-size: 18px;
+}
