@@ -28,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.FileChooser;
@@ -45,36 +46,55 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.words.WordHolder;
 
 /**
- * This is the controller of the canvas. You are free to modify this class and the corresponding
- * FXML file as you see fit. For example, you might no longer need the "Predict" button because the
+ * This is the controller of the canvas. You are free to modify this class and
+ * the corresponding
+ * FXML file as you see fit. For example, you might no longer need the "Predict"
+ * button because the
  * DL model should be automatically queried in the background every second.
  *
- * <p>!! IMPORTANT !!
+ * <p>
+ * !! IMPORTANT !!
  *
- * <p>Although we added the scale of the image, you need to be careful when changing the size of the
- * drawable canvas and the brush size. If you make the brush too big or too small with respect to
- * the canvas size, the ML model will not work correctly. So be careful. If you make some changes in
+ * <p>
+ * Although we added the scale of the image, you need to be careful when
+ * changing the size of the
+ * drawable canvas and the brush size. If you make the brush too big or too
+ * small with respect to
+ * the canvas size, the ML model will not work correctly. So be careful. If you
+ * make some changes in
  * the canvas and brush sizes, make sure that the prediction works fine.
  */
 public class CanvasController implements SwitchListener {
 
-  @FXML private Canvas canvas;
+  @FXML
+  private Canvas canvas;
 
-  @FXML private Label wordLabel;
+  @FXML
+  private Label wordLabel;
 
-  @FXML private Label timerLabel;
+  @FXML
+  private Label timerLabel;
 
-  @FXML private Button clearButton;
+  @FXML
+  private Button clearButton;
 
-  @FXML private Button eraserButton;
+  @FXML
+  private Button eraserButton;
 
-  @FXML private Button saveButton;
+  @FXML
+  private Button saveButton;
 
-  @FXML private Button newGameButton;
+  @FXML
+  private Button newGameButton;
 
-  @FXML private Label predictionsLabel;
+  @FXML
+  private Label predictionsLabel;
 
-  @FXML private Label resultLabel;
+  @FXML
+  private Label resultLabel;
+
+  @FXML
+  private AnchorPane endGameContainer;
 
   private GraphicsContext graphic;
   private DoodlePrediction model;
@@ -85,11 +105,13 @@ public class CanvasController implements SwitchListener {
   private TextToSpeech textToSpeech;
 
   /**
-   * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
+   * JavaFX calls this method once the GUI elements are loaded. In our case we
+   * create a listener for
    * the drawing, and we load the ML model.
    *
-   * @throws ModelException If there is an error in reading the input/output of the DL model.
-   * @throws IOException If the model cannot be found on the file system.
+   * @throws ModelException     If there is an error in reading the input/output
+   *                            of the DL model.
+   * @throws IOException        If the model cannot be found on the file system.
    * @throws URISyntaxException
    * @throws CsvException
    */
@@ -98,15 +120,16 @@ public class CanvasController implements SwitchListener {
     model = new DoodlePrediction();
 
     graphic = canvas.getGraphicsContext2D();
-    graphic.setLineWidth(4);
+    graphic.setLineWidth(7);
     graphic.setLineCap(StrokeLineCap.ROUND);
 
     /**
      * @author pelgrim <https://stackoverflow.com/users/8937787/pelgrim>
      * @copyright 2018 pelgrim
      * @license CC BY-SA 3.0
-     * @see {@link https://stackoverflow.com/a/47284341/1248177|How to draw a continuous line with
-     *     mouse on JavaFX canvas?}
+     * @see {@link https://stackoverflow.com/a/47284341/1248177|How to draw a
+     *      continuous line with
+     *      mouse on JavaFX canvas?}
      */
     canvas.addEventHandler(
         MouseEvent.MOUSE_PRESSED,
@@ -164,8 +187,7 @@ public class CanvasController implements SwitchListener {
     // empty label when starting game
     resetPredictionLabel();
     // hide end game buttons
-    saveButton.setVisible(false);
-    newGameButton.setVisible(false);
+    endGameContainer.setVisible(false);
     // enable canvas and drawing buttons
     canvas.setDisable(false);
     clearButton.setDisable(false);
@@ -179,18 +201,17 @@ public class CanvasController implements SwitchListener {
 
   private void startTimer() {
     resetTimer();
-    timeline =
-        new Timeline(
-            new KeyFrame(
-                Duration.seconds(1),
-                e -> {
-                  // update predictions and timer
-                  if (drawingStarted) {
-                    onPredict(getCurrentSnapshot());
-                  }
+    timeline = new Timeline(
+        new KeyFrame(
+            Duration.seconds(1),
+            e -> {
+              // update predictions and timer
+              if (drawingStarted) {
+                onPredict(getCurrentSnapshot());
+              }
 
-                  countDown();
-                }));
+              countDown();
+            }));
     timeline.setCycleCount(Animation.INDEFINITE); // countdown value (seconds)
     timeline.play();
   }
@@ -231,8 +252,7 @@ public class CanvasController implements SwitchListener {
       speak("Maybe next time!");
     }
 
-    saveButton.setVisible(true);
-    newGameButton.setVisible(true);
+    endGameContainer.setVisible(true);
 
     // update statistics
     Profile userProfile = ProfileHolder.getInstance().getCurrentProfile();
@@ -279,32 +299,34 @@ public class CanvasController implements SwitchListener {
   }
 
   /**
-   * This method executes when the user clicks the "Predict" button. It gets the current drawing,
-   * queries the DL model and prints on the console the top 5 predictions of the DL model and the
+   * This method executes when the user clicks the "Predict" button. It gets the
+   * current drawing,
+   * queries the DL model and prints on the console the top 5 predictions of the
+   * DL model and the
    * elapsed time of the prediction in milliseconds.
    *
-   * @throws TranslateException If there is an error in reading the input/output of the DL model.
+   * @throws TranslateException If there is an error in reading the input/output
+   *                            of the DL model.
    */
   private void onPredict(BufferedImage canvasImg) {
 
-    Task<Void> backgroundTask =
-        new Task<>() {
+    Task<Void> backgroundTask = new Task<>() {
 
-          @Override
-          protected Void call() throws Exception {
-            List<Classification> predictions = model.getPredictions(canvasImg, 10);
-            Platform.runLater(
-                () -> {
-                  predictionsLabel.setText(getFormattedPredictions(predictions));
-                });
+      @Override
+      protected Void call() throws Exception {
+        List<Classification> predictions = model.getPredictions(canvasImg, 10);
+        Platform.runLater(
+            () -> {
+              predictionsLabel.setText(getFormattedPredictions(predictions));
+            });
 
-            // update gameWon boolean if player has won after the last prediction update
-            if (isWin(predictions)) {
-              game.setIsWin(true);
-            }
-            return null;
-          }
-        };
+        // update gameWon boolean if player has won after the last prediction update
+        if (isWin(predictions)) {
+          game.setIsWin(true);
+        }
+        return null;
+      }
+    };
 
     // after prediction has finished, end game if player won
     backgroundTask.setOnSucceeded(
@@ -341,7 +363,8 @@ public class CanvasController implements SwitchListener {
   }
 
   /**
-   * Checks whether the player has won, i.e. whether the current word is in top 3 predictions.
+   * Checks whether the player has won, i.e. whether the current word is in top 3
+   * predictions.
    *
    * @param classifications The list of predictions
    * @return whether the player has won or not
@@ -362,7 +385,15 @@ public class CanvasController implements SwitchListener {
 
   @FXML
   private void onToggleErase() {
-    graphic.setStroke(graphic.getStroke().equals(Color.BLACK) ? Color.WHITE : Color.BLACK);
+    if (graphic.getStroke().equals(Color.BLACK)) {
+      graphic.setStroke(Color.WHITE);
+      eraserButton.getStyleClass().add("penButton");
+      eraserButton.getStyleClass().remove("eraserButton");
+    } else {
+      graphic.setStroke(Color.BLACK);
+      eraserButton.getStyleClass().add("eraserButton");
+      eraserButton.getStyleClass().remove("penButton");
+    }
   }
 
   /**
@@ -375,8 +406,8 @@ public class CanvasController implements SwitchListener {
     final BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
 
     // Convert into a binary image.
-    final BufferedImage imageBinary =
-        new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+    final BufferedImage imageBinary = new BufferedImage(image.getWidth(), image.getHeight(),
+        BufferedImage.TYPE_BYTE_BINARY);
 
     final Graphics2D graphics = imageBinary.createGraphics();
 
@@ -400,16 +431,15 @@ public class CanvasController implements SwitchListener {
   private void speak(String msg) {
 
     // Do task in background so it doesn't freeze GUI
-    Task<Void> backgroundTask =
-        new Task<>() {
+    Task<Void> backgroundTask = new Task<>() {
 
-          @Override
-          protected Void call() throws Exception {
-            textToSpeech = new TextToSpeech();
-            textToSpeech.speak(msg);
-            return null;
-          }
-        };
+      @Override
+      protected Void call() throws Exception {
+        textToSpeech = new TextToSpeech();
+        textToSpeech.speak(msg);
+        return null;
+      }
+    };
 
     Thread backgroundPerson = new Thread(backgroundTask);
     backgroundPerson.start();
