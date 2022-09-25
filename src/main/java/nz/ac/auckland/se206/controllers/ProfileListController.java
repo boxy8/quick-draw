@@ -62,7 +62,7 @@ public class ProfileListController {
     if (!folder.exists()) {
       folder.mkdir();
     }
-    File[] fileArray = folder.listFiles();
+    File[] fileArray = folder.listFiles(f -> !f.isHidden());
 
     // Create profile label for each profile file on show it on the GUI
     for (int i = 0; i < fileArray.length; i++) {
