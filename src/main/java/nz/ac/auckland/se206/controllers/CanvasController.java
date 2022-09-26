@@ -154,7 +154,6 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
           public void handle(MouseEvent event) {
             if (!drawingStarted) {
               drawingStarted = true;
-              //					onPredict(getCurrentSnapshot()); // predict immediately on first stroke
             }
           }
         });
