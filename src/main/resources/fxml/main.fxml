@@ -17,7 +17,7 @@
                <graphic>
                   <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onGoHome" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/logo.png" />
+                        <Image url="@../images/logo_dark.png" />
                      </image>
                   </ImageView>
                </graphic>
