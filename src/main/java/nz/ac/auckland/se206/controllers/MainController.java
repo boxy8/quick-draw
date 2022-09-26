@@ -6,12 +6,15 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.profiles.ProfileHolder;
 
 public class MainController {
 
   @FXML private BorderPane border;
 
   @FXML private Button home;
+
+  @FXML private Button profileButton;
 
   // sets the main content (content below the nav bar)
   public void setContent(AppUi appUi) {
@@ -24,8 +27,12 @@ public class MainController {
     border.setCenter(SceneManager.getUiRoot(appUi));
   }
 
+  public void setProfileButton() {
+    profileButton.setText(ProfileHolder.getInstance().getCurrentProfile().getUsername());
+  }
+
   @FXML
-  public void onGoHome(ActionEvent event) {
+  private void onGoHome(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.MAIN_MENU);
   }
 

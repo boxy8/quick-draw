@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -31,8 +32,14 @@
                <image>
                   <Image url="@../images/erase.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button fx:id="clearButton" layoutX="359.0" layoutY="496.0" mnemonicParsing="false" onAction="#onClear">
          <graphic>
@@ -40,8 +47,14 @@
                <image>
                   <Image url="@../images/trash.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <AnchorPane fx:id="endGameContainer" layoutX="595.0" layoutY="451.0" prefHeight="132.0" prefWidth="200.0">
          <children>
@@ -51,8 +64,14 @@
                      <image>
                         <Image url="@../images/play-button-o.png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="saveButton" layoutX="32.0" layoutY="64.0" mnemonicParsing="false" onAction="#onSave">
                <graphic>
@@ -60,8 +79,14 @@
                      <image>
                         <Image url="@../images/software-download.png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Label fx:id="resultLabel" alignment="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="35.0" prefWidth="150.0" text="Result">
                <font>

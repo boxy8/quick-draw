@@ -288,14 +288,17 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    */
   private void onPredict(BufferedImage canvasImg) {
 
+    // run in new thread to make sure GUI does not freeze
     Task<Void> backgroundTask =
         new Task<>() {
 
           @Override
           protected Void call() throws Exception {
+            // get current prediction from the machine learning model
             List<Classification> predictions = model.getPredictions(canvasImg, 10);
             Platform.runLater(
                 () -> {
+                  // after the prediction is received then update text to show it
                   predictionsLabel.setText(getFormattedPredictions(predictions));
                 });
 
@@ -406,7 +409,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     return imageBinary;
   }
 
-  public TextToSpeech getTTS() {
+  public TextToSpeech getTextToSpeech() {
     return textToSpeech;
   }
 
@@ -423,12 +426,14 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
           @Override
           protected Void call() throws Exception {
+            // run text to speech
             textToSpeech = new TextToSpeech();
+            // read the message that is sent to this method
             textToSpeech.speak(msg);
             return null;
           }
         };
-
+    // run thread to make sure GUI does not freeze
     Thread backgroundPerson = new Thread(backgroundTask);
     backgroundPerson.start();
   }
