@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import nz.ac.auckland.se206.controllers.SwitchInListener;
+import nz.ac.auckland.se206.controllers.SwitchOutListener;
 
 public class SceneManager {
   public enum AppUi {
@@ -35,14 +36,19 @@ public class SceneManager {
 
   public static void changeScene(ActionEvent event, AppUi appUi) {
     Object controller = SceneManager.getController(appUi);
-    if (controller instanceof SwitchInListener switchListener) {
-      switchListener.onSwitchIn();
+    // call switch in method if applicable
+    if (controller instanceof SwitchInListener switchInListener) {
+      switchInListener.onSwitchIn();
+    }
+    // call switch out method if applicable
+    if (controller instanceof SwitchOutListener switchOutListener) {
+      switchOutListener.onSwitchOut();
     }
 
     // switch views
     Button button = (Button) event.getSource();
     javafx.scene.Scene scene = button.getScene();
     ((BorderPane) scene.getRoot()).setCenter(SceneManager.getUiRoot(appUi));
-    //    scene.setRoot(SceneManager.getUiRoot(appUi));
+    // scene.setRoot(SceneManager.getUiRoot(appUi));
   }
 }
