@@ -10,6 +10,10 @@
     -fx-background-color: #245195;
 }
 
+.whiteButton {
+    -fx-background-color: white;
+}
+
 /* Main Menu */
 
 #menuContainer {
@@ -58,6 +62,15 @@
 
 /* Canvas */
 
+#canvasContainer {
+    -fx-background-color: white;
+    -fx-background-radius: 6px;
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+    -fx-border-color: #2D65BA;
+    -fx-border-radius: 4px;
+}
+
 .penButton {
     -fx-graphic: url("../images/pen.png")
 }
@@ -73,6 +86,15 @@
 
 #wordLabel {
     -fx-font-size: 24px;
+}
+
+#predictionsContainer {
+    -fx-background-color: #377DE6;
+    -fx-background-radius: 6px;
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+    -fx-border-color: #2D65BA;
+    -fx-border-radius: 4px;
 }
 
 #predictionsContainer * {
@@ -130,7 +152,7 @@
 }
 
 #deleteButton {
-    -fx-background-color: #B85A49;
+    -fx-background-color: #bb4530;
 }
 
 .textField {
