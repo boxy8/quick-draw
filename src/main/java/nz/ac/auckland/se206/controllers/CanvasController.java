@@ -336,10 +336,12 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
         new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
     savefile.getExtensionFilters().add(extensionFilter);
     // default name setting
-    savefile.setInitialFileName(
-        ProfileHolder.getInstance().getCurrentProfile().getUsername()
-            + "'s "
-            + WordHolder.getInstance().getCurrentWord());
+    // using string builder for better performance
+    StringBuilder sb = new StringBuilder();
+    sb.append(ProfileHolder.getInstance().getCurrentProfile().getUsername())
+        .append("'s ")
+        .append(WordHolder.getInstance().getCurrentWord());
+    savefile.setInitialFileName(sb.toString());
     // get the stage
     Button button = (Button) event.getSource();
     Window stage = button.getScene().getWindow();

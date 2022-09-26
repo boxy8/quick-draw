@@ -15,21 +15,33 @@ import nz.ac.auckland.se206.words.WordHolder;
 
 public class CategoryDisplayController implements SwitchInListener {
 
-  @FXML
-  private Label categoryLabel;
+  @FXML private Label categoryLabel;
 
   private CategorySelector categorySelector;
 
+  /**
+   * Creates a new category selector for user later in the code
+   *
+   * @throws IOException
+   * @throws CsvException
+   * @throws URISyntaxException
+   */
   public void initialize() throws IOException, CsvException, URISyntaxException {
     categorySelector = new CategorySelector();
   }
 
+  /**
+   * Changes from category display to the canvas when user wants to start
+   *
+   * @param event
+   */
   @FXML
   private void onStart(ActionEvent event) {
     // go to canvas view
     SceneManager.changeScene(event, AppUi.CANVAS);
   }
 
+  /** Resets the screen when it is switched to so that words can be updated and gotten */
   @Override
   public void onSwitchIn() {
     // get a new word that hasn't been used

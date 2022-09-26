@@ -18,9 +18,11 @@ public class Profile {
 
   public Profile(String username) throws IOException {
     this.username = username;
+    // setting file path for profile under the profile directory in src folder
     String filePath = "profiles/" + username + ".json";
     File f = new File(filePath);
     if (f.exists()) {
+      // get all required information
       this.wins = ProfileLoader.read(username).getWins();
       this.losses = ProfileLoader.read(username).getLosses();
       this.winStreak = ProfileLoader.read(username).getWinStreak();
