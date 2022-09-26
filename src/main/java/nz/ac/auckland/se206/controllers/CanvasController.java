@@ -152,7 +152,10 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
-            drawingStarted = true;
+            if (!drawingStarted) {
+              drawingStarted = true;
+              //					onPredict(getCurrentSnapshot()); // predict immediately on first stroke
+            }
           }
         });
   }
@@ -181,6 +184,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
   private void startTimer() {
     resetTimer();
+    getCurrentSnapshot(); // calling this first seems to stop initial freezing problem
     timeline =
         new Timeline(
             new KeyFrame(
@@ -190,7 +194,6 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
                   if (drawingStarted) {
                     onPredict(getCurrentSnapshot());
                   }
-
                   countDown();
                 }));
     timeline.setCycleCount(Animation.INDEFINITE); // countdown value (seconds)
@@ -287,11 +290,9 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    * @throws TranslateException If there is an error in reading the input/output of the DL model.
    */
   private void onPredict(BufferedImage canvasImg) {
-
     // run in new thread to make sure GUI does not freeze
     Task<Void> backgroundTask =
         new Task<>() {
-
           @Override
           protected Void call() throws Exception {
             // get current prediction from the machine learning model
