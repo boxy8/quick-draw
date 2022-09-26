@@ -33,7 +33,7 @@ public class ProfileLoader {
    * @param name
    * @throws IOException
    */
-  public static void updateJSON(Profile profile) throws IOException {
+  public static void updateJson(Profile profile) throws IOException {
     String filePath = "profiles/" + profile.getUsername() + ".json";
 
     // create json format using gjon with passed in profile

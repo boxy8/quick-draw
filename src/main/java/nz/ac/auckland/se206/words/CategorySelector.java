@@ -52,7 +52,6 @@ public class CategorySelector {
     while (foundWord && (usedWords.size() < 144)) {
       // check if the word has been encountered
       if (!usedWords.contains(temp)) {
-        foundWord = false;
         return temp;
       } else {
         // return the word that is found

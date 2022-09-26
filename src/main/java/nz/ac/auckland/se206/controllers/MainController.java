@@ -32,7 +32,7 @@ public class MainController {
   }
 
   @FXML
-  public void onGoHome(ActionEvent event) {
+  private void onGoHome(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.MAIN_MENU);
   }
 
