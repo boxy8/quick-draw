@@ -18,7 +18,7 @@ public class Game {
   private GameMode mode;
 
   // update on game end
-  private int time = 60;
+  private int duration = 60;
   private boolean isWin = false;
 
   /**
@@ -32,12 +32,12 @@ public class Game {
     this.mode = mode;
   }
 
-  public int getTime() {
-    return time;
+  public int getDuration() {
+    return duration;
   }
 
-  public void setTime(int time) {
-    this.time = time;
+  public void setDuration(int time) {
+    this.duration = time;
   }
 
   public boolean getIsWin() {

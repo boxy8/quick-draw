@@ -16,44 +16,32 @@ import nz.ac.auckland.se206.profiles.ProfileHolder;
 
 public class ProfilePageController implements SwitchInListener {
 
-  @FXML
-  private Label finishedGamesLabel;
+  @FXML private Label finishedGamesLabel;
 
-  @FXML
-  private Label gamesWonLabel;
+  @FXML private Label gamesWonLabel;
 
-  @FXML
-  private Label gamesLostLabel;
+  @FXML private Label gamesLostLabel;
 
-  @FXML
-  private Label fastestGameLabel;
+  @FXML private Label fastestGameLabel;
 
-  @FXML
-  private Label averageGameLabel;
+  @FXML private Label averageGameLabel;
 
-  @FXML
-  private PieChart gamesPie;
+  @FXML private PieChart gamesPie;
 
-  @FXML
-  private TableView<Game> table;
+  @FXML private TableView<Game> table;
 
-  @FXML
-  private Label usernameLabel;
+  @FXML private Label usernameLabel;
 
-  @FXML
-  private TableColumn<Game, String> wordCol;
-  @FXML
-  private TableColumn<Game, GameMode> modeCol;
-  @FXML
-  private TableColumn<Game, Integer> lengthCol;
-  @FXML
-  private TableColumn<Game, Boolean> wonCol;
+  @FXML private TableColumn<Game, String> wordCol;
+  @FXML private TableColumn<Game, GameMode> modeCol;
+  @FXML private TableColumn<Game, Integer> lengthCol;
+  @FXML private TableColumn<Game, Boolean> wonCol;
 
   public void initialize() {
     // initialise table columns
     wordCol.setCellValueFactory(new PropertyValueFactory<Game, String>("word"));
     modeCol.setCellValueFactory(new PropertyValueFactory<Game, GameMode>("mode"));
-    lengthCol.setCellValueFactory(new PropertyValueFactory<Game, Integer>("time"));
+    lengthCol.setCellValueFactory(new PropertyValueFactory<Game, Integer>("duration"));
     wonCol.setCellValueFactory(new PropertyValueFactory<Game, Boolean>("isWin"));
   }
 
@@ -80,8 +68,9 @@ public class ProfilePageController implements SwitchInListener {
     averageGameLabel.setText("Average game length: " + profile.getAverageTime() + " secs");
 
     // pie chart
-    ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-        new PieChart.Data("Wins", wins), new PieChart.Data("Losses", losses));
+    ObservableList<PieChart.Data> pieChartData =
+        FXCollections.observableArrayList(
+            new PieChart.Data("Wins", wins), new PieChart.Data("Losses", losses));
     gamesPie.setData(pieChartData);
 
     // game history table

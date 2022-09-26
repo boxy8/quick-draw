@@ -43,24 +43,12 @@ public class Profile {
     return wins;
   }
 
-  public void incrementWins() {
-    this.wins++;
-  }
-
   public int getLosses() {
     return this.losses;
   }
 
-  public void incrementLosses() {
-    this.losses++;
-  }
-
   public int getFastestWinTime() {
     return this.fastestWinTime;
-  }
-
-  public void setFastestWinTime(int time) {
-    this.fastestWinTime = time;
   }
 
   public int getAverageTime() {
@@ -71,7 +59,7 @@ public class Profile {
     int sum = 0;
     // sum up game times
     for (Game game : gameHistory) {
-      sum += game.getTime();
+      sum += game.getDuration();
     }
     // calculate average
     return Math.round(sum / gameHistory.size());
@@ -79,10 +67,6 @@ public class Profile {
 
   public List<String> getWordHistory() {
     return wordHistory;
-  }
-
-  public void addToWordHistory(String word) {
-    wordHistory.add(word);
   }
 
   public List<Game> getGameHistory() {
@@ -95,15 +79,33 @@ public class Profile {
     return reversed;
   }
 
-  public void addToGameHistory(Game game) {
-    gameHistory.add(game);
-  }
-
   public void saveToFile() throws IOException {
     ProfileLoader.updateJson(this);
   }
 
   public boolean isGuest() {
     return username.equals("Guest");
+  }
+
+  /**
+   * Updates all profile statistics based on a new game result.
+   *
+   * @param game a finished game
+   */
+  public void updateAllStats(Game game) {
+    // update wins/losses
+    if (game.getIsWin()) {
+      wins++;
+    } else {
+      losses++;
+    }
+    // update fastest wintime
+    if (game.getDuration() < fastestWinTime) {
+      fastestWinTime = game.getDuration();
+    }
+    // update word history
+    wordHistory.add(game.getWord());
+    // update game history
+    gameHistory.add(game);
   }
 }
