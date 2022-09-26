@@ -23,7 +23,9 @@ public class SceneManager {
   private static HashMap<AppUi, Scene> sceneMap = new HashMap<>();
 
   public static void addUi(AppUi appUi, FXMLLoader loader) throws IOException {
-    sceneMap.put(appUi, new Scene(loader));
+    Scene newScene = new Scene(loader);
+    newScene.getRoot().setUserData(appUi); // node stores what AppUi type it is
+    sceneMap.put(appUi, newScene);
   }
 
   public static Parent getUiRoot(AppUi appUi) {
@@ -35,20 +37,26 @@ public class SceneManager {
   }
 
   public static void changeScene(ActionEvent event, AppUi appUi) {
-    Object controller = SceneManager.getController(appUi);
     // call switch in method if applicable
-    if (controller instanceof SwitchInListener switchInListener) {
+    Object newController = SceneManager.getController(appUi);
+    if (newController instanceof SwitchInListener switchInListener) {
       switchInListener.onSwitchIn();
     }
+
+    Button button = (Button) event.getSource();
+    javafx.scene.Scene scene = button.getScene();
+
+    // get the node of main
+    BorderPane mainBorder = ((BorderPane) scene.getRoot());
+
     // call switch out method if applicable
-    if (controller instanceof SwitchOutListener switchOutListener) {
+    Object currentController =
+        SceneManager.getController((AppUi) mainBorder.getCenter().getUserData());
+    if (currentController instanceof SwitchOutListener switchOutListener) {
       switchOutListener.onSwitchOut();
     }
 
-    // switch views
-    Button button = (Button) event.getSource();
-    javafx.scene.Scene scene = button.getScene();
-    ((BorderPane) scene.getRoot()).setCenter(SceneManager.getUiRoot(appUi));
-    // scene.setRoot(SceneManager.getUiRoot(appUi));
+    // switch views (i.e. center content)
+    mainBorder.setCenter(SceneManager.getUiRoot(appUi));
   }
 }
