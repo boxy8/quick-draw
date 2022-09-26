@@ -57,7 +57,7 @@ import nz.ac.auckland.se206.words.WordHolder;
  * the canvas size, the ML model will not work correctly. So be careful. If you make some changes in
  * the canvas and brush sizes, make sure that the prediction works fine.
  */
-public class CanvasController implements SwitchListener {
+public class CanvasController implements SwitchInListener {
 
   @FXML private Canvas canvas;
 
@@ -158,7 +158,7 @@ public class CanvasController implements SwitchListener {
   }
 
   @Override
-  public void onSwitch() {
+  public void onSwitchIn() {
     String currentWord = WordHolder.getInstance().getCurrentWord();
     wordLabel.setText(currentWord); // display new category
     resultLabel.setText(""); // reset win/lose indicator

@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import nz.ac.auckland.se206.controllers.SwitchListener;
+import nz.ac.auckland.se206.controllers.SwitchInListener;
 
 public class SceneManager {
   public enum AppUi {
@@ -35,8 +35,8 @@ public class SceneManager {
 
   public static void changeScene(ActionEvent event, AppUi appUi) {
     Object controller = SceneManager.getController(appUi);
-    if (controller instanceof SwitchListener switchListener) {
-      switchListener.onSwitch();
+    if (controller instanceof SwitchInListener switchListener) {
+      switchListener.onSwitchIn();
     }
 
     // switch views

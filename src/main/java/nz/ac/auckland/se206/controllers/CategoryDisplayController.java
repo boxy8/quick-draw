@@ -13,7 +13,7 @@ import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.CategorySelector.Difficulty;
 import nz.ac.auckland.se206.words.WordHolder;
 
-public class CategoryDisplayController implements SwitchListener {
+public class CategoryDisplayController implements SwitchInListener {
 
   @FXML private Label categoryLabel;
 
@@ -30,7 +30,7 @@ public class CategoryDisplayController implements SwitchListener {
   }
 
   @Override
-  public void onSwitch() {
+  public void onSwitchIn() {
     // get a new word that hasn't been used
     WordHolder.getInstance()
         .setCurrentWord(

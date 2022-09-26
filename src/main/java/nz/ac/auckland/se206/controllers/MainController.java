@@ -9,17 +9,15 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class MainController {
 
-  @FXML
-  private BorderPane border;
+  @FXML private BorderPane border;
 
-  @FXML
-  private Button home;
+  @FXML private Button home;
 
   // sets the main content (content below the nav bar)
   public void setContent(AppUi appUi) {
     Object controller = SceneManager.getController(appUi);
-    if (controller instanceof SwitchListener switchListener) {
-      switchListener.onSwitch();
+    if (controller instanceof SwitchInListener switchListener) {
+      switchListener.onSwitchIn();
     }
 
     // switch main content
