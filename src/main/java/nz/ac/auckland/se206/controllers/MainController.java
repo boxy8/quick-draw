@@ -19,8 +19,8 @@ public class MainController {
   // sets the main content (content below the nav bar)
   public void setContent(AppUi appUi) {
     Object controller = SceneManager.getController(appUi);
-    if (controller instanceof SwitchListener switchListener) {
-      switchListener.onSwitch();
+    if (controller instanceof SwitchInListener switchListener) {
+      switchListener.onSwitchIn();
     }
 
     // switch main content

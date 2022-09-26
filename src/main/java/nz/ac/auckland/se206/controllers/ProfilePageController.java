@@ -14,7 +14,7 @@ import nz.ac.auckland.se206.games.Game.GameMode;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 
-public class ProfilePageController implements SwitchListener {
+public class ProfilePageController implements SwitchInListener {
 
   @FXML private Label finishedGamesLabel;
 
@@ -44,7 +44,7 @@ public class ProfilePageController implements SwitchListener {
   }
 
   @Override
-  public void onSwitch() {
+  public void onSwitchIn() {
     Profile profile = ProfileHolder.getInstance().getCurrentProfile();
     // TODO User section (name, winstreak, badges)
 
