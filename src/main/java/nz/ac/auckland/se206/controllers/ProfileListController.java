@@ -95,7 +95,7 @@ public class ProfileListController {
    * @throws FileNotFoundException
    */
   @FXML
-  public void onChooseProfile(ActionEvent event) throws FileNotFoundException {
+  private void onChooseProfile(ActionEvent event) throws FileNotFoundException {
     if (selectedUsername != null) {
       Profile selectedProfile = ProfileLoader.read(selectedUsername);
       ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
@@ -107,14 +107,18 @@ public class ProfileListController {
 
   /** Adds a profile to the game and shows it on the GUI */
   @FXML
-  public void onAddProfile() {
+  private void onAddProfile() {
     String username = usernameField.getText();
+    // making sure that a valid username is entered
     if (username.length() > 0) {
       try {
+        // create a new profile
         Profile newProfile = new Profile(username);
         newProfile.saveToFile();
+        // add to list of profiles
         profiles.add(newProfile);
         createProfileLabel(username);
+        // empty box ready for another profile
         usernameField.clear();
       } catch (Exception e) {
         usernameField.setText("Try Again");
@@ -127,8 +131,5 @@ public class ProfileListController {
    * confirmation
    */
   @FXML
-  public void onDeleteProfile() {
-    // TODO
-    return;
-  }
+  private void onDeleteProfile() {}
 }

@@ -43,6 +43,5 @@ public class SceneManager {
     Button button = (Button) event.getSource();
     javafx.scene.Scene scene = button.getScene();
     ((BorderPane) scene.getRoot()).setCenter(SceneManager.getUiRoot(appUi));
-    //    scene.setRoot(SceneManager.getUiRoot(appUi));
   }
 }
