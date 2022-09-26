@@ -143,6 +143,20 @@
 
 /* Stats */
 
+#defaultPie {
+    -fx-background-color: #EEEEEE;
+    -fx-background-radius: 50%;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-radius: 50%;
+    -fx-border-color: white;
+    -fx-view-order: 2;
+}
+
+#defaultPie * {
+    -fx-text-fill: grey;
+}
+
 .default-color0.chart-pie {
     -fx-pie-color: rgb(0, 160, 0);
 }
@@ -153,11 +167,11 @@
 
 #gamesPie {
     -fx-pie-label-visible: false;
+    -fx-view-order: 1;
 }
 
 #gamesPie * {
     -fx-text-fill: black;
-
 }
 
 #usernameContainer {
@@ -168,7 +182,7 @@
 }
 
 #statsUsername {
-    -fx-font-size: 24px;
+    -fx-font-size: 30px;
     -fx-text-fill: white;
 }
 
@@ -187,6 +201,15 @@
 #statsContainer {
     -fx-font-size: 16px;
     -fx-padding: 16px;
+}
+
+#winStreak {
+    -fx-padding: 60px 0 0 0;
+    -fx-background-position: center;
+    -fx-font-size: 30px;
+    -fx-text-fill: black;
+    -fx-background-image: url("../images/fire.png");
+    -fx-background-repeat: no-repeat;
 }
 
 
