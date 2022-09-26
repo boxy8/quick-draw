@@ -152,10 +152,15 @@
     -fx-border-width: 1px;
 }
 
+#tableView .table-cell {
+    -fx-text-fill: black;
+}
+
 #statsContainer {
     -fx-font-size: 16px;
     -fx-padding: 16px;
 }
+
 
 /* Category Display */
 
