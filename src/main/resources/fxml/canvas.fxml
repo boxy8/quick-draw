@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -13,20 +14,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="840.0" styleClass="body" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
    <children>
-      <Pane layoutX="75.0" layoutY="61.0" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: white;">
+      <Pane id="canvasContainer" layoutX="59.0" layoutY="61.0" prefHeight="400.0" prefWidth="500.0">
          <children>
             <Canvas fx:id="canvas" height="400.0" width="500.0" />
          </children>
       </Pane>
-      <VBox id="predictionsContainer" layoutX="595.0" layoutY="115.0" prefHeight="344.0" prefWidth="228.0" stylesheets="@../css/styles.css">
+      <VBox id="predictionsContainer" alignment="CENTER" layoutX="565.0" layoutY="61.0" prefHeight="400.0" prefWidth="228.0" stylesheets="@../css/styles.css">
          <children>
-            <Label alignment="CENTER" prefHeight="25.0" prefWidth="200.0" text="Predictions:" textAlignment="CENTER" />
-            <Label fx:id="predictionsLabel" alignment="TOP_LEFT" prefHeight="319.0" prefWidth="200.0" text="Label" />
+            <Label prefHeight="25.0" prefWidth="200.0" text="Predictions:" />
+            <Label fx:id="predictionsLabel" alignment="TOP_LEFT" prefHeight="299.0" prefWidth="200.0" text="Label" />
          </children>
       </VBox>
-      <Label fx:id="wordLabel" alignment="CENTER" layoutX="136.0" prefHeight="43.0" prefWidth="390.0" text="Word" />
-      <Label fx:id="timerLabel" layoutX="664.0" layoutY="4.0" text="timer" />
-      <Button fx:id="eraserButton" layoutX="227.0" layoutY="496.0" mnemonicParsing="false" onAction="#onToggleErase" styleClass="eraserButton">
+      <Label fx:id="wordLabel" alignment="CENTER" layoutX="120.0" prefHeight="43.0" prefWidth="390.0" text="Word" />
+      <Label fx:id="timerLabel" layoutX="648.0" layoutY="4.0" text="timer" />
+      <Button fx:id="eraserButton" layoutX="211.0" layoutY="496.0" mnemonicParsing="false" onAction="#onToggleErase">
          <graphic>
             <ImageView fx:id="eraserImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -40,8 +41,12 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <styleClass>
+            <String fx:value="eraserButton" />
+            <String fx:value="whiteButton" />
+         </styleClass>
       </Button>
-      <Button fx:id="clearButton" layoutX="359.0" layoutY="496.0" mnemonicParsing="false" onAction="#onClear">
+      <Button fx:id="clearButton" layoutX="343.0" layoutY="496.0" mnemonicParsing="false" onAction="#onClear" styleClass="whiteButton">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -56,9 +61,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <AnchorPane fx:id="endGameContainer" layoutX="595.0" layoutY="451.0" prefHeight="132.0" prefWidth="200.0">
+      <AnchorPane fx:id="endGameContainer" layoutX="579.0" layoutY="451.0" prefHeight="132.0" prefWidth="200.0">
          <children>
-            <Button fx:id="newGameButton" layoutX="112.0" layoutY="64.0" mnemonicParsing="false" onAction="#onNewGame">
+            <Button fx:id="newGameButton" layoutX="112.0" layoutY="64.0" mnemonicParsing="false" onAction="#onNewGame" styleClass="whiteButton">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -73,7 +78,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="saveButton" layoutX="32.0" layoutY="64.0" mnemonicParsing="false" onAction="#onSave">
+            <Button fx:id="saveButton" layoutX="32.0" layoutY="64.0" mnemonicParsing="false" onAction="#onSave" styleClass="whiteButton">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
