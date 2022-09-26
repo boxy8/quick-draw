@@ -10,16 +10,13 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 
-public class MainMenuController implements SwitchListener {
+public class MainMenuController implements SwitchInListener {
 
-  @FXML
-  private Button playButton;
+  @FXML private Button playButton;
 
-  @FXML
-  private Label userNameLabel;
+  @FXML private Label userNameLabel;
 
-  @FXML
-  private Button profilesButton;
+  @FXML private Button profilesButton;
 
   @FXML
   private void onPlay(ActionEvent event) {
@@ -30,14 +27,14 @@ public class MainMenuController implements SwitchListener {
   private void onChooseProfile(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.PROFILE_LIST);
   }
-  
+
   @FXML
   private void onShowProfile(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.PROFILE_PAGE);
   }
 
   @Override
-  public void onSwitch() {
+  public void onSwitchIn() {
     // if no profile chosen, create a guest user
     if (ProfileHolder.getInstance().getCurrentProfile() == null) {
       try {

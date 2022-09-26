@@ -57,7 +57,7 @@ import nz.ac.auckland.se206.words.WordHolder;
  * the canvas size, the ML model will not work correctly. So be careful. If you make some changes in
  * the canvas and brush sizes, make sure that the prediction works fine.
  */
-public class CanvasController implements SwitchListener {
+public class CanvasController implements SwitchInListener, SwitchOutListener {
 
   @FXML private Canvas canvas;
 
@@ -158,7 +158,7 @@ public class CanvasController implements SwitchListener {
   }
 
   @Override
-  public void onSwitch() {
+  public void onSwitchIn() {
     String currentWord = WordHolder.getInstance().getCurrentWord();
     wordLabel.setText(currentWord); // display new category
     resultLabel.setText(""); // reset win/lose indicator
@@ -288,14 +288,17 @@ public class CanvasController implements SwitchListener {
    */
   private void onPredict(BufferedImage canvasImg) {
 
+    // run in new thread to make sure GUI does not freeze
     Task<Void> backgroundTask =
         new Task<>() {
 
           @Override
           protected Void call() throws Exception {
+            // get current prediction from the machine learning model
             List<Classification> predictions = model.getPredictions(canvasImg, 10);
             Platform.runLater(
                 () -> {
+                  // after the prediction is received then update text to show it
                   predictionsLabel.setText(getFormattedPredictions(predictions));
                 });
 
@@ -406,7 +409,7 @@ public class CanvasController implements SwitchListener {
     return imageBinary;
   }
 
-  public TextToSpeech getTTS() {
+  public TextToSpeech getTextToSpeech() {
     return textToSpeech;
   }
 
@@ -423,13 +426,23 @@ public class CanvasController implements SwitchListener {
 
           @Override
           protected Void call() throws Exception {
+            // run text to speech
             textToSpeech = new TextToSpeech();
+            // read the message that is sent to this method
             textToSpeech.speak(msg);
             return null;
           }
         };
-
+    // run thread to make sure GUI does not freeze
     Thread backgroundPerson = new Thread(backgroundTask);
     backgroundPerson.start();
+  }
+
+  @Override
+  public void onSwitchOut() {
+    // terminate any unfinished game
+    if (!(timeline.getStatus() == Animation.Status.STOPPED)) {
+      timeline.stop();
+    }
   }
 }

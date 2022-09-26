@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -10,16 +11,31 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="840.0" styleClass="body" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfileListController">
    <children>
       <TextField fx:id="usernameField" layoutX="525.0" layoutY="156.0" prefHeight="32.0" prefWidth="200.0" promptText="Enter Username" styleClass="textField" />
-      <Button fx:id="addButton" layoutX="726.0" layoutY="156.0" mnemonicParsing="false" onAction="#onAddProfile" prefHeight="32.0" prefWidth="32.0" styleClass="chooseButton" text="+" />
-      <Button fx:id="deleteButton" layoutX="578.0" layoutY="222.0" mnemonicParsing="false" onAction="#onDeleteProfile" styleClass="chooseButton" text="Delete Profile" />
+      <Button fx:id="addButton" layoutX="726.0" layoutY="156.0" mnemonicParsing="false" onAction="#onAddProfile" prefHeight="32.0" prefWidth="32.0" styleClass="chooseButton" text="+">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="deleteButton" layoutX="578.0" layoutY="222.0" mnemonicParsing="false" onAction="#onDeleteProfile" styleClass="chooseButton" text="Delete Profile">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Button fx:id="chooseButton" layoutX="726.0" layoutY="482.0" mnemonicParsing="false" onAction="#onChooseProfile" styleClass="chooseButton">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/check.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-         </graphic></Button>
-      <VBox id="listContainer" fx:id="profileCards" layoutX="47.0" layoutY="14.0" prefHeight="536.0" prefWidth="372.0" />
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <VBox id="listContainer" fx:id="profileCards" layoutX="47.0" layoutY="14.0" prefHeight="536.0" prefWidth="372.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></VBox>
    </children>
 </AnchorPane>

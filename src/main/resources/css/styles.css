@@ -156,3 +156,9 @@
     -fx-font-size: 16px;
     -fx-padding: 16px;
 }
+
+/* Category Display */
+
+.descriptionLabel {
+    -fx-font-size: 16px;
+}
