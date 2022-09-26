@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -22,12 +23,22 @@
                <children>
                   <HBox prefHeight="57.0" prefWidth="824.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox id="usernameContainer" maxWidth="-Infinity" prefHeight="278.0" prefWidth="281.0" HBox.hgrow="ALWAYS">
+                        <VBox id="usernameContainer" alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="278.0" prefWidth="281.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label id="statsUsername" fx:id="usernameLabel" alignment="TOP_CENTER" prefHeight="40.0" prefWidth="273.0" text="Guest">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
+                              <Label alignment="BOTTOM_CENTER" prefHeight="46.0" prefWidth="273.0" text="Win Streak:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Region prefHeight="9.0" prefWidth="273.0" />
+                              <Label fx:id="winStreak" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" prefHeight="140.0" prefWidth="140.0" textAlignment="CENTER" />
                            </children>
                         </VBox>
                         <VBox prefHeight="315.0" prefWidth="543.0" HBox.hgrow="ALWAYS">
@@ -51,6 +62,11 @@
                                                 <Pane id="pieChartContainer" prefHeight="250.0" prefWidth="250.0">
                                                    <children>
                                                       <PieChart fx:id="gamesPie" prefHeight="250.0" prefWidth="250.0" />
+                                                      <AnchorPane id="defaultPie" layoutX="34.0" layoutY="21.0" prefHeight="179.0" prefWidth="183.0">
+                                                         <children>
+                                                            <Label layoutX="69.0" layoutY="81.0" text="No data" />
+                                                         </children>
+                                                      </AnchorPane>
                                                    </children>
                                                 </Pane>
                                                 <VBox id="statsContainer" alignment="CENTER_LEFT" prefHeight="250.0" prefWidth="224.0" HBox.hgrow="ALWAYS">
