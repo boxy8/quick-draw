@@ -38,6 +38,9 @@ public class ProfilePageController implements SwitchListener {
   private TableView<Game> table;
 
   @FXML
+  private Label usernameLabel;
+
+  @FXML
   private TableColumn<Game, String> wordCol;
   @FXML
   private TableColumn<Game, GameMode> modeCol;
@@ -52,6 +55,10 @@ public class ProfilePageController implements SwitchListener {
     modeCol.setCellValueFactory(new PropertyValueFactory<Game, GameMode>("mode"));
     lengthCol.setCellValueFactory(new PropertyValueFactory<Game, Integer>("time"));
     wonCol.setCellValueFactory(new PropertyValueFactory<Game, Boolean>("isWin"));
+  }
+
+  public void setProfileLabel() {
+    usernameLabel.setText(ProfileHolder.getInstance().getCurrentProfile().getUsername());
   }
 
   @Override

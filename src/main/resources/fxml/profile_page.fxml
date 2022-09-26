@@ -24,7 +24,7 @@
                      <children>
                         <VBox id="usernameContainer" maxWidth="-Infinity" prefHeight="278.0" prefWidth="281.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label id="statsUsername" alignment="TOP_CENTER" prefHeight="40.0" prefWidth="273.0" text="Guest">
+                              <Label id="statsUsername" fx:id="usernameLabel" alignment="TOP_CENTER" prefHeight="40.0" prefWidth="273.0" text="Guest">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>

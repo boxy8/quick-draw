@@ -107,6 +107,8 @@ public class ProfileListController {
       Profile selectedProfile = ProfileLoader.read(selectedUsername);
       ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
       SceneManager.changeScene(event, AppUi.MAIN_MENU);
+      ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
+
     }
   }
 
