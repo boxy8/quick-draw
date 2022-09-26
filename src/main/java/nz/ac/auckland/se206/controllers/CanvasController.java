@@ -111,6 +111,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
      * @see {@link https://stackoverflow.com/a/47284341/1248177|How to draw a continuous line with
      *     mouse on JavaFX canvas?}
      */
+    // Start drawing on mouse click smoothly
     canvas.addEventHandler(
         MouseEvent.MOUSE_PRESSED,
         new EventHandler<MouseEvent>() {
@@ -121,7 +122,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
             graphic.stroke();
           }
         });
-
+    // continue drawing on mouse drag smoothly
     canvas.addEventHandler(
         MouseEvent.MOUSE_DRAGGED,
         new EventHandler<MouseEvent>() {
@@ -134,7 +135,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
             graphic.moveTo(event.getX(), event.getY());
           }
         });
-
+    // stop drawing when the left click is released
     canvas.addEventHandler(
         MouseEvent.MOUSE_RELEASED,
         new EventHandler<MouseEvent>() {
@@ -147,6 +148,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
         });
 
     // Tells label to update when user starts drawing
+    // and also start predictions
     canvas.addEventHandler(
         MouseEvent.MOUSE_PRESSED,
         new EventHandler<MouseEvent>() {
@@ -159,6 +161,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
         });
   }
 
+  /** Resets game when switching to this screen by clearing everything */
   @Override
   public void onSwitchIn() {
     String currentWord = WordHolder.getInstance().getCurrentWord();
@@ -181,6 +184,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     startTimer();
   }
 
+  /** Used to start the timer for predictions and also the clock */
   private void startTimer() {
     resetTimer();
     getCurrentSnapshot(); // calling this first seems to stop initial freezing problem
@@ -199,15 +203,18 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     timeline.play();
   }
 
+  /** reset the game timer back to 60 then refresh the label to 60 also */
   private void resetTimer() {
     timeLeft = 60;
     updateTimerDisplay(timeLeft);
   }
 
+  /** Reset the prediction label so that we don't have guesses before user starts drawing */
   private void resetPredictionLabel() {
     predictionsLabel.setText(" ");
   }
 
+  /** Updates the time to reduce by one each time it is run, it also ends game at 0 seconds */
   private void countDown() {
     timeLeft--;
     updateTimerDisplay(timeLeft);
@@ -216,10 +223,15 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     }
   }
 
+  /** Formats the timer to make it look nice with minutes and seconds */
   private void updateTimerDisplay(int s) {
     timerLabel.setText(String.format("%02d:%02d", (s / 60), (s % 60)));
   }
 
+  /**
+   * Ends the game by stopping all running events, enabling/disabling required buttons, runs end
+   * screen
+   */
   private void endGame() {
     timeline.stop(); // stop timer/prediction updates
     canvas.setDisable(true);
@@ -255,6 +267,11 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     }
   }
 
+  /**
+   * Takes user to the category display from the canvas screen
+   *
+   * @param event
+   */
   @FXML
   private void onNewGame(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
@@ -319,10 +336,12 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
         new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
     savefile.getExtensionFilters().add(extensionFilter);
     // default name setting
-    savefile.setInitialFileName(
-        ProfileHolder.getInstance().getCurrentProfile().getUsername()
-            + "'s "
-            + WordHolder.getInstance().getCurrentWord());
+    // using string builder for better performance
+    StringBuilder sb = new StringBuilder();
+    sb.append(ProfileHolder.getInstance().getCurrentProfile().getUsername())
+        .append("'s ")
+        .append(WordHolder.getInstance().getCurrentWord());
+    savefile.setInitialFileName(sb.toString());
     // get the stage
     Button button = (Button) event.getSource();
     Window stage = button.getScene().getWindow();
@@ -358,13 +377,17 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     return false;
   }
 
+  /** Enables the eraser for the user and disables the pen for the user */
   @FXML
   private void onToggleErase() {
+    // checking for current pen/eraser
     if (graphic.getStroke().equals(Color.BLACK)) {
+      // change to eraser and update button
       graphic.setStroke(Color.WHITE);
       eraserButton.getStyleClass().add("penButton");
       eraserButton.getStyleClass().remove("eraserButton");
     } else {
+      // change to pen and update button
       graphic.setStroke(Color.BLACK);
       eraserButton.getStyleClass().add("eraserButton");
       eraserButton.getStyleClass().remove("penButton");
@@ -394,6 +417,11 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     return imageBinary;
   }
 
+  /**
+   * Getter method for text to speech so that it can be stopped at the end of the game
+   *
+   * @return
+   */
   public TextToSpeech getTextToSpeech() {
     return textToSpeech;
   }

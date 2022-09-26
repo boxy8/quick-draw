@@ -83,6 +83,7 @@ public class ProfileListController {
    */
   private void createProfileLabel(String username) {
     Label profileLabel = new Label(username);
+    // make sure current clicked label is selected
     profileLabel.setOnMouseClicked(selectProfileLabel);
     profileLabel.getStyleClass().add("profileLabel");
     profileCards.getChildren().add(profileLabel);
@@ -96,14 +97,15 @@ public class ProfileListController {
    */
   @FXML
   private void onChooseProfile(ActionEvent event) throws FileNotFoundException {
+    // check for empty user name
     if (selectedUsername != null) {
+      // get user entered user name
       Profile selectedProfile = ProfileLoader.read(selectedUsername);
       ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
+      // set program wide profile for the user
       ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
-
       SceneManager.changeScene(event, AppUi.MAIN_MENU);
       ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
-
     }
   }
 
