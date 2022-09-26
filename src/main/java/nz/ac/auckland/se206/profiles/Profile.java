@@ -11,6 +11,7 @@ public class Profile {
   private String username;
   private int wins;
   private int losses;
+  private int winStreak;
   private int fastestWinTime = 60;
   private List<String> wordHistory = new ArrayList<String>();
   private List<Game> gameHistory = new ArrayList<Game>();
@@ -22,15 +23,10 @@ public class Profile {
     if (f.exists()) {
       this.wins = ProfileLoader.read(username).getWins();
       this.losses = ProfileLoader.read(username).getLosses();
+      this.winStreak = ProfileLoader.read(username).getWinStreak();
       this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
       this.wordHistory = ProfileLoader.read(username).getWordHistory();
       this.gameHistory = ProfileLoader.read(username).getGameHistory();
-    } else {
-      this.wins = 0;
-      this.losses = 0;
-      this.fastestWinTime = 60;
-      this.wordHistory = new ArrayList<String>();
-      this.gameHistory = new ArrayList<Game>();
     }
   }
 
@@ -44,7 +40,11 @@ public class Profile {
   }
 
   public int getLosses() {
-    return this.losses;
+    return losses;
+  }
+
+  public int getWinStreak() {
+    return winStreak;
   }
 
   public int getFastestWinTime() {
@@ -93,11 +93,13 @@ public class Profile {
    * @param game a finished game
    */
   public void updateAllStats(Game game) {
-    // update wins/losses
+    // update wins/losses and win streak
     if (game.getIsWin()) {
       wins++;
+      winStreak++;
     } else {
       losses++;
+      winStreak = 0;
     }
     // update fastest wintime
     if (game.getDuration() < fastestWinTime) {
