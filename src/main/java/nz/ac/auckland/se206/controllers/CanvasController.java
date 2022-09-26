@@ -237,28 +237,13 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
     endGameContainer.setVisible(true);
 
-    // update statistics
-    Profile userProfile = ProfileHolder.getInstance().getCurrentProfile();
-
-    // update wins/losses
-    if (game.getIsWin()) {
-      userProfile.incrementWins();
-    } else {
-      userProfile.incrementLosses();
-    }
-
-    // update fastest wintime
+    // set game time
     int gameDuration = 60 - timeLeft;
-    if (gameDuration < userProfile.getFastestWinTime()) {
-      userProfile.setFastestWinTime(gameDuration);
-    }
+    game.setDuration(gameDuration);
 
-    // update word history
-    userProfile.addToWordHistory(WordHolder.getInstance().getCurrentWord());
-
-    // update game history
-    game.setTime(gameDuration);
-    userProfile.addToGameHistory(game);
+    // update profile statistics with finished game
+    Profile userProfile = ProfileHolder.getInstance().getCurrentProfile();
+    userProfile.updateAllStats(game);
 
     // save to profile json if non-guest user
     if (!userProfile.isGuest()) {

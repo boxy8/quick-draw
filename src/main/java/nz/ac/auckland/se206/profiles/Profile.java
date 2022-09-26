@@ -11,6 +11,7 @@ public class Profile {
   private String username;
   private int wins;
   private int losses;
+  private int winStreak;
   private int fastestWinTime = 60;
   private List<String> wordHistory = new ArrayList<String>();
   private List<Game> gameHistory = new ArrayList<Game>();
@@ -22,15 +23,10 @@ public class Profile {
     if (f.exists()) {
       this.wins = ProfileLoader.read(username).getWins();
       this.losses = ProfileLoader.read(username).getLosses();
+      this.winStreak = ProfileLoader.read(username).getWinStreak();
       this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
       this.wordHistory = ProfileLoader.read(username).getWordHistory();
       this.gameHistory = ProfileLoader.read(username).getGameHistory();
-    } else {
-      this.wins = 0;
-      this.losses = 0;
-      this.fastestWinTime = 60;
-      this.wordHistory = new ArrayList<String>();
-      this.gameHistory = new ArrayList<Game>();
     }
   }
 
@@ -43,24 +39,16 @@ public class Profile {
     return wins;
   }
 
-  public void incrementWins() {
-    this.wins++;
-  }
-
   public int getLosses() {
-    return this.losses;
+    return losses;
   }
 
-  public void incrementLosses() {
-    this.losses++;
+  public int getWinStreak() {
+    return winStreak;
   }
 
   public int getFastestWinTime() {
     return this.fastestWinTime;
-  }
-
-  public void setFastestWinTime(int time) {
-    this.fastestWinTime = time;
   }
 
   public int getAverageTime() {
@@ -71,7 +59,7 @@ public class Profile {
     int sum = 0;
     // sum up game times
     for (Game game : gameHistory) {
-      sum += game.getTime();
+      sum += game.getDuration();
     }
     // calculate average
     return Math.round(sum / gameHistory.size());
@@ -79,10 +67,6 @@ public class Profile {
 
   public List<String> getWordHistory() {
     return wordHistory;
-  }
-
-  public void addToWordHistory(String word) {
-    wordHistory.add(word);
   }
 
   public List<Game> getGameHistory() {
@@ -95,15 +79,35 @@ public class Profile {
     return reversed;
   }
 
-  public void addToGameHistory(Game game) {
-    gameHistory.add(game);
-  }
-
   public void saveToFile() throws IOException {
     ProfileLoader.updateJson(this);
   }
 
   public boolean isGuest() {
     return username.equals("Guest");
+  }
+
+  /**
+   * Updates all profile statistics based on a new game result.
+   *
+   * @param game a finished game
+   */
+  public void updateAllStats(Game game) {
+    // update wins/losses and win streak
+    if (game.getIsWin()) {
+      wins++;
+      winStreak++;
+    } else {
+      losses++;
+      winStreak = 0;
+    }
+    // update fastest wintime
+    if (game.getDuration() < fastestWinTime) {
+      fastestWinTime = game.getDuration();
+    }
+    // update word history
+    wordHistory.add(game.getWord());
+    // update game history
+    gameHistory.add(game);
   }
 }
