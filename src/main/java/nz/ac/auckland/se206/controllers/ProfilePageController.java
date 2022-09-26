@@ -32,6 +32,8 @@ public class ProfilePageController implements SwitchInListener {
 
   @FXML private Label usernameLabel;
 
+  @FXML private Label winStreak;
+
   @FXML private TableColumn<Game, String> wordCol;
   @FXML private TableColumn<Game, GameMode> modeCol;
   @FXML private TableColumn<Game, Integer> lengthCol;
@@ -52,8 +54,6 @@ public class ProfilePageController implements SwitchInListener {
   @Override
   public void onSwitchIn() {
     Profile profile = ProfileHolder.getInstance().getCurrentProfile();
-    // TODO User section (name, winstreak, badges)
-
     // populate statistics section with profile values
 
     int wins = profile.getWins();
@@ -61,6 +61,7 @@ public class ProfilePageController implements SwitchInListener {
     int totalGames = wins + losses;
 
     // statistics section
+    winStreak.setText(String.valueOf(profile.getWinStreak()));
     finishedGamesLabel.setText("Finished games: " + totalGames);
     gamesWonLabel.setText("Games won: " + wins);
     gamesLostLabel.setText("Games lost: " + losses);
