@@ -85,22 +85,6 @@ public class Profile {
     wordHistory.add(word);
   }
 
-  // Creating toString
-  @Override
-  public String toString() {
-    return "{\"username\":\""
-        + username
-        + "\",\"wins\":"
-        + wins
-        + ",\"losses\":"
-        + losses
-        + ",\"wordHistory\":"
-        + wordHistory
-        + ",\"fastestWinTime\":"
-        + fastestWinTime
-        + "}";
-  }
-
   public List<Game> getGameHistory() {
     return gameHistory;
   }
@@ -116,7 +100,7 @@ public class Profile {
   }
 
   public void saveToFile() throws IOException {
-    ProfileLoader.updateJSON(this);
+    ProfileLoader.updateJson(this);
   }
 
   public boolean isGuest() {

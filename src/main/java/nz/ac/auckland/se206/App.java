@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.controllers.CanvasController;
-import nz.ac.auckland.se206.controllers.SwitchListener;
+import nz.ac.auckland.se206.controllers.SwitchInListener;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should
@@ -47,8 +47,8 @@ public class App extends Application {
           Platform.exit();
           // Terminate TTS so app closes fully on close
           CanvasController controller = (CanvasController) SceneManager.getController(AppUi.CANVAS);
-          if (controller.getTTS() != null) {
-            controller.getTTS().terminate();
+          if (controller.getTextToSpeech() != null) {
+            controller.getTextToSpeech().terminate();
           }
         });
 
@@ -67,8 +67,8 @@ public class App extends Application {
     // change views by setting content of main border pane
     ((BorderPane) scene.getRoot()).setCenter(SceneManager.getUiRoot(AppUi.MAIN_MENU));
     Object controller = SceneManager.getController(AppUi.MAIN_MENU);
-    if (controller instanceof SwitchListener switchListener) {
-      switchListener.onSwitch();
+    if (controller instanceof SwitchInListener switchListener) {
+      switchListener.onSwitchIn();
     }
     stage.setScene(scene);
     stage.show();

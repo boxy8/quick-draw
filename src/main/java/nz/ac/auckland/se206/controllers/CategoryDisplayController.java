@@ -13,9 +13,10 @@ import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.CategorySelector.Difficulty;
 import nz.ac.auckland.se206.words.WordHolder;
 
-public class CategoryDisplayController implements SwitchListener {
+public class CategoryDisplayController implements SwitchInListener {
 
-  @FXML private Label categoryLabel;
+  @FXML
+  private Label categoryLabel;
 
   private CategorySelector categorySelector;
 
@@ -30,14 +31,13 @@ public class CategoryDisplayController implements SwitchListener {
   }
 
   @Override
-  public void onSwitch() {
+  public void onSwitchIn() {
     // get a new word that hasn't been used
     WordHolder.getInstance()
         .setCurrentWord(
             categorySelector.getRandomCategory(
                 Difficulty.E, ProfileHolder.getInstance().getCurrentProfile().getWordHistory()));
     // update the text label for the game
-    categoryLabel.setText(
-        "Draw " + WordHolder.getInstance().getCurrentWord() + " in under a minute");
+    categoryLabel.setText(WordHolder.getInstance().getCurrentWord());
   }
 }

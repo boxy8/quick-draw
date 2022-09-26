@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,42 +21,38 @@ import nz.ac.auckland.se206.profiles.ProfileLoader;
 
 public class ProfileListController {
 
-  @FXML
-  private TextField usernameField;
+  @FXML private TextField usernameField;
 
-  @FXML
-  private Button addButton;
+  @FXML private Button addButton;
 
-  @FXML
-  private Button deleteButton;
+  @FXML private Button deleteButton;
 
-  @FXML
-  private Button chooseButton;
+  @FXML private Button chooseButton;
 
-  @FXML
-  private VBox profileCards;
+  @FXML private VBox profileCards;
 
   private String selectedUsername;
 
   private ArrayList<Profile> profiles;
 
-  private EventHandler<MouseEvent> selectProfileLabel = event -> {
-    Label profileLabel = (Label) event.getSource();
-    selectedUsername = profileLabel.getText();
-    // Set all profile labels to black
-    for (Node child : profileCards.getChildren()) {
-      Label childLabel = (Label) child;
-      if (childLabel.getStyleClass().contains("selectedProfile")) {
-        childLabel.getStyleClass().remove("selectedProfile");
-      }
-    }
-    // Set selected profile label to blue
-    for (Profile profile : profiles) {
-      if (profile.getUsername().equals(selectedUsername)) {
-        profileLabel.getStyleClass().add("selectedProfile");
-      }
-    }
-  };
+  private EventHandler<MouseEvent> selectProfileLabel =
+      event -> {
+        Label profileLabel = (Label) event.getSource();
+        selectedUsername = profileLabel.getText();
+        // Set all profile labels to black
+        for (Node child : profileCards.getChildren()) {
+          Label childLabel = (Label) child;
+          if (childLabel.getStyleClass().contains("selectedProfile")) {
+            childLabel.getStyleClass().remove("selectedProfile");
+          }
+        }
+        // Set selected profile label to blue
+        for (Profile profile : profiles) {
+          if (profile.getUsername().equals(selectedUsername)) {
+            profileLabel.getStyleClass().add("selectedProfile");
+          }
+        }
+      };
 
   public void initialize() throws IOException {
     profiles = new ArrayList<Profile>();
@@ -82,8 +77,7 @@ public class ProfileListController {
   }
 
   /**
-   * Creates profile label with configured mouse click events and adds it to the
-   * GUI
+   * Creates profile label with configured mouse click events and adds it to the GUI
    *
    * @param username a string of the profile's username
    */
@@ -95,17 +89,18 @@ public class ProfileListController {
   }
 
   /**
-   * Sets the current profile based on the current selected profile, and returns
-   * to the main menu
+   * Sets the current profile based on the current selected profile, and returns to the main menu
    *
    * @param event the event of activating the Choose Profile Button
    * @throws FileNotFoundException
    */
   @FXML
-  public void onChooseProfile(ActionEvent event) throws FileNotFoundException {
+  private void onChooseProfile(ActionEvent event) throws FileNotFoundException {
     if (selectedUsername != null) {
       Profile selectedProfile = ProfileLoader.read(selectedUsername);
       ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
+      ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
+
       SceneManager.changeScene(event, AppUi.MAIN_MENU);
       ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
 
@@ -114,14 +109,18 @@ public class ProfileListController {
 
   /** Adds a profile to the game and shows it on the GUI */
   @FXML
-  public void onAddProfile() {
+  private void onAddProfile() {
     String username = usernameField.getText();
+    // making sure that a valid username is entered
     if (username.length() > 0) {
       try {
+        // create a new profile
         Profile newProfile = new Profile(username);
         newProfile.saveToFile();
+        // add to list of profiles
         profiles.add(newProfile);
         createProfileLabel(username);
+        // empty box ready for another profile
         usernameField.clear();
       } catch (Exception e) {
         usernameField.setText("Try Again");
@@ -130,13 +129,9 @@ public class ProfileListController {
   }
 
   /**
-   * Deletes the currently selected profile and removes it from the GUI. Warns the
-   * user and requires
+   * Deletes the currently selected profile and removes it from the GUI. Warns the user and requires
    * confirmation
    */
   @FXML
-  public void onDeleteProfile() {
-    // TODO
-    return;
-  }
+  private void onDeleteProfile() {}
 }
