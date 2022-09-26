@@ -102,6 +102,8 @@ public class ProfileListController {
       ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
 
       SceneManager.changeScene(event, AppUi.MAIN_MENU);
+      ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
+
     }
   }
 

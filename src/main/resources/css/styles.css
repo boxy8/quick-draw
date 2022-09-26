@@ -113,6 +113,50 @@
     -fx-text-fill: black;
 }
 
+/* Stats */
+
+.default-color0.chart-pie {
+    -fx-pie-color: rgb(0, 160, 0);
+}
+
+.default-color1.chart-pie {
+    -fx-pie-color: red;
+}
+
+#gamesPie {
+    -fx-pie-label-visible: false;
+}
+
+#gamesPie * {
+    -fx-text-fill: black;
+
+}
+
+#usernameContainer {
+    -fx-border-style: solid;
+    -fx-border-width: 4px;
+    -fx-border-color: transparent #2D65BA transparent transparent;
+
+}
+
+#statsUsername {
+    -fx-font-size: 24px;
+    -fx-text-fill: white;
+}
+
+#tableView .column-header {
+    -fx-background-color: #377DE6;
+    -fx-font-size: 14px;
+    -fx-border-style: solid;
+    -fx-border-color: #2D65BA;
+    -fx-border-width: 1px;
+}
+
+#statsContainer {
+    -fx-font-size: 16px;
+    -fx-padding: 16px;
+}
+
 /* Category Display */
 
 .descriptionLabel {
