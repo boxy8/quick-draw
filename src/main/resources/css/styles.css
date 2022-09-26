@@ -90,6 +90,16 @@
     -fx-border-radius: 4px;
 }
 
+.chooseContainer {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-background-radius: 4px;
+}
+
+.chooseContainer * {
+    -fx-text-fill: black;
+}
+
 .profileLabel {
     -fx-pref-width: 372;
     -fx-pref-height: 25;
@@ -106,11 +116,29 @@
 }
 
 .chooseButton {
-    -fx-text-fill: black;
+    -fx-text-fill: white;
+}
+
+#addButton {
+    -fx-pref-width: 32px;
+    -fx-pref-height: 32px;
+    -fx-background-color: #5cb85c;
+    -fx-border-size: 1px;
+    -fx-border-radius: 0;
+    -fx-border-style: solid;
+    -fx-border-color: #4cae4c;
+}
+
+#deleteButton {
+    -fx-background-color: #B85A49;
 }
 
 .textField {
     -fx-text-fill: black;
+    -fx-border-size: 2px;
+    -fx-border-style: solid;
+    -fx-border-color: #4cae4c;
+    -fx-border-radius: 2px;
 }
 
 /* Stats */
