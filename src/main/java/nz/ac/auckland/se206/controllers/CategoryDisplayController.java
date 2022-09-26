@@ -15,7 +15,8 @@ import nz.ac.auckland.se206.words.WordHolder;
 
 public class CategoryDisplayController implements SwitchListener {
 
-  @FXML private Label categoryLabel;
+  @FXML
+  private Label categoryLabel;
 
   private CategorySelector categorySelector;
 
@@ -37,7 +38,6 @@ public class CategoryDisplayController implements SwitchListener {
             categorySelector.getRandomCategory(
                 Difficulty.E, ProfileHolder.getInstance().getCurrentProfile().getWordHistory()));
     // update the text label for the game
-    categoryLabel.setText(
-        "Draw " + WordHolder.getInstance().getCurrentWord() + " in under a minute");
+    categoryLabel.setText(WordHolder.getInstance().getCurrentWord());
   }
 }

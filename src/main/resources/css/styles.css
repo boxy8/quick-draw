@@ -112,3 +112,9 @@
 .textField {
     -fx-text-fill: black;
 }
+
+/* Category Display */
+
+.descriptionLabel {
+    -fx-font-size: 16px;
+}
