@@ -17,7 +17,7 @@
                <graphic>
                   <ImageView fx:id="logo" fitHeight="31.0" fitWidth="145.0" onMouseClicked="#onGoHome" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/logo.png" />
+                        <Image url="@../images/logo_filled.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

@@ -12,7 +12,7 @@
          <children>
             <ImageView fitHeight="288.0" fitWidth="474.0" layoutX="23.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/logo.png" />
+                  <Image url="@../images/logo_filled.png" />
                </image>
             </ImageView>
             <Button fx:id="playButton" layoutX="110.0" layoutY="176.0" mnemonicParsing="false" onAction="#onPlay" styleClass="main-button" text="Play as Guest">
