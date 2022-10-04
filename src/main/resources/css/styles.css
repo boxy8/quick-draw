@@ -1,4 +1,7 @@
 /* General */
+.root {
+    -fx-primary: #5b49b3;
+}
 
 * {
     -fx-text-fill: white;
@@ -6,8 +9,13 @@
     -fx-font-weight: 400;
 }
 
-.body {
-    -fx-background-color: #245195;
+.header {
+    -fx-background-color: #433194;
+}
+
+.bg-main {
+    -fx-background-image: url('../images/doodle_background.png');
+    -fx-background-size: 100% 100%;
 }
 
 .whiteButton {
@@ -18,7 +26,7 @@
 
 #menuContainer {
     -fx-pref-width: 520px;
-    -fx-background-color: white;
+/*    -fx-background-color: white;*/
     -fx-background-radius: 2px;
 }
 

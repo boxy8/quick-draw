@@ -12,7 +12,7 @@
 
 <BorderPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.MainController">
    <top>
-      <HBox styleClass="body" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+      <HBox styleClass="header" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#onGoHome" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-border-color: transparent; -fx-cursor: hand;">
                <graphic>
