@@ -31,7 +31,7 @@
          <graphic>
             <ImageView fx:id="eraserImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/erase.png" />
+                  <Image url="@../images/eraser.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -67,7 +67,7 @@
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/play-button-o.png" />
+                        <Image url="@../images/replay.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -82,7 +82,7 @@
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/software-download.png" />
+                        <Image url="@../images/save.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

@@ -39,7 +39,7 @@
                      </cursor></Button>
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="369.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/baseline_settings_white_48dp.png" />
+                        <Image url="@../images/settings.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
