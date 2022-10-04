@@ -19,6 +19,22 @@
     -fx-background-size: 100% 100%;
 }
 
+.main-button {
+    -fx-pref-width: 400px;
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0, 0 0 4 0;
+    -fx-background-radius: 12;
+    -fx-background-color: #d4d5d5, #f2f2f2;
+    -fx-text-fill: #313131;
+    -fx-font-size: 18px;
+}
+
+.main-button:pressed {
+    -fx-padding: 8 15 11 15;
+    -fx-background-insets: 0, 0;
+    -fx-translate-y: 4;
+}
+
 .whiteButton {
     -fx-background-color: white;
 }
@@ -29,31 +45,6 @@
     -fx-pref-width: 520px;
 /*    -fx-background-color: white;*/
     -fx-background-radius: 2px;
-}
-
-.menuButton {
-    -fx-pref-width: 448px;
-    -fx-padding: 6px 12px;
-    -fx-background-color: #5bc0de;
-    -fx-background-radius: 4px;
-    -fx-border-size: 1px;
-    -fx-border-style: solid;
-    -fx-border-color: #46b8da;
-    -fx-border-radius: 4px;
-    -fx-font-size: 14px;
-    -fx-font-weight: 700;
-}
-
-#playButton {
-    -fx-pref-width: 444px;
-    -fx-padding: 10px 16px;
-    -fx-font-size: 18px;
-    -fx-border-style: none;
-    -fx-padding: 8 15 15 15;
-    -fx-background-insets: 0, 0 0 5 0;
-    -fx-background-radius: 12;
-    -fx-text-fill: #313131;
-    -fx-background-color: #e6e6e6, #feffff;
 }
 
 #usernameLabel {

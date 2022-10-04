@@ -15,15 +15,15 @@
                   <Image url="@../images/logo_light.png" />
                </image>
             </ImageView>
-            <Button fx:id="playButton" layoutX="45.0" layoutY="150.0" mnemonicParsing="false" onAction="#onPlay" text="Play as Guest">
+            <Button fx:id="playButton" layoutX="67.0" layoutY="150.0" mnemonicParsing="false" onAction="#onPlay" styleClass="main-button" text="Play as Guest">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="profilesButton" layoutX="43.0" layoutY="203.0" mnemonicParsing="false" onAction="#onChooseProfile" styleClass="menuButton" text="Choose Profile">
+            <Button fx:id="profilesButton" layoutX="67.0" layoutY="202.0" mnemonicParsing="false" onAction="#onChooseProfile" styleClass="main-button" text="Choose Profile">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="profileButton" layoutX="43.0" layoutY="244.0" mnemonicParsing="false" onAction="#onShowProfile" styleClass="menuButton" text="Profile Statistics">
+            <Button fx:id="profileButton" layoutX="67.0" layoutY="254.0" mnemonicParsing="false" onAction="#onShowProfile" styleClass="main-button" text="Profile Statistics">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
