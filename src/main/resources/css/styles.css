@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap');
 /* General */
 .root {
     -fx-primary: #5b49b3;
@@ -5,7 +6,7 @@
 
 * {
     -fx-text-fill: white;
-    -fx-font-family: "Comic Sans MS", "Comic Sans", cursive;
+    -fx-font-family: 'Balsamiq Sans', cursive;
     -fx-font-weight: 400;
 }
 
