@@ -7,7 +7,7 @@
 * {
     -fx-text-fill: white;
     -fx-font-family: 'Balsamiq Sans', cursive;
-    -fx-font-weight: 700;
+    -fx-font-weight: 400;
 }
 
 .header {
@@ -20,12 +20,13 @@
 }
 
 .main-button {
-    -fx-pref-width: 400px;
+    -fx-pref-width: 300px;
     -fx-padding: 8 15 15 15;
     -fx-background-insets: 0, 0 0 4 0;
     -fx-background-radius: 12;
     -fx-background-color: #d4d5d5, #f2f2f2;
     -fx-text-fill: #313131;
+    -fx-text-fill: #40396e;
     -fx-font-size: 18px;
 }
 
