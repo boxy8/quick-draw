@@ -15,7 +15,7 @@
                   <Image url="@../images/logo_light.png" />
                </image>
             </ImageView>
-            <Button fx:id="playButton" layoutX="45.0" layoutY="150.0" mnemonicParsing="false" onAction="#onPlay" styleClass="menuButton" text="Play as Guest">
+            <Button fx:id="playButton" layoutX="45.0" layoutY="150.0" mnemonicParsing="false" onAction="#onPlay" text="Play as Guest">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
