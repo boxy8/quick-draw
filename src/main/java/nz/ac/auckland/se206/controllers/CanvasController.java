@@ -297,7 +297,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
           @Override
           protected Void call() throws Exception {
             // get current prediction from the machine learning model
-            List<Classification> predictions = model.getPredictions(canvasImg, 10);
+            List<Classification> predictions = model.getPredictions(canvasImg, 345);
             Platform.runLater(
                 () -> {
                   // after the prediction is received then update text to show it
