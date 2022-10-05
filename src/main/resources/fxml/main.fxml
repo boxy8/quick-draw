@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -11,13 +12,13 @@
 
 <BorderPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.MainController">
    <top>
-      <HBox prefHeight="58.0" prefWidth="842.0" styleClass="header" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="65.0" prefWidth="842.0" spacing="10.0" styleClass="header" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#onGoHome" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-border-color: transparent; -fx-cursor: hand;">
+            <Button mnemonicParsing="false" onAction="#onGoHome" style="-fx-background-color: transparent; -fx-text-fill: transparent; -fx-border-color: transparent; -fx-cursor: hand;" styleClass="image-button">
                <graphic>
-                  <ImageView fx:id="logo" fitHeight="31.0" fitWidth="145.0" onMouseClicked="#onGoHome" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="logo" fitHeight="50.0" fitWidth="207.0" onMouseClicked="#onGoHome" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/logo_filled.png" />
+                        <Image url="@../images/logo.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -25,32 +26,46 @@
                   </ImageView>
                </graphic></Button>
             <Region prefHeight="56.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <Button id="navUsername" fx:id="profileButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onShowProfile" prefHeight="39.0" prefWidth="229.0" styleClass="navButton" text="Guest">
+            <Button id="navUsername" fx:id="profileButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onShowProfile" prefHeight="39.0" prefWidth="229.0" text="Guest">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="settingsButton" mnemonicParsing="false" styleClass="navButton">
+            <Button fx:id="settingsButton" mnemonicParsing="false">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/settings.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="navButton" />
+                  <String fx:value="image-button" />
+               </styleClass>
             </Button>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/settings.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/pie_chart.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
+            <Button mnemonicParsing="false">
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/pie_chart.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="navButton" />
+                  <String fx:value="image-button" />
+               </styleClass>
+            </Button>
          </children>
          <padding>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
