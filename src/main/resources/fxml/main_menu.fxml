@@ -14,7 +14,7 @@
    <children>
       <AnchorPane id="menuContainer" layoutX="160.0" layoutY="158.0" prefHeight="300.0" prefWidth="620.0" stylesheets="@../css/styles.css">
          <children>
-            <VBox alignment="TOP_CENTER" layoutY="7.0" prefHeight="150.0" prefWidth="520.0" spacing="10.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
+            <VBox alignment="TOP_CENTER" layoutY="7.0" prefHeight="150.0" prefWidth="520.0" spacing="20.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
                <children>
                   <ImageView fitHeight="240.0" fitWidth="520.0" pickOnBounds="true" preserveRatio="true">
                      <image>

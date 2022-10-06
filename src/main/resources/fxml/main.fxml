@@ -26,9 +26,9 @@
                   </ImageView>
                </graphic></Button>
             <Region prefHeight="56.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <Button id="navUsername" fx:id="profileButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onShowProfile" prefHeight="39.0" prefWidth="229.0" text="Guest">
+            <Button id="navUsername" fx:id="profileButton" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="39.0" prefWidth="229.0" text="Guest">
                <cursor>
-                  <Cursor fx:constant="HAND" />
+                  <Cursor fx:constant="DEFAULT" />
                </cursor>
             </Button>
             <Button mnemonicParsing="false" onAction="#onShowProfile">
