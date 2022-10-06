@@ -31,14 +31,14 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="settingsButton" mnemonicParsing="false">
+            <Button mnemonicParsing="false" onAction="#onShowProfile">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/settings.png" />
+                        <Image url="@../images/pie_chart.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -50,14 +50,14 @@
                   <String fx:value="image-button" />
                </styleClass>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onShowProfile">
+            <Button fx:id="settingsButton" mnemonicParsing="false">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/pie_chart.png" />
+                        <Image url="@../images/settings.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
