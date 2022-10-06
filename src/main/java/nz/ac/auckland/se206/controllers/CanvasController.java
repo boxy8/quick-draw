@@ -86,6 +86,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   private boolean drawingStarted; // Tells label to update
   private Timeline timeline;
   private TextToSpeech textToSpeech;
+  private boolean isErase;
+  private Color currentColor; // American spelling : (
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
@@ -103,6 +105,9 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     graphic = canvas.getGraphicsContext2D();
     graphic.setLineWidth(7);
     graphic.setLineCap(StrokeLineCap.ROUND);
+    currentColor = Color.BLACK;
+    graphic.setStroke(currentColor);
+    isErase = false;
 
     /**
      * @author pelgrim <https://stackoverflow.com/users/8937787/pelgrim>
@@ -186,7 +191,12 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
   /** Used to start the timer for predictions and also the clock */
   private void startTimer() {
-    resetTimer();
+    // reset to correct time depending on gamemode
+    if (game.getMode() == Game.GameMode.ZEN) {
+      zenTimer();
+    } else {
+      resetTimer();
+    }
     getCurrentSnapshot(); // calling this first seems to stop initial freezing problem
     timeline =
         new Timeline(
@@ -203,6 +213,10 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     timeline.play();
   }
 
+  private void zenTimer() {
+    timerLabel.setText("--:--");
+  }
+
   /** reset the game timer back to 60 then refresh the label to 60 also */
   private void resetTimer() {
     timeLeft = 60;
@@ -216,10 +230,13 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
   /** Updates the time to reduce by one each time it is run, it also ends game at 0 seconds */
   private void countDown() {
-    timeLeft--;
-    updateTimerDisplay(timeLeft);
-    if (timeLeft == 0) {
-      endGame();
+    // only run timer if gamemode is not zen
+    if (game.getMode() != Game.GameMode.ZEN) {
+      timeLeft--;
+      updateTimerDisplay(timeLeft);
+      if (timeLeft == 0) {
+        endGame();
+      }
     }
   }
 
@@ -364,6 +381,10 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    * @return whether the player has won or not
    */
   private boolean isWin(List<Classifications.Classification> classifications) {
+    // check if zen mode and if it is, never end game
+    if (game.getMode() == Game.GameMode.ZEN) {
+      return false;
+    }
     // go through top three predictions
     for (int i = 0; i < 3; i++) {
       if (classifications
@@ -381,17 +402,40 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   @FXML
   private void onToggleErase() {
     // checking for current pen/eraser
-    if (graphic.getStroke().equals(Color.BLACK)) {
+    if (!isErase) {
       // change to eraser and update button
       graphic.setStroke(Color.WHITE);
       eraserButton.getStyleClass().add("penButton");
       eraserButton.getStyleClass().remove("eraserButton");
+      isErase = true;
     } else {
       // change to pen and update button
-      graphic.setStroke(Color.BLACK);
+      graphic.setStroke(currentColor);
       eraserButton.getStyleClass().add("eraserButton");
       eraserButton.getStyleClass().remove("penButton");
+      isErase = false;
     }
+  }
+
+  // COLORS
+  private void onPenBlue() {
+    currentColor = Color.BLUE;
+  }
+
+  private void onPenRed() {
+    currentColor = Color.RED;
+  }
+
+  private void onPenBlack() {
+    currentColor = Color.BLACK;
+  }
+
+  private void onPenGreen() {
+    currentColor = Color.GREEN;
+  }
+
+  private void onPenPink() {
+    currentColor = Color.PINK;
   }
 
   /**
