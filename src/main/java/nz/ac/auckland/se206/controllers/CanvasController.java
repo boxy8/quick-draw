@@ -26,7 +26,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -69,7 +69,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
   @FXML private VBox toolsContainer;
 
-  @FXML private ToggleButton paintButton;
+  @FXML private RadioButton paintButton;
 
   @FXML private Label predictionsLabel;
 
@@ -176,9 +176,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     // enable canvas and drawing buttons
     canvas.setDisable(false);
     toolsContainer.setDisable(false);
-    paintButton.fire(); // show highlighted toggle indication on paint tool
     // reset to pen function
-    graphic.setStroke(Color.BLACK);
+    paintButton.fire();
     game = new Game(currentWord, GameMode.NORMAL);
     clearCanvas();
     startTimer();
@@ -386,7 +385,6 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   @FXML
   private void onClearTool() {
     clearCanvas();
-    paintButton.fire(); // show highlighted toggle back to paint tool
   }
 
   /** Clears the canvas */

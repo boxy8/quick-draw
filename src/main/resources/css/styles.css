@@ -35,6 +35,16 @@
     -fx-border-color: transparent;
 }
 
+.radio-button > .radio {
+  -fx-background-color: transparent;
+  -fx-background-insets: 0;
+  -fx-background-radius: 0px;
+  -fx-padding: 0 0 0 -8;
+}
+.radio-button:selected > .radio > .dot {
+  -fx-background-color: transparent;
+}
+
 .main-container {
     -fx-background-color: #db3f2e;
     -fx-background-radius: 12;
@@ -75,17 +85,11 @@
 .tool-icon {
     -fx-pref-width: 50px;
     -fx-pref-height: 50px;
+    -fx-background-radius: 8;
 }
 
 .tool-icon:hover, .tool-icon:selected {
     -fx-background-color: rgba(0, 0, 0, .15);
-}
-
-.highlighted-btn {
-    -fx-border-style: solid;
-    -fx-border-width: 3px;
-    -fx-border-color: #2D65BA;
-    -fx-border-radius: 4px;
 }
 
 #predictionsContainer {
