@@ -13,6 +13,13 @@ public class Game {
     MASTER
   }
 
+  public enum Setting {
+    ACCURACY,
+    WORDS,
+    TIME,
+    CONFIDENCE,
+  }
+
   // set on game start
   private String word;
   private GameMode mode;

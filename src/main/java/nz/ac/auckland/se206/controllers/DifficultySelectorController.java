@@ -3,6 +3,9 @@ package nz.ac.auckland.se206.controllers;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.opencsv.exceptions.CsvException;
@@ -17,6 +20,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.games.Game.Difficulty;
+import nz.ac.auckland.se206.games.Game.Setting;
+import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.WordHolder;
 
@@ -43,14 +49,14 @@ public class DifficultySelectorController implements Initializable {
         }
 
         // initialise spinners with "Easy", "Medium", and "Hard" difficulties
-        ObservableList<String> accuracyDifficulties = FXCollections.observableArrayList("Easy", "Medium", "Hard");
-        initializeSpinner(accuracySpinner, accuracyDifficulties);
+        ObservableList<String> accuracyDifficulties = FXCollections.observableArrayList("EASY", "MEDIUM", "HARD");
+        initializeSpinner(accuracySpinner, Setting.ACCURACY, accuracyDifficulties);
 
         // initialise spinners with "Easy", "Medium", "Hard", and "Master" difficulties
-        ObservableList<String> difficulties = FXCollections.observableArrayList("Easy", "Medium", "Hard", "Master");
-        initializeSpinner(wordsSpinner, difficulties);
-        initializeSpinner(timeSpinner, difficulties);
-        initializeSpinner(confidenceSpinner, difficulties);
+        ObservableList<String> difficulties = FXCollections.observableArrayList("EASY", "MEDIUM", "HARD", "MASTER");
+        initializeSpinner(wordsSpinner, Setting.WORDS, difficulties);
+        initializeSpinner(timeSpinner, Setting.TIME, difficulties);
+        initializeSpinner(confidenceSpinner, Setting.CONFIDENCE, difficulties);
 
     }
 
@@ -61,10 +67,10 @@ public class DifficultySelectorController implements Initializable {
      *                     relevant difficulty
      * @param difficulties all available difficulty strings for the setting
      */
-    private void initializeSpinner(Spinner<String> spinner, ObservableList<String> difficulties) {
+    private void initializeSpinner(Spinner<String> spinner, Setting setting, ObservableList<String> difficulties) {
         SpinnerValueFactory<String> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<String>(
                 difficulties);
-        valueFactory.setValue("Easy");
+        valueFactory.setValue("EASY");
         spinner.setValueFactory(valueFactory);
     }
 
@@ -84,9 +90,29 @@ public class DifficultySelectorController implements Initializable {
         SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
     }
 
+    /**
+     * Sets the next game's accuracy cut off as per the difficulty selected by
+     * accuracy spinner
+     */
     private void setAccuracyDifficulty() {
-        // TODO
-        return;
+        // Easy difficulty selected
+        if (accuracySpinner.getValue().equals("EASY")) {
+            // TODO
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.ACCURACY, Difficulty.EASY);
+        }
+        // Medium difficulty selected
+        else if (accuracySpinner.getValue().equals("MEDIUM")) {
+            // TODO
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.ACCURACY, Difficulty.MEDIUM);
+        }
+        // Hard difficulty selected
+        else {
+            // TODO
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.ACCURACY, Difficulty.HARD);
+        }
     }
 
     /**
@@ -94,34 +120,86 @@ public class DifficultySelectorController implements Initializable {
      */
     private void setWordsDifficulty() {
         // Easy difficulty selected
-        if (wordsSpinner.getValue().equals("Easy")) {
+        if (wordsSpinner.getValue().equals("EASY")) {
             WordHolder.getInstance().setCurrentWord(categorySelector.getEasyCategory());
-
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.WORDS, Difficulty.EASY);
         }
         // Medium difficulty selected
-        else if (wordsSpinner.getValue().equals("Medium")) {
+        else if (wordsSpinner.getValue().equals("MEDIUM")) {
             WordHolder.getInstance().setCurrentWord(categorySelector.getMediumCategory());
-
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.WORDS, Difficulty.MEDIUM);
         }
         // Hard difficulty selected
-        else if (wordsSpinner.getValue().equals("Hard")) {
+        else if (wordsSpinner.getValue().equals("HARD")) {
             WordHolder.getInstance().setCurrentWord(categorySelector.getHardCategory());
-
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.WORDS, Difficulty.HARD);
         }
         // Master difficulty selected
         else {
             WordHolder.getInstance().setCurrentWord(categorySelector.getMasterCategory());
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.WORDS, Difficulty.MASTER);
         }
     }
 
+    /**
+     * Sets the time as per the difficulty selected by time spinner
+     */
     private void setTimeDifficulty() {
-        // TODO
-        return;
+        // Easy difficulty selected
+        if (timeSpinner.getValue().equals("EASY")) {
+            // TODO
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.TIME, Difficulty.EASY);
+        }
+        // Medium difficulty selected
+        else if (timeSpinner.getValue().equals("MEDIUM")) {
+            // TODO
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.TIME, Difficulty.MEDIUM);
+        }
+        // Hard difficulty selected
+        else if (timeSpinner.getValue().equals("HARD")) {
+            // TODO
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.TIME, Difficulty.HARD);
+        } else {
+            // TODO
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.TIME, Difficulty.MASTER);
+        }
     }
 
+    /**
+     * Sets the next game's confidence cut off as per the difficulty selected by
+     * confidence spinner
+     */
     private void setConfidenceDifficulty() {
-        // TODO
-        return;
+        // Easy difficulty selected
+        if (confidenceSpinner.getValue().equals("EASY")) {
+            // TODO
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.CONFIDENCE, Difficulty.EASY);
+        }
+        // Medium difficulty selected
+        else if (confidenceSpinner.getValue().equals("MEDIUM")) {
+            // TODO
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.CONFIDENCE, Difficulty.MEDIUM);
+        }
+        // Hard difficulty selected
+        else if (confidenceSpinner.getValue().equals("HARD")) {
+            // TODO
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.CONFIDENCE, Difficulty.HARD);
+        } else {
+            // TODO
+            ProfileHolder.getInstance().getCurrentProfile()
+                    .getSetting2Difficulty().put(Setting.CONFIDENCE, Difficulty.MASTER);
+        }
     }
 
 }
