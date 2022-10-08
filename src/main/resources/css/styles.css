@@ -35,6 +35,11 @@
     -fx-border-color: transparent;
 }
 
+.main-container {
+    -fx-background-color: #db3f2e;
+    -fx-background-radius: 12;
+}
+
 /* Main Menu */
 
 #menuContainer {
@@ -55,16 +60,6 @@
 }
 
 /* Canvas */
-
-#canvasContainer {
-    -fx-background-color: white;
-    -fx-background-radius: 6px;
-    -fx-border-style: solid;
-    -fx-border-width: 3px;
-    -fx-border-color: #2D65BA;
-    -fx-border-radius: 4px;
-}
-
 .penButton {
     -fx-graphic: url("../images/pencil.png")
 }
@@ -74,12 +69,8 @@
 }
 
 
-#timerLabel {
-    -fx-font-size: 24px;
-}
-
-#wordLabel {
-    -fx-font-size: 24px;
+.canvas-text {
+    -fx-font-size: 32px;
 }
 
 #predictionsContainer {

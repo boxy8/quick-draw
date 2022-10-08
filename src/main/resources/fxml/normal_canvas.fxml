@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -8,26 +9,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="840.0" styleClass="bg-main" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
    <children>
-      <Pane id="canvasContainer" layoutX="59.0" layoutY="61.0" prefHeight="400.0" prefWidth="500.0">
-         <children>
-            <Canvas fx:id="canvas" height="400.0" width="500.0" />
-         </children>
-      </Pane>
-      <VBox id="predictionsContainer" alignment="CENTER" layoutX="565.0" layoutY="61.0" prefHeight="400.0" prefWidth="228.0" stylesheets="@../css/styles.css">
-         <children>
-            <Label prefHeight="25.0" prefWidth="200.0" text="Predictions:" />
-            <Label fx:id="predictionsLabel" alignment="TOP_LEFT" prefHeight="299.0" prefWidth="200.0" text="Label" />
-         </children>
-      </VBox>
-      <Label fx:id="wordLabel" alignment="CENTER" layoutX="120.0" prefHeight="43.0" prefWidth="390.0" text="Word" />
-      <Label fx:id="timerLabel" layoutX="648.0" layoutY="4.0" text="timer" />
-      <Button fx:id="eraserButton" layoutX="211.0" layoutY="496.0" mnemonicParsing="false" onAction="#onToggleErase">
+      <Button fx:id="eraserButton" layoutX="211.0" layoutY="496.0" mnemonicParsing="false" onAction="#onToggleErase" AnchorPane.leftAnchor="0.0">
          <graphic>
             <ImageView fx:id="eraserImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -46,7 +34,7 @@
             <String fx:value="image-button" />
          </styleClass>
       </Button>
-      <Button fx:id="clearButton" layoutX="343.0" layoutY="496.0" mnemonicParsing="false" onAction="#onClear" styleClass="image-button">
+      <Button fx:id="clearButton" layoutX="343.0" layoutY="496.0" mnemonicParsing="false" onAction="#onClear" styleClass="image-button" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -61,7 +49,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <AnchorPane fx:id="endGameContainer" layoutX="579.0" layoutY="451.0" prefHeight="132.0" prefWidth="200.0">
+      <AnchorPane fx:id="endGameContainer" layoutX="579.0" layoutY="451.0" prefHeight="132.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
             <Button fx:id="newGameButton" layoutX="112.0" layoutY="64.0" mnemonicParsing="false" onAction="#onNewGame" styleClass="image-button">
                <graphic>
@@ -102,5 +90,44 @@
             <Label layoutX="112.0" layoutY="46.0" text="Play Again" />
          </children>
       </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <HBox prefWidth="500.0" styleClass="canvas-text" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="30.0">
+               <children>
+                  <Label fx:id="wordLabel" alignment="CENTER" prefHeight="29.0" prefWidth="500.0" styleClass="canvas-text" text="The Great Wall of China" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefWidth="220.0" styleClass="canvas-text" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+               <children>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/stopwatch.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="timerLabel" text="01:00" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets left="8.0" />
+                     </padding></Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="50.0" styleClass="main-container" />
+                  <Canvas fx:id="canvas" height="370.0" width="500.0" />
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="main-container" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="200.0" text="Predictions:" />
+                        <Label fx:id="predictionsLabel" alignment="TOP_LEFT" prefHeight="299.0" prefWidth="200.0" text="Label" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="575.0" fitWidth="500.0" layoutX="85.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="85.0">
+         <image>
+            <Image url="@../images/easel.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
