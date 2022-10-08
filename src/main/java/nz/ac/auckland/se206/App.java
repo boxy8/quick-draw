@@ -57,7 +57,7 @@ public class App extends Application {
 
     SceneManager.addUi(AppUi.MAIN, getFxmlLoader("main"));
     // these views all use the main border pane
-    SceneManager.addUi(AppUi.CANVAS, getFxmlLoader("canvas"));
+    SceneManager.addUi(AppUi.CANVAS, getFxmlLoader("normal_canvas"));
     SceneManager.addUi(AppUi.CATEGORY_DISPLAY, getFxmlLoader("category_display"));
     SceneManager.addUi(AppUi.PROFILE_PAGE, getFxmlLoader("profile_page"));
     SceneManager.addUi(AppUi.PROFILE_LIST, getFxmlLoader("profile_list"));

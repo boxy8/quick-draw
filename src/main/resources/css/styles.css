@@ -40,6 +40,10 @@
     -fx-background-radius: 12;
 }
 
+.shadow-text {
+    -fx-effect: dropshadow( one-pass-box , rgba(0, 0, 0, .22) , 6 , 1.0 , 1 , 1 );
+}
+
 /* Main Menu */
 
 #menuContainer {
@@ -60,30 +64,33 @@
 }
 
 /* Canvas */
-.penButton {
-    -fx-graphic: url("../images/pencil.png")
-}
-
-.eraserButton {
-    -fx-graphic: url("../images/eraser.png")
-}
-
-
 .canvas-text {
-    -fx-font-size: 32px;
+    -fx-font-size: 40px;
 }
 
-#predictionsContainer {
-    -fx-background-color: #377DE6;
-    -fx-background-radius: 6px;
+#toolsContainer {
+    -fx-padding: 5px;
+}
+
+.tool-icon {
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+}
+
+.tool-icon:hover, .tool-icon:selected {
+    -fx-background-color: rgba(0, 0, 0, .15);
+}
+
+.highlighted-btn {
     -fx-border-style: solid;
     -fx-border-width: 3px;
     -fx-border-color: #2D65BA;
     -fx-border-radius: 4px;
 }
 
-#predictionsContainer * {
-    -fx-font-size: 16px;
+#predictionsContainer {
+    -fx-padding: 15px;
+    -fx-font-size: 18px;
 }
 
 /* Choose Profile */
@@ -223,10 +230,6 @@
 /* Category Display */
 #instructions-box {
     -fx-font-size: 24px;
-}
-
-#categoryLabel {
-    -fx-effect: dropshadow( one-pass-box , rgba(0, 0, 0, .22) , 6 , 1.0 , 1 , 1 )
 }
 
 .category-icon {

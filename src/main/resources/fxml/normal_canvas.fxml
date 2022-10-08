@@ -6,52 +6,126 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="840.0" styleClass="bg-main" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
    <children>
-      <Button fx:id="eraserButton" layoutX="211.0" layoutY="496.0" mnemonicParsing="false" onAction="#onToggleErase" AnchorPane.leftAnchor="0.0">
-         <graphic>
-            <ImageView fx:id="eraserImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/eraser.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <styleClass>
-            <String fx:value="eraserButton" />
-            <String fx:value="image-button" />
-         </styleClass>
-      </Button>
-      <Button fx:id="clearButton" layoutX="343.0" layoutY="496.0" mnemonicParsing="false" onAction="#onClear" styleClass="image-button" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
-         <graphic>
-            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/trash.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <AnchorPane fx:id="endGameContainer" layoutX="579.0" layoutY="451.0" prefHeight="132.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <ImageView fitHeight="575.0" fitWidth="500.0" layoutX="85.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="95.0">
+         <image>
+            <Image url="@../images/easel.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="endGameContainer" layoutX="579.0" layoutY="451.0" prefHeight="132.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <Button fx:id="newGameButton" layoutX="112.0" layoutY="64.0" mnemonicParsing="false" onAction="#onNewGame" styleClass="image-button">
+            <HBox prefWidth="500.0" styleClass="canvas-text" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label fx:id="wordLabel" alignment="CENTER" prefHeight="29.0" prefWidth="500.0" text="The Great Wall of China">
+                     <styleClass>
+                        <String fx:value="canvas-text" />
+                        <String fx:value="shadow-text" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefWidth="220.0" styleClass="canvas-text" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/stopwatch.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="30.0" right="8.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="timerLabel" text="01:00" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
+               <children>
+                  <VBox fx:id="toolsContainer" prefHeight="200.0" prefWidth="60.0" styleClass="main-container">
+                     <children>
+                        <ToggleButton fx:id="paintButton" mnemonicParsing="false" onAction="#onPaintTool">
+                           <graphic>
+                              <ImageView fitHeight="65.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/paintbrush.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="image-button" />
+                              <String fx:value="tool-icon" />
+                           </styleClass>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="tools" />
+                           </toggleGroup>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ToggleButton>
+                        <ToggleButton mnemonicParsing="false" onAction="#onEraseTool" toggleGroup="$tools">
+                           <graphic>
+                              <ImageView fx:id="eraserImage" fitHeight="49.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/eraser.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="image-button" />
+                              <String fx:value="tool-icon" />
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ToggleButton>
+                        <Region prefHeight="200.0" prefWidth="77.0" VBox.vgrow="ALWAYS" />
+                        <ToggleButton mnemonicParsing="false" onAction="#onClearTool" toggleGroup="$tools">
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/trash.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="image-button" />
+                              <String fx:value="tool-icon" />
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ToggleButton>
+                     </children>
+                  </VBox>
+                  <Canvas fx:id="canvas" height="370.0" width="500.0" />
+                  <VBox fx:id="predictionsContainer" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="146.0" styleClass="main-container" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="170.0" text="Predictions:" />
+                        <Label fx:id="predictionsLabel" alignment="TOP_LEFT" prefHeight="299.0" prefWidth="170.0" text="Label" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Button fx:id="newGameButton" layoutX="728.0" layoutY="510.0" mnemonicParsing="false" onAction="#onNewGame" styleClass="image-button">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -62,11 +136,11 @@
                      </cursor>
                   </ImageView>
                </graphic>
+            </Button>
+            <Button fx:id="saveButton" layoutX="609.0" layoutY="510.0" mnemonicParsing="false" onAction="#onSave" styleClass="image-button">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </Button>
-            <Button fx:id="saveButton" layoutX="32.0" layoutY="64.0" mnemonicParsing="false" onAction="#onSave" styleClass="image-button">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -77,57 +151,15 @@
                      </cursor>
                   </ImageView>
                </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
             </Button>
-            <Label fx:id="resultLabel" alignment="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="35.0" prefWidth="150.0" text="Result">
+            <Label fx:id="resultLabel" alignment="CENTER" layoutX="615.0" layoutY="495.0" prefHeight="35.0" prefWidth="150.0" text="Result">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="27.0" layoutY="46.0" text="Save Image" />
-            <Label layoutX="112.0" layoutY="46.0" text="Play Again" />
+            <Label layoutX="597.0" layoutY="564.0" text="Save Image" />
+            <Label layoutX="719.0" layoutY="564.0" text="Play Again" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-         <children>
-            <HBox prefWidth="500.0" styleClass="canvas-text" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="30.0">
-               <children>
-                  <Label fx:id="wordLabel" alignment="CENTER" prefHeight="29.0" prefWidth="500.0" styleClass="canvas-text" text="The Great Wall of China" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefWidth="220.0" styleClass="canvas-text" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
-               <children>
-                  <ImageView fitHeight="39.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/stopwatch.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="timerLabel" text="01:00" HBox.hgrow="ALWAYS">
-                     <padding>
-                        <Insets left="8.0" />
-                     </padding></Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="50.0" styleClass="main-container" />
-                  <Canvas fx:id="canvas" height="370.0" width="500.0" />
-                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="main-container" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label prefHeight="25.0" prefWidth="200.0" text="Predictions:" />
-                        <Label fx:id="predictionsLabel" alignment="TOP_LEFT" prefHeight="299.0" prefWidth="200.0" text="Label" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-      <ImageView fitHeight="575.0" fitWidth="500.0" layoutX="85.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="85.0">
-         <image>
-            <Image url="@../images/easel.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
