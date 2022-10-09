@@ -103,7 +103,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   private Game game;
   private int startingTime;
   private int accuracyCondition;
-  private int confidenceCondition;
+  private double confidenceCondition;
   private int timeLeft;
   private boolean drawingStarted; // Tells label to update
   private Timeline timeline;
@@ -235,6 +235,22 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
         break;
       case MASTER:
         startingTime = 15;
+        break;
+    }
+
+    // set Confidence win condition according to Confidence difficulty chosen
+    switch (ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty().get(Setting.CONFIDENCE)) {
+      case EASY:
+        confidenceCondition = 0.01;
+        break;
+      case MEDIUM:
+        confidenceCondition = 0.1;
+        break;
+      case HARD:
+        confidenceCondition = 0.25;
+        break;
+      case MASTER:
+        confidenceCondition = 0.5;
         break;
     }
 
@@ -429,20 +445,23 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   }
 
   /**
-   * Checks whether the player has won, i.e. whether the current word is in top 3
-   * predictions.
+   * Checks whether the player has won, i.e. whether the current word is in top
+   * predictions as determined by accuracy difficulty.
    *
    * @param classifications The list of predictions
    * @return whether the player has won or not
    */
   private boolean isWin(List<Classifications.Classification> classifications) {
-    // go through top three predictions
+    // go through top predictions detemined by accuracy difficulty
     for (int i = 0; i < accuracyCondition; i++) {
-      if (classifications
-          .get(i)
-          .getClassName()
-          .replaceAll("_", " ")
-          .equals(WordHolder.getInstance().getCurrentWord())) {
+
+      // if top word is correct with confidence above the required amount
+      if ((classifications.get(i).getProbability() > confidenceCondition) &&
+          classifications
+              .get(i)
+              .getClassName()
+              .replaceAll("_", " ")
+              .equals(WordHolder.getInstance().getCurrentWord())) {
         return true;
       }
     }
