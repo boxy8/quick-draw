@@ -18,23 +18,23 @@ import java.util.Random;
 
 public class CategorySelector {
 
-  public enum Difficulty {
+  public enum WordDifficulty {
     E,
     M,
     H
   }
 
-  private Map<Difficulty, List<String>> difficulty2categories;
+  private Map<WordDifficulty, List<String>> difficulty2categories;
 
   public CategorySelector() throws IOException, CsvException, URISyntaxException {
     difficulty2categories = new HashMap<>();
     // saving in hash map for better performance
-    for (Difficulty difficulty : Difficulty.values()) {
+    for (WordDifficulty difficulty : WordDifficulty.values()) {
       difficulty2categories.put(difficulty, new ArrayList<>());
     }
 
     for (String[] line : getLines()) {
-      difficulty2categories.get(Difficulty.valueOf(line[1])).add(line[0]);
+      difficulty2categories.get(WordDifficulty.valueOf(line[1])).add(line[0]);
     }
   }
 
@@ -67,7 +67,7 @@ public class CategorySelector {
    * @return random Easy word to draw
    */
   public String getEasyCategory() {
-    return getRandomCategory(difficulty2categories.get(Difficulty.E));
+    return getRandomCategory(difficulty2categories.get(WordDifficulty.E));
   }
 
   /**
@@ -76,7 +76,7 @@ public class CategorySelector {
    * @return random Medium word to draw
    */
   public String getMediumCategory() {
-    Difficulty[] difficulties = { Difficulty.E, Difficulty.M };
+    WordDifficulty[] difficulties = { WordDifficulty.E, WordDifficulty.M };
     return getRandomCategory(getAvailableWords(difficulties));
   }
 
@@ -86,7 +86,7 @@ public class CategorySelector {
    * @return random Hard word to draw
    */
   public String getHardCategory() {
-    Difficulty[] difficulties = { Difficulty.E, Difficulty.M, Difficulty.H };
+    WordDifficulty[] difficulties = { WordDifficulty.E, WordDifficulty.M, WordDifficulty.H };
     return getRandomCategory(getAvailableWords(difficulties));
   }
 
@@ -96,7 +96,7 @@ public class CategorySelector {
    * @return random Master word to draw
    */
   public String getMasterCategory() {
-    return getRandomCategory(difficulty2categories.get(Difficulty.H));
+    return getRandomCategory(difficulty2categories.get(WordDifficulty.H));
   }
 
   /**
@@ -106,9 +106,9 @@ public class CategorySelector {
    *                     wanted for
    * @return all words tagged as the difficulties specified
    */
-  private List<String> getAvailableWords(Difficulty[] difficulties) {
+  private List<String> getAvailableWords(WordDifficulty[] difficulties) {
     ArrayList<String> availableWords = new ArrayList<>();
-    for (Difficulty difficulty : difficulties) {
+    for (WordDifficulty difficulty : difficulties) {
       availableWords.addAll(difficulty2categories.get(difficulty));
     }
     return availableWords;
