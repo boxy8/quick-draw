@@ -5,13 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -19,7 +14,7 @@ import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.profiles.ProfileLoader;
 
-public class ProfileListController {
+public class ProfileListController implements SwitchInListener {
 
   @FXML private TextField usernameField;
 
@@ -29,34 +24,19 @@ public class ProfileListController {
 
   @FXML private Button chooseButton;
 
-  @FXML private VBox profileCards;
+  @FXML private VBox profileContainer;
 
-  private String selectedUsername;
+  @FXML private ToggleGroup profilesGroup = new ToggleGroup();
 
-  private ArrayList<Profile> profiles;
+  private ArrayList<ToggleButton> profileButtons = new ArrayList<>();
 
-  private EventHandler<MouseEvent> selectProfileLabel =
-      event -> {
-        Label profileLabel = (Label) event.getSource();
-        selectedUsername = profileLabel.getText();
-        // Set all profile labels to black
-        for (Node child : profileCards.getChildren()) {
-          Label childLabel = (Label) child;
-          if (childLabel.getStyleClass().contains("selectedProfile")) {
-            childLabel.getStyleClass().remove("selectedProfile");
-          }
-        }
-        // Set selected profile label to blue
-        for (Profile profile : profiles) {
-          if (profile.getUsername().equals(selectedUsername)) {
-            profileLabel.getStyleClass().add("selectedProfile");
-          }
-        }
-      };
+  //  private EventHandler<ActionEvent> selectProfile =
+  //      event -> {
+  //        ToggleButton profileButton = (ToggleButton) event.getSource();
+  //        selectedUsername = profileButton.getText();
+  //      };
 
   public void initialize() throws IOException {
-    profiles = new ArrayList<Profile>();
-
     // Find all profile files
     String folderPath = "profiles/";
     File folder = new File(folderPath);
@@ -70,8 +50,7 @@ public class ProfileListController {
       if (fileArray[i].isFile()) {
         String fileName = fileArray[i].getName();
         String username = fileName.substring(0, fileName.length() - 5);
-        profiles.add(new Profile(username));
-        createProfileLabel(username);
+        addProfileButton(username);
       }
     }
   }
@@ -81,12 +60,16 @@ public class ProfileListController {
    *
    * @param username a string of the profile's username
    */
-  private void createProfileLabel(String username) {
-    Label profileLabel = new Label(username);
+  private void addProfileButton(String username) {
+    ToggleButton profileButton = new ToggleButton(username);
+    // add to profile buttons toggle group
+    profileButton.setToggleGroup(profilesGroup);
     // make sure current clicked label is selected
-    profileLabel.setOnMouseClicked(selectProfileLabel);
-    profileLabel.getStyleClass().add("profileLabel");
-    profileCards.getChildren().add(profileLabel);
+    //    profileButton.setOnAction(selectProfile);
+    profileButton.getStyleClass().add("profile-button");
+    profileContainer.getChildren().add(profileButton);
+    // store button instance in list
+    profileButtons.add(profileButton);
   }
 
   /**
@@ -96,11 +79,12 @@ public class ProfileListController {
    * @throws FileNotFoundException
    */
   @FXML
-  private void onChooseProfile(ActionEvent event) throws FileNotFoundException {
-    // check for empty user name
-    if (selectedUsername != null) {
-      // get user entered user name
-      Profile selectedProfile = ProfileLoader.read(selectedUsername);
+  private void onConfirmProfile(ActionEvent event) throws FileNotFoundException {
+    ToggleButton button = (ToggleButton) profilesGroup.getSelectedToggle();
+    // if a profile was selected
+    if (button != null) {
+      String username = button.getText();
+      Profile selectedProfile = ProfileLoader.read(username);
       ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
       // set program wide profile for the user
       ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
@@ -119,9 +103,7 @@ public class ProfileListController {
         // create a new profile
         Profile newProfile = new Profile(username);
         newProfile.saveToFile();
-        // add to list of profiles
-        profiles.add(newProfile);
-        createProfileLabel(username);
+        addProfileButton(username);
         // empty box ready for another profile
         usernameField.clear();
       } catch (Exception e) {
@@ -136,4 +118,20 @@ public class ProfileListController {
    */
   @FXML
   private void onDeleteProfile() {}
+
+  @Override
+  public void onSwitchIn() {
+    // pre-select the currently selected profile
+    if (ProfileHolder.getInstance().getCurrentProfile().isGuest()) {
+      profilesGroup.selectToggle(null);
+    } else {
+      String currentUser = ProfileHolder.getInstance().getCurrentProfile().getUsername();
+      // select the button that matches current username
+      for (ToggleButton button : profileButtons) {
+        if (button.getText().equals(currentUser)) {
+          button.setSelected(true);
+        }
+      }
+    }
+  }
 }

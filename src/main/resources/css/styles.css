@@ -35,19 +35,18 @@
     -fx-border-color: transparent;
 }
 
-.radio-button > .radio {
-  -fx-background-color: transparent;
-  -fx-background-insets: 0;
-  -fx-background-radius: 0px;
-  -fx-padding: 0 0 0 -8;
-}
-.radio-button:selected > .radio > .dot {
-  -fx-background-color: transparent;
-}
-
 .main-container {
     -fx-background-color: #db3f2e;
     -fx-background-radius: 12;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-box {
+    -fx-fit-to-width: true;
+    -fx-padding: 15px;
 }
 
 .shadow-text {
@@ -55,15 +54,6 @@
 }
 
 /* Main Menu */
-
-#menuContainer {
-    -fx-pref-width: 520px;
-    -fx-background-radius: 2px;
-}
-
-#usernameLabel {
-    -fx-font-size: 18px;
-}
 
 /* Main / navbar */
 
@@ -92,20 +82,36 @@
     -fx-background-color: rgba(0, 0, 0, .15);
 }
 
+.radio-button > .radio {
+  -fx-background-color: transparent;
+  -fx-background-insets: 0;
+  -fx-background-radius: 0px;
+  -fx-padding: 0 0 0 -8;
+}
+.radio-button:selected > .radio > .dot {
+  -fx-background-color: transparent;
+}
+
 #predictionsContainer {
     -fx-padding: 15px;
     -fx-font-size: 18px;
 }
 
 /* Choose Profile */
+.profile-button {
+    -fx-max-width: Infinity;
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0, 0 0 4 0;
+    -fx-background-radius: 12;
+    -fx-background-color: #d4d5d5, #f2f2f2;
+    -fx-text-fill: #40396e;
+    -fx-font-size: 32px;
+}
 
-#listContainer {
-    -fx-background-color: #377DE6;
-    -fx-background-radius: 6px;
-    -fx-border-style: solid;
-    -fx-border-width: 3px;
-    -fx-border-color: #2D65BA;
-    -fx-border-radius: 4px;
+.profile-button:selected {
+    -fx-background-color: transparent, #f2f2f2;
+    -fx-translate-y: 4;
+    -fx-text-fill: black;
 }
 
 .chooseContainer {
@@ -116,17 +122,6 @@
 
 .chooseContainer * {
     -fx-text-fill: black;
-}
-
-.profileLabel {
-    -fx-pref-width: 372;
-    -fx-pref-height: 25;
-    -fx-background-color: #3D8BFF;
-    -fx-font-size: 24;
-    -fx-padding: 10px 16px;
-    -fx-border-style: solid;
-    -fx-border-width: 3px;
-    -fx-border-color: transparent transparent #579AFF transparent;
 }
 
 .selectedProfile {
