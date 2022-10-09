@@ -112,9 +112,17 @@
 
 }
 
-.textField {
-    -fx-max-width: Infinity;
-    -fx-padding: 5 50 12 12;
+#textField {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-font-size: 32px;
+    -fx-text-fill: #40396e;
+    -fx-prompt-text-fill: rgba(64, 57, 110, 0.7);
+}
+
+.add-profile-box {
+    -fx-padding: 5 12 12 12;
+    -fx-padding: 6 14 14 14;
     -fx-background-radius: 12;
     -fx-background-color: rgba(255, 255, 255, 0.5);
     -fx-text-fill: #40396e;
