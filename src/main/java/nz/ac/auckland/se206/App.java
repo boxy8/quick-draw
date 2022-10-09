@@ -46,7 +46,8 @@ public class App extends Application {
         e -> {
           Platform.exit();
           // Terminate TTS so app closes fully on close
-          CanvasController controller = (CanvasController) SceneManager.getController(AppUi.CANVAS);
+          CanvasController controller =
+              (CanvasController) SceneManager.getController(AppUi.NORMAL_CANVAS);
           if (controller.getTextToSpeech() != null) {
             controller.getTextToSpeech().terminate();
           }
@@ -57,7 +58,7 @@ public class App extends Application {
 
     SceneManager.addUi(AppUi.MAIN, getFxmlLoader("main"));
     // these views all use the main border pane
-    SceneManager.addUi(AppUi.CANVAS, getFxmlLoader("normal_canvas"));
+    SceneManager.addUi(AppUi.NORMAL_CANVAS, getFxmlLoader("normal_canvas"));
     SceneManager.addUi(AppUi.CATEGORY_DISPLAY, getFxmlLoader("category_display"));
     SceneManager.addUi(AppUi.PROFILE_PAGE, getFxmlLoader("profile_page"));
     SceneManager.addUi(AppUi.PROFILE_LIST, getFxmlLoader("profile_list"));

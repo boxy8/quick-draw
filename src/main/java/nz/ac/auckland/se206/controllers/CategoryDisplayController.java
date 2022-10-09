@@ -38,7 +38,7 @@ public class CategoryDisplayController implements SwitchInListener {
   @FXML
   private void onStart(ActionEvent event) {
     // go to canvas view
-    SceneManager.changeScene(event, AppUi.CANVAS);
+    SceneManager.changeScene(event, AppUi.NORMAL_CANVAS);
   }
 
   /** Resets the screen when it is switched to so that words can be updated and gotten */
