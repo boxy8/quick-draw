@@ -11,6 +11,14 @@ import okhttp3.ResponseBody;
 public class DictionaryLookUp {
   private static final String API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
+  /**
+   * Searches for the word in an online dictionary, returns string with definition or null if it is
+   * not found
+   *
+   * @param query
+   * @return definition
+   * @throws IOException
+   */
   public static String searchWordInfo(String query) throws IOException {
     // JSON reading setup
     Gson gson = new Gson();
@@ -33,7 +41,12 @@ public class DictionaryLookUp {
       // clean up info and put into a string
       definition = getDefinition(element).toString().replace("\"", "");
     }
-    return definition;
+    // return null if there is no definition
+    if (definition.equals("Not found")) {
+      return null;
+    } else {
+      return definition;
+    }
   }
 
   /**
@@ -41,6 +54,7 @@ public class DictionaryLookUp {
    * @return definition of word as a jsonElement
    */
   private static JsonElement getDefinition(JsonElement element) {
+    // grab required string which is the definition
     JsonElement jsonObject =
         element
             .getAsJsonArray()
