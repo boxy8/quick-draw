@@ -3,8 +3,6 @@ package nz.ac.auckland.se206.controllers;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -200,6 +198,18 @@ public class DifficultySelectorController implements Initializable {
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.CONFIDENCE, Difficulty.MASTER);
         }
+    }
+
+    /**
+     * Updates the spinner value being displayed as per the profiles previous
+     * selection
+     */
+    public void setSpinners() {
+        Map<Setting, Difficulty> map = ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty();
+        accuracySpinner.getValueFactory().setValue(map.get(Setting.ACCURACY).toString());
+        wordsSpinner.getValueFactory().setValue(map.get(Setting.WORDS).toString());
+        timeSpinner.getValueFactory().setValue(map.get(Setting.TIME).toString());
+        confidenceSpinner.getValueFactory().setValue(map.get(Setting.CONFIDENCE).toString());
     }
 
 }
