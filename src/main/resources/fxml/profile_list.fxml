@@ -21,10 +21,27 @@
                   <Label styleClass="canvas-text" text="Profiles" />
                   <ScrollPane maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <content>
-                        <VBox fx:id="profileContainer" spacing="10.0">
+                        <VBox spacing="10.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <children>
+                              <VBox fx:id="profileContainer" spacing="10.0" />
+                              <AnchorPane prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="usernameField" prefHeight="36.0" prefWidth="200.0" promptText="Enter Username" styleClass="textField" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <Button fx:id="addButton" layoutX="278.0" layoutY="11.0" mnemonicParsing="false" onAction="#onAddProfile" styleClass="image-button">
+                                       <graphic>
+                                          <ImageView fitHeight="48.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/add.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                           </children>
                         </VBox>
                      </content>
                      <styleClass>
@@ -48,19 +65,10 @@
          </graphic>
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
+         </cursor>
+      </Button>
       <AnchorPane layoutX="507.0" layoutY="53.0" prefHeight="106.0" prefWidth="265.0" styleClass="chooseContainer">
          <children>
-            <TextField fx:id="usernameField" layoutX="19.0" layoutY="56.0" prefHeight="36.0" prefWidth="200.0" promptText="Enter Username" styleClass="textField" />
-            <Button fx:id="addButton" layoutX="213.0" layoutY="56.0" mnemonicParsing="false" onAction="#onAddProfile" prefHeight="32.0" prefWidth="32.0" text="+">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <styleClass>
-                  <String fx:value="menuButton" />
-                  <String fx:value="chooseButton" />
-               </styleClass>
-            </Button>
             <Label layoutX="48.0" layoutY="14.0" text="Add Profile:">
                <font>
                   <Font size="30.0" />

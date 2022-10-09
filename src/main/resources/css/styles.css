@@ -101,17 +101,29 @@
 .profile-button {
     -fx-max-width: Infinity;
     -fx-padding: 8 15 15 15;
-    -fx-background-insets: 0, 0 0 4 0;
     -fx-background-radius: 12;
-    -fx-background-color: #d4d5d5, #f2f2f2;
+    -fx-background-color: #f2f2f2;
     -fx-text-fill: #40396e;
+    -fx-alignment: center-left;
     -fx-font-size: 32px;
 }
 
 .profile-button:selected {
-    -fx-background-color: transparent, #f2f2f2;
-    -fx-translate-y: 4;
-    -fx-text-fill: black;
+
+}
+
+.textField {
+    -fx-max-width: Infinity;
+    -fx-padding: 5 50 12 12;
+    -fx-background-radius: 12;
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-text-fill: #40396e;
+    -fx-alignment: center-left;
+    -fx-font-size: 32px;
+    -fx-border-style: dashed;
+    -fx-border-color: #db3f2e;
+    -fx-border-width: 3;
+    -fx-border-radius: 12;
 }
 
 .chooseContainer {
@@ -132,26 +144,8 @@
     -fx-text-fill: white;
 }
 
-#addButton {
-    -fx-pref-width: 32px;
-    -fx-pref-height: 32px;
-    -fx-background-color: #5cb85c;
-    -fx-border-size: 1px;
-    -fx-border-radius: 0;
-    -fx-border-style: solid;
-    -fx-border-color: #4cae4c;
-}
-
 #deleteButton {
     -fx-background-color: #bb4530;
-}
-
-.textField {
-    -fx-text-fill: black;
-    -fx-border-size: 2px;
-    -fx-border-style: solid;
-    -fx-border-color: #4cae4c;
-    -fx-border-radius: 2px;
 }
 
 /* Stats */
