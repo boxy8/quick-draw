@@ -9,7 +9,7 @@ public class SoundEffects {
 
   public static void playSound(String fileName) throws URISyntaxException {
     Media sound =
-        new Media(CategorySelector.class.getResource("/sounds").toURI() + "/" + fileName + ".mp3");
+        new Media(CategorySelector.class.getResource("/sounds").toURI() + "/" + fileName + ".wav");
     MediaPlayer player = new MediaPlayer(sound);
     player.play();
   }
