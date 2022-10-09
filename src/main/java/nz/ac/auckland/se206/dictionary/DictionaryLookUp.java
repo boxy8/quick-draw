@@ -28,24 +28,33 @@ public class DictionaryLookUp {
     JsonElement element = gson.fromJson(jsonString, JsonElement.class);
     // check to see if there is a meaning for this word
     if (element.isJsonArray()) {
-      // read specific place where definitions are stored and return an object with that information
-      JsonElement jsonObject =
-          element
-              .getAsJsonArray()
-              .get(0)
-              .getAsJsonObject()
-              .get("meanings")
-              .getAsJsonArray()
-              .get(0)
-              .getAsJsonObject()
-              .get("definitions")
-              .getAsJsonArray()
-              .get(0)
-              .getAsJsonObject()
-              .get("definition");
+      // getter reads specific place where definitions are stored and return an object with that
+      // information
       // clean up info and put into a string
-      definition = jsonObject.toString().replace("\"", "");
+      definition = getDefinition(element).toString().replace("\"", "");
     }
     return definition;
+  }
+
+  /**
+   * @param element
+   * @return definition of word as a jsonElement
+   */
+  private static JsonElement getDefinition(JsonElement element) {
+    JsonElement jsonObject =
+        element
+            .getAsJsonArray()
+            .get(0)
+            .getAsJsonObject()
+            .get("meanings")
+            .getAsJsonArray()
+            .get(0)
+            .getAsJsonObject()
+            .get("definitions")
+            .getAsJsonArray()
+            .get(0)
+            .getAsJsonObject()
+            .get("definition");
+    return jsonObject;
   }
 }
