@@ -38,7 +38,9 @@ import javax.imageio.ImageIO;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.games.Game;
+import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.GameMode;
+import nz.ac.auckland.se206.games.Game.Setting;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
@@ -99,6 +101,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   private GraphicsContext graphic;
   private DoodlePrediction model;
   private Game game;
+  private int startingTime;
   private int timeLeft;
   private boolean drawingStarted; // Tells label to update
   private Timeline timeline;
@@ -222,9 +225,26 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     timeline.play();
   }
 
-  /** reset the game timer back to 60 then refresh the label to 60 also */
+  /**
+   * reset the game timer back to the time associated with the time difficulty
+   * then refresh the label to the time also
+   */
   private void resetTimer() {
-    timeLeft = 60;
+    switch (ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty().get(Setting.TIME)) {
+      case EASY:
+        startingTime = 60;
+        break;
+      case MEDIUM:
+        startingTime = 45;
+        break;
+      case HARD:
+        startingTime = 30;
+        break;
+      case MASTER:
+        startingTime = 15;
+        break;
+    }
+    timeLeft = startingTime;
     updateTimerDisplay(timeLeft);
   }
 
@@ -276,7 +296,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     endGameContainer.setVisible(true);
 
     // set game time
-    int gameDuration = 60 - timeLeft;
+    int gameDuration = startingTime - timeLeft;
     game.setDuration(gameDuration);
 
     // update profile statistics with finished game
