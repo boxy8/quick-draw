@@ -102,6 +102,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   private DoodlePrediction model;
   private Game game;
   private int startingTime;
+  private int accuracyCondition;
+  private int confidenceCondition;
   private int timeLeft;
   private boolean drawingStarted; // Tells label to update
   private Timeline timeline;
@@ -190,16 +192,52 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     String currentWord = WordHolder.getInstance().getCurrentWord();
     wordLabel.setText(currentWord); // display new category
     resultLabel.setText(""); // reset win/lose indicator
+
     // stop predictions from taking place
     drawingStarted = false;
+
     // empty label when starting game
     resetPredictionLabel();
+
     // hide end game buttons
     endGameContainer.setVisible(false);
+
     // enable canvas and drawing buttons
     canvas.setDisable(false);
     clearButton.setDisable(false);
     eraserButton.setDisable(false);
+
+    // set Accuracy win condition according to Accuracy difficulty chosen
+    switch (ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty().get(Setting.ACCURACY)) {
+      case EASY:
+        accuracyCondition = 3;
+        break;
+      case MEDIUM:
+        accuracyCondition = 2;
+        break;
+      case HARD:
+        accuracyCondition = 1;
+        break;
+      default:
+        break;
+    }
+
+    // set starting time according to Time difficulty chosen
+    switch (ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty().get(Setting.TIME)) {
+      case EASY:
+        startingTime = 60;
+        break;
+      case MEDIUM:
+        startingTime = 45;
+        break;
+      case HARD:
+        startingTime = 30;
+        break;
+      case MASTER:
+        startingTime = 15;
+        break;
+    }
+
     // reset to pen function
     graphic.setStroke(Color.BLACK);
     game = new Game(currentWord, GameMode.NORMAL);
@@ -230,20 +268,6 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    * then refresh the label to the time also
    */
   private void resetTimer() {
-    switch (ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty().get(Setting.TIME)) {
-      case EASY:
-        startingTime = 60;
-        break;
-      case MEDIUM:
-        startingTime = 45;
-        break;
-      case HARD:
-        startingTime = 30;
-        break;
-      case MASTER:
-        startingTime = 15;
-        break;
-    }
     timeLeft = startingTime;
     updateTimerDisplay(timeLeft);
   }
@@ -413,7 +437,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    */
   private boolean isWin(List<Classifications.Classification> classifications) {
     // go through top three predictions
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < accuracyCondition; i++) {
       if (classifications
           .get(i)
           .getClassName()
