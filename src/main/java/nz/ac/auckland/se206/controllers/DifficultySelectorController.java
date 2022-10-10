@@ -95,19 +95,16 @@ public class DifficultySelectorController implements Initializable {
     private void setAccuracyDifficulty() {
         // Easy difficulty selected
         if (accuracySpinner.getValue().equals("EASY")) {
-            // TODO
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.ACCURACY, Difficulty.EASY);
         }
         // Medium difficulty selected
         else if (accuracySpinner.getValue().equals("MEDIUM")) {
-            // TODO
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.ACCURACY, Difficulty.MEDIUM);
         }
         // Hard difficulty selected
         else {
-            // TODO
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.ACCURACY, Difficulty.HARD);
         }
@@ -149,23 +146,19 @@ public class DifficultySelectorController implements Initializable {
     private void setTimeDifficulty() {
         // Easy difficulty selected
         if (timeSpinner.getValue().equals("EASY")) {
-            // TODO
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.TIME, Difficulty.EASY);
         }
         // Medium difficulty selected
         else if (timeSpinner.getValue().equals("MEDIUM")) {
-            // TODO
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.TIME, Difficulty.MEDIUM);
         }
         // Hard difficulty selected
         else if (timeSpinner.getValue().equals("HARD")) {
-            // TODO
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.TIME, Difficulty.HARD);
         } else {
-            // TODO
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.TIME, Difficulty.MASTER);
         }
@@ -178,23 +171,19 @@ public class DifficultySelectorController implements Initializable {
     private void setConfidenceDifficulty() {
         // Easy difficulty selected
         if (confidenceSpinner.getValue().equals("EASY")) {
-            // TODO
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.CONFIDENCE, Difficulty.EASY);
         }
         // Medium difficulty selected
         else if (confidenceSpinner.getValue().equals("MEDIUM")) {
-            // TODO
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.CONFIDENCE, Difficulty.MEDIUM);
         }
         // Hard difficulty selected
         else if (confidenceSpinner.getValue().equals("HARD")) {
-            // TODO
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.CONFIDENCE, Difficulty.HARD);
         } else {
-            // TODO
             ProfileHolder.getInstance().getCurrentProfile()
                     .getSetting2Difficulty().put(Setting.CONFIDENCE, Difficulty.MASTER);
         }
@@ -205,11 +194,14 @@ public class DifficultySelectorController implements Initializable {
      * selection
      */
     public void setSpinners() {
+
         Map<Setting, Difficulty> map = ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty();
-        accuracySpinner.getValueFactory().setValue(map.get(Setting.ACCURACY).toString());
-        wordsSpinner.getValueFactory().setValue(map.get(Setting.WORDS).toString());
-        timeSpinner.getValueFactory().setValue(map.get(Setting.TIME).toString());
-        confidenceSpinner.getValueFactory().setValue(map.get(Setting.CONFIDENCE).toString());
+        if (map.get(Setting.ACCURACY) != null) {
+            accuracySpinner.getValueFactory().setValue(map.get(Setting.ACCURACY).toString());
+            wordsSpinner.getValueFactory().setValue(map.get(Setting.WORDS).toString());
+            timeSpinner.getValueFactory().setValue(map.get(Setting.TIME).toString());
+            confidenceSpinner.getValueFactory().setValue(map.get(Setting.CONFIDENCE).toString());
+        }
     }
 
 }
