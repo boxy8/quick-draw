@@ -89,11 +89,6 @@
       </AnchorPane>
       <AnchorPane layoutX="507.0" layoutY="243.0" prefHeight="106.0" prefWidth="265.0" styleClass="chooseContainer">
          <children>
-            <Button id="deleteButton" fx:id="deleteButton" layoutX="17.0" layoutY="56.0" mnemonicParsing="false" onAction="#onDeleteProfile" prefHeight="30.0" prefWidth="232.0" styleClass="chooseButton" text="X">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
             <Label layoutX="30.0" layoutY="14.0" text="Delete Profile:">
                <font>
                   <Font size="30.0" />

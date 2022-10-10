@@ -100,16 +100,24 @@
 /* Choose Profile */
 .profile-button {
     -fx-max-width: Infinity;
-    -fx-padding: 8 15 15 15;
+    -fx-padding: 0 15 0 0;
     -fx-background-radius: 12;
     -fx-background-color: #f2f2f2;
+    -fx-border-style: none;
     -fx-text-fill: #40396e;
     -fx-alignment: center-left;
     -fx-font-size: 32px;
 }
 
-.profile-button:selected {
+.profile-button-text {
+    -fx-max-width: Infinity;
+    -fx-padding: 8 0 15 15;
+    -fx-alignment: center-left;
+    -fx-text-fill: #40396e;
+}
 
+.profile-button-text:selected {
+    -fx-text-fill: orange;
 }
 
 #textField {

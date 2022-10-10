@@ -28,13 +28,7 @@ public class ProfileListController implements SwitchInListener {
 
   @FXML private ToggleGroup profilesGroup = new ToggleGroup();
 
-  private ArrayList<ToggleButton> profileButtons = new ArrayList<>();
-
-  //  private EventHandler<ActionEvent> selectProfile =
-  //      event -> {
-  //        ToggleButton profileButton = (ToggleButton) event.getSource();
-  //        selectedUsername = profileButton.getText();
-  //      };
+  private ArrayList<ProfileButtonController> profileButtons = new ArrayList<>();
 
   public void initialize() throws IOException {
     // Find all profile files
@@ -61,12 +55,10 @@ public class ProfileListController implements SwitchInListener {
    * @param username a string of the profile's username
    */
   private void addProfileButton(String username) {
-    ToggleButton profileButton = new ToggleButton(username);
+    ProfileButtonController profileButton = new ProfileButtonController();
+    profileButton.setToggleText(username);
     // add to profile buttons toggle group
     profileButton.setToggleGroup(profilesGroup);
-    // make sure current clicked label is selected
-    //    profileButton.setOnAction(selectProfile);
-    profileButton.getStyleClass().add("profile-button");
     profileContainer.getChildren().add(profileButton);
     // store button instance in list
     profileButtons.add(profileButton);
@@ -112,13 +104,6 @@ public class ProfileListController implements SwitchInListener {
     }
   }
 
-  /**
-   * Deletes the currently selected profile and removes it from the GUI. Warns the user and requires
-   * confirmation
-   */
-  @FXML
-  private void onDeleteProfile() {}
-
   @Override
   public void onSwitchIn() {
     // pre-select the currently selected profile
@@ -127,9 +112,9 @@ public class ProfileListController implements SwitchInListener {
     } else {
       String currentUser = ProfileHolder.getInstance().getCurrentProfile().getUsername();
       // select the button that matches current username
-      for (ToggleButton button : profileButtons) {
-        if (button.getText().equals(currentUser)) {
-          button.setSelected(true);
+      for (ProfileButtonController button : profileButtons) {
+        if (button.getToggleText().equals(currentUser)) {
+          button.setToggleSelected(true);
         }
       }
     }
