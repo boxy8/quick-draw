@@ -133,7 +133,39 @@ public class ProfileListController {
   /**
    * Deletes the currently selected profile and removes it from the GUI. Warns the user and requires
    * confirmation
+   *
+   * @throws IOException
    */
   @FXML
-  private void onDeleteProfile() {}
+  private void onDeleteProfile() throws IOException {
+    if (selectedUsername != null) {
+      Profile selectedProfile = ProfileLoader.read(selectedUsername);
+      selectedProfile.delete();
+      deleteProfileLabel(selectedUsername);
+    }
+  }
+
+  private void deleteProfileLabel(String username) {
+    int counter = 0;
+    int current = 0;
+    for (Profile prof : profiles) {
+      if (prof.getUsername().equals(username)) {
+        current = counter;
+        if (prof.getUsername()
+            .equals(ProfileHolder.getInstance().getCurrentProfile().getUsername())) {
+          ProfileHolder.getInstance().setInstance();
+          ProfileHolder.getInstance();
+          System.out.println(ProfileHolder.getInstance());
+          ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
+          SceneManager.changeScene(null, AppUi.MAIN_MENU);
+          ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE))
+              .setProfileLabel();
+        }
+      }
+      counter++;
+    }
+
+    profiles.remove(current);
+    profileCards.getChildren().remove(current);
+  }
 }
