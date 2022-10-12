@@ -1,7 +1,6 @@
 package nz.ac.auckland.se206.games;
 
 import java.util.Map;
-
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 
 public class Game {

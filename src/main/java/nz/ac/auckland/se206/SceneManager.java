@@ -51,7 +51,8 @@ public class SceneManager {
     BorderPane mainBorder = ((BorderPane) scene.getRoot());
 
     // call switch out method if applicable
-    Object currentController = SceneManager.getController((AppUi) mainBorder.getCenter().getUserData());
+    Object currentController =
+        SceneManager.getController((AppUi) mainBorder.getCenter().getUserData());
     if (currentController instanceof SwitchOutListener switchOutListener) {
       switchOutListener.onSwitchOut();
     }

@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.Setting;
@@ -122,5 +121,13 @@ public class Profile {
     wordHistory.add(game.getWord());
     // update game history
     gameHistory.add(game);
+  }
+
+  public void delete() {
+    String filePath = "profiles/" + username + ".json";
+    File f = new File(filePath);
+    if (f.exists()) {
+      f.delete();
+    }
   }
 }

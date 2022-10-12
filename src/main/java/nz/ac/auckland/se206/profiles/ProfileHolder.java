@@ -21,4 +21,8 @@ public class ProfileHolder {
   public Profile getCurrentProfile() {
     return this.currentProfile;
   }
+
+  public void setInstance() {
+    instance = null;
+  }
 }

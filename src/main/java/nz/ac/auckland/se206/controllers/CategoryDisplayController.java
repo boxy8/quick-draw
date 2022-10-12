@@ -9,8 +9,7 @@ import nz.ac.auckland.se206.words.WordHolder;
 
 public class CategoryDisplayController implements SwitchInListener {
 
-  @FXML
-  private Label categoryLabel;
+  @FXML private Label categoryLabel;
 
   /**
    * Changes from category display to the canvas when user wants to start
@@ -23,10 +22,7 @@ public class CategoryDisplayController implements SwitchInListener {
     SceneManager.changeScene(event, AppUi.NORMAL_CANVAS);
   }
 
-  /**
-   * Resets the screen when it is switched to so that words can be updated and
-   * gotten
-   */
+  /** Resets the screen when it is switched to so that words can be updated and gotten */
   @Override
   public void onSwitchIn() {
     // update the text label for the game

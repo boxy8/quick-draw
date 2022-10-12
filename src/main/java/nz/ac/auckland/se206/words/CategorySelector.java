@@ -2,9 +2,6 @@ package nz.ac.auckland.se206.words;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-
-import nz.ac.auckland.se206.profiles.ProfileHolder;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import nz.ac.auckland.se206.profiles.ProfileHolder;
 
 public class CategorySelector {
 
@@ -39,11 +37,10 @@ public class CategorySelector {
   }
 
   /**
-   * Find a random word for the player to draw that they haven't encountered
-   * already
-   * 
-   * @param availableWords list of available words given the difficulty selection
-   *                       (Easy, Medium, Hard, Master)
+   * Find a random word for the player to draw that they haven't encountered already
+   *
+   * @param availableWords list of available words given the difficulty selection (Easy, Medium,
+   *     Hard, Master)
    * @return the random category for next game
    */
   private String getRandomCategory(List<String> availableWords) {
@@ -58,12 +55,11 @@ public class CategorySelector {
       }
     }
     return availableWords.get(randIndex);
-
   }
 
   /**
    * Gets a random word for when the Words Difficulty is Easy (E)
-   * 
+   *
    * @return random Easy word to draw
    */
   public String getEasyCategory() {
@@ -72,27 +68,27 @@ public class CategorySelector {
 
   /**
    * Gets a random word for when the Words Difficulty is Medium (E, M)
-   * 
+   *
    * @return random Medium word to draw
    */
   public String getMediumCategory() {
-    WordDifficulty[] difficulties = { WordDifficulty.E, WordDifficulty.M };
+    WordDifficulty[] difficulties = {WordDifficulty.E, WordDifficulty.M};
     return getRandomCategory(getAvailableWords(difficulties));
   }
 
   /**
    * Gets a random word for when the Words Difficulty is Hard (E, M, H)
-   * 
+   *
    * @return random Hard word to draw
    */
   public String getHardCategory() {
-    WordDifficulty[] difficulties = { WordDifficulty.E, WordDifficulty.M, WordDifficulty.H };
+    WordDifficulty[] difficulties = {WordDifficulty.E, WordDifficulty.M, WordDifficulty.H};
     return getRandomCategory(getAvailableWords(difficulties));
   }
 
   /**
    * Gets a random word for when the Words Difficulty is Master (H)
-   * 
+   *
    * @return random Master word to draw
    */
   public String getMasterCategory() {
@@ -101,9 +97,8 @@ public class CategorySelector {
 
   /**
    * Gets all words of the difficulties (E, M, H) specified
-   * 
-   * @param difficulties the difficulties (E, M, H) which the list of words is
-   *                     wanted for
+   *
+   * @param difficulties the difficulties (E, M, H) which the list of words is wanted for
    * @return all words tagged as the difficulties specified
    */
   private List<String> getAvailableWords(WordDifficulty[] difficulties) {

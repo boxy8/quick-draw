@@ -12,14 +12,11 @@ import nz.ac.auckland.se206.profiles.ProfileHolder;
 
 public class MainMenuController implements SwitchInListener {
 
-  @FXML
-  private Button playButton;
+  @FXML private Button playButton;
 
-  @FXML
-  private Label userNameLabel;
+  @FXML private Label userNameLabel;
 
-  @FXML
-  private Button profilesButton;
+  @FXML private Button profilesButton;
 
   @FXML
   private void onPlay(ActionEvent event) {
