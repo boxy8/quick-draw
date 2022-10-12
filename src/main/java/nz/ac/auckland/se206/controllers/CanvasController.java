@@ -78,6 +78,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
   @FXML private AnchorPane endGameContainer;
 
+  @FXML private Button endGameButton;
+
   private GraphicsContext graphic;
   private DoodlePrediction model;
   private Game game;
@@ -323,6 +325,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     toolsContainer.setDisable(true);
 
     // display and announce a message based on game result
+
     if (game.getIsWin()) {
       resultLabel.setText("You win!");
       speak("Congratulations!");
@@ -487,16 +490,16 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   }
 
   // COLORS
-  private void onPenBlue() {
+  private void onPenLightBlue() {
+    currentColor = Color.LIGHTBLUE;
+  }
+
+  private void onPenDarkBlue() {
     currentColor = Color.BLUE;
   }
 
   private void onPenRed() {
     currentColor = Color.RED;
-  }
-
-  private void onPenBlack() {
-    currentColor = Color.BLACK;
   }
 
   private void onPenGreen() {
@@ -505,6 +508,22 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
   private void onPenPink() {
     currentColor = Color.PINK;
+  }
+
+  private void onPenOrange() {
+    currentColor = Color.ORANGE;
+  }
+
+  private void onPenYellow() {
+    currentColor = Color.PINK;
+  }
+
+  private void onPenPurple() {
+    currentColor = Color.PURPLE;
+  }
+
+  private void onPenBlack() {
+    currentColor = Color.BLACK;
   }
 
   /**
