@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="840.0" styleClass="body" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="840.0" styleClass="bg-main" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
    <children>
       <Pane id="canvasContainer" layoutX="59.0" layoutY="61.0" prefHeight="400.0" prefWidth="500.0">
          <children>
@@ -31,7 +31,7 @@
          <graphic>
             <ImageView fx:id="eraserImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/erase.png" />
+                  <Image url="@../images/eraser.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -43,10 +43,10 @@
          </cursor>
          <styleClass>
             <String fx:value="eraserButton" />
-            <String fx:value="whiteButton" />
+            <String fx:value="image-button" />
          </styleClass>
       </Button>
-      <Button fx:id="clearButton" layoutX="343.0" layoutY="496.0" mnemonicParsing="false" onAction="#onClear" styleClass="whiteButton">
+      <Button fx:id="clearButton" layoutX="343.0" layoutY="496.0" mnemonicParsing="false" onAction="#onClear" styleClass="image-button">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -63,11 +63,11 @@
       </Button>
       <AnchorPane fx:id="endGameContainer" layoutX="579.0" layoutY="451.0" prefHeight="132.0" prefWidth="200.0">
          <children>
-            <Button fx:id="newGameButton" layoutX="112.0" layoutY="64.0" mnemonicParsing="false" onAction="#onNewGame" styleClass="whiteButton">
+            <Button fx:id="newGameButton" layoutX="112.0" layoutY="64.0" mnemonicParsing="false" onAction="#onNewGame" styleClass="image-button">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/play-button-o.png" />
+                        <Image url="@../images/replay.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -78,11 +78,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="saveButton" layoutX="32.0" layoutY="64.0" mnemonicParsing="false" onAction="#onSave" styleClass="whiteButton">
+            <Button fx:id="saveButton" layoutX="32.0" layoutY="64.0" mnemonicParsing="false" onAction="#onSave" styleClass="image-button">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/software-download.png" />
+                        <Image url="@../images/save.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

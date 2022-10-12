@@ -46,9 +46,10 @@ public class MainMenuController implements SwitchInListener {
         e.printStackTrace();
       }
     } else {
-      // if logged in as a user, make button say Play instead of Play as guest
+      // if logged in as a user, make button say Play as [username] instead of Play as guest
       if (!ProfileHolder.getInstance().getCurrentProfile().isGuest()) {
-        playButton.setText("Play");
+        playButton.setText(
+            "Play as " + ProfileHolder.getInstance().getCurrentProfile().getUsername());
       }
     }
   }

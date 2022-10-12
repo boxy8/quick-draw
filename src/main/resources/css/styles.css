@@ -1,115 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap');
 /* General */
-
 * {
-    -fx-text-fill: white;
-    -fx-font-family: "Comic Sans MS", "Comic Sans", cursive;
+    -fx-text-fill: #f2f2f2;
+    -fx-font-family: 'Balsamiq Sans', cursive;
     -fx-font-weight: 400;
 }
 
-.body {
-    -fx-background-color: #245195;
+.header {
+    -fx-background-color: #db3f2e;
 }
 
-.whiteButton {
-    -fx-background-color: white;
+.bg-main {
+    -fx-background-image: url('../images/doodle_background.png');
+    -fx-background-size: 100% 100%;
 }
 
-/* Main Menu */
-
-#menuContainer {
-    -fx-pref-width: 520px;
-    -fx-background-color: white;
-    -fx-background-radius: 2px;
+.main-button {
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0, 0 0 4 0;
+    -fx-background-radius: 12;
+    -fx-background-color: #d4d5d5, #f2f2f2;
+    -fx-text-fill: #40396e;
+    -fx-font-size: 32px;
 }
 
-.menuButton {
-    -fx-pref-width: 448px;
-    -fx-padding: 6px 12px;
-    -fx-background-color: #5bc0de;
-    -fx-background-radius: 4px;
-    -fx-border-size: 1px;
-    -fx-border-style: solid;
-    -fx-border-color: #46b8da;
-    -fx-border-radius: 4px;
-    -fx-font-size: 14px;
-    -fx-font-weight: 700;
+.main-button:pressed {
+    -fx-background-color: transparent, #f2f2f2;
+    -fx-translate-y: 4;
 }
 
-#playButton {
-    -fx-pref-width: 444px;
-    -fx-padding: 10px 16px;
-    -fx-background-color: #5cb85c;
-    -fx-border-size: 1px;
-    -fx-border-style: solid;
-    -fx-border-color: #4cae4c;
-    -fx-font-size: 18px;
-}
-
-#usernameLabel {
-    -fx-font-size: 18px;
-}
-
-/* Main / navbar */
-
-.navButton {
+.image-button {
+    -fx-padding: -1;
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 
+.main-container {
+    -fx-background-color: #db3f2e;
+    -fx-background-radius: 12;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-box {
+    -fx-fit-to-width: true;
+    -fx-padding: 15px;
+}
+
+.shadow-text {
+    -fx-effect: dropshadow( one-pass-box , rgba(0, 0, 0, .22) , 6 , 1.0 , 1 , 1 );
+}
+
+/* Main Menu */
+
+/* Main / navbar */
+
 #navUsername {
     -fx-font-size: 18px;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 /* Canvas */
-
-#canvasContainer {
-    -fx-background-color: white;
-    -fx-background-radius: 6px;
-    -fx-border-style: solid;
-    -fx-border-width: 3px;
-    -fx-border-color: #2D65BA;
-    -fx-border-radius: 4px;
+.canvas-text {
+    -fx-font-size: 40px;
 }
 
-.penButton {
-    -fx-graphic: url("../images/pen.png")
+#toolsContainer {
+    -fx-padding: 5px;
 }
 
-.eraserButton {
-    -fx-graphic: url("../images/erase.png")
+.tool-icon {
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    -fx-background-radius: 8;
 }
 
-
-#timerLabel {
-    -fx-font-size: 24px;
+.tool-icon:hover, .tool-icon:selected {
+    -fx-background-color: rgba(0, 0, 0, .15);
 }
 
-#wordLabel {
-    -fx-font-size: 24px;
+.radio-button > .radio {
+  -fx-background-color: transparent;
+  -fx-background-insets: 0;
+  -fx-background-radius: 0px;
+  -fx-padding: 0 0 0 -8;
+}
+.radio-button:selected > .radio > .dot {
+  -fx-background-color: transparent;
 }
 
 #predictionsContainer {
-    -fx-background-color: #377DE6;
-    -fx-background-radius: 6px;
-    -fx-border-style: solid;
-    -fx-border-width: 3px;
-    -fx-border-color: #2D65BA;
-    -fx-border-radius: 4px;
-}
-
-#predictionsContainer * {
-    -fx-font-size: 16px;
+    -fx-padding: 15px;
+    -fx-font-size: 18px;
 }
 
 /* Choose Profile */
+.profile-button {
+    -fx-max-width: Infinity;
+    -fx-padding: 0 15 0 0;
+    -fx-background-radius: 12;
+    -fx-background-color: #f2f2f2;
+    -fx-border-style: none;
+    -fx-text-fill: #40396e;
+    -fx-alignment: center-left;
+    -fx-font-size: 32px;
+}
 
-#listContainer {
-    -fx-background-color: #377DE6;
-    -fx-background-radius: 6px;
-    -fx-border-style: solid;
-    -fx-border-width: 3px;
-    -fx-border-color: #2D65BA;
-    -fx-border-radius: 4px;
+.profile-button-text {
+    -fx-max-width: Infinity;
+    -fx-padding: 8 0 15 15;
+    -fx-alignment: center-left;
+    -fx-text-fill: #40396e;
+}
+
+.profile-button-text:selected {
+    -fx-text-fill: orange;
+}
+
+#textField {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-font-size: 32px;
+    -fx-text-fill: #40396e;
+    -fx-prompt-text-fill: rgba(64, 57, 110, 0.7);
+}
+
+.add-profile-box {
+    -fx-padding: 5 12 12 12;
+    -fx-padding: 6 14 14 14;
+    -fx-background-radius: 12;
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-text-fill: #40396e;
+    -fx-alignment: center-left;
+    -fx-font-size: 32px;
+    -fx-border-style: dashed;
+    -fx-border-color: #db3f2e;
+    -fx-border-width: 3;
+    -fx-border-radius: 12;
 }
 
 .chooseContainer {
@@ -122,17 +152,6 @@
     -fx-text-fill: black;
 }
 
-.profileLabel {
-    -fx-pref-width: 372;
-    -fx-pref-height: 25;
-    -fx-background-color: #3D8BFF;
-    -fx-font-size: 24;
-    -fx-padding: 10px 16px;
-    -fx-border-style: solid;
-    -fx-border-width: 3px;
-    -fx-border-color: transparent transparent #579AFF transparent;
-}
-
 .selectedProfile {
     -fx-background-color: #247BFF;
 }
@@ -141,26 +160,8 @@
     -fx-text-fill: white;
 }
 
-#addButton {
-    -fx-pref-width: 32px;
-    -fx-pref-height: 32px;
-    -fx-background-color: #5cb85c;
-    -fx-border-size: 1px;
-    -fx-border-radius: 0;
-    -fx-border-style: solid;
-    -fx-border-color: #4cae4c;
-}
-
 #deleteButton {
     -fx-background-color: #bb4530;
-}
-
-.textField {
-    -fx-text-fill: black;
-    -fx-border-size: 2px;
-    -fx-border-style: solid;
-    -fx-border-color: #4cae4c;
-    -fx-border-radius: 2px;
 }
 
 /* Stats */
@@ -236,7 +237,11 @@
 
 
 /* Category Display */
+#instructions-box {
+    -fx-font-size: 24px;
+}
 
-.descriptionLabel {
-    -fx-font-size: 16px;
+.category-icon {
+    -fx-height: 75px;
+    -fx-width: 75px;
 }
