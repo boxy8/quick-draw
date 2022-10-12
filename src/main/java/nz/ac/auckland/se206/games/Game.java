@@ -1,5 +1,8 @@
 package nz.ac.auckland.se206.games;
 
+import java.util.Map;
+import nz.ac.auckland.se206.profiles.ProfileHolder;
+
 public class Game {
   public enum GameMode {
     NORMAL,
@@ -13,9 +16,17 @@ public class Game {
     MASTER
   }
 
+  public enum Setting {
+    ACCURACY,
+    WORDS,
+    TIME,
+    CONFIDENCE,
+  }
+
   // set on game start
   private String word;
   private GameMode mode;
+  private Map<Setting, Difficulty> settings;
 
   // update on game end
   private int duration = 60;
@@ -30,6 +41,7 @@ public class Game {
   public Game(String word, GameMode mode) {
     this.word = word;
     this.mode = mode;
+    this.settings = ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty();
   }
 
   public int getDuration() {
@@ -50,6 +62,10 @@ public class Game {
 
   public GameMode getMode() {
     return mode;
+  }
+
+  public Map<Setting, Difficulty> getSettings() {
+    return this.settings;
   }
 
   public String getWord() {

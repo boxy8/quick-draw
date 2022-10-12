@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import nz.ac.auckland.se206.games.Game;
+import nz.ac.auckland.se206.games.Game.Difficulty;
+import nz.ac.auckland.se206.games.Game.Setting;
 
 public class Profile {
   private String username;
@@ -15,6 +19,7 @@ public class Profile {
   private int fastestWinTime = 60;
   private List<String> wordHistory = new ArrayList<String>();
   private List<Game> gameHistory = new ArrayList<Game>();
+  private Map<Game.Setting, Game.Difficulty> setting2difficulty = new HashMap<>();
 
   public Profile(String username) throws IOException {
     this.username = username;
@@ -29,6 +34,7 @@ public class Profile {
       this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
       this.wordHistory = ProfileLoader.read(username).getWordHistory();
       this.gameHistory = ProfileLoader.read(username).getGameHistory();
+      this.setting2difficulty = ProfileLoader.read(username).getSetting2Difficulty();
     }
   }
 
@@ -79,6 +85,10 @@ public class Profile {
     List<Game> reversed = new ArrayList<>(gameHistory);
     Collections.reverse(reversed);
     return reversed;
+  }
+
+  public Map<Setting, Difficulty> getSetting2Difficulty() {
+    return setting2difficulty;
   }
 
   public void saveToFile() throws IOException {

@@ -12,12 +12,13 @@ import nz.ac.auckland.se206.controllers.SwitchOutListener;
 
 public class SceneManager {
   public enum AppUi {
-    CANVAS,
+    NORMAL_CANVAS,
     MAIN_MENU,
     CATEGORY_DISPLAY,
     PROFILE_PAGE,
     PROFILE_LIST,
-    MAIN
+    MAIN,
+    DIFFICULTY_SELECTOR
   }
 
   private static HashMap<AppUi, Scene> sceneMap = new HashMap<>();
