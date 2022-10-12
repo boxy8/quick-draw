@@ -17,7 +17,8 @@ public class SceneManager {
     CATEGORY_DISPLAY,
     PROFILE_PAGE,
     PROFILE_LIST,
-    MAIN
+    MAIN,
+    DIFFICULTY_SELECTOR
   }
 
   private static HashMap<AppUi, Scene> sceneMap = new HashMap<>();
@@ -50,8 +51,7 @@ public class SceneManager {
     BorderPane mainBorder = ((BorderPane) scene.getRoot());
 
     // call switch out method if applicable
-    Object currentController =
-        SceneManager.getController((AppUi) mainBorder.getCenter().getUserData());
+    Object currentController = SceneManager.getController((AppUi) mainBorder.getCenter().getUserData());
     if (currentController instanceof SwitchOutListener switchOutListener) {
       switchOutListener.onSwitchOut();
     }

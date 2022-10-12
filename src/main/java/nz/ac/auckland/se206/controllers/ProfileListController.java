@@ -16,13 +16,17 @@ import nz.ac.auckland.se206.profiles.ProfileLoader;
 
 public class ProfileListController implements SwitchInListener {
 
-  @FXML private TextField usernameField;
+  @FXML
+  private TextField usernameField;
 
-  @FXML private Button addButton;
+  @FXML
+  private Button addButton;
 
-  @FXML private Button deleteButton;
+  @FXML
+  private Button deleteButton;
 
-  @FXML private Button chooseButton;
+  @FXML
+  private Button chooseButton;
 
   @FXML private VBox profileContainer;
 
@@ -50,7 +54,8 @@ public class ProfileListController implements SwitchInListener {
   }
 
   /**
-   * Creates profile label with configured mouse click events and adds it to the GUI
+   * Creates profile label with configured mouse click events and adds it to the
+   * GUI
    *
    * @param username a string of the profile's username
    */
@@ -65,7 +70,8 @@ public class ProfileListController implements SwitchInListener {
   }
 
   /**
-   * Sets the current profile based on the current selected profile, and returns to the main menu
+   * Sets the current profile based on the current selected profile, and returns
+   * to the main menu
    *
    * @param event the event of activating the Choose Profile Button
    * @throws FileNotFoundException
@@ -78,10 +84,14 @@ public class ProfileListController implements SwitchInListener {
       String username = button.getText();
       Profile selectedProfile = ProfileLoader.read(username);
       ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
+
       // set program wide profile for the user
       ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
       SceneManager.changeScene(event, AppUi.MAIN_MENU);
       ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
+
+      // set difficulty settings on Difficulty Selector GUI
+      ((DifficultySelectorController) SceneManager.getController(AppUi.DIFFICULTY_SELECTOR)).setSpinners();
     }
   }
 
@@ -103,7 +113,7 @@ public class ProfileListController implements SwitchInListener {
       }
     }
   }
-
+  
   @Override
   public void onSwitchIn() {
     // pre-select the currently selected profile
