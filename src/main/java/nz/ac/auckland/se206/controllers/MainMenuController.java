@@ -12,15 +12,18 @@ import nz.ac.auckland.se206.profiles.ProfileHolder;
 
 public class MainMenuController implements SwitchInListener {
 
-  @FXML private Button playButton;
+  @FXML
+  private Button playButton;
 
-  @FXML private Label userNameLabel;
+  @FXML
+  private Label userNameLabel;
 
-  @FXML private Button profilesButton;
+  @FXML
+  private Button profilesButton;
 
   @FXML
   private void onPlay(ActionEvent event) {
-    SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
+    SceneManager.changeScene(event, AppUi.DIFFICULTY_SELECTOR);
   }
 
   @FXML
@@ -43,9 +46,10 @@ public class MainMenuController implements SwitchInListener {
         e.printStackTrace();
       }
     } else {
-      // if logged in as a user, make button say Play instead of Play as guest
+      // if logged in as a user, make button say Play as [username] instead of Play as guest
       if (!ProfileHolder.getInstance().getCurrentProfile().isGuest()) {
-        playButton.setText("Play");
+        playButton.setText(
+            "Play as " + ProfileHolder.getInstance().getCurrentProfile().getUsername());
       }
     }
   }
