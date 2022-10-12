@@ -39,7 +39,7 @@ public class CategoryDisplayController implements SwitchInListener {
   @FXML
   private void onStart(ActionEvent event) {
     // go to canvas view
-    SceneManager.changeScene(event, AppUi.CANVAS);
+    SceneManager.changeScene(event, AppUi.NORMAL_CANVAS);
   }
 
   /**

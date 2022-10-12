@@ -26,9 +26,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.FileChooser;
@@ -65,13 +67,9 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
   @FXML private Label timerLabel;
 
-  @FXML private Button clearButton;
+  @FXML private VBox toolsContainer;
 
-  @FXML private Button eraserButton;
-
-  @FXML private Button saveButton;
-
-  @FXML private Button newGameButton;
+  @FXML private RadioButton paintButton;
 
   @FXML private Label predictionsLabel;
 
@@ -97,6 +95,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    * @throws CsvException
    */
   public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
+
+    predictionsLabel.setWrapText(true); // wrap predictions that are too long
 
     model = new DoodlePrediction();
 
@@ -175,12 +175,11 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     endGameContainer.setVisible(false);
     // enable canvas and drawing buttons
     canvas.setDisable(false);
-    clearButton.setDisable(false);
-    eraserButton.setDisable(false);
+    toolsContainer.setDisable(false);
     // reset to pen function
-    graphic.setStroke(Color.BLACK);
+    paintButton.fire();
     game = new Game(currentWord, GameMode.NORMAL);
-    onClear(); // clear canvas
+    clearCanvas();
     startTimer();
   }
 
@@ -235,8 +234,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   private void endGame() {
     timeline.stop(); // stop timer/prediction updates
     canvas.setDisable(true);
-    clearButton.setDisable(true);
-    eraserButton.setDisable(true);
+    toolsContainer.setDisable(true);
 
     // display and announce a message based on game result
     if (game.getIsWin()) {
@@ -275,12 +273,6 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   @FXML
   private void onNewGame(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
-  }
-
-  /** This method is called when the "Clear" button is pressed. */
-  @FXML
-  private void onClear() {
-    graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
   }
 
   /**
@@ -377,21 +369,27 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     return false;
   }
 
-  /** Enables the eraser for the user and disables the pen for the user */
+  /** Switches to paintbrush tool */
   @FXML
-  private void onToggleErase() {
-    // checking for current pen/eraser
-    if (graphic.getStroke().equals(Color.BLACK)) {
-      // change to eraser and update button
-      graphic.setStroke(Color.WHITE);
-      eraserButton.getStyleClass().add("penButton");
-      eraserButton.getStyleClass().remove("eraserButton");
-    } else {
-      // change to pen and update button
-      graphic.setStroke(Color.BLACK);
-      eraserButton.getStyleClass().add("eraserButton");
-      eraserButton.getStyleClass().remove("penButton");
-    }
+  private void onPaintTool() {
+    graphic.setStroke(Color.BLACK);
+  }
+
+  /** Enables the eraser for the user */
+  @FXML
+  private void onEraseTool() {
+    // change to eraser
+    graphic.setStroke(Color.WHITE);
+  }
+
+  @FXML
+  private void onClearTool() {
+    clearCanvas();
+  }
+
+  /** Clears the canvas */
+  private void clearCanvas() {
+    graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
   }
 
   /**

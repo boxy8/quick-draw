@@ -1,19 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="840.0" styleClass="body" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfileListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="840.0" styleClass="bg-main" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfileListController">
    <children>
-      <Button fx:id="chooseButton" layoutX="696.0" layoutY="438.0" mnemonicParsing="false" onAction="#onChooseProfile" styleClass="chooseContainer">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <VBox alignment="TOP_CENTER" maxWidth="380.0" prefWidth="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label styleClass="canvas-text" text="Profiles" />
+                  <ScrollPane maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox spacing="10.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <children>
+                              <VBox fx:id="profileContainer" spacing="10.0" />
+                              <HBox styleClass="add-profile-box">
+                                 <children>
+                                    <TextField id="textField" fx:id="usernameField" prefHeight="36.0" prefWidth="200.0" promptText="Enter Username" HBox.hgrow="ALWAYS">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding></TextField>
+                                    <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddProfile" styleClass="image-button">
+                                       <graphic>
+                                          <ImageView fitHeight="48.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/add.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets left="14.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                     <styleClass>
+                        <String fx:value="scroll-box" />
+                        <String fx:value="main-container" />
+                     </styleClass>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children></AnchorPane>
+      <Button fx:id="chooseButton" layoutX="696.0" layoutY="438.0" mnemonicParsing="false" onAction="#onConfirmProfile" styleClass="chooseContainer">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -26,23 +76,10 @@
          </graphic>
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <VBox id="listContainer" fx:id="profileCards" layoutX="47.0" layoutY="14.0" prefHeight="536.0" prefWidth="372.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></VBox>
+         </cursor>
+      </Button>
       <AnchorPane layoutX="507.0" layoutY="53.0" prefHeight="106.0" prefWidth="265.0" styleClass="chooseContainer">
          <children>
-            <TextField fx:id="usernameField" layoutX="19.0" layoutY="56.0" prefHeight="36.0" prefWidth="200.0" promptText="Enter Username" styleClass="textField" />
-            <Button fx:id="addButton" layoutX="213.0" layoutY="56.0" mnemonicParsing="false" onAction="#onAddProfile" prefHeight="32.0" prefWidth="32.0" text="+">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <styleClass>
-                  <String fx:value="menuButton" />
-                  <String fx:value="chooseButton" />
-               </styleClass>
-            </Button>
             <Label layoutX="48.0" layoutY="14.0" text="Add Profile:">
                <font>
                   <Font size="30.0" />
@@ -52,11 +89,6 @@
       </AnchorPane>
       <AnchorPane layoutX="507.0" layoutY="243.0" prefHeight="106.0" prefWidth="265.0" styleClass="chooseContainer">
          <children>
-            <Button id="deleteButton" fx:id="deleteButton" layoutX="17.0" layoutY="56.0" mnemonicParsing="false" onAction="#onDeleteProfile" prefHeight="30.0" prefWidth="232.0" styleClass="chooseButton" text="X">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
             <Label layoutX="30.0" layoutY="14.0" text="Delete Profile:">
                <font>
                   <Font size="30.0" />
