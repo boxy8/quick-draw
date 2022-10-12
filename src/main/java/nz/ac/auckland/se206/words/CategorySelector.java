@@ -15,23 +15,23 @@ import java.util.Random;
 
 public class CategorySelector {
 
-  public enum Difficulty {
+  public enum WordDifficulty {
     E,
     M,
     H
   }
 
-  private Map<Difficulty, List<String>> difficulty2categories;
+  private Map<WordDifficulty, List<String>> difficulty2categories;
 
   public CategorySelector() throws IOException, CsvException, URISyntaxException {
     difficulty2categories = new HashMap<>();
     // saving in hash map for better performance
-    for (Difficulty difficulty : Difficulty.values()) {
+    for (WordDifficulty difficulty : WordDifficulty.values()) {
       difficulty2categories.put(difficulty, new ArrayList<>());
     }
 
     for (String[] line : getLines()) {
-      difficulty2categories.get(Difficulty.valueOf(line[1])).add(line[0]);
+      difficulty2categories.get(WordDifficulty.valueOf(line[1])).add(line[0]);
     }
   }
 
@@ -42,12 +42,11 @@ public class CategorySelector {
    * @param usedWords
    * @return
    */
-  public String getRandomCategory(Difficulty difficulty, List<String> usedWords) {
+  public String getRandomCategory(WordDifficulty difficulty, List<String> usedWords) {
     // gets a random word
-    String temp =
-        difficulty2categories
-            .get(difficulty)
-            .get(new Random().nextInt(difficulty2categories.get(difficulty).size()));
+    String temp = difficulty2categories
+        .get(difficulty)
+        .get(new Random().nextInt(difficulty2categories.get(difficulty).size()));
     // stores if the random word has not been encountered
     boolean foundWord = true;
     while (foundWord && (usedWords.size() < 144)) {
@@ -56,10 +55,9 @@ public class CategorySelector {
         return temp;
       } else {
         // return the word that is found
-        temp =
-            difficulty2categories
-                .get(difficulty)
-                .get(new Random().nextInt(difficulty2categories.get(difficulty).size()));
+        temp = difficulty2categories
+            .get(difficulty)
+            .get(new Random().nextInt(difficulty2categories.get(difficulty).size()));
       }
     }
     // if all words used. then return any random word
