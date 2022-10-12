@@ -50,6 +50,8 @@ public class DictionaryLookUp {
   }
 
   /**
+   * This finds the area of the json with the definition and returns it so that it is easy to use
+   *
    * @param element
    * @return definition of word as a jsonElement
    */
