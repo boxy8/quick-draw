@@ -26,9 +26,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.FileChooser;
@@ -39,6 +41,7 @@ import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.games.Game.GameMode;
+import nz.ac.auckland.se206.games.Game.Setting;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
@@ -65,13 +68,9 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
   @FXML private Label timerLabel;
 
-  @FXML private Button clearButton;
+  @FXML private VBox toolsContainer;
 
-  @FXML private Button eraserButton;
-
-  @FXML private Button saveButton;
-
-  @FXML private Button newGameButton;
+  @FXML private RadioButton paintButton;
 
   @FXML private Label predictionsLabel;
 
@@ -82,6 +81,9 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   private GraphicsContext graphic;
   private DoodlePrediction model;
   private Game game;
+  private int startingTime;
+  private int accuracyCondition;
+  private double confidenceCondition;
   private int timeLeft;
   private boolean drawingStarted; // Tells label to update
   private Timeline timeline;
@@ -99,6 +101,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    * @throws CsvException
    */
   public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
+
+    predictionsLabel.setWrapText(true); // wrap predictions that are too long
 
     model = new DoodlePrediction();
 
@@ -172,20 +176,81 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     String currentWord = WordHolder.getInstance().getCurrentWord();
     wordLabel.setText(currentWord); // display new category
     resultLabel.setText(""); // reset win/lose indicator
+
     // stop predictions from taking place
     drawingStarted = false;
+
     // empty label when starting game
     resetPredictionLabel();
+
     // hide end game buttons
     endGameContainer.setVisible(false);
+
     // enable canvas and drawing buttons
     canvas.setDisable(false);
-    clearButton.setDisable(false);
-    eraserButton.setDisable(false);
+
+    // set Accuracy win condition according to Accuracy difficulty chosen
+    switch (ProfileHolder.getInstance()
+        .getCurrentProfile()
+        .getSetting2Difficulty()
+        .get(Setting.ACCURACY)) {
+      case EASY:
+        accuracyCondition = 3;
+        break;
+      case MEDIUM:
+        accuracyCondition = 2;
+        break;
+      case HARD:
+        accuracyCondition = 1;
+        break;
+      default:
+        break;
+    }
+
+    // set starting time according to Time difficulty chosen
+    switch (ProfileHolder.getInstance()
+        .getCurrentProfile()
+        .getSetting2Difficulty()
+        .get(Setting.TIME)) {
+      case EASY:
+        startingTime = 60;
+        break;
+      case MEDIUM:
+        startingTime = 45;
+        break;
+      case HARD:
+        startingTime = 30;
+        break;
+      case MASTER:
+        startingTime = 15;
+        break;
+    }
+
+    // set Confidence win condition according to Confidence difficulty chosen
+    switch (ProfileHolder.getInstance()
+        .getCurrentProfile()
+        .getSetting2Difficulty()
+        .get(Setting.CONFIDENCE)) {
+      case EASY:
+        confidenceCondition = 0.01;
+        break;
+      case MEDIUM:
+        confidenceCondition = 0.1;
+        break;
+      case HARD:
+        confidenceCondition = 0.25;
+        break;
+      case MASTER:
+        confidenceCondition = 0.5;
+        break;
+    }
+
+    toolsContainer.setDisable(false);
+
     // reset to pen function
-    graphic.setStroke(Color.BLACK);
+    paintButton.fire();
     game = new Game(currentWord, GameMode.NORMAL);
-    onClear(); // clear canvas
+    clearCanvas();
     startTimer();
   }
 
@@ -217,9 +282,12 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     timerLabel.setText("--:--");
   }
 
-  /** reset the game timer back to 60 then refresh the label to 60 also */
+  /**
+   * reset the game timer back to 60 then refresh the label to 60 also reset the game timer back to
+   * the time associated with the time difficulty then refresh the label to the time also
+   */
   private void resetTimer() {
-    timeLeft = 60;
+    timeLeft = startingTime;
     updateTimerDisplay(timeLeft);
   }
 
@@ -252,8 +320,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   private void endGame() {
     timeline.stop(); // stop timer/prediction updates
     canvas.setDisable(true);
-    clearButton.setDisable(true);
-    eraserButton.setDisable(true);
+    toolsContainer.setDisable(true);
 
     // display and announce a message based on game result
     if (game.getIsWin()) {
@@ -267,7 +334,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     endGameContainer.setVisible(true);
 
     // set game time
-    int gameDuration = 60 - timeLeft;
+    int gameDuration = startingTime - timeLeft;
     game.setDuration(gameDuration);
 
     // update profile statistics with finished game
@@ -291,13 +358,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    */
   @FXML
   private void onNewGame(ActionEvent event) {
-    SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
-  }
-
-  /** This method is called when the "Clear" button is pressed. */
-  @FXML
-  private void onClear() {
-    graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    SceneManager.changeScene(event, AppUi.DIFFICULTY_SELECTOR);
   }
 
   /**
@@ -314,7 +375,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
           @Override
           protected Void call() throws Exception {
             // get current prediction from the machine learning model
-            List<Classification> predictions = model.getPredictions(canvasImg, 10);
+            List<Classification> predictions = model.getPredictions(canvasImg, 345);
             Platform.runLater(
                 () -> {
                   // after the prediction is received then update text to show it
@@ -375,7 +436,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   }
 
   /**
-   * Checks whether the player has won, i.e. whether the current word is in top 3 predictions.
+   * Checks whether the player has won, i.e. whether the current word is in top predictions as
+   * determined by accuracy difficulty.
    *
    * @param classifications The list of predictions
    * @return whether the player has won or not
@@ -385,36 +447,43 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     if (game.getMode() == Game.GameMode.ZEN) {
       return false;
     }
-    // go through top three predictions
-    for (int i = 0; i < 3; i++) {
-      if (classifications
-          .get(i)
-          .getClassName()
-          .replaceAll("_", " ")
-          .equals(WordHolder.getInstance().getCurrentWord())) {
+
+    // go through top predictions detemined by accuracy difficulty
+    for (int i = 0; i < accuracyCondition; i++) {
+
+      // if top word is correct with confidence above the required amount
+      if ((classifications.get(i).getProbability() > confidenceCondition)
+          && classifications
+              .get(i)
+              .getClassName()
+              .replaceAll("_", " ")
+              .equals(WordHolder.getInstance().getCurrentWord())) {
         return true;
       }
     }
     return false;
   }
 
-  /** Enables the eraser for the user and disables the pen for the user */
   @FXML
-  private void onToggleErase() {
-    // checking for current pen/eraser
-    if (!isErase) {
-      // change to eraser and update button
-      graphic.setStroke(Color.WHITE);
-      eraserButton.getStyleClass().add("penButton");
-      eraserButton.getStyleClass().remove("eraserButton");
-      isErase = true;
-    } else {
-      // change to pen and update button
-      graphic.setStroke(currentColor);
-      eraserButton.getStyleClass().add("eraserButton");
-      eraserButton.getStyleClass().remove("penButton");
-      isErase = false;
-    }
+  private void onPaintTool() {
+    graphic.setStroke(Color.BLACK);
+  }
+
+  /** Enables the eraser for the user */
+  @FXML
+  private void onEraseTool() {
+    // change to eraser
+    graphic.setStroke(Color.WHITE);
+  }
+
+  @FXML
+  private void onClearTool() {
+    clearCanvas();
+  }
+
+  /** Clears the canvas */
+  private void clearCanvas() {
+    graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
   }
 
   // COLORS
