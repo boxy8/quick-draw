@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.sounds.SoundEffects;
 import nz.ac.auckland.se206.words.WordHolder;
 
 public class CategoryDisplayController implements SwitchInListener {
@@ -19,6 +20,7 @@ public class CategoryDisplayController implements SwitchInListener {
   @FXML
   private void onStart(ActionEvent event) {
     // go to canvas view
+    SoundEffects.stopBackgroundMusic();
     SceneManager.changeScene(event, AppUi.NORMAL_CANVAS);
   }
 

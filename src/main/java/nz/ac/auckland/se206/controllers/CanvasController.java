@@ -91,6 +91,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   private TextToSpeech textToSpeech;
 
   private SoundEffects timerSoundEffect;
+  private SoundEffects winSoundEffect;
+  private SoundEffects loseSoundEffect;
   private SoundEffects zenMode; // yet to be added in with zen mode
 
   /**
@@ -103,6 +105,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    * @throws CsvException
    */
   public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
+    winSoundEffect = new SoundEffects("win");
+    loseSoundEffect = new SoundEffects("lose");
 
     predictionsLabel.setWrapText(true); // wrap predictions that are too long
 
@@ -258,7 +262,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     resetTimer();
     getCurrentSnapshot(); // calling this first seems to stop initial freezing problem
     try {
-      SoundEffects.stopBackgroundMusic();
+
       timerSoundEffect = new SoundEffects("timer");
       timerSoundEffect.playRepeateSound();
     } catch (URISyntaxException e1) {
@@ -321,9 +325,11 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
     // display and announce a message based on game result
     if (game.getIsWin()) {
+      winSoundEffect.playSound();
       resultLabel.setText("You win!");
       speak("Congratulations!");
     } else {
+      loseSoundEffect.playSound();
       resultLabel.setText("You lost!");
       speak("Maybe next time!");
     }
@@ -355,6 +361,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    */
   @FXML
   private void onNewGame(ActionEvent event) {
+    SoundEffects.playBackgroundMusic();
     SceneManager.changeScene(event, AppUi.DIFFICULTY_SELECTOR);
   }
 
@@ -540,7 +547,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   public void onSwitchOut() {
     // terminate any unfinished game
     timerSoundEffect.stopSound();
-    SoundEffects.playBackgroundMusic();
+
     if (!(timeline.getStatus() == Animation.Status.STOPPED)) {
       timeline.stop();
     }

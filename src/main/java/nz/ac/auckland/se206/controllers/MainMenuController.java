@@ -20,16 +20,6 @@ public class MainMenuController implements SwitchInListener {
 
   @FXML private Button profilesButton;
 
-  public void initialize() {
-    try {
-      SoundEffects.backgroundSoundLoad();
-    } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    SoundEffects.playBackgroundMusic();
-  }
-
   @FXML
   private void onPlay(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.DIFFICULTY_SELECTOR);
@@ -47,6 +37,13 @@ public class MainMenuController implements SwitchInListener {
 
   @Override
   public void onSwitchIn() {
+    try {
+      SoundEffects.backgroundSoundLoad();
+    } catch (URISyntaxException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    SoundEffects.playBackgroundMusic();
     // if no profile chosen, create a guest user
     if (ProfileHolder.getInstance().getCurrentProfile() == null) {
       try {

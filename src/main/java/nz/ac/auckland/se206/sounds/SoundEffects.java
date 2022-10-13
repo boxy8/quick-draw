@@ -10,6 +10,10 @@ public class SoundEffects {
   private static MediaPlayer BackgroundPlayer;
   private MediaPlayer player;
 
+  // SOUND EFFECT CREDIT
+  // background https://pixabay.com/music/beautiful-plays-ambient-piano-ampamp-strings-10711/
+  // timer https://mixkit.co/free-sound-effects/clock/
+
   public static void backgroundSoundLoad() throws URISyntaxException {
     Media backgroundSound =
         new Media(
@@ -18,6 +22,7 @@ public class SoundEffects {
                 + "backgroundMusic"
                 + ".wav");
     BackgroundPlayer = new MediaPlayer(backgroundSound);
+    BackgroundPlayer.setCycleCount(MediaPlayer.INDEFINITE);
   }
 
   public SoundEffects(String fileName) throws URISyntaxException {
@@ -35,7 +40,6 @@ public class SoundEffects {
   }
 
   public static void playBackgroundMusic() {
-    BackgroundPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     BackgroundPlayer.play();
   }
 
