@@ -91,16 +91,12 @@ public class ProfileButtonController extends HBox {
    */
   private void deleteProfileLabel(String username) throws IOException {
     if (selectButton.getText().equals(username)) {
-      System.out.println("SAME");
       // find out of the button is same as selected and set to guest if it is
       if (selectButton
           .getText()
           .equals(ProfileHolder.getInstance().getCurrentProfile().getUsername())) {
-        System.out.println("yesmaet");
         ProfileHolder.getInstance().setCurrentProfile(new Profile("Guest"));
         ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
-        // SceneManager.changeScene(null, AppUi.MAIN_MENU);
-        ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
       }
     }
     // delete the profile from the screen

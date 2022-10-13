@@ -95,10 +95,8 @@ public class ProfileListController implements SwitchInListener {
         e.printStackTrace();
       }
     }
-    // update all GUI that requires the username
+    // update GUI for main that requires the user name
     ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
-    ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
-    ((MainMenuController) SceneManager.getController(AppUi.MAIN_MENU)).setPlayButton();
     // swap scenes
     SceneManager.changeScene(event, AppUi.MAIN_MENU);
     // set difficulty settings on Difficulty Selector GUI

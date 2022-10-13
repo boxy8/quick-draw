@@ -56,6 +56,9 @@ public class ProfilePageController implements SwitchInListener {
   /** Runs when this page is switched to, It get populates the screen to show user statistics */
   @Override
   public void onSwitchIn() {
+
+    setProfileLabel();
+
     Profile profile = ProfileHolder.getInstance().getCurrentProfile();
     // populate statistics section with profile values
 

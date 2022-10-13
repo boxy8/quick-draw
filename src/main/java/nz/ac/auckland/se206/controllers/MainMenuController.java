@@ -48,7 +48,7 @@ public class MainMenuController implements SwitchInListener {
     SceneManager.changeScene(event, AppUi.PROFILE_PAGE);
   }
 
-  /** updates the play button with the current username of the profile */
+  /** updates the play button with the current user name of the profile */
   public void setPlayButton() {
     if (!ProfileHolder.getInstance().getCurrentProfile().isGuest()) {
       // set play button to user name
