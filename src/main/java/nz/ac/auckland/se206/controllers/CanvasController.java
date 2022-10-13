@@ -45,6 +45,7 @@ import nz.ac.auckland.se206.games.Game.Setting;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
+import nz.ac.auckland.se206.sounds.SoundEffects;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.words.WordHolder;
 
@@ -88,6 +89,9 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   private boolean drawingStarted; // Tells label to update
   private Timeline timeline;
   private TextToSpeech textToSpeech;
+
+  private SoundEffects timerSoundEffect;
+  private SoundEffects zenMode; // yet to be added in with zen mode
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
@@ -253,6 +257,14 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   private void startTimer() {
     resetTimer();
     getCurrentSnapshot(); // calling this first seems to stop initial freezing problem
+    try {
+      SoundEffects.stopBackgroundMusic();
+      timerSoundEffect = new SoundEffects("timer");
+      timerSoundEffect.playRepeateSound();
+    } catch (URISyntaxException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
     timeline =
         new Timeline(
             new KeyFrame(
@@ -301,6 +313,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    * screen
    */
   private void endGame() {
+    timerSoundEffect.stopSound();
+    SoundEffects.playBackgroundMusic();
     timeline.stop(); // stop timer/prediction updates
     canvas.setDisable(true);
     toolsContainer.setDisable(true);
@@ -525,6 +539,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   @Override
   public void onSwitchOut() {
     // terminate any unfinished game
+    timerSoundEffect.stopSound();
+    SoundEffects.playBackgroundMusic();
     if (!(timeline.getStatus() == Animation.Status.STOPPED)) {
       timeline.stop();
     }

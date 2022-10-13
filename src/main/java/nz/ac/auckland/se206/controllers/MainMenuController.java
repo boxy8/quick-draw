@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
+import nz.ac.auckland.se206.sounds.SoundEffects;
 
 public class MainMenuController implements SwitchInListener {
 
@@ -17,6 +19,16 @@ public class MainMenuController implements SwitchInListener {
   @FXML private Label userNameLabel;
 
   @FXML private Button profilesButton;
+
+  public void initialize() {
+    try {
+      SoundEffects.backgroundSoundLoad();
+    } catch (URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    SoundEffects.playBackgroundMusic();
+  }
 
   @FXML
   private void onPlay(ActionEvent event) {
