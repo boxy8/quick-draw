@@ -516,6 +516,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     backgroundPerson.start();
   }
 
+  /** Called when the game is left mid way through stops game from running */
   @Override
   public void onSwitchOut() {
     // terminate any unfinished game

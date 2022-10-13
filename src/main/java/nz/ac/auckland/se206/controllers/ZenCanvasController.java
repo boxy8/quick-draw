@@ -8,16 +8,19 @@ import javafx.scene.paint.Color;
 public class ZenCanvasController extends CanvasController {
   private Color currentColor; // American spelling : (
 
+  /** Always returns false as we don't want ZEN mode to end */
   @Override
   protected boolean isWin(List<Classifications.Classification> classifications) {
     return false;
   }
 
+  /** sets the timer to blank value rather than a time as such */
   @Override
   protected void resetTimer() {
     timerLabel.setText("--:--");
   }
 
+  /** This overrides the function as there is no reason to count down */
   @Override
   protected void countDown() {}
 
