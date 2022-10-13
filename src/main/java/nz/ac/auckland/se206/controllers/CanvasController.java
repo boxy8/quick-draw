@@ -543,6 +543,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   public void onSwitchOut() {
     // terminate any unfinished game
     timerSoundEffect.stopSound();
+    SoundEffects.playBackgroundMusic();
 
     if (!(timeline.getStatus() == Animation.Status.STOPPED)) {
       timeline.stop();

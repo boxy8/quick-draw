@@ -8,22 +8,12 @@ import nz.ac.auckland.se206.words.CategorySelector;
 public class SoundEffects {
 
   private static MediaPlayer BackgroundPlayer;
+  private static boolean musicPlaying;
   private MediaPlayer player;
 
   // SOUND EFFECT CREDIT
   // background https://pixabay.com/music/beautiful-plays-ambient-piano-ampamp-strings-10711/
   // timer https://mixkit.co/free-sound-effects/clock/
-
-  public static void backgroundSoundLoad() throws URISyntaxException {
-    Media backgroundSound =
-        new Media(
-            CategorySelector.class.getResource("/sounds").toURI()
-                + "/"
-                + "backgroundMusic"
-                + ".wav");
-    BackgroundPlayer = new MediaPlayer(backgroundSound);
-    BackgroundPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-  }
 
   public SoundEffects(String fileName) throws URISyntaxException {
     Media sound =
@@ -40,10 +30,30 @@ public class SoundEffects {
   }
 
   public static void playBackgroundMusic() {
-    BackgroundPlayer.play();
+    if (BackgroundPlayer == null) {
+      Media backgroundSound;
+      try {
+        backgroundSound =
+            new Media(
+                CategorySelector.class.getResource("/sounds").toURI()
+                    + "/"
+                    + "backgroundMusic"
+                    + ".wav");
+        BackgroundPlayer = new MediaPlayer(backgroundSound);
+        BackgroundPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+      } catch (URISyntaxException e) {
+        e.printStackTrace();
+      }
+    }
+
+    if (!musicPlaying) {
+      BackgroundPlayer.play();
+      musicPlaying = true;
+    }
   }
 
   public static void stopBackgroundMusic() {
+    musicPlaying = false;
     BackgroundPlayer.stop();
   }
 

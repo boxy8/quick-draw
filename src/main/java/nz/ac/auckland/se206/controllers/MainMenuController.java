@@ -1,7 +1,6 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -53,12 +52,6 @@ public class MainMenuController implements SwitchInListener {
   /** When this controller is switched to makes everything default guest or selected profile */
   @Override
   public void onSwitchIn() {
-    try {
-      SoundEffects.backgroundSoundLoad();
-    } catch (URISyntaxException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    }
     SoundEffects.playBackgroundMusic();
     // if no profile chosen, create a guest user
     if (ProfileHolder.getInstance().getCurrentProfile() == null) {
