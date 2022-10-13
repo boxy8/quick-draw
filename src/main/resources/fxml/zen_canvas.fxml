@@ -110,6 +110,97 @@
                   </VBox>
                </children>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="419.0" spacing="15.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="116.0">
+               <children>
+                  <RadioButton mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/red_paint.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/orange_paint.png.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/yellow_paint.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/green_paint.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/blue_paint.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/dark_blue_paint.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/purple_paint.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/pink_paint.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/black_paint.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </RadioButton>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
             <AnchorPane fx:id="endGameContainer" prefHeight="80.0" prefWidth="209.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Label layoutX="146.0" layoutY="58.0" text="Play Again" />

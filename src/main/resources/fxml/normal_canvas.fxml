@@ -105,7 +105,7 @@
                   <VBox fx:id="predictionsContainer" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="146.0" styleClass="main-container" HBox.hgrow="ALWAYS">
                      <children>
                         <Label prefHeight="25.0" prefWidth="170.0" text="Predictions:" />
-                        <Label fx:id="predictionsLabel" alignment="TOP_LEFT" prefHeight="299.0" prefWidth="170.0" text="Label" />
+                        <Label fx:id="predictionsLabel" alignment="TOP_LEFT" prefWidth="170.0" text="Label" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>

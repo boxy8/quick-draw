@@ -4,7 +4,6 @@ import static nz.ac.auckland.se206.util.ImageUtils.invertBlackAndWhite;
 
 import ai.djl.ModelException;
 import ai.djl.modality.Classifications;
-import ai.djl.modality.Classifications.Classification;
 import ai.djl.modality.cv.BufferedImageFactory;
 import ai.djl.modality.cv.Image;
 import ai.djl.modality.cv.transform.ToTensor;
@@ -81,38 +80,23 @@ public class DoodlePrediction {
   public static String getFormattedPredictions(
       final List<Classifications.Classification> predictions) {
     final StringBuilder sb = new StringBuilder();
-
-    int i = 1; // prediction number
-
-    for (int j = 0; j < 10; j++) {
-      Classification classification = predictions.get(j);
-      // append the formatted prediction to StringBuilder
-      sb.append(i)
-          .append(" : ")
-          .append(classification.getClassName().replace("_", " "))
-          .append(System.lineSeparator());
-      i++;
-    }
-    // finding location of where the word to be guessed is
-    int currentWordLocation = 0;
-    for (Classification classification1 : predictions) {
-      // increment first to get correct numbering
-      currentWordLocation++;
+    for (int i = 0; i < predictions.size(); i++) {
+      String prediction = predictions.get(i).getClassName().replace("_", " ");
+      if (i < 10) {
+        sb.append(i + 1).append(" : ").append(prediction).append(System.lineSeparator());
+      }
       // find location
-      if (classification1.getClassName().equals(WordHolder.getInstance().getCurrentWord())) {
+      if (prediction.equals(WordHolder.getInstance().getCurrentWord())) {
         // when it is number 11, there is no need for three "."
-        if (currentWordLocation == 11) {
-          sb.append(currentWordLocation)
-              .append(" : ")
-              .append(classification1.getClassName().replace("_", " "))
-              .append(System.lineSeparator());
+        if (i == 10) {
+          sb.append(i + 1).append(" : ").append(prediction).append(System.lineSeparator());
           // when there is, then have three "."
-        } else if (currentWordLocation > 11) {
+        } else if (i > 10) {
           sb.append("...")
               .append(System.lineSeparator())
-              .append(currentWordLocation)
+              .append(i + 1)
               .append(" : ")
-              .append(classification1.getClassName().replace("_", " "))
+              .append(prediction)
               .append(System.lineSeparator());
         }
       }
