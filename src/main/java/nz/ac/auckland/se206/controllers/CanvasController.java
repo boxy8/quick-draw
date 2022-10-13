@@ -301,6 +301,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     toolsContainer.setDisable(true);
 
     // display and announce a message based on game result
+
     if (game.getIsWin()) {
       resultLabel.setText("You win!");
       speak("Congratulations!");
@@ -437,7 +438,6 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     return false;
   }
 
-  /** Switches to paintbrush tool */
   @FXML
   protected void onPaintTool() {
     graphic.setStroke(Color.BLACK);
