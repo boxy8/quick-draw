@@ -30,6 +30,10 @@ public class DifficultySelectorController implements Initializable {
   @FXML private Button chooseDifficultyButton;
   private CategorySelector categorySelector;
 
+  /**
+   * called when JavaFx is done loading all GUI, this method grabs all the available categories and
+   * stores them in a HashMap for later use
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
@@ -39,12 +43,12 @@ public class DifficultySelectorController implements Initializable {
       e.printStackTrace();
     }
 
-    // initialise spinners with "Easy", "Medium", and "Hard" difficulties
+    // Initialize spinners with "Easy", "Medium", and "Hard" difficulties
     ObservableList<String> accuracyDifficulties =
         FXCollections.observableArrayList("EASY", "MEDIUM", "HARD");
     initializeSpinner(accuracySpinner, Setting.ACCURACY, accuracyDifficulties);
 
-    // initialise spinners with "Easy", "Medium", "Hard", and "Master" difficulties
+    // Initialize spinners with "Easy", "Medium", "Hard", and "Master" difficulties
     ObservableList<String> difficulties =
         FXCollections.observableArrayList("EASY", "MEDIUM", "HARD", "MASTER");
     initializeSpinner(wordsSpinner, Setting.WORDS, difficulties);

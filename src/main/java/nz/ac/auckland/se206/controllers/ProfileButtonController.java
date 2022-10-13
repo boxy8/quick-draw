@@ -22,6 +22,7 @@ public class ProfileButtonController extends HBox {
         new FXMLLoader(getClass().getResource("/fxml/" + "profile_button" + ".fxml"));
     loader.setRoot(this);
     loader.setController(this);
+    // loading the profile button instance
     try {
       loader.load();
     } catch (IOException e) {
@@ -29,18 +30,38 @@ public class ProfileButtonController extends HBox {
     }
   }
 
+  /**
+   * Get the current button selected's name
+   *
+   * @return
+   */
   public String getToggleText() {
     return selectButton.getText();
   }
 
+  /**
+   * set the current toggle button's name
+   *
+   * @param username
+   */
   public void setToggleText(String username) {
     selectButton.setText(username);
   }
 
+  /**
+   * set the current selected toggle button to on or off
+   *
+   * @param bool
+   */
   public void setToggleSelected(boolean bool) {
     selectButton.setSelected(bool);
   }
 
+  /**
+   * set the current selected button to the toggle group
+   *
+   * @param group
+   */
   public void setToggleGroup(ToggleGroup group) {
     selectButton.setToggleGroup(group);
   }
@@ -54,6 +75,7 @@ public class ProfileButtonController extends HBox {
   @FXML
   private void onDeleteProfile() throws IOException {
     ToggleButton button = selectButton;
+    // make sure that there is a button selected
     if (button != null) {
       Profile selectedProfile = ProfileLoader.read(button.getText());
       selectedProfile.delete();
@@ -61,19 +83,24 @@ public class ProfileButtonController extends HBox {
     }
   }
 
+  /**
+   * Deletes the profile label in the select profile screen
+   *
+   * @param username
+   * @throws IOException
+   */
   private void deleteProfileLabel(String username) throws IOException {
     if (selectButton.getText().equals(username)) {
+      // find out of the button is same as selected and set to guest if it is
       if (selectButton
           .getText()
           .equals(ProfileHolder.getInstance().getCurrentProfile().getUsername())) {
-        ProfileHolder.getInstance().setInstance();
-        ProfileHolder.getInstance();
-        System.out.println(ProfileHolder.getInstance());
         ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
         SceneManager.changeScene(null, AppUi.MAIN_MENU);
         ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
       }
     }
+    // delete the profile from the screen
     ((ProfileListController) SceneManager.getController(AppUi.PROFILE_LIST)).onDeleteProf(this);
   }
 }

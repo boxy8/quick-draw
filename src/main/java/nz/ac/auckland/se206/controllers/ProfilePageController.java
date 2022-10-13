@@ -39,18 +39,21 @@ public class ProfilePageController implements SwitchInListener {
   @FXML private TableColumn<Game, Integer> lengthCol;
   @FXML private TableColumn<Game, Boolean> wonCol;
 
+  /** Runs when GUI is finished loading from JavaFX, it gets the table colums ready */
   public void initialize() {
-    // initialise table columns
+    // Initialize table columns
     wordCol.setCellValueFactory(new PropertyValueFactory<Game, String>("word"));
     modeCol.setCellValueFactory(new PropertyValueFactory<Game, GameMode>("mode"));
     lengthCol.setCellValueFactory(new PropertyValueFactory<Game, Integer>("duration"));
     wonCol.setCellValueFactory(new PropertyValueFactory<Game, Boolean>("isWin"));
   }
 
+  /** sets the label of the profile to the current username of the profile */
   public void setProfileLabel() {
     usernameLabel.setText(ProfileHolder.getInstance().getCurrentProfile().getUsername());
   }
 
+  /** Runs when this page is switched to, It get populates the screen to show user statistics */
   @Override
   public void onSwitchIn() {
     Profile profile = ProfileHolder.getInstance().getCurrentProfile();
