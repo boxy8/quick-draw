@@ -82,20 +82,28 @@ public class ProfileListController implements SwitchInListener {
   private void onConfirmProfile(ActionEvent event) throws FileNotFoundException {
     ToggleButton button = (ToggleButton) profilesGroup.getSelectedToggle();
     // if a profile was selected
-    if (button != null) {
+    if ((button != null) && (profileContainer.getChildren().size() != 0)) {
+      // set to selected profile
       String username = button.getText();
       Profile selectedProfile = ProfileLoader.read(username);
       ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
-
-      // set program wide profile for the user
-      ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
-      SceneManager.changeScene(event, AppUi.MAIN_MENU);
-      ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
-
-      // set difficulty settings on Difficulty Selector GUI
-      ((DifficultySelectorController) SceneManager.getController(AppUi.DIFFICULTY_SELECTOR))
-          .setSpinners();
+    } else {
+      // set to Guest if nothing is selected
+      try {
+        ProfileHolder.getInstance().setCurrentProfile(new Profile("Guest"));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
+    // update all GUI that requires the username
+    ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
+    ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
+    ((MainMenuController) SceneManager.getController(AppUi.MAIN_MENU)).setPlayButton();
+    // swap scenes
+    SceneManager.changeScene(event, AppUi.MAIN_MENU);
+    // set difficulty settings on Difficulty Selector GUI
+    ((DifficultySelectorController) SceneManager.getController(AppUi.DIFFICULTY_SELECTOR))
+        .setSpinners();
   }
 
   /** Adds a profile to the game and shows it on the GUI */
@@ -138,8 +146,9 @@ public class ProfileListController implements SwitchInListener {
    *
    * @param profileButtonController
    */
-  public void onDeleteProf(ProfileButtonController profileButtonController) {
+  public void onDeleteProfileButton(ProfileButtonController profileButtonController) {
     profileContainer.getChildren().remove(profileButtonController);
+    profileButtons.remove(profileButtonController);
   }
 
   /** Runs when this is switched to, it shows the current profile that is selected */
