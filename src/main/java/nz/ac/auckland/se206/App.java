@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
-import nz.ac.auckland.se206.controllers.CanvasController;
+import nz.ac.auckland.se206.controllers.NormalCanvasController;
 import nz.ac.auckland.se206.controllers.SwitchInListener;
 
 /**
@@ -38,7 +38,7 @@ public class App extends Application {
    * This method is invoked when the application starts. It loads and shows the "Canvas" scene.
    *
    * @param stage The primary stage of the application.
-   * @throws IOException If "src/main/resources/fxml/canvas.fxml" is not found.
+   * @throws IOException If "src/main/resources/fxml/[scene].fxml" is not found.
    */
   @Override
   public void start(final Stage stage) throws IOException {
@@ -46,8 +46,8 @@ public class App extends Application {
         e -> {
           Platform.exit();
           // Terminate TTS so app closes fully on close
-          CanvasController controller =
-              (CanvasController) SceneManager.getController(AppUi.NORMAL_CANVAS);
+          NormalCanvasController controller =
+              (NormalCanvasController) SceneManager.getController(AppUi.NORMAL_CANVAS);
           if (controller.getTextToSpeech() != null) {
             controller.getTextToSpeech().terminate();
           }
@@ -55,7 +55,6 @@ public class App extends Application {
 
     // add scenes to scene manager
     SceneManager.addUi(AppUi.MAIN_MENU, getFxmlLoader("main_menu"));
-
     SceneManager.addUi(AppUi.MAIN, getFxmlLoader("main"));
     // these views all use the main border pane
     SceneManager.addUi(AppUi.NORMAL_CANVAS, getFxmlLoader("normal_canvas"));
@@ -63,6 +62,7 @@ public class App extends Application {
     SceneManager.addUi(AppUi.PROFILE_PAGE, getFxmlLoader("profile_page"));
     SceneManager.addUi(AppUi.PROFILE_LIST, getFxmlLoader("profile_list"));
     SceneManager.addUi(AppUi.DIFFICULTY_SELECTOR, getFxmlLoader("difficulty_selector"));
+    SceneManager.addUi(AppUi.ZEN_CANVAS, getFxmlLoader("zen_canvas"));
 
     scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN), 840, 680);
     // scene will always be main scene

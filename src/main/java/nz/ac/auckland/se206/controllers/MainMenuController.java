@@ -20,21 +20,37 @@ public class MainMenuController implements SwitchInListener {
 
   @FXML private Button profilesButton;
 
+  /**
+   * When play is pushed, takes user to the difficulty selector
+   *
+   * @param event
+   */
   @FXML
   private void onPlay(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.DIFFICULTY_SELECTOR);
   }
 
+  /**
+   * When chose profile is selected, it takes user to profile list page
+   *
+   * @param event
+   */
   @FXML
   private void onChooseProfile(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.PROFILE_LIST);
   }
 
+  /**
+   * When show profile is selected, it takes user to the profile page
+   *
+   * @param event
+   */
   @FXML
   private void onShowProfile(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.PROFILE_PAGE);
   }
 
+  /** When this controller is switched to makes everything default guest or selected profile */
   @Override
   public void onSwitchIn() {
     try {
@@ -47,6 +63,7 @@ public class MainMenuController implements SwitchInListener {
     // if no profile chosen, create a guest user
     if (ProfileHolder.getInstance().getCurrentProfile() == null) {
       try {
+        // create a guest profile
         ProfileHolder.getInstance().setCurrentProfile(new Profile("Guest"));
       } catch (IOException e) {
         e.printStackTrace();

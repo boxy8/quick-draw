@@ -57,6 +57,7 @@ public class DictionaryLookUp {
    */
   private static JsonElement getDefinition(JsonElement element) {
     // grab required string which is the definition
+    // it finds the first meaning of the word only
     JsonElement jsonObject =
         element
             .getAsJsonArray()
@@ -71,6 +72,7 @@ public class DictionaryLookUp {
             .get(0)
             .getAsJsonObject()
             .get("definition");
+    // returns as a json object for easier reworking
     return jsonObject;
   }
 }
