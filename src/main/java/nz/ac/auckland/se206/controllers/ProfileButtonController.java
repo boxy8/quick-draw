@@ -6,6 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
+import nz.ac.auckland.se206.SceneManager;
+import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.profiles.Profile;
+import nz.ac.auckland.se206.profiles.ProfileHolder;
+import nz.ac.auckland.se206.profiles.ProfileLoader;
 
 public class ProfileButtonController extends HBox {
 
@@ -43,10 +48,32 @@ public class ProfileButtonController extends HBox {
   /**
    * Deletes the currently selected profile and removes it from the GUI. Warns the user and requires
    * confirmation
+   *
+   * @throws IOException
    */
   @FXML
-  private void onDeleteProfile() {
-    // To Do
-    System.out.println("delete");
+  private void onDeleteProfile() throws IOException {
+    ToggleButton button = selectButton;
+    if (button != null) {
+      Profile selectedProfile = ProfileLoader.read(button.getText());
+      selectedProfile.delete();
+      deleteProfileLabel(button.getText());
+    }
+  }
+
+  private void deleteProfileLabel(String username) throws IOException {
+    if (selectButton.getText().equals(username)) {
+      if (selectButton
+          .getText()
+          .equals(ProfileHolder.getInstance().getCurrentProfile().getUsername())) {
+        ProfileHolder.getInstance().setInstance();
+        ProfileHolder.getInstance();
+        System.out.println(ProfileHolder.getInstance());
+        ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
+        SceneManager.changeScene(null, AppUi.MAIN_MENU);
+        ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
+      }
+    }
+    ((ProfileListController) SceneManager.getController(AppUi.PROFILE_LIST)).onDeleteProf(this);
   }
 }

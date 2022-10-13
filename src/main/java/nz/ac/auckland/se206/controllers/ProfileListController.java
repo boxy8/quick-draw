@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -95,7 +98,7 @@ public class ProfileListController implements SwitchInListener {
   private void onAddProfile() {
     String username = usernameField.getText();
     // making sure that a valid username is entered
-    if (username.length() > 0) {
+    if ((username.length() > 0) && !(isDuplicateUsername(username))) {
       try {
         // create a new profile
         Profile newProfile = new Profile(username);
@@ -107,6 +110,19 @@ public class ProfileListController implements SwitchInListener {
         usernameField.setText("Try Again");
       }
     }
+  }
+
+  private boolean isDuplicateUsername(String username) {
+    for (ProfileButtonController prof : profileButtons) {
+      if (prof.getToggleText().equals(username)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public void onDeleteProf(ProfileButtonController profileButtonController) {
+    profileContainer.getChildren().remove(profileButtonController);
   }
 
   @Override

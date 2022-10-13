@@ -23,6 +23,12 @@ public class ProfileLoader {
     BufferedReader buffReader = new BufferedReader(new FileReader(filePath));
     // read the file and make it into a profile
     Profile readProfile = gson.fromJson(buffReader, Profile.class);
+    try {
+      buffReader.close();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     return readProfile;
   }
 

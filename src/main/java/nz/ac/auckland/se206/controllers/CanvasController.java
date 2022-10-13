@@ -78,8 +78,6 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
   @FXML private AnchorPane endGameContainer;
 
-  @FXML private Button endGameButton;
-
   private GraphicsContext graphic;
   private DoodlePrediction model;
   private Game game;
@@ -285,8 +283,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   }
 
   /**
-   * reset the game timer back to 60 then refresh the label to 60 also reset the game timer back to
-   * the time associated with the time difficulty then refresh the label to the time also
+   * reset the game timer back to the time associated with the time difficulty then refresh the
+   * label to the time also
    */
   private void resetTimer() {
     timeLeft = startingTime;

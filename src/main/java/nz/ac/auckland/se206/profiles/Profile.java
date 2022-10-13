@@ -122,4 +122,12 @@ public class Profile {
     // update game history
     gameHistory.add(game);
   }
+
+  public void delete() {
+    String filePath = "profiles/" + username + ".json";
+    File f = new File(filePath);
+    if (f.exists()) {
+      f.delete();
+    }
+  }
 }
