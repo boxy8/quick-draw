@@ -165,7 +165,6 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   public void onSwitchIn() {
     String currentWord = WordHolder.getInstance().getCurrentWord();
     wordLabel.setText(currentWord); // display new category
-    resultLabel.setText(""); // reset win/lose indicator
 
     // stop predictions from taking place
     drawingStarted = false;

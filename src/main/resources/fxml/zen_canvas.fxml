@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="840.0" styleClass="bg-main" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ZenCanvasController">
    <children>
@@ -163,8 +162,11 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="colors" />
+                     </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onChooseOrange">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseOrange" toggleGroup="$colors">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -173,7 +175,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onChooseYellow">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseYellow" toggleGroup="$colors">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -182,7 +184,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onChooseGreen">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseGreen" toggleGroup="$colors">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -191,7 +193,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onChooseBlue">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseBlue" toggleGroup="$colors">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -200,7 +202,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onChooseDarkBlue">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseDarkBlue" toggleGroup="$colors">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -209,7 +211,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onChoosePurple">
+                  <RadioButton mnemonicParsing="false" onAction="#onChoosePurple" toggleGroup="$colors">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -218,7 +220,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onChoosePink">
+                  <RadioButton mnemonicParsing="false" onAction="#onChoosePink" toggleGroup="$colors">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -227,7 +229,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onChooseBlack">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseBlack" toggleGroup="$colors">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -246,29 +248,7 @@
             </HBox>
             <AnchorPane fx:id="endGameContainer" prefHeight="80.0" prefWidth="209.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Label layoutX="146.0" layoutY="58.0" text="Play Again" />
-                  <Label fx:id="resultLabel" alignment="CENTER" layoutX="30.0" prefHeight="35.0" prefWidth="150.0" text="Result">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="8.0" layoutY="58.0" text="Save Image" />
-                  <Button fx:id="newGameButton" layoutX="155.0" layoutY="20.0" mnemonicParsing="false" onAction="#onNewGame" styleClass="image-button">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/replay.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="saveButton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#onSave" styleClass="image-button">
+                  <Button fx:id="saveButton" layoutX="42.0" layoutY="39.0" mnemonicParsing="false" onAction="#onSave" prefHeight="50.0" prefWidth="209.0" style="-fx-font-size: 26;" styleClass="main-button" text="Save Image">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
