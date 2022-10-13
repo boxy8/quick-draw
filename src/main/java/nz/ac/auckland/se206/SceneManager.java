@@ -13,6 +13,7 @@ import nz.ac.auckland.se206.controllers.SwitchOutListener;
 public class SceneManager {
   public enum AppUi {
     NORMAL_CANVAS,
+    ZEN_CANVAS,
     MAIN_MENU,
     CATEGORY_DISPLAY,
     PROFILE_PAGE,

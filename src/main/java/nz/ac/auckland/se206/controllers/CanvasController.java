@@ -4,7 +4,6 @@ import static nz.ac.auckland.se206.ml.DoodlePrediction.getFormattedPredictions;
 
 import ai.djl.ModelException;
 import ai.djl.modality.Classifications;
-import ai.djl.modality.Classifications.Classification;
 import ai.djl.translate.TranslateException;
 import com.opencsv.exceptions.CsvException;
 import java.awt.Graphics2D;
@@ -38,10 +37,7 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import nz.ac.auckland.se206.SceneManager;
-import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.games.Game;
-import nz.ac.auckland.se206.games.Game.GameMode;
-import nz.ac.auckland.se206.games.Game.Setting;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
@@ -60,36 +56,33 @@ import nz.ac.auckland.se206.words.WordHolder;
  * the canvas size, the ML model will not work correctly. So be careful. If you make some changes in
  * the canvas and brush sizes, make sure that the prediction works fine.
  */
-public class CanvasController implements SwitchInListener, SwitchOutListener {
+public abstract class CanvasController implements SwitchInListener, SwitchOutListener {
+  @FXML protected Canvas canvas;
 
-  @FXML private Canvas canvas;
+  @FXML protected Label wordLabel;
 
-  @FXML private Label wordLabel;
+  @FXML protected Label timerLabel;
 
-  @FXML private Label timerLabel;
+  @FXML protected VBox toolsContainer;
 
-  @FXML private VBox toolsContainer;
+  @FXML protected RadioButton paintButton;
 
-  @FXML private RadioButton paintButton;
+  @FXML protected Label predictionsLabel;
 
-  @FXML private Label predictionsLabel;
+  @FXML protected Label resultLabel;
 
-  @FXML private Label resultLabel;
+  @FXML protected AnchorPane endGameContainer;
 
-  @FXML private AnchorPane endGameContainer;
-
-  private GraphicsContext graphic;
-  private DoodlePrediction model;
-  private Game game;
-  private int startingTime;
-  private int accuracyCondition;
-  private double confidenceCondition;
-  private int timeLeft;
-  private boolean drawingStarted; // Tells label to update
-  private Timeline timeline;
-  private TextToSpeech textToSpeech;
-  private boolean isErase;
-  private Color currentColor; // American spelling : (
+  protected GraphicsContext graphic;
+  protected DoodlePrediction model;
+  protected Game game;
+  protected int startingTime;
+  protected int accuracyCondition;
+  protected double confidenceCondition;
+  protected int timeLeft;
+  protected boolean drawingStarted; // Tells label to update
+  protected Timeline timeline;
+  protected TextToSpeech textToSpeech;
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
@@ -109,9 +102,6 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     graphic = canvas.getGraphicsContext2D();
     graphic.setLineWidth(7);
     graphic.setLineCap(StrokeLineCap.ROUND);
-    currentColor = Color.BLACK;
-    graphic.setStroke(currentColor);
-    isErase = false;
 
     /**
      * @author pelgrim <https://stackoverflow.com/users/8937787/pelgrim>
@@ -193,7 +183,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     switch (ProfileHolder.getInstance()
         .getCurrentProfile()
         .getSetting2Difficulty()
-        .get(Setting.ACCURACY)) {
+        .get(Game.Setting.ACCURACY)) {
       case EASY:
         accuracyCondition = 3;
         break;
@@ -211,7 +201,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     switch (ProfileHolder.getInstance()
         .getCurrentProfile()
         .getSetting2Difficulty()
-        .get(Setting.TIME)) {
+        .get(Game.Setting.TIME)) {
       case EASY:
         startingTime = 60;
         break;
@@ -230,7 +220,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     switch (ProfileHolder.getInstance()
         .getCurrentProfile()
         .getSetting2Difficulty()
-        .get(Setting.CONFIDENCE)) {
+        .get(Game.Setting.CONFIDENCE)) {
       case EASY:
         confidenceCondition = 0.01;
         break;
@@ -249,19 +239,14 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
     // reset to pen function
     paintButton.fire();
-    game = new Game(currentWord, GameMode.NORMAL);
+    game = new Game(currentWord, Game.GameMode.NORMAL);
     clearCanvas();
     startTimer();
   }
 
   /** Used to start the timer for predictions and also the clock */
-  private void startTimer() {
-    // reset to correct time depending on gamemode
-    if (game.getMode() == Game.GameMode.ZEN) {
-      zenTimer();
-    } else {
-      resetTimer();
-    }
+  protected void startTimer() {
+    resetTimer();
     getCurrentSnapshot(); // calling this first seems to stop initial freezing problem
     timeline =
         new Timeline(
@@ -278,38 +263,31 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
     timeline.play();
   }
 
-  private void zenTimer() {
-    timerLabel.setText("--:--");
-  }
-
   /**
    * reset the game timer back to the time associated with the time difficulty then refresh the
    * label to the time also
    */
-  private void resetTimer() {
+  protected void resetTimer() {
     timeLeft = startingTime;
     updateTimerDisplay(timeLeft);
   }
 
   /** Reset the prediction label so that we don't have guesses before user starts drawing */
-  private void resetPredictionLabel() {
+  protected void resetPredictionLabel() {
     predictionsLabel.setText(" ");
   }
 
   /** Updates the time to reduce by one each time it is run, it also ends game at 0 seconds */
-  private void countDown() {
-    // only run timer if gamemode is not zen
-    if (game.getMode() != Game.GameMode.ZEN) {
-      timeLeft--;
-      updateTimerDisplay(timeLeft);
-      if (timeLeft == 0) {
-        endGame();
-      }
+  protected void countDown() {
+    timeLeft--;
+    updateTimerDisplay(timeLeft);
+    if (timeLeft == 0) {
+      endGame();
     }
   }
 
   /** Formats the timer to make it look nice with minutes and seconds */
-  private void updateTimerDisplay(int s) {
+  protected void updateTimerDisplay(int s) {
     timerLabel.setText(String.format("%02d:%02d", (s / 60), (s % 60)));
   }
 
@@ -317,7 +295,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    * Ends the game by stopping all running events, enabling/disabling required buttons, runs end
    * screen
    */
-  private void endGame() {
+  protected void endGame() {
     timeline.stop(); // stop timer/prediction updates
     canvas.setDisable(true);
     toolsContainer.setDisable(true);
@@ -358,8 +336,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    * @param event
    */
   @FXML
-  private void onNewGame(ActionEvent event) {
-    SceneManager.changeScene(event, AppUi.DIFFICULTY_SELECTOR);
+  protected void onNewGame(ActionEvent event) {
+    SceneManager.changeScene(event, SceneManager.AppUi.DIFFICULTY_SELECTOR);
   }
 
   /**
@@ -369,14 +347,14 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    *
    * @throws TranslateException If there is an error in reading the input/output of the DL model.
    */
-  private void onPredict(BufferedImage canvasImg) {
+  protected void onPredict(BufferedImage canvasImg) {
     // run in new thread to make sure GUI does not freeze
     Task<Void> backgroundTask =
         new Task<>() {
           @Override
           protected Void call() throws Exception {
             // get current prediction from the machine learning model
-            List<Classification> predictions = model.getPredictions(canvasImg, 345);
+            List<Classifications.Classification> predictions = model.getPredictions(canvasImg, 345);
             Platform.runLater(
                 () -> {
                   // after the prediction is received then update text to show it
@@ -405,7 +383,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
 
   /** Save the current snapshot as a file image. */
   @FXML
-  private void onSave(ActionEvent event) {
+  protected void onSave(ActionEvent event) {
 
     FileChooser savefile = new FileChooser();
     // set the default options for the file chooser
@@ -443,13 +421,8 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    * @param classifications The list of predictions
    * @return whether the player has won or not
    */
-  private boolean isWin(List<Classifications.Classification> classifications) {
-    // check if zen mode and if it is, never end game
-    if (game.getMode() == Game.GameMode.ZEN) {
-      return false;
-    }
-
-    // go through top predictions detemined by accuracy difficulty
+  protected boolean isWin(List<Classifications.Classification> classifications) {
+    // go through top predictions determined by accuracy difficulty
     for (int i = 0; i < accuracyCondition; i++) {
 
       // if top word is correct with confidence above the required amount
@@ -466,62 +439,25 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
   }
 
   @FXML
-  private void onPaintTool() {
+  protected void onPaintTool() {
     graphic.setStroke(Color.BLACK);
   }
 
   /** Enables the eraser for the user */
   @FXML
-  private void onEraseTool() {
+  protected void onEraseTool() {
     // change to eraser
     graphic.setStroke(Color.WHITE);
   }
 
   @FXML
-  private void onClearTool() {
+  protected void onClearTool() {
     clearCanvas();
   }
 
   /** Clears the canvas */
-  private void clearCanvas() {
+  protected void clearCanvas() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-  }
-
-  // COLORS
-  private void onPenLightBlue() {
-    currentColor = Color.LIGHTBLUE;
-  }
-
-  private void onPenDarkBlue() {
-    currentColor = Color.BLUE;
-  }
-
-  private void onPenRed() {
-    currentColor = Color.RED;
-  }
-
-  private void onPenGreen() {
-    currentColor = Color.GREEN;
-  }
-
-  private void onPenPink() {
-    currentColor = Color.PINK;
-  }
-
-  private void onPenOrange() {
-    currentColor = Color.ORANGE;
-  }
-
-  private void onPenYellow() {
-    currentColor = Color.PINK;
-  }
-
-  private void onPenPurple() {
-    currentColor = Color.PURPLE;
-  }
-
-  private void onPenBlack() {
-    currentColor = Color.BLACK;
   }
 
   /**
@@ -529,7 +465,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    *
    * @return The BufferedImage corresponding to the current canvas content.
    */
-  private BufferedImage getCurrentSnapshot() {
+  protected BufferedImage getCurrentSnapshot() {
     final Image snapshot = canvas.snapshot(null, null);
     final BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
 
@@ -561,7 +497,7 @@ public class CanvasController implements SwitchInListener, SwitchOutListener {
    *
    * @param msg The message to be spoken.
    */
-  private void speak(String msg) {
+  protected void speak(String msg) {
 
     // Do task in background so it doesn't freeze GUI
     Task<Void> backgroundTask =
