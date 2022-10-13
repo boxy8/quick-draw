@@ -55,7 +55,6 @@ public class App extends Application {
 
     // add scenes to scene manager
     SceneManager.addUi(AppUi.MAIN_MENU, getFxmlLoader("main_menu"));
-
     SceneManager.addUi(AppUi.MAIN, getFxmlLoader("main"));
     // these views all use the main border pane
     SceneManager.addUi(AppUi.NORMAL_CANVAS, getFxmlLoader("normal_canvas"));
@@ -63,7 +62,7 @@ public class App extends Application {
     SceneManager.addUi(AppUi.PROFILE_PAGE, getFxmlLoader("profile_page"));
     SceneManager.addUi(AppUi.PROFILE_LIST, getFxmlLoader("profile_list"));
     SceneManager.addUi(AppUi.DIFFICULTY_SELECTOR, getFxmlLoader("difficulty_selector"));
-
+    // size of app
     scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN), 840, 680);
     // scene will always be main scene
     // change views by setting content of main border pane
