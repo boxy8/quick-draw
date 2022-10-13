@@ -50,7 +50,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" AnchorPane.bottomAnchor="78.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="127.0">
                <children>
-                  <VBox fx:id="toolsContainer" prefHeight="200.0" prefWidth="60.0" styleClass="main-container">
+                  <VBox fx:id="toolsContainer" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="60.0" styleClass="main-container">
                      <children>
                         <RadioButton fx:id="paintButton" mnemonicParsing="false" onAction="#onPaintTool" selected="true" styleClass="tool-icon">
                            <graphic>
@@ -82,7 +82,50 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </RadioButton>
-                        <Region prefHeight="200.0" prefWidth="77.0" VBox.vgrow="ALWAYS" />
+                        <VBox fx:id="brushSizeBox" alignment="TOP_CENTER" prefWidth="100.0" spacing="20.0">
+                           <children>
+                              <RadioButton fx:id="onChooseExtraLarge" mnemonicParsing="false">
+                                 <graphic>
+                                    <ImageView fitHeight="87.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/dot.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="sizes" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="onChooseLarge" mnemonicParsing="false" toggleGroup="$sizes">
+                                 <graphic>
+                                    <ImageView fitHeight="29.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/dot.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </RadioButton>
+                              <RadioButton fx:id="onChooseMedium" mnemonicParsing="false" toggleGroup="$sizes">
+                                 <graphic>
+                                    <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/dot.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </RadioButton>
+                              <RadioButton fx:id="onChooseSmall" mnemonicParsing="false" toggleGroup="$sizes">
+                                 <graphic>
+                                    <ImageView fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/dot.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </RadioButton>
+                           </children>
+                        </VBox>
+                        <Region prefWidth="200.0" VBox.vgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#onClearTool">
                            <styleClass>
                               <String fx:value="image-button" />
@@ -112,7 +155,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="41.0" prefWidth="419.0" spacing="15.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="116.0">
                <children>
-                  <RadioButton mnemonicParsing="false">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseRed">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -121,7 +164,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseOrange">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -130,7 +173,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseYellow">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -139,7 +182,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseGreen">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -148,7 +191,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseBlue">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -157,7 +200,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseDarkBlue">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -166,7 +209,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false">
+                  <RadioButton mnemonicParsing="false" onAction="#onChoosePurple">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -175,7 +218,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false">
+                  <RadioButton mnemonicParsing="false" onAction="#onChoosePink">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -184,7 +227,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseBlack">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
