@@ -99,9 +99,6 @@ public class ProfileListController implements SwitchInListener {
     ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
     // swap scenes
     SceneManager.changeScene(event, AppUi.MAIN_MENU);
-    // set difficulty settings on Difficulty Selector GUI
-    ((DifficultySelectorController) SceneManager.getController(AppUi.DIFFICULTY_SELECTOR))
-        .setSpinners();
   }
 
   /** Adds a profile to the game and shows it on the GUI */

@@ -22,7 +22,7 @@ import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.WordHolder;
 
-public class DifficultySelectorController implements Initializable {
+public class DifficultySelectorController implements Initializable, SwitchInListener {
   @FXML private Spinner<String> accuracySpinner;
   @FXML private Spinner<String> wordsSpinner;
   @FXML private Spinner<String> timeSpinner;
@@ -219,5 +219,10 @@ public class DifficultySelectorController implements Initializable {
       timeSpinner.getValueFactory().setValue(map.get(Setting.TIME).toString());
       confidenceSpinner.getValueFactory().setValue(map.get(Setting.CONFIDENCE).toString());
     }
+  }
+
+  @Override
+  public void onSwitchIn() {
+    setSpinners();
   }
 }
