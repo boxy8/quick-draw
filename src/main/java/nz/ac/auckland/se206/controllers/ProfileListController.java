@@ -33,6 +33,11 @@ public class ProfileListController implements SwitchInListener {
 
   private ArrayList<ProfileButtonController> profileButtons = new ArrayList<>();
 
+  /**
+   * Runs after GUI is ready from JavaFx and sets the path of the profiles to correct location
+   *
+   * @throws IOException
+   */
   public void initialize() throws IOException {
     // Find all profile files
     String folderPath = "profiles/";
@@ -55,7 +60,7 @@ public class ProfileListController implements SwitchInListener {
   /**
    * Creates profile label with configured mouse click events and adds it to the GUI
    *
-   * @param username a string of the profile's username
+   * @param username a string of the profile's user name
    */
   private void addProfileButton(String username) {
     ProfileButtonController profileButton = new ProfileButtonController();
@@ -112,7 +117,14 @@ public class ProfileListController implements SwitchInListener {
     }
   }
 
+  /**
+   * finds out if there is already a profile with the same name
+   *
+   * @param username
+   * @return boolean that is true if there is or no if there isn't
+   */
   private boolean isDuplicateUsername(String username) {
+    // check all buttons
     for (ProfileButtonController prof : profileButtons) {
       if (prof.getToggleText().equals(username)) {
         return true;
@@ -121,10 +133,16 @@ public class ProfileListController implements SwitchInListener {
     return false;
   }
 
+  /**
+   * Removes the box from the profile container so the user can no longer see it
+   *
+   * @param profileButtonController
+   */
   public void onDeleteProf(ProfileButtonController profileButtonController) {
     profileContainer.getChildren().remove(profileButtonController);
   }
 
+  /** Runs when this is switched to, it shows the current profile that is selected */
   @Override
   public void onSwitchIn() {
     // pre-select the currently selected profile
