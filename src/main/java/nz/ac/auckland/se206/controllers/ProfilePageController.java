@@ -64,7 +64,7 @@ public class ProfilePageController implements SwitchInListener {
 
     int wins = profile.getWins();
     int losses = profile.getLosses();
-    int totalGames = wins + losses;
+    int totalGames = wins + losses + profile.getZenGamesPlayed();
 
     // statistics section
     winStreak.setText(String.valueOf(profile.getWinStreak()));

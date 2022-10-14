@@ -17,6 +17,7 @@ public class Profile {
   private int wins;
   private int losses;
   private int winStreak;
+  private int zenGamesPlayed = 0;
   private int fastestWinTime = 60;
   private List<String> wordHistory = new ArrayList<String>();
   private List<Game> gameHistory = new ArrayList<Game>();
@@ -38,6 +39,7 @@ public class Profile {
       this.gameHistory = ProfileLoader.read(username).getGameHistory();
       this.setting2difficulty = ProfileLoader.read(username).getSetting2Difficulty();
       this.gameMode = ProfileLoader.read(username).getGameMode();
+      this.zenGamesPlayed = ProfileLoader.read(username).getZenGamesPlayed();
     }
   }
 
@@ -105,12 +107,16 @@ public class Profile {
     }
 
     int sum = 0;
+    int numberOfNonZenGames = 0;
     // sum up game times
     for (Game game : gameHistory) {
-      sum += game.getDuration();
+      if (game.getMode() != GameMode.ZEN) {
+        sum += game.getDuration();
+        numberOfNonZenGames++;
+      }
     }
     // calculate average
-    return Math.round(sum / gameHistory.size());
+    return Math.round(sum / numberOfNonZenGames);
   }
 
   /**
@@ -176,16 +182,20 @@ public class Profile {
    */
   public void updateAllStats(Game game) {
     // update wins/losses and win streak
-    if (game.getIsWin()) {
-      wins++;
-      winStreak++;
+    if (game.getMode() != GameMode.ZEN) {
+      if (game.getIsWin()) {
+        wins++;
+        winStreak++;
+      } else {
+        losses++;
+        winStreak = 0;
+      }
+      // update fastest win time
+      if (game.getDuration() < fastestWinTime) {
+        fastestWinTime = game.getDuration();
+      }
     } else {
-      losses++;
-      winStreak = 0;
-    }
-    // update fastest wintime
-    if (game.getDuration() < fastestWinTime) {
-      fastestWinTime = game.getDuration();
+      zenGamesPlayed++;
     }
     // update word history
     wordHistory.add(game.getWord());
@@ -200,5 +210,14 @@ public class Profile {
     if (f.exists()) {
       f.delete();
     }
+  }
+
+  /**
+   * number of games played in zen mode
+   *
+   * @return number of games played in zen mode
+   */
+  public int getZenGamesPlayed() {
+    return zenGamesPlayed;
   }
 }
