@@ -88,7 +88,6 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   private SoundEffects timerSoundEffect;
   private SoundEffects winSoundEffect;
   private SoundEffects loseSoundEffect;
-  private SoundEffects zenMode; // yet to be added in with zen mode
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
@@ -100,7 +99,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    * @throws CsvException
    */
   public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
-    winSoundEffect = new SoundEffects("win");
+    setWinSoundEffect(new SoundEffects("win"));
     loseSoundEffect = new SoundEffects("lose");
 
     predictionsLabel.setWrapText(true); // wrap predictions that are too long
@@ -168,6 +167,10 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
         });
   }
 
+  protected void setEndgameVisibility(boolean visibility) {
+    endGameContainer.setVisible(false);
+  }
+
   /** Resets game when switching to this screen by clearing everything */
   @Override
   public void onSwitchIn() {
@@ -181,7 +184,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     resetPredictionLabel();
 
     // hide end game buttons
-    endGameContainer.setVisible(false);
+    setEndgameVisibility(false);
 
     // enable canvas and drawing buttons
     canvas.setDisable(false);
@@ -251,18 +254,20 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     startTimer();
   }
 
+  protected void playGamemodeSoundEffect() {
+    try {
+      setTimerSoundEffect(new SoundEffects("timer"));
+      getTimerSoundEffect().playRepeateSound();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
+  }
+
   /** Used to start the timer for predictions and also the clock */
   protected void startTimer() {
     resetTimer();
     getCurrentSnapshot(); // calling this first seems to stop initial freezing problem
-    try {
-
-      timerSoundEffect = new SoundEffects("timer");
-      timerSoundEffect.playRepeateSound();
-    } catch (URISyntaxException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    }
+    playGamemodeSoundEffect();
     timeline =
         new Timeline(
             new KeyFrame(
@@ -311,7 +316,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    * screen
    */
   protected void endGame() {
-    timerSoundEffect.stopSound();
+    getTimerSoundEffect().stopSound();
     SoundEffects.playBackgroundMusic();
     timeline.stop(); // stop timer/prediction updates
     canvas.setDisable(true);
@@ -320,7 +325,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     // display and announce a message based on game result
 
     if (game.getIsWin()) {
-      winSoundEffect.playSound();
+      getWinSoundEffect().playSound();
       resultLabel.setText("You win!");
       speak("Congratulations!");
     } else {
@@ -329,7 +334,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
       speak("Maybe next time!");
     }
 
-    endGameContainer.setVisible(true);
+    setEndgameVisibility(true);
 
     // set game time
     int gameDuration = startingTime - timeLeft;
@@ -541,11 +546,27 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   @Override
   public void onSwitchOut() {
     // terminate any unfinished game
-    timerSoundEffect.stopSound();
+    getTimerSoundEffect().stopSound();
     SoundEffects.playBackgroundMusic();
 
     if (!(timeline.getStatus() == Animation.Status.STOPPED)) {
       timeline.stop();
     }
+  }
+
+  public SoundEffects getTimerSoundEffect() {
+    return timerSoundEffect;
+  }
+
+  public void setTimerSoundEffect(SoundEffects timerSoundEffect) {
+    this.timerSoundEffect = timerSoundEffect;
+  }
+
+  public SoundEffects getWinSoundEffect() {
+    return winSoundEffect;
+  }
+
+  public void setWinSoundEffect(SoundEffects winSoundEffect) {
+    this.winSoundEffect = winSoundEffect;
   }
 }

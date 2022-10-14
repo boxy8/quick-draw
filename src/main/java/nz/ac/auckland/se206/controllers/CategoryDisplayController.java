@@ -21,7 +21,7 @@ public class CategoryDisplayController implements SwitchInListener {
   private void onStart(ActionEvent event) {
     // go to canvas view
     SoundEffects.stopBackgroundMusic();
-    SceneManager.changeScene(event, AppUi.NORMAL_CANVAS);
+    SceneManager.changeScene(event, AppUi.ZEN_CANVAS);
   }
 
   /** Resets the screen when it is switched to so that words can be updated and gotten */
