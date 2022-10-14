@@ -14,6 +14,7 @@ public class SceneManager {
   public enum AppUi {
     NORMAL_CANVAS,
     ZEN_CANVAS,
+    HIDDEN_CANVAS,
     MAIN_MENU,
     CATEGORY_DISPLAY,
     PROFILE_PAGE,
@@ -25,7 +26,8 @@ public class SceneManager {
   private static HashMap<AppUi, Scene> sceneMap = new HashMap<>();
 
   /**
-   * Generate and store all scenes required so they don't have to be reloaded every time
+   * Generate and store all scenes required so they don't have to be reloaded
+   * every time
    *
    * @param appUi
    * @param loader
@@ -74,8 +76,7 @@ public class SceneManager {
     // get the node of main
     BorderPane mainBorder = ((BorderPane) scene.getRoot());
     // call switch out method if applicable
-    Object currentController =
-        SceneManager.getController((AppUi) mainBorder.getCenter().getUserData());
+    Object currentController = SceneManager.getController((AppUi) mainBorder.getCenter().getUserData());
     if (currentController instanceof SwitchOutListener switchOutListener) {
       switchOutListener.onSwitchOut();
     }

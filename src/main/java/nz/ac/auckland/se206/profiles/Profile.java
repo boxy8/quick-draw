@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.games.Game.Difficulty;
+import nz.ac.auckland.se206.games.Game.GameMode;
 import nz.ac.auckland.se206.games.Game.Setting;
 
 public class Profile {
@@ -20,6 +21,7 @@ public class Profile {
   private List<String> wordHistory = new ArrayList<String>();
   private List<Game> gameHistory = new ArrayList<Game>();
   private Map<Game.Setting, Game.Difficulty> setting2difficulty = new HashMap<>();
+  private GameMode gameMode;
 
   public Profile(String username) throws IOException {
     this.username = username;
@@ -35,7 +37,16 @@ public class Profile {
       this.wordHistory = ProfileLoader.read(username).getWordHistory();
       this.gameHistory = ProfileLoader.read(username).getGameHistory();
       this.setting2difficulty = ProfileLoader.read(username).getSetting2Difficulty();
+      this.gameMode = ProfileLoader.read(username).getGameMode();
     }
+  }
+
+  public GameMode getGameMode() {
+    return this.gameMode;
+  }
+
+  public void setGameMode(GameMode gameMode) {
+    this.gameMode = gameMode;
   }
 
   /**
