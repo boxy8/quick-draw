@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.controllers;
 
 import ai.djl.modality.Classifications;
 import java.util.List;
+import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
 
 public class ZenCanvasController extends CanvasController {
@@ -24,48 +25,60 @@ public class ZenCanvasController extends CanvasController {
   protected void countDown() {}
 
   // COLORS
-  /** Change pen colour to light blue */
-  private void onPenLightBlue() {
+  @FXML
+  private void onChooseBlue() {
     currentColor = Color.LIGHTBLUE;
   }
 
-  /** Change pen colour to dark blue */
-  private void onPenDarkBlue() {
+  @FXML
+  private void onChooseDarkBlue() {
     currentColor = Color.BLUE;
   }
 
-  /** Change pen colour to red */
-  private void onPenRed() {
+  @FXML
+  private void onChooseRed() {
     currentColor = Color.RED;
   }
 
-  /** Change pen colour to green */
-  private void onPenGreen() {
+  @FXML
+  private void onChooseGreen() {
     currentColor = Color.GREEN;
   }
 
-  /** Change pen colour to black */
-  private void onPenBlack() {
+  @FXML
+  private void onChooseBlack() {
     currentColor = Color.BLACK;
   }
 
-  /** Change pen colour to pink */
-  private void onPenPink() {
+  @FXML
+  private void onChoosePink() {
     currentColor = Color.PINK;
   }
 
-  /** Change pen colour to orange */
-  private void onPenOrange() {
+  @FXML
+  private void onChooseOrange() {
     currentColor = Color.ORANGE;
   }
 
-  /** Change pen colour to pink */
-  private void onPenYellow() {
-    currentColor = Color.PINK;
+  @FXML
+  private void onChooseYellow() {
+    currentColor = Color.YELLOW;
   }
 
-  /** Change pen colour to purple */
-  private void onPenPurple() {
+  @FXML
+  private void onChoosePurple() {
     currentColor = Color.PURPLE;
   }
+
+  @FXML
+  private void onChooseExtraLarge() {}
+
+  @FXML
+  private void onChooseLarge() {}
+
+  @FXML
+  private void onChooseMedium() {}
+
+  @FXML
+  private void onChooseSmall() {}
 }
