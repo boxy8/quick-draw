@@ -63,6 +63,7 @@ public class App extends Application {
     SceneManager.addUi(AppUi.PROFILE_LIST, getFxmlLoader("profile_list"));
     SceneManager.addUi(AppUi.DIFFICULTY_SELECTOR, getFxmlLoader("difficulty_selector"));
     SceneManager.addUi(AppUi.ZEN_CANVAS, getFxmlLoader("zen_canvas"));
+    SceneManager.addUi(AppUi.HIDDEN_CANVAS, getFxmlLoader("hidden_word_canvas"));
 
     scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN), 840, 680);
     // scene will always be main scene

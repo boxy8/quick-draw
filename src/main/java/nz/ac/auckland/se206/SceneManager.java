@@ -14,6 +14,7 @@ public class SceneManager {
   public enum AppUi {
     NORMAL_CANVAS,
     ZEN_CANVAS,
+    HIDDEN_CANVAS,
     MAIN_MENU,
     CATEGORY_DISPLAY,
     PROFILE_PAGE,

@@ -95,12 +95,13 @@ public class ProfileButtonController extends HBox {
       if (selectButton
           .getText()
           .equals(ProfileHolder.getInstance().getCurrentProfile().getUsername())) {
+        ProfileHolder.getInstance().setCurrentProfile(new Profile("Guest"));
+        selectButton.getToggleGroup().selectToggle(null);
         ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
-        SceneManager.changeScene(null, AppUi.MAIN_MENU);
-        ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
       }
     }
     // delete the profile from the screen
-    ((ProfileListController) SceneManager.getController(AppUi.PROFILE_LIST)).onDeleteProf(this);
+    ((ProfileListController) SceneManager.getController(AppUi.PROFILE_LIST))
+        .onDeleteProfileButton(this);
   }
 }

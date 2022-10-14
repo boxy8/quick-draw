@@ -14,19 +14,27 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.layout.AnchorPane;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.games.Game.Difficulty;
+import nz.ac.auckland.se206.games.Game.GameMode;
 import nz.ac.auckland.se206.games.Game.Setting;
+import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.WordHolder;
 
-public class DifficultySelectorController implements Initializable {
+public class DifficultySelectorController implements Initializable, SwitchInListener {
+  @FXML private Spinner<String> modeSpinner;
   @FXML private Spinner<String> accuracySpinner;
   @FXML private Spinner<String> wordsSpinner;
   @FXML private Spinner<String> timeSpinner;
   @FXML private Spinner<String> confidenceSpinner;
+  @FXML private AnchorPane wordContainer;
+  @FXML private AnchorPane accuracyContainer;
+  @FXML private AnchorPane timeContainer;
+  @FXML private AnchorPane confidenceContainer;
   @FXML private Button chooseDifficultyButton;
   private CategorySelector categorySelector;
 
@@ -43,17 +51,38 @@ public class DifficultySelectorController implements Initializable {
       e.printStackTrace();
     }
 
+    // Initialize mode spinner
+    ObservableList<String> gameModes = FXCollections.observableArrayList("NORMAL", "HIDDEN", "ZEN");
+    initializeSpinner(modeSpinner, gameModes);
+
+    // When selecting Zen Mode, only word difficulty shows up
+    modeSpinner
+        .getValueFactory()
+        .valueProperty()
+        .addListener(
+            (obs, oldValue, newValue) -> {
+              if (newValue.equals("ZEN")) {
+                accuracyContainer.setVisible(false);
+                timeContainer.setVisible(false);
+                confidenceContainer.setVisible(false);
+              } else {
+                accuracyContainer.setVisible(true);
+                timeContainer.setVisible(true);
+                confidenceContainer.setVisible(true);
+              }
+            });
+
     // Initialize spinners with "Easy", "Medium", and "Hard" difficulties
     ObservableList<String> accuracyDifficulties =
         FXCollections.observableArrayList("EASY", "MEDIUM", "HARD");
-    initializeSpinner(accuracySpinner, Setting.ACCURACY, accuracyDifficulties);
+    initializeSpinner(accuracySpinner, accuracyDifficulties);
 
     // Initialize spinners with "Easy", "Medium", "Hard", and "Master" difficulties
     ObservableList<String> difficulties =
         FXCollections.observableArrayList("EASY", "MEDIUM", "HARD", "MASTER");
-    initializeSpinner(wordsSpinner, Setting.WORDS, difficulties);
-    initializeSpinner(timeSpinner, Setting.TIME, difficulties);
-    initializeSpinner(confidenceSpinner, Setting.CONFIDENCE, difficulties);
+    initializeSpinner(wordsSpinner, difficulties);
+    initializeSpinner(timeSpinner, difficulties);
+    initializeSpinner(confidenceSpinner, difficulties);
   }
 
   /**
@@ -62,11 +91,10 @@ public class DifficultySelectorController implements Initializable {
    * @param spinner a spinner on the GUI that the user uses to select the relevant difficulty
    * @param difficulties all available difficulty strings for the setting
    */
-  private void initializeSpinner(
-      Spinner<String> spinner, Setting setting, ObservableList<String> difficulties) {
+  private void initializeSpinner(Spinner<String> spinner, ObservableList<String> options) {
     SpinnerValueFactory<String> valueFactory =
-        new SpinnerValueFactory.ListSpinnerValueFactory<String>(difficulties);
-    valueFactory.setValue("EASY");
+        new SpinnerValueFactory.ListSpinnerValueFactory<String>(options);
+    valueFactory.setValue(options.get(0));
     spinner.setValueFactory(valueFactory);
   }
 
@@ -77,12 +105,28 @@ public class DifficultySelectorController implements Initializable {
    */
   @FXML
   private void onChooseDifficulty(ActionEvent event) {
+    setGameMode();
     setAccuracyDifficulty();
     setWordsDifficulty();
     setTimeDifficulty();
     setConfidenceDifficulty();
 
     SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
+  }
+
+  private void setGameMode() {
+    // Normal gamemode selected
+    if (modeSpinner.getValue().equals("NORMAL")) {
+      ProfileHolder.getInstance().getCurrentProfile().setGameMode(GameMode.NORMAL);
+    }
+    // Hidden word gamemode selected
+    else if (modeSpinner.getValue().equals("HIDDEN")) {
+      ProfileHolder.getInstance().getCurrentProfile().setGameMode(GameMode.HIDDEN);
+    }
+    // Zen gamemode selected
+    else {
+      ProfileHolder.getInstance().getCurrentProfile().setGameMode(GameMode.ZEN);
+    }
   }
 
   /** Sets the next game's accuracy cut off as per the difficulty selected by accuracy spinner */
@@ -210,14 +254,33 @@ public class DifficultySelectorController implements Initializable {
 
   /** Updates the spinner value being displayed as per the profiles previous selection */
   public void setSpinners() {
-
-    Map<Setting, Difficulty> map =
-        ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty();
-    if (map.get(Setting.ACCURACY) != null) {
+    Profile profile = ProfileHolder.getInstance().getCurrentProfile();
+    GameMode gameMode = profile.getGameMode();
+    Map<Setting, Difficulty> map = profile.getSetting2Difficulty();
+    // if profile sees spinners for the first time
+    if (gameMode == null) {
+      // update mode
+      modeSpinner.getValueFactory().setValue("NORMAL");
+      // update difficulties
+      accuracySpinner.getValueFactory().setValue("EASY");
+      wordsSpinner.getValueFactory().setValue("EASY");
+      timeSpinner.getValueFactory().setValue("EASY");
+      confidenceSpinner.getValueFactory().setValue("EASY");
+    }
+    // if profile has had a previous selection using the spinners
+    else {
+      // update mode
+      modeSpinner.getValueFactory().setValue(gameMode.toString());
+      // update difficulties
       accuracySpinner.getValueFactory().setValue(map.get(Setting.ACCURACY).toString());
       wordsSpinner.getValueFactory().setValue(map.get(Setting.WORDS).toString());
       timeSpinner.getValueFactory().setValue(map.get(Setting.TIME).toString());
       confidenceSpinner.getValueFactory().setValue(map.get(Setting.CONFIDENCE).toString());
     }
+  }
+
+  @Override
+  public void onSwitchIn() {
+    setSpinners();
   }
 }

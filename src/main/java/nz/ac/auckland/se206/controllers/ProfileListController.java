@@ -83,19 +83,22 @@ public class ProfileListController implements SwitchInListener {
     ToggleButton button = (ToggleButton) profilesGroup.getSelectedToggle();
     // if a profile was selected
     if (button != null) {
+      // set to selected profile
       String username = button.getText();
       Profile selectedProfile = ProfileLoader.read(username);
       ProfileHolder.getInstance().setCurrentProfile(selectedProfile);
-
-      // set program wide profile for the user
-      ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
-      SceneManager.changeScene(event, AppUi.MAIN_MENU);
-      ((ProfilePageController) SceneManager.getController(AppUi.PROFILE_PAGE)).setProfileLabel();
-
-      // set difficulty settings on Difficulty Selector GUI
-      ((DifficultySelectorController) SceneManager.getController(AppUi.DIFFICULTY_SELECTOR))
-          .setSpinners();
+    } else {
+      // set to Guest if nothing is selected
+      try {
+        ProfileHolder.getInstance().setCurrentProfile(new Profile("Guest"));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
+    // update GUI for main that requires the user name
+    ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
+    // swap scenes
+    SceneManager.changeScene(event, AppUi.MAIN_MENU);
   }
 
   /** Adds a profile to the game and shows it on the GUI */
@@ -138,8 +141,9 @@ public class ProfileListController implements SwitchInListener {
    *
    * @param profileButtonController
    */
-  public void onDeleteProf(ProfileButtonController profileButtonController) {
+  public void onDeleteProfileButton(ProfileButtonController profileButtonController) {
     profileContainer.getChildren().remove(profileButtonController);
+    profileButtons.remove(profileButtonController);
   }
 
   /** Runs when this is switched to, it shows the current profile that is selected */

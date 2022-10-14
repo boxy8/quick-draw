@@ -168,7 +168,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   }
 
   protected void setEndgameVisibility(boolean visibility) {
-    endGameContainer.setVisible(false);
+    endGameContainer.setVisible(visibility);
   }
 
   /** Resets game when switching to this screen by clearing everything */

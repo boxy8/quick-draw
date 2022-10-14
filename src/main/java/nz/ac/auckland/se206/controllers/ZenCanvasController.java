@@ -7,9 +7,11 @@ import java.util.List;
 import javafx.animation.Animation;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
+import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.sounds.SoundEffects;
+import nz.ac.auckland.se206.words.WordHolder;
 
 public class ZenCanvasController extends CanvasController {
   private Color currentColor; // American spelling : (
@@ -21,12 +23,19 @@ public class ZenCanvasController extends CanvasController {
     return false;
   }
 
+  /**
+   * Keeps everything visible at all times, for zen mode
+   *
+   * @param visibility This is ignored for zen mode as we always will have access to save button
+   */
   @Override
   protected void setEndgameVisibility(boolean visibility) {}
 
+  /** For zen mode we play some calm nature sounds comapred to ticking clock */
   @Override
   protected void playGamemodeSoundEffect() {
     try {
+      // set correct music to play and repeat the sound
       setTimerSoundEffect(new SoundEffects("zen"));
       getTimerSoundEffect().playRepeateSound();
     } catch (URISyntaxException e) {
@@ -40,11 +49,36 @@ public class ZenCanvasController extends CanvasController {
     timerLabel.setText("--:--");
   }
 
+  /** Resets game when switching to this screen by clearing everything */
+  @Override
+  public void onSwitchIn() {
+    String currentWord = WordHolder.getInstance().getCurrentWord();
+    wordLabel.setText(currentWord); // display new category
+
+    // stop predictions from taking place
+    drawingStarted = false;
+
+    // empty label when starting game
+    resetPredictionLabel();
+
+    // enable canvas and drawing buttons
+    canvas.setDisable(false);
+    toolsContainer.setDisable(false);
+
+    // reset to pen function
+    paintButton.fire();
+    game = new Game(currentWord, Game.GameMode.ZEN);
+    clearCanvas();
+    startTimer();
+  }
+
   /** Called when the game is left mid way through stops game from running */
   @Override
   public void onSwitchOut() {
     // terminate any unfinished game
+    // zen mode has no duration
     game.setDuration(0);
+    // update profile stats
     Profile userProfile = ProfileHolder.getInstance().getCurrentProfile();
     userProfile.updateAllStats(game);
     if (!userProfile.isGuest()) {
@@ -54,9 +88,10 @@ public class ZenCanvasController extends CanvasController {
         e.printStackTrace();
       }
     }
+    // stop the zen mode music and start main menu one
     getTimerSoundEffect().stopSound();
     SoundEffects.playBackgroundMusic();
-
+    // stop ml model predictions
     if (!(timeline.getStatus() == Animation.Status.STOPPED)) {
       timeline.stop();
     }
@@ -66,6 +101,7 @@ public class ZenCanvasController extends CanvasController {
   @Override
   protected void countDown() {}
 
+  /** When the paint tool is clicked it either defaults to black or current colour selected */
   @FXML
   protected void onPaintTool() {
     isEraser = false;
@@ -83,6 +119,7 @@ public class ZenCanvasController extends CanvasController {
     graphic.setStroke(Color.WHITE);
   }
 
+  /** updates the pen colour so when user draws it is correct colour */
   private void updateColor() {
     if (isEraser != true) {
       graphic.setStroke(currentColor);
@@ -90,75 +127,89 @@ public class ZenCanvasController extends CanvasController {
   }
 
   // COLORS
+
+  /** changes the colour of the pen to the correct RGB value */
   @FXML
   private void onChooseBlue() {
     currentColor = Color.rgb(56, 182, 255);
     updateColor();
   }
 
+  /** changes the colour of the pen to the correct RGB value */
   @FXML
   private void onChooseDarkBlue() {
     currentColor = Color.rgb(0, 74, 173);
     updateColor();
   }
 
+  /** changes the colour of the pen to the correct RGB value */
   @FXML
   private void onChooseRed() {
     currentColor = Color.rgb(255, 22, 22);
     updateColor();
   }
 
+  /** changes the colour of the pen to the correct RGB value */
   @FXML
   private void onChooseGreen() {
     currentColor = Color.rgb(126, 217, 87);
     updateColor();
   }
 
+  /** changes the colour of the pen to the correct RGB value */
   @FXML
   private void onChooseBlack() {
     currentColor = Color.rgb(0, 0, 0);
     updateColor();
   }
 
+  /** changes the colour of the pen to the correct RGB value */
   @FXML
   private void onChoosePink() {
     currentColor = Color.rgb(255, 102, 196);
     updateColor();
   }
 
+  /** changes the colour of the pen to the correct RGB value */
   @FXML
   private void onChooseOrange() {
     currentColor = Color.rgb(255, 145, 77);
     updateColor();
   }
 
+  /** changes the colour of the pen to the correct RGB value */
   @FXML
   private void onChooseYellow() {
     currentColor = Color.rgb(255, 222, 89);
     updateColor();
   }
 
+  /** changes the colour of the pen to the correct RGB value */
   @FXML
   private void onChoosePurple() {
     currentColor = Color.rgb(140, 82, 255);
     updateColor();
   }
 
+  /** Changes the pen size the correct size value, in this case extra large */
   @FXML
   private void onChooseExtraLarge() {
     graphic.setLineWidth(25);
   }
 
+  /** Changes the pen size the correct size value, in this case large */
   @FXML
   private void onChooseLarge() {
     graphic.setLineWidth(15);
   }
 
+  /** Changes the pen size the correct size value, in this case medium (default) */
   @FXML
   private void onChooseMedium() {
     graphic.setLineWidth(7);
   }
 
+  /** Changes the pen size the correct size value, in this case small */
   @FXML
   private void onChooseSmall() {
     graphic.setLineWidth(4);
