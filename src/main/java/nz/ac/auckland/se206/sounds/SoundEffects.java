@@ -7,10 +7,66 @@ import nz.ac.auckland.se206.words.CategorySelector;
 
 public class SoundEffects {
 
-  public static void playSound(String fileName) throws URISyntaxException {
+  private static MediaPlayer BackgroundPlayer;
+  private static boolean musicPlaying;
+  private MediaPlayer player;
+
+  // SOUND EFFECT CREDIT
+  // background https://pixabay.com/music/beautiful-plays-ambient-piano-ampamp-strings-10711/
+  // timer https://mixkit.co/free-sound-effects/clock/
+
+  public SoundEffects(String fileName) throws URISyntaxException {
     Media sound =
         new Media(CategorySelector.class.getResource("/sounds").toURI() + "/" + fileName + ".wav");
-    MediaPlayer player = new MediaPlayer(sound);
+    player = new MediaPlayer(sound);
+
+    Media backgroundSound =
+        new Media(
+            CategorySelector.class.getResource("/sounds").toURI()
+                + "/"
+                + "backgroundMusic"
+                + ".wav");
+    BackgroundPlayer = new MediaPlayer(backgroundSound);
+  }
+
+  public static void playBackgroundMusic() {
+    if (BackgroundPlayer == null) {
+      Media backgroundSound;
+      try {
+        backgroundSound =
+            new Media(
+                CategorySelector.class.getResource("/sounds").toURI()
+                    + "/"
+                    + "backgroundMusic"
+                    + ".wav");
+        BackgroundPlayer = new MediaPlayer(backgroundSound);
+        BackgroundPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+      } catch (URISyntaxException e) {
+        e.printStackTrace();
+      }
+    }
+
+    if (!musicPlaying) {
+      BackgroundPlayer.play();
+      musicPlaying = true;
+    }
+  }
+
+  public static void stopBackgroundMusic() {
+    musicPlaying = false;
+    BackgroundPlayer.stop();
+  }
+
+  public void playSound() {
     player.play();
+  }
+
+  public void playRepeateSound() throws URISyntaxException {
+    player.setCycleCount(MediaPlayer.INDEFINITE);
+    player.play();
+  }
+
+  public void stopSound() {
+    player.stop();
   }
 }
