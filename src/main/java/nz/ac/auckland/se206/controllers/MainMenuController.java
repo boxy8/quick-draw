@@ -49,6 +49,18 @@ public class MainMenuController implements SwitchInListener {
     SceneManager.changeScene(event, AppUi.PROFILE_PAGE);
   }
 
+  /** updates the play button with the current user name of the profile */
+  public void setPlayButton() {
+    if (!ProfileHolder.getInstance().getCurrentProfile().isGuest()) {
+      // set play button to user name
+      playButton.setText(
+          "Play as " + ProfileHolder.getInstance().getCurrentProfile().getUsername());
+    } else {
+      // set play button to guest
+      playButton.setText("Play as Guest");
+    }
+  }
+
   /** When this controller is switched to makes everything default guest or selected profile */
   @Override
   public void onSwitchIn() {
@@ -63,10 +75,7 @@ public class MainMenuController implements SwitchInListener {
       }
     } else {
       // if logged in as a user, make button say Play as [username] instead of Play as guest
-      if (!ProfileHolder.getInstance().getCurrentProfile().isGuest()) {
-        playButton.setText(
-            "Play as " + ProfileHolder.getInstance().getCurrentProfile().getUsername());
-      }
+      setPlayButton();
     }
   }
 }
