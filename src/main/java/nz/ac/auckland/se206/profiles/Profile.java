@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import nz.ac.auckland.se206.badges.Badge;
+import nz.ac.auckland.se206.badges.BadgeBook;
 import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.GameMode;

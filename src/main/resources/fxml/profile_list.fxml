@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="840.0" styleClass="bg-main" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfileListController">
    <children>
@@ -62,6 +61,17 @@
                   </ScrollPane>
                </children>
             </VBox>
+            <VBox fx:id="badgeContainer" layoutX="542.0" layoutY="88.0" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
          </children></AnchorPane>
       <Button fx:id="chooseButton" layoutX="696.0" layoutY="438.0" mnemonicParsing="false" onAction="#onConfirmProfile" styleClass="chooseContainer">
          <graphic>
@@ -78,23 +88,5 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <AnchorPane layoutX="507.0" layoutY="53.0" prefHeight="106.0" prefWidth="265.0" styleClass="chooseContainer">
-         <children>
-            <Label layoutX="48.0" layoutY="14.0" text="Add Profile:">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="507.0" layoutY="243.0" prefHeight="106.0" prefWidth="265.0" styleClass="chooseContainer">
-         <children>
-            <Label layoutX="30.0" layoutY="14.0" text="Delete Profile:">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
    </children>
 </AnchorPane>
