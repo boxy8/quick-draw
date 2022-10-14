@@ -72,7 +72,7 @@ public class SoundEffects {
    *
    * @throws URISyntaxException if the player does not find file
    */
-  public void playRepeateSound() throws URISyntaxException {
+  public void playRepeatSound() throws URISyntaxException {
     player.setCycleCount(MediaPlayer.INDEFINITE);
     player.play();
   }

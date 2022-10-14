@@ -269,7 +269,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     // play sound effect required by game mode, in this case ticking clock
     try {
       timerSoundEffect = new SoundEffects("timer");
-      timerSoundEffect.playRepeateSound();
+      timerSoundEffect.playRepeatSound();
     } catch (URISyntaxException e1) {
       e1.printStackTrace();
     }
