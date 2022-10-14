@@ -96,6 +96,7 @@ public class ProfileButtonController extends HBox {
           .getText()
           .equals(ProfileHolder.getInstance().getCurrentProfile().getUsername())) {
         ProfileHolder.getInstance().setCurrentProfile(new Profile("Guest"));
+        selectButton.getToggleGroup().selectToggle(null);
         ((MainController) SceneManager.getController(AppUi.MAIN)).setProfileButton();
       }
     }

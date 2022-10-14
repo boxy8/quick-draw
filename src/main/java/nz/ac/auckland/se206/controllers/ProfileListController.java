@@ -82,7 +82,7 @@ public class ProfileListController implements SwitchInListener {
   private void onConfirmProfile(ActionEvent event) throws FileNotFoundException {
     ToggleButton button = (ToggleButton) profilesGroup.getSelectedToggle();
     // if a profile was selected
-    if ((button != null) && (profileContainer.getChildren().size() != 0)) {
+    if (button != null) {
       // set to selected profile
       String username = button.getText();
       Profile selectedProfile = ProfileLoader.read(username);
