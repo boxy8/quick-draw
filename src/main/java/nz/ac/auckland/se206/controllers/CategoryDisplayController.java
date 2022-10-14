@@ -12,39 +12,38 @@ import nz.ac.auckland.se206.words.WordHolder;
 
 public class CategoryDisplayController implements SwitchInListener {
 
-  @FXML
-  private Label categoryLabel;
+  @FXML private Label categoryLabel;
 
   /**
    * Changes from category display to the canvas when user wants to start
    *
-   * @param event
+   * @param event event that has triggered this method
    */
   @FXML
   private void onStart(ActionEvent event) {
     SoundEffects.stopBackgroundMusic();
     // go to canvas view
     GameMode gameMode = ProfileHolder.getInstance().getCurrentProfile().getGameMode();
+    // switch to the game mode user has selected
     switch (gameMode) {
       case HIDDEN:
+        // hidden word game mode
         SceneManager.changeScene(event, AppUi.HIDDEN_CANVAS);
         break;
       case NORMAL:
+        // normal game mode
         SceneManager.changeScene(event, AppUi.NORMAL_CANVAS);
         break;
       case ZEN:
+        // zen game mode
         SceneManager.changeScene(event, AppUi.ZEN_CANVAS);
         break;
       default:
         break;
     }
-
   }
 
-  /**
-   * Resets the screen when it is switched to so that words can be updated and
-   * gotten
-   */
+  /** Resets the screen when it is switched to so that words can be updated and gotten */
   @Override
   public void onSwitchIn() {
     // update the text label for the game

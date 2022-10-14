@@ -112,10 +112,10 @@ public class CategorySelector {
   /**
    * gets all line from the csv file so that the categories can be separated
    *
-   * @return
-   * @throws IOException
-   * @throws CsvException
-   * @throws URISyntaxException
+   * @return list of a list of strings containing all differnt words form csv
+   * @throws IOException if file cannot be read
+   * @throws CsvException if the file is not working with opencsv
+   * @throws URISyntaxException if given the wrong file path
    */
   protected List<String[]> getLines() throws IOException, CsvException, URISyntaxException {
     // get the csv file
