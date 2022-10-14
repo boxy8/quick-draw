@@ -41,6 +41,7 @@ import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
+import nz.ac.auckland.se206.sounds.SoundEffects;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.words.WordHolder;
 
@@ -84,6 +85,11 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   protected Timeline timeline;
   protected TextToSpeech textToSpeech;
 
+  private SoundEffects timerSoundEffect;
+  private SoundEffects winSoundEffect;
+  private SoundEffects loseSoundEffect;
+  private SoundEffects zenMode; // yet to be added in with zen mode
+
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
    * the drawing, and we load the ML model.
@@ -94,6 +100,8 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    * @throws CsvException
    */
   public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
+    winSoundEffect = new SoundEffects("win");
+    loseSoundEffect = new SoundEffects("lose");
 
     predictionsLabel.setWrapText(true); // wrap predictions that are too long
 
@@ -247,6 +255,14 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   protected void startTimer() {
     resetTimer();
     getCurrentSnapshot(); // calling this first seems to stop initial freezing problem
+    try {
+
+      timerSoundEffect = new SoundEffects("timer");
+      timerSoundEffect.playRepeateSound();
+    } catch (URISyntaxException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
     timeline =
         new Timeline(
             new KeyFrame(
@@ -295,6 +311,8 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    * screen
    */
   protected void endGame() {
+    timerSoundEffect.stopSound();
+    SoundEffects.playBackgroundMusic();
     timeline.stop(); // stop timer/prediction updates
     canvas.setDisable(true);
     toolsContainer.setDisable(true);
@@ -302,9 +320,11 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     // display and announce a message based on game result
 
     if (game.getIsWin()) {
+      winSoundEffect.playSound();
       resultLabel.setText("You win!");
       speak("Congratulations!");
     } else {
+      loseSoundEffect.playSound();
       resultLabel.setText("You lost!");
       speak("Maybe next time!");
     }
@@ -336,6 +356,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    */
   @FXML
   protected void onNewGame(ActionEvent event) {
+    SoundEffects.playBackgroundMusic();
     SceneManager.changeScene(event, SceneManager.AppUi.DIFFICULTY_SELECTOR);
   }
 
@@ -520,6 +541,9 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   @Override
   public void onSwitchOut() {
     // terminate any unfinished game
+    timerSoundEffect.stopSound();
+    SoundEffects.playBackgroundMusic();
+
     if (!(timeline.getStatus() == Animation.Status.STOPPED)) {
       timeline.stop();
     }

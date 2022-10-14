@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.sounds.SoundEffects;
 import nz.ac.auckland.se206.words.WordHolder;
 
 public class CategoryDisplayController implements SwitchInListener {
@@ -19,8 +20,8 @@ public class CategoryDisplayController implements SwitchInListener {
   @FXML
   private void onStart(ActionEvent event) {
     // go to canvas view
-    //    SceneManager.changeScene(event, AppUi.NORMAL_CANVAS);
-    SceneManager.changeScene(event, AppUi.ZEN_CANVAS);
+    SoundEffects.stopBackgroundMusic();
+    SceneManager.changeScene(event, AppUi.NORMAL_CANVAS);
   }
 
   /** Resets the screen when it is switched to so that words can be updated and gotten */

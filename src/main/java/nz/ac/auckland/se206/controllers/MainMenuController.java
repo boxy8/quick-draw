@@ -9,6 +9,7 @@ import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
+import nz.ac.auckland.se206.sounds.SoundEffects;
 
 public class MainMenuController implements SwitchInListener {
 
@@ -51,6 +52,7 @@ public class MainMenuController implements SwitchInListener {
   /** When this controller is switched to makes everything default guest or selected profile */
   @Override
   public void onSwitchIn() {
+    SoundEffects.playBackgroundMusic();
     // if no profile chosen, create a guest user
     if (ProfileHolder.getInstance().getCurrentProfile() == null) {
       try {
