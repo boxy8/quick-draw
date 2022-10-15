@@ -31,19 +31,19 @@
                         </Label>
                      </children>
                   </HBox>
-                  <VBox id="instructions-box" prefHeight="100.0" prefWidth="538.0">
+                  <VBox id="instructions-box" fx:id="userInstructions" prefHeight="100.0" prefWidth="538.0">
                      <children>
                         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="460.0">
                            <children>
                               <Label text="Get your word in the top " />
-                              <Label text="3" />
+                              <Label fx:id="accuracyDisplay" text="3" />
                               <Label text=" predictions." />
                            </children>
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0">
                            <children>
                               <Label text="You have " />
-                              <Label text="60" />
+                              <Label fx:id="timeDisplay" text="60" />
                               <Label text=" seconds. Good Luck!" />
                            </children>
                         </HBox>

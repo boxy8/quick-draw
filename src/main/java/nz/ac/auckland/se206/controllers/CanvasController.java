@@ -489,7 +489,6 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   protected boolean isWin(List<Classifications.Classification> classifications) {
     // go through top predictions determined by accuracy difficulty
     for (int i = 0; i < accuracyCondition; i++) {
-
       // if top word is correct with confidence above the required amount
       if ((classifications.get(i).getProbability() > confidenceCondition)
           && classifications
