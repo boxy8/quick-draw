@@ -10,10 +10,11 @@ import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.controllers.NormalCanvasController;
 import nz.ac.auckland.se206.controllers.SwitchInListener;
+import nz.ac.auckland.se206.profiles.Profile;
+import nz.ac.auckland.se206.profiles.ProfileHolder;
 
 /**
- * This is the entry point of the JavaFX application, while you can change this
- * class, it should
+ * This is the entry point of the JavaFX application, while you can change this class, it should
  * remain as the class that runs the JavaFX application.
  */
 public class App extends Application {
@@ -23,8 +24,7 @@ public class App extends Application {
   }
 
   /**
-   * Returns an FXMLLoader instance for the input file. The method expects that
-   * the file is located
+   * Returns an FXMLLoader instance for the input file. The method expects that the file is located
    * in "src/main/resources/fxml".
    *
    * @param fxml The name of the FXML file (without extension).
@@ -37,8 +37,7 @@ public class App extends Application {
   private Scene scene;
 
   /**
-   * This method is invoked when the application starts. It loads and shows the
-   * "Canvas" scene.
+   * This method is invoked when the application starts. It loads and shows the "Canvas" scene.
    *
    * @param stage The primary stage of the application.
    * @throws IOException If "src/main/resources/fxml/[scene].fxml" is not found.
@@ -49,11 +48,20 @@ public class App extends Application {
         e -> {
           Platform.exit();
           // Terminate TTS so app closes fully on close
-          NormalCanvasController controller = (NormalCanvasController) SceneManager.getController(AppUi.NORMAL_CANVAS);
+          NormalCanvasController controller =
+              (NormalCanvasController) SceneManager.getController(AppUi.NORMAL_CANVAS);
           if (controller.getTextToSpeech() != null) {
             controller.getTextToSpeech().terminate();
           }
         });
+
+    // set profile to Guest
+    try {
+      // create a guest profile
+      ProfileHolder.getInstance().setCurrentProfile(new Profile("Guest"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     // add scenes to scene manager
     SceneManager.addUi(AppUi.MAIN_MENU, getFxmlLoader("main_menu"));

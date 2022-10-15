@@ -1,13 +1,11 @@
 package nz.ac.auckland.se206.controllers;
 
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
-import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.sounds.SoundEffects;
 
@@ -65,17 +63,7 @@ public class MainMenuController implements SwitchInListener {
   @Override
   public void onSwitchIn() {
     SoundEffects.playBackgroundMusic();
-    // if no profile chosen, create a guest user
-    if (ProfileHolder.getInstance().getCurrentProfile() == null) {
-      try {
-        // create a guest profile
-        ProfileHolder.getInstance().setCurrentProfile(new Profile("Guest"));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    } else {
-      // if logged in as a user, make button say Play as [username] instead of Play as guest
-      setPlayButton();
-    }
+    // if logged in as a user, make button say Play as [username] instead of Play as guest
+    setPlayButton();
   }
 }
