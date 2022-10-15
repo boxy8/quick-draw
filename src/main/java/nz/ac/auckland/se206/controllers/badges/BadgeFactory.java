@@ -7,7 +7,7 @@ public class BadgeFactory {
       case WIN_STREAK:
         return new WinStreakBadgeController();
       case COLLECTOR:
-        return new CollectorBadgeController();
+        return new WordCollectorBadgeController();
       case SNIPER:
         return new SniperBadgeController();
       case SPRINTER:

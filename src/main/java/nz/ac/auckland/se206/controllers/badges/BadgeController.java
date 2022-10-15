@@ -10,21 +10,10 @@ import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 
 public abstract class BadgeController extends VBox {
-  protected FXMLLoader loader;
-  protected boolean isAchieved;
-
-  protected BadgeType badgeType;
-
-  protected String imageLocation;
-  @FXML protected VBox badgeBox;
-
-  @FXML protected ImageView badgeIcon;
-
-  @FXML protected Label badgeLabel;
 
   public enum BadgeType {
     WIN_STREAK("Win Streak"),
-    COLLECTOR("Collector"),
+    WORD_COLLECTOR("Word Collector"),
     SNIPER("Sniper"),
     SPRINTER("Sprinter"),
     MASTER("Master"),
@@ -43,6 +32,17 @@ public abstract class BadgeController extends VBox {
     }
   }
 
+  protected FXMLLoader loader;
+  protected boolean isAchieved;
+  protected BadgeType badgeType;
+
+  protected String imageLocation;
+  @FXML protected VBox badgeBox;
+
+  @FXML protected ImageView badgeIcon;
+
+  @FXML protected Label badgeLabel;
+
   public BadgeController() {
     // check if badge is stored as achieved on current user profile
     if (ProfileHolder.getInstance().getCurrentProfile().getBadges().contains(badgeType)) {
@@ -58,11 +58,11 @@ public abstract class BadgeController extends VBox {
     badgeLabel.setText(badgeType.toString());
     badgeBox.setVisible(false);
     badgeBox.setManaged(false);
-    updateBadge();
+    updateBadgeGui();
   }
 
   /** Update the badge icon image and visibility based on current status. */
-  protected void updateBadge() {
+  protected void updateBadgeGui() {
     updateBadgeIcon();
     if (isAchieved) {
       badgeBox.setVisible(true);
