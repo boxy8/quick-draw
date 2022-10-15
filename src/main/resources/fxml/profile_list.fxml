@@ -10,6 +10,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -61,32 +62,12 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox fx:id="badgeContainer" layoutX="542.0" layoutY="88.0" prefHeight="200.0" prefWidth="100.0">
+            <VBox fx:id="badgeContainer" layoutX="406.0" prefWidth="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label styleClass="canvas-text" text="Badges" />
+                  <FlowPane fx:id="badgesContainer" hgap="5.0" style="-fx-padding: 15;" styleClass="main-container" vgap="5.0" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children></AnchorPane>
-      <Button fx:id="chooseButton" layoutX="696.0" layoutY="438.0" mnemonicParsing="false" onAction="#onConfirmProfile" styleClass="chooseContainer">
-         <graphic>
-            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/check.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
    </children>
 </AnchorPane>

@@ -140,7 +140,6 @@
 }
 
 .add-profile-box {
-    -fx-padding: 5 12 12 12;
     -fx-padding: 6 14 14 14;
     -fx-background-radius: 12;
     -fx-background-color: rgba(255, 255, 255, 0.5);
@@ -151,28 +150,6 @@
     -fx-border-color: #db3f2e;
     -fx-border-width: 3;
     -fx-border-radius: 12;
-}
-
-.chooseContainer {
-    -fx-background-color: white;
-    -fx-text-fill: black;
-    -fx-background-radius: 4px;
-}
-
-.chooseContainer * {
-    -fx-text-fill: black;
-}
-
-.selectedProfile {
-    -fx-background-color: #247BFF;
-}
-
-.chooseButton {
-    -fx-text-fill: white;
-}
-
-#deleteButton {
-    -fx-background-color: #bb4530;
 }
 
 /* Stats */

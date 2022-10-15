@@ -4,51 +4,43 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
-import nz.ac.auckland.se206.badges.Badge;
-import nz.ac.auckland.se206.badges.BadgeBook;
+import nz.ac.auckland.se206.controllers.badges.BadgeController;
+import nz.ac.auckland.se206.controllers.badges.CollectorBadgeController;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.profiles.ProfileLoader;
 
 public class ProfileListController implements SwitchInListener {
 
-  @FXML
-  private TextField usernameField;
+  @FXML private TextField usernameField;
 
-  @FXML
-  private Button addButton;
+  @FXML private Button addButton;
 
-  @FXML
-  private Button deleteButton;
+  @FXML private Button deleteButton;
 
-  @FXML
-  private Button chooseButton;
+  @FXML private Button chooseButton;
 
-  @FXML
-  private VBox profileContainer;
+  @FXML private VBox profileContainer;
 
-  @FXML
-  private VBox badgeContainer;
+  @FXML private FlowPane badgesContainer;
 
-  @FXML
-  private ToggleGroup profilesGroup = new ToggleGroup();
+  @FXML private ToggleGroup profilesGroup = new ToggleGroup();
 
   private ArrayList<ProfileButtonController> profileButtons = new ArrayList<>();
 
   /**
-   * Runs after GUI is ready from JavaFx and sets the path of the profiles to
-   * correct location
+   * Runs after GUI is ready from JavaFx and sets the path of the profiles to correct location
    *
    * @throws IOException
    */
@@ -69,11 +61,15 @@ public class ProfileListController implements SwitchInListener {
         addProfileButton(username);
       }
     }
+
+    // Initialise badges
+    List<BadgeController> badges = new ArrayList<>();
+    badges.add(new CollectorBadgeController());
+    badgesContainer.getChildren().addAll(badges);
   }
 
   /**
-   * Creates profile label with configured mouse click events and adds it to the
-   * GUI
+   * Creates profile label with configured mouse click events and adds it to the GUI
    *
    * @param username a string of the profile's user name
    */
@@ -88,8 +84,7 @@ public class ProfileListController implements SwitchInListener {
   }
 
   /**
-   * Sets the current profile based on the current selected profile, and returns
-   * to the main menu
+   * Sets the current profile based on the current selected profile, and returns to the main menu
    *
    * @param event the event of activating the Choose Profile Button
    * @throws FileNotFoundException
@@ -163,9 +158,7 @@ public class ProfileListController implements SwitchInListener {
     profileButtons.remove(profileButtonController);
   }
 
-  /**
-   * Runs when this is switched to, it shows the current profile that is selected
-   */
+  /** Runs when this is switched to, it shows the current profile that is selected */
   @Override
   public void onSwitchIn() {
     // pre-select the currently selected profile

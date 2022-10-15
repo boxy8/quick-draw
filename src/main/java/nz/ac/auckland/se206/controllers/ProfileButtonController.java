@@ -18,8 +18,7 @@ public class ProfileButtonController extends HBox {
 
   /** Constructs a profile button instance which has text and a delete button */
   public ProfileButtonController() {
-    FXMLLoader loader =
-        new FXMLLoader(getClass().getResource("/fxml/" + "profile_button" + ".fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profile_button.fxml"));
     loader.setRoot(this);
     loader.setController(this);
     // loading the profile button instance
