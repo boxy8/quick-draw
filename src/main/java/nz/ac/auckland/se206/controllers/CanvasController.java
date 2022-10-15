@@ -101,7 +101,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
 
     // load in sound effects
-    winSoundEffect = new SoundEffects("win");
+    setWinSoundEffect(new SoundEffects("win"));
     loseSoundEffect = new SoundEffects("lose");
     // wrap predictions that are too long
     predictionsLabel.setWrapText(true);
@@ -169,6 +169,10 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
         });
   }
 
+  protected void setEndgameVisibility(boolean visibility) {
+    endGameContainer.setVisible(visibility);
+  }
+
   /** Resets game when switching to this screen by clearing everything */
   @Override
   public void onSwitchIn() {
@@ -184,7 +188,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     resetPredictionLabel();
 
     // hide end game buttons
-    endGameContainer.setVisible(false);
+    setEndgameVisibility(false);
 
     // enable canvas and drawing buttons
     canvas.setDisable(false);
@@ -260,6 +264,15 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     startTimer();
   }
 
+  protected void playGamemodeSoundEffect() {
+    try {
+      setTimerSoundEffect(new SoundEffects("timer"));
+      getTimerSoundEffect().playRepeatSound();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
+  }
+
   /** Used to start the timer for predictions and also the clock */
   protected void startTimer() {
     // set timer to required time
@@ -274,6 +287,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
       e1.printStackTrace();
     }
     // start preditions every second
+    playGamemodeSoundEffect();
     timeline =
         new Timeline(
             new KeyFrame(
@@ -323,8 +337,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    * screen
    */
   protected void endGame() {
-    // change music
-    timerSoundEffect.stopSound();
+    getTimerSoundEffect().stopSound();
     SoundEffects.playBackgroundMusic();
     // stop timer/prediction updates
     timeline.stop();
@@ -333,7 +346,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
 
     // display and announce a message based on game result
     if (game.getIsWin()) {
-      winSoundEffect.playSound();
+      getWinSoundEffect().playSound();
       resultLabel.setText("You win!");
       speak("Congratulations!");
     } else {
@@ -343,7 +356,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     }
 
     // show save and reset button
-    endGameContainer.setVisible(true);
+    setEndgameVisibility(true);
 
     // set game time
     int gameDuration = startingTime - timeLeft;
@@ -556,11 +569,27 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   @Override
   public void onSwitchOut() {
     // terminate any unfinished game
-    timerSoundEffect.stopSound();
+    getTimerSoundEffect().stopSound();
     SoundEffects.playBackgroundMusic();
     // stop the predictions
     if (!(timeline.getStatus() == Animation.Status.STOPPED)) {
       timeline.stop();
     }
+  }
+
+  public SoundEffects getTimerSoundEffect() {
+    return timerSoundEffect;
+  }
+
+  public void setTimerSoundEffect(SoundEffects timerSoundEffect) {
+    this.timerSoundEffect = timerSoundEffect;
+  }
+
+  public SoundEffects getWinSoundEffect() {
+    return winSoundEffect;
+  }
+
+  public void setWinSoundEffect(SoundEffects winSoundEffect) {
+    this.winSoundEffect = winSoundEffect;
   }
 }

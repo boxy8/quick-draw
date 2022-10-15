@@ -83,7 +83,7 @@
                         </RadioButton>
                         <VBox fx:id="brushSizeBox" alignment="TOP_CENTER" prefWidth="100.0" spacing="20.0">
                            <children>
-                              <RadioButton fx:id="onChooseExtraLarge" mnemonicParsing="false">
+                              <RadioButton mnemonicParsing="false" onAction="#onChooseExtraLarge">
                                  <graphic>
                                     <ImageView fitHeight="87.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -95,7 +95,7 @@
                                     <ToggleGroup fx:id="sizes" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton fx:id="onChooseLarge" mnemonicParsing="false" toggleGroup="$sizes">
+                              <RadioButton mnemonicParsing="false" onAction="#onChooseLarge" toggleGroup="$sizes">
                                  <graphic>
                                     <ImageView fitHeight="29.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -104,7 +104,7 @@
                                     </ImageView>
                                  </graphic>
                               </RadioButton>
-                              <RadioButton fx:id="onChooseMedium" mnemonicParsing="false" toggleGroup="$sizes">
+                              <RadioButton mnemonicParsing="false" onAction="#onChooseMedium" selected="true" toggleGroup="$sizes">
                                  <graphic>
                                     <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -113,7 +113,7 @@
                                     </ImageView>
                                  </graphic>
                               </RadioButton>
-                              <RadioButton fx:id="onChooseSmall" mnemonicParsing="false" toggleGroup="$sizes">
+                              <RadioButton mnemonicParsing="false" onAction="#onChooseSmall" toggleGroup="$sizes">
                                  <graphic>
                                     <ImageView fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -229,7 +229,7 @@
                         </ImageView>
                      </graphic>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onChooseBlack" toggleGroup="$colors">
+                  <RadioButton mnemonicParsing="false" onAction="#onChooseBlack" selected="true" toggleGroup="$colors">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
