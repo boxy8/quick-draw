@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.badges;
 
 import static nz.ac.auckland.se206.badges.ProgressiveBadge.Rank.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class ProgressiveBadge extends Badge {
@@ -15,7 +16,7 @@ public abstract class ProgressiveBadge extends Badge {
 
   protected Rank rank;
   protected int value;
-  protected Map<Rank, Integer> rankValues;
+  protected Map<Rank, Integer> rankValues = new HashMap<>();
 
   /**
    * Constructs an instance of a progressive badge with the values needed to unlock each rank.

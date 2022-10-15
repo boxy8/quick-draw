@@ -14,8 +14,6 @@ public class BadgeController extends VBox {
 
   protected FXMLLoader loader;
   protected Badge badge;
-
-  protected String imageLocation;
   @FXML protected VBox badgeBox;
 
   @FXML protected ImageView badgeIcon;
@@ -57,22 +55,22 @@ public class BadgeController extends VBox {
 
   public void setBadge(Badge badge) {
     this.badge = badge;
+    updateBadgeGui(); // update GUI after setting a new badge
   }
 
   /** Update the badge icon image and visibility based on current status. */
   protected void updateBadgeGui() {
     updateBadgeIcon();
-    if (badge.getIsAchieved()) {
-      badgeBox.setVisible(true);
-      badgeBox.setManaged(true);
-    }
+    badgeBox.setVisible(badge.getIsAchieved());
+    badgeBox.setManaged(badge.getIsAchieved());
   }
 
   /** Update badge icon image. */
   protected void updateBadgeIcon() {
     String filePath = null;
     try {
-      filePath = getClass().getResource("/images/badges/" + this.imageLocation).toURI().toString();
+      filePath =
+          getClass().getResource("/images/badges/" + badge.getImageLocation()).toURI().toString();
     } catch (URISyntaxException e) {
       throw new RuntimeException(e);
     }

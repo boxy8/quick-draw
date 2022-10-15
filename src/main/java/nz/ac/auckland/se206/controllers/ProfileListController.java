@@ -60,6 +60,12 @@ public class ProfileListController implements SwitchInListener {
         addProfileButton(username);
       }
     }
+
+    // Initialize badges
+    Profile initialProfile = ProfileHolder.getInstance().getCurrentProfile();
+    for (Badge badge : initialProfile.getBadges()) {
+      badgesContainer.getChildren().add(new BadgeController(badge));
+    }
   }
 
   /**

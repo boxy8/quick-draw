@@ -9,6 +9,6 @@ public class FirstTryBadge extends Badge {
    */
   public FirstTryBadge() {
     // TODO replace image location
-    super("First Try", "imageLocation");
+    super("First Try", "MASTER.png");
   }
 }

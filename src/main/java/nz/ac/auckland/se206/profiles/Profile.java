@@ -3,8 +3,7 @@ package nz.ac.auckland.se206.profiles;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import nz.ac.auckland.se206.badges.Badge;
-import nz.ac.auckland.se206.badges.WordCollectorBadge;
+import nz.ac.auckland.se206.badges.*;
 import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.GameMode;
@@ -21,7 +20,7 @@ public class Profile {
   private Map<Game.Setting, Game.Difficulty> setting2difficulty = new HashMap<>();
   private GameMode gameMode;
   // stores the names of all achieved badges (no information regarding rank)
-  private Set<Badge> badges = new HashSet<>();
+  private List<Badge> badges = new ArrayList<>();
 
   public Profile(String username) throws IOException {
     this.username = username;
@@ -41,10 +40,14 @@ public class Profile {
       this.gameMode = reading.getGameMode();
       this.badges = reading.getBadges();
     } else {
-      // TODO replace this with reflection or similar
-      List<Badge> newBadges = new ArrayList<>();
-      newBadges.add(new WordCollectorBadge());
-      badges.addAll(newBadges);
+      // Add each badge instance
+      badges.add(new FirstTryBadge());
+      badges.add(new GrandmasterBadge());
+      badges.add(new MasterBadge());
+      badges.add(new SniperBadge());
+      badges.add(new SprinterBadge());
+      badges.add(new WinStreakBadge());
+      badges.add(new WordCollectorBadge());
     }
   }
 
@@ -158,7 +161,7 @@ public class Profile {
     return setting2difficulty;
   }
 
-  public Set<Badge> getBadges() {
+  public List<Badge> getBadges() {
     return badges;
   }
   /**
