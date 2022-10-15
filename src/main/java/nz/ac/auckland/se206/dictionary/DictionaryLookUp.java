@@ -15,9 +15,9 @@ public class DictionaryLookUp {
    * Searches for the word in an online dictionary, returns string with definition or null if it is
    * not found
    *
-   * @param query
-   * @return definition
-   * @throws IOException
+   * @param query the word you wish to search up
+   * @return the definition of the word as a string
+   * @throws IOException if it was unable to read from the api
    */
   public static String searchWordInfo(String query) throws IOException {
     // JSON reading setup
@@ -52,7 +52,7 @@ public class DictionaryLookUp {
   /**
    * This finds the area of the json with the definition and returns it so that it is easy to use
    *
-   * @param element
+   * @param element the json element to search inside
    * @return definition of word as a jsonElement
    */
   private static JsonElement getDefinition(JsonElement element) {

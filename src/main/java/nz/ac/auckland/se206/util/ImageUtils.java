@@ -39,11 +39,11 @@ public class ImageUtils {
    */
   public static BufferedImage invertBlackAndWhite(final BufferedImage image) {
     final BufferedImage imageOut = getBlackImage(image.getWidth(), image.getHeight());
-
+    // run through every pixel
     for (int i = 0; i < image.getWidth(); i++) {
       for (int j = 0; j < image.getHeight(); j++) {
         final Color c = new Color(image.getRGB(i, j));
-
+        // check colour and change accordingly
         if (c.equals(Color.white)) {
           imageOut.setRGB(i, j, Color.black.getRGB());
         } else if (c.equals(Color.black)) {
@@ -53,7 +53,6 @@ public class ImageUtils {
         }
       }
     }
-
     return imageOut;
   }
 }

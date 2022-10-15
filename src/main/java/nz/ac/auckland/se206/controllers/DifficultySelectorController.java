@@ -44,7 +44,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
+    // create a new instance of a catigory selector
     try {
       categorySelector = new CategorySelector();
     } catch (IOException | CsvException | URISyntaxException e) {
@@ -61,11 +61,13 @@ public class DifficultySelectorController implements Initializable, SwitchInList
         .valueProperty()
         .addListener(
             (obs, oldValue, newValue) -> {
+              // show only difficulty
               if (newValue.equals("ZEN")) {
                 accuracyContainer.setVisible(false);
                 timeContainer.setVisible(false);
                 confidenceContainer.setVisible(false);
               } else {
+                // show all options
                 accuracyContainer.setVisible(true);
                 timeContainer.setVisible(true);
                 confidenceContainer.setVisible(true);
@@ -105,15 +107,17 @@ public class DifficultySelectorController implements Initializable, SwitchInList
    */
   @FXML
   private void onChooseDifficulty(ActionEvent event) {
+    // all difficulty options
     setGameMode();
     setAccuracyDifficulty();
     setWordsDifficulty();
     setTimeDifficulty();
     setConfidenceDifficulty();
-
+    // change to required scene
     SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
   }
 
+  /** Set the selected game mode to the profile of the current user */
   private void setGameMode() {
     // Normal gamemode selected
     if (modeSpinner.getValue().equals("NORMAL")) {
@@ -213,6 +217,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
           .getSetting2Difficulty()
           .put(Setting.TIME, Difficulty.HARD);
     } else {
+      // Master difficulty selected
       ProfileHolder.getInstance()
           .getCurrentProfile()
           .getSetting2Difficulty()
@@ -279,6 +284,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     }
   }
 
+  /** sets the spinners to the correct value required */
   @Override
   public void onSwitchIn() {
     setSpinners();

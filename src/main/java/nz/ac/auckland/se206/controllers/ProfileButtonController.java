@@ -18,6 +18,7 @@ public class ProfileButtonController extends HBox {
 
   /** Constructs a profile button instance which has text and a delete button */
   public ProfileButtonController() {
+    // loading the profile button
     FXMLLoader loader =
         new FXMLLoader(getClass().getResource("/fxml/" + "profile_button" + ".fxml"));
     loader.setRoot(this);
@@ -33,7 +34,7 @@ public class ProfileButtonController extends HBox {
   /**
    * Get the current button selected's name
    *
-   * @return
+   * @return the selected buttons user name
    */
   public String getToggleText() {
     return selectButton.getText();
@@ -42,7 +43,7 @@ public class ProfileButtonController extends HBox {
   /**
    * set the current toggle button's name
    *
-   * @param username
+   * @param username the username of the button you wish to change
    */
   public void setToggleText(String username) {
     selectButton.setText(username);
@@ -51,7 +52,7 @@ public class ProfileButtonController extends HBox {
   /**
    * set the current selected toggle button to on or off
    *
-   * @param bool
+   * @param bool turn the buttons toggle on or off
    */
   public void setToggleSelected(boolean bool) {
     selectButton.setSelected(bool);
@@ -60,7 +61,7 @@ public class ProfileButtonController extends HBox {
   /**
    * set the current selected button to the toggle group
    *
-   * @param group
+   * @param group the group of toggle buttons
    */
   public void setToggleGroup(ToggleGroup group) {
     selectButton.setToggleGroup(group);
@@ -70,7 +71,7 @@ public class ProfileButtonController extends HBox {
    * Deletes the currently selected profile and removes it from the GUI. Warns the user and requires
    * confirmation
    *
-   * @throws IOException
+   * @throws IOException where it was unable to read the user profile
    */
   @FXML
   private void onDeleteProfile() throws IOException {
@@ -86,8 +87,8 @@ public class ProfileButtonController extends HBox {
   /**
    * Deletes the profile label in the select profile screen
    *
-   * @param username
-   * @throws IOException
+   * @param username the user name of the user you wish to delete
+   * @throws IOException when it is unable to read/write to the profile
    */
   private void deleteProfileLabel(String username) throws IOException {
     if (selectButton.getText().equals(username)) {

@@ -43,10 +43,20 @@ public class Profile {
     }
   }
 
+  /**
+   * gets the game mode of the game
+   *
+   * @return game mode of the game
+   */
   public GameMode getGameMode() {
     return this.gameMode;
   }
 
+  /**
+   * set the game mode of the game
+   *
+   * @param gameMode game mode of the game
+   */
   public void setGameMode(GameMode gameMode) {
     this.gameMode = gameMode;
   }
@@ -54,7 +64,7 @@ public class Profile {
   /**
    * Gets the user name of the profile
    *
-   * @return username
+   * @return username the user name of the profile
    */
   public String getUsername() {
     return username;
@@ -81,7 +91,7 @@ public class Profile {
   /**
    * Gets the win streak of the profile
    *
-   * @return win streak
+   * @return win streak of user
    */
   public int getWinStreak() {
     return winStreak;
@@ -105,7 +115,6 @@ public class Profile {
     if (gameHistory.size() == 0) {
       return 60; // default value
     }
-
     int sum = 0;
     int numberOfNonZenGames = 0;
     // sum up game times
@@ -122,7 +131,7 @@ public class Profile {
   /**
    * Gets the word history of the profile
    *
-   * @return word history
+   * @return word history of user
    */
   public List<String> getWordHistory() {
     return wordHistory;
@@ -131,7 +140,7 @@ public class Profile {
   /**
    * Gets the game history of the user
    *
-   * @return game history
+   * @return game history of user
    */
   public List<Game> getGameHistory() {
     return gameHistory;
@@ -151,7 +160,7 @@ public class Profile {
   /**
    * Get settings and difficulty of last game played
    *
-   * @return
+   * @return the difficultly of the last played game
    */
   public Map<Setting, Difficulty> getSetting2Difficulty() {
     return setting2difficulty;
@@ -160,7 +169,7 @@ public class Profile {
   /**
    * Saves the current profile to a file of json format
    *
-   * @throws IOException
+   * @throws IOException if unable to read/write to file
    */
   public void saveToFile() throws IOException {
     ProfileLoader.updateJson(this);
@@ -169,7 +178,7 @@ public class Profile {
   /**
    * Checks to see if this is a guest profile or a user created one
    *
-   * @return
+   * @return if the user is guest or not
    */
   public boolean isGuest() {
     return username.equals("Guest");

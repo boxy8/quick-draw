@@ -99,13 +99,15 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    * @throws CsvException
    */
   public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
+
+    // load in sound effects
     setWinSoundEffect(new SoundEffects("win"));
     loseSoundEffect = new SoundEffects("lose");
-
-    predictionsLabel.setWrapText(true); // wrap predictions that are too long
-
+    // wrap predictions that are too long
+    predictionsLabel.setWrapText(true);
+    // create the ml model
     model = new DoodlePrediction();
-
+    // setup drawing
     graphic = canvas.getGraphicsContext2D();
     graphic.setLineWidth(7);
     graphic.setLineCap(StrokeLineCap.ROUND);
@@ -117,6 +119,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
      * @see {@link https://stackoverflow.com/a/47284341/1248177|How to draw a continuous line with
      *     mouse on JavaFX canvas?}
      */
+
     // Start drawing on mouse click smoothly
     canvas.addEventHandler(
         MouseEvent.MOUSE_PRESSED,
@@ -152,7 +155,6 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
             graphic.closePath();
           }
         });
-
     // Tells label to update when user starts drawing
     // and also start predictions
     canvas.addEventHandler(
@@ -174,8 +176,10 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   /** Resets game when switching to this screen by clearing everything */
   @Override
   public void onSwitchIn() {
+
+    // display new category
     String currentWord = WordHolder.getInstance().getCurrentWord();
-    wordLabel.setText(currentWord); // display new category
+    wordLabel.setText(currentWord);
 
     // stop predictions from taking place
     drawingStarted = false;
@@ -190,6 +194,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     canvas.setDisable(false);
 
     // set Accuracy win condition according to Accuracy difficulty chosen
+    // ranges from accuracy condition 1 to 3
     switch (ProfileHolder.getInstance()
         .getCurrentProfile()
         .getSetting2Difficulty()
@@ -208,6 +213,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     }
 
     // set starting time according to Time difficulty chosen
+    // ranges from 15 seconds to 60 seconds
     switch (ProfileHolder.getInstance()
         .getCurrentProfile()
         .getSetting2Difficulty()
@@ -227,6 +233,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     }
 
     // set Confidence win condition according to Confidence difficulty chosen
+    // ranges from 0.01 to 0.5
     switch (ProfileHolder.getInstance()
         .getCurrentProfile()
         .getSetting2Difficulty()
@@ -245,11 +252,14 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
         break;
     }
 
+    // hide save image and restart
     toolsContainer.setDisable(false);
 
     // reset to pen function
     paintButton.fire();
     game = new Game(currentWord, Game.GameMode.NORMAL);
+
+    // reset canvas and restart timer
     clearCanvas();
     startTimer();
   }
@@ -257,7 +267,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   protected void playGamemodeSoundEffect() {
     try {
       setTimerSoundEffect(new SoundEffects("timer"));
-      getTimerSoundEffect().playRepeateSound();
+      getTimerSoundEffect().playRepeatSound();
     } catch (URISyntaxException e) {
       e.printStackTrace();
     }
@@ -265,8 +275,18 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
 
   /** Used to start the timer for predictions and also the clock */
   protected void startTimer() {
+    // set timer to required time
     resetTimer();
-    getCurrentSnapshot(); // calling this first seems to stop initial freezing problem
+    // calling this first to stop initial freezing problem
+    getCurrentSnapshot();
+    // play sound effect required by game mode, in this case ticking clock
+    try {
+      timerSoundEffect = new SoundEffects("timer");
+      timerSoundEffect.playRepeatSound();
+    } catch (URISyntaxException e1) {
+      e1.printStackTrace();
+    }
+    // start preditions every second
     playGamemodeSoundEffect();
     timeline =
         new Timeline(
@@ -279,7 +299,8 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
                   }
                   countDown();
                 }));
-    timeline.setCycleCount(Animation.INDEFINITE); // countdown value (seconds)
+    // count down value (seconds)
+    timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
   }
 
@@ -318,12 +339,12 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   protected void endGame() {
     getTimerSoundEffect().stopSound();
     SoundEffects.playBackgroundMusic();
-    timeline.stop(); // stop timer/prediction updates
+    // stop timer/prediction updates
+    timeline.stop();
     canvas.setDisable(true);
     toolsContainer.setDisable(true);
 
     // display and announce a message based on game result
-
     if (game.getIsWin()) {
       getWinSoundEffect().playSound();
       resultLabel.setText("You win!");
@@ -334,6 +355,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
       speak("Maybe next time!");
     }
 
+    // show save and reset button
     setEndgameVisibility(true);
 
     // set game time
@@ -357,7 +379,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   /**
    * Takes user to the category display from the canvas screen
    *
-   * @param event
+   * @param event event that has triggered this method
    */
   @FXML
   protected void onNewGame(ActionEvent event) {
@@ -401,7 +423,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
             endGame();
           }
         });
-
+    // run thread
     Thread backgroundPerson = new Thread(backgroundTask);
     backgroundPerson.start();
   }
@@ -409,7 +431,6 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   /** Save the current snapshot as a file image. */
   @FXML
   protected void onSave(ActionEvent event) {
-
     FileChooser savefile = new FileChooser();
     // set the default options for the file chooser
     savefile.setTitle("Save File");
@@ -462,6 +483,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     return false;
   }
 
+  /** change the colour of pen to black so the user can draw */
   @FXML
   protected void onPaintTool() {
     graphic.setStroke(Color.BLACK);
@@ -474,12 +496,13 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     graphic.setStroke(Color.WHITE);
   }
 
+  /** clear the canvas when the clear tool is clicked */
   @FXML
   protected void onClearTool() {
     clearCanvas();
   }
 
-  /** Clears the canvas */
+  /** Clears the canvas for the user */
   protected void clearCanvas() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
   }
@@ -510,7 +533,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   /**
    * Getter method for text to speech so that it can be stopped at the end of the game
    *
-   * @return
+   * @return current text to speech instance
    */
   public TextToSpeech getTextToSpeech() {
     return textToSpeech;
@@ -547,7 +570,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     // terminate any unfinished game
     getTimerSoundEffect().stopSound();
     SoundEffects.playBackgroundMusic();
-
+    // stop the predictions
     if (!(timeline.getStatus() == Animation.Status.STOPPED)) {
       timeline.stop();
     }

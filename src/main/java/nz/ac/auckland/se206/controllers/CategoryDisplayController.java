@@ -23,17 +23,18 @@ public class CategoryDisplayController implements SwitchInListener {
   /**
    * Changes from category display to the canvas when user wants to start
    *
-   * @param event
+   * @param event event that has triggered this method
    */
   @FXML
   private void onStart(ActionEvent event) {
     SoundEffects.stopBackgroundMusic();
     // go to canvas view
     GameMode gameMode = ProfileHolder.getInstance().getCurrentProfile().getGameMode();
+    // switch to the game mode user has selected
     switch (gameMode) {
         // go to correct game mode
       case HIDDEN:
-        // hidden game mode
+        // hidden word game mode
         SceneManager.changeScene(event, AppUi.HIDDEN_CANVAS);
         break;
       case NORMAL:

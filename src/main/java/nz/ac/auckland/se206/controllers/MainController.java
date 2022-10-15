@@ -19,14 +19,13 @@ public class MainController {
   /**
    * sets the main content (content below the navigation bar)
    *
-   * @param appUi
+   * @param appUi the app ui they want to switch to
    */
   public void setContent(AppUi appUi) {
     Object controller = SceneManager.getController(appUi);
     if (controller instanceof SwitchInListener switchListener) {
       switchListener.onSwitchIn();
     }
-
     // switch main content
     border.setCenter(SceneManager.getUiRoot(appUi));
   }
@@ -39,7 +38,7 @@ public class MainController {
   /**
    * when the home button is pushed, it takes the user to home screen
    *
-   * @param event
+   * @param event event that triggered this method
    */
   @FXML
   private void onGoHome(ActionEvent event) {
@@ -49,7 +48,7 @@ public class MainController {
   /**
    * When show profile is clicked it takes user to their profile page
    *
-   * @param event
+   * @param event event that triggered this method
    */
   @FXML
   private void onShowProfile(ActionEvent event) {
