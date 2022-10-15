@@ -84,6 +84,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   protected boolean drawingStarted; // Tells label to update
   protected Timeline timeline;
   protected TextToSpeech textToSpeech;
+  protected int ttsCounter;
 
   private SoundEffects timerSoundEffect;
   private SoundEffects winSoundEffect;
@@ -101,6 +102,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
     setWinSoundEffect(new SoundEffects("win"));
     loseSoundEffect = new SoundEffects("lose");
+    ttsCounter = 0;
 
     predictionsLabel.setWrapText(true); // wrap predictions that are too long
 
@@ -176,6 +178,8 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   public void onSwitchIn() {
     String currentWord = WordHolder.getInstance().getCurrentWord();
     wordLabel.setText(currentWord); // display new category
+
+    speak("Good Luck, start drawing");
 
     // stop predictions from taking place
     drawingStarted = false;
@@ -373,6 +377,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    * @throws TranslateException If there is an error in reading the input/output of the DL model.
    */
   protected void onPredict(BufferedImage canvasImg) {
+    ttsCounter++;
     // run in new thread to make sure GUI does not freeze
     Task<Void> backgroundTask =
         new Task<>() {
@@ -384,6 +389,8 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
                 () -> {
                   // after the prediction is received then update text to show it
                   predictionsLabel.setText(getFormattedPredictions(predictions));
+                  // say top prediction
+                  gamemodeSpeak(predictions.get(0).getClassName().replace("_", " "));
                 });
 
             // update gameWon boolean if player has won after the last prediction update
@@ -404,6 +411,18 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
 
     Thread backgroundPerson = new Thread(backgroundTask);
     backgroundPerson.start();
+  }
+
+  /**
+   * What the text to speech should say every so often depending on the game mode override this
+   * method to change per method
+   *
+   * @param prediction a string of the top prediction value
+   */
+  protected void gamemodeSpeak(String prediction) {
+    if (ttsCounter % 5 == 1) {
+      speak("I Guess " + prediction);
+    }
   }
 
   /** Save the current snapshot as a file image. */
@@ -458,6 +477,16 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
               .replaceAll("_", " ")
               .equals(WordHolder.getInstance().getCurrentWord())) {
         return true;
+      } else if (((classifications.get(i).getProbability() <= confidenceCondition)
+          && classifications
+              .get(i)
+              .getClassName()
+              .replaceAll("_", " ")
+              .equals(WordHolder.getInstance().getCurrentWord()))) {
+        // tell user that they need to draw better
+        if (ttsCounter % 10 == 2) {
+          speak("I'm not confident enough, improve your drawing");
+        }
       }
     }
     return false;
@@ -534,6 +563,10 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
             textToSpeech = new TextToSpeech();
             // read the message that is sent to this method
             textToSpeech.speak(msg);
+            Platform.runLater(
+                () -> {
+                  // textToSpeech.terminate();
+                });
             return null;
           }
         };
@@ -545,6 +578,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   /** Called when the game is left mid way through stops game from running */
   @Override
   public void onSwitchOut() {
+
     // terminate any unfinished game
     getTimerSoundEffect().stopSound();
     SoundEffects.playBackgroundMusic();

@@ -17,6 +17,15 @@ public class ZenCanvasController extends CanvasController {
   private Color currentColor; // American spelling : (
   private boolean isEraser;
 
+  private String[] encouragement = {
+    "Good work",
+    "love it",
+    "love that drawing",
+    "Amazing work",
+    "Cool drawing",
+    "absolute masterpiece"
+  };
+
   /** Always returns false as we don't want ZEN mode to end */
   @Override
   protected boolean isWin(List<Classifications.Classification> classifications) {
@@ -40,6 +49,14 @@ public class ZenCanvasController extends CanvasController {
       getTimerSoundEffect().playRepeateSound();
     } catch (URISyntaxException e) {
       e.printStackTrace();
+    }
+  }
+
+  /** Chooses a random encouraging comment and speaks it every 20 seconds */
+  @Override
+  protected void gamemodeSpeak(String prediction) {
+    if (ttsCounter % 20 == 1) {
+      speak(encouragement[(int) Math.floor(Math.random() * encouragement.length)]);
     }
   }
 
@@ -77,6 +94,7 @@ public class ZenCanvasController extends CanvasController {
   public void onSwitchOut() {
     // terminate any unfinished game
     // zen mode has no duration
+    // textToSpeech.terminate();
     game.setDuration(0);
     // update profile stats
     Profile userProfile = ProfileHolder.getInstance().getCurrentProfile();
