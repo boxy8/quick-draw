@@ -15,12 +15,9 @@ import javafx.concurrent.Task;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
-import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
-import nz.ac.auckland.se206.sounds.SoundEffects;
 import nz.ac.auckland.se206.words.WordHolder;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class HiddenWordCanvasController extends CanvasController {
 
