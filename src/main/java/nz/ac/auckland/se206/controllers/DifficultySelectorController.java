@@ -27,31 +27,20 @@ import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.WordHolder;
 
 public class DifficultySelectorController implements Initializable, SwitchInListener {
-  @FXML
-  private Spinner<String> modeSpinner;
-  @FXML
-  private Spinner<String> accuracySpinner;
-  @FXML
-  private Spinner<String> wordsSpinner;
-  @FXML
-  private Spinner<String> timeSpinner;
-  @FXML
-  private Spinner<String> confidenceSpinner;
-  @FXML
-  private AnchorPane wordContainer;
-  @FXML
-  private AnchorPane accuracyContainer;
-  @FXML
-  private AnchorPane timeContainer;
-  @FXML
-  private AnchorPane confidenceContainer;
-  @FXML
-  private Button chooseDifficultyButton;
+  @FXML private Spinner<String> modeSpinner;
+  @FXML private Spinner<String> accuracySpinner;
+  @FXML private Spinner<String> wordsSpinner;
+  @FXML private Spinner<String> timeSpinner;
+  @FXML private Spinner<String> confidenceSpinner;
+  @FXML private AnchorPane wordContainer;
+  @FXML private AnchorPane accuracyContainer;
+  @FXML private AnchorPane timeContainer;
+  @FXML private AnchorPane confidenceContainer;
+  @FXML private Button chooseDifficultyButton;
   private CategorySelector categorySelector;
 
   /**
-   * called when JavaFx is done loading all GUI, this method grabs all the
-   * available categories and
+   * called when JavaFx is done loading all GUI, this method grabs all the available categories and
    * stores them in a HashMap for later use
    */
   @Override
@@ -64,7 +53,8 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     }
 
     // Initialize mode spinner
-    ObservableList<String> gameModes = FXCollections.observableArrayList("NORMAL", "HIDDEN", "ZEN");
+    ObservableList<String> gameModes =
+        FXCollections.observableArrayList("NORMAL", "HIDDEN", "ZEN", "SCRAMBLE");
     initializeSpinner(modeSpinner, gameModes);
 
     // When selecting Zen Mode, only word difficulty shows up
@@ -87,11 +77,13 @@ public class DifficultySelectorController implements Initializable, SwitchInList
             });
 
     // Initialize spinners with "Easy", "Medium", and "Hard" difficulties
-    ObservableList<String> accuracyDifficulties = FXCollections.observableArrayList("EASY", "MEDIUM", "HARD");
+    ObservableList<String> accuracyDifficulties =
+        FXCollections.observableArrayList("EASY", "MEDIUM", "HARD");
     initializeSpinner(accuracySpinner, accuracyDifficulties);
 
     // Initialize spinners with "Easy", "Medium", "Hard", and "Master" difficulties
-    ObservableList<String> difficulties = FXCollections.observableArrayList("EASY", "MEDIUM", "HARD", "MASTER");
+    ObservableList<String> difficulties =
+        FXCollections.observableArrayList("EASY", "MEDIUM", "HARD", "MASTER");
     initializeSpinner(wordsSpinner, difficulties);
     initializeSpinner(timeSpinner, difficulties);
     initializeSpinner(confidenceSpinner, difficulties);
@@ -100,19 +92,18 @@ public class DifficultySelectorController implements Initializable, SwitchInList
   /**
    * Initializes a spinner with relevant difficulties for user selection
    *
-   * @param spinner      a spinner on the GUI that the user uses to select the
-   *                     relevant difficulty
+   * @param spinner a spinner on the GUI that the user uses to select the relevant difficulty
    * @param difficulties all available difficulty strings for the setting
    */
   private void initializeSpinner(Spinner<String> spinner, ObservableList<String> options) {
-    SpinnerValueFactory<String> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<String>(options);
+    SpinnerValueFactory<String> valueFactory =
+        new SpinnerValueFactory.ListSpinnerValueFactory<String>(options);
     valueFactory.setValue(options.get(0));
     spinner.setValueFactory(valueFactory);
   }
 
   /**
-   * Sets the users chosen difficulty settings Triggers when
-   * ChooseDifficultyButton is pressed
+   * Sets the users chosen difficulty settings Triggers when ChooseDifficultyButton is pressed
    *
    * @param event the event of triggering this method
    * @throws IOException
@@ -143,6 +134,9 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     // Hidden word gamemode selected
     else if (modeSpinner.getValue().equals("HIDDEN")) {
       ProfileHolder.getInstance().getCurrentProfile().setGameMode(GameMode.HIDDEN);
+      // Scramble game mode
+    } else if (modeSpinner.getValue().equals("SCRAMBLE")) {
+      ProfileHolder.getInstance().getCurrentProfile().setGameMode(GameMode.SCRAMBLE);
     }
     // Zen gamemode selected
     else {
@@ -150,10 +144,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     }
   }
 
-  /**
-   * Sets the next game's accuracy cut off as per the difficulty selected by
-   * accuracy spinner
-   */
+  /** Sets the next game's accuracy cut off as per the difficulty selected by accuracy spinner */
   private void setAccuracyDifficulty() {
     // Easy difficulty selected
     if (accuracySpinner.getValue().equals("EASY")) {
@@ -178,51 +169,86 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     }
   }
 
-  /**
-   * Sets the next game's word as per the difficulty selected by words spinner
-   * 
-   * @throws IOException
-   */
-  private void setWordsDifficulty() throws IOException {
-    // Easy difficulty selected
-    if (wordsSpinner.getValue().equals("EASY")) {
-      WordHolder.getInstance().setCurrentWord(categorySelector.getEasyCategory());
-      ProfileHolder.getInstance()
-          .getCurrentProfile()
-          .getSetting2Difficulty()
-          .put(Setting.WORDS, Difficulty.EASY);
-    }
-    // Medium difficulty selected
-    else if (wordsSpinner.getValue().equals("MEDIUM")) {
-      WordHolder.getInstance().setCurrentWord(categorySelector.getMediumCategory());
-      ProfileHolder.getInstance()
-          .getCurrentProfile()
-          .getSetting2Difficulty()
-          .put(Setting.WORDS, Difficulty.MEDIUM);
-    }
-    // Hard difficulty selected
-    else if (wordsSpinner.getValue().equals("HARD")) {
-      WordHolder.getInstance().setCurrentWord(categorySelector.getHardCategory());
-      ProfileHolder.getInstance()
-          .getCurrentProfile()
-          .getSetting2Difficulty()
-          .put(Setting.WORDS, Difficulty.HARD);
-    }
-    // Master difficulty selected
-    else {
-      WordHolder.getInstance().setCurrentWord(categorySelector.getMasterCategory());
-      ProfileHolder.getInstance()
-          .getCurrentProfile()
-          .getSetting2Difficulty()
-          .put(Setting.WORDS, Difficulty.MASTER);
+  /** Sets the next game's word as per the difficulty selected by words spinner */
+  private void setWordsDifficulty() {
+    if (ProfileHolder.getInstance().getCurrentProfile().getGameMode() == GameMode.SCRAMBLE) {
+      // Easy difficulty selected
+      if (wordsSpinner.getValue().equals("EASY")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getEasyCategorySingleWord());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.EASY);
+      }
+      // Medium difficulty selected
+      else if (wordsSpinner.getValue().equals("MEDIUM")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getMediumCategorySingleWord());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.MEDIUM);
+      }
+      // Hard difficulty selected
+      else if (wordsSpinner.getValue().equals("HARD")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getHardCategorySingleWord());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.HARD);
+      }
+      // Master difficulty selected
+      else {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getMasterCategorySingleWord());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.MASTER);
+      }
+    } else {
+      // Easy difficulty selected
+      if (wordsSpinner.getValue().equals("EASY")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getEasyCategory());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.EASY);
+      }
+      // Medium difficulty selected
+      else if (wordsSpinner.getValue().equals("MEDIUM")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getMediumCategory());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.MEDIUM);
+      }
+      // Hard difficulty selected
+      else if (wordsSpinner.getValue().equals("HARD")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getHardCategory());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.HARD);
+      }
+      // Master difficulty selected
+      else {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getMasterCategory());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.MASTER);
+      }
     }
 
     // if no dictionary entry for word in hidden mode, find another word
-    if (modeSpinner.getValue().equals("HIDDEN")
-        && DictionaryLookUp.searchWordInfo(WordHolder.getInstance().getCurrentWord()) == null) {
-      setWordsDifficulty();
+    try {
+      if (modeSpinner.getValue().equals("HIDDEN")
+          && DictionaryLookUp.searchWordInfo(WordHolder.getInstance().getCurrentWord()) == null) {
+        setWordsDifficulty();
+      }
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
-
   }
 
   /** Sets the time as per the difficulty selected by time spinner */
@@ -257,8 +283,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
   }
 
   /**
-   * Sets the next game's confidence cut off as per the difficulty selected by
-   * confidence spinner
+   * Sets the next game's confidence cut off as per the difficulty selected by confidence spinner
    */
   private void setConfidenceDifficulty() {
     // Easy difficulty selected
@@ -289,10 +314,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     }
   }
 
-  /**
-   * Updates the spinner value being displayed as per the profiles previous
-   * selection
-   */
+  /** Updates the spinner value being displayed as per the profiles previous selection */
   public void setSpinners() {
     Profile profile = ProfileHolder.getInstance().getCurrentProfile();
     GameMode gameMode = profile.getGameMode();

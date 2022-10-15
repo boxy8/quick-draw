@@ -8,7 +8,8 @@ public class Game {
   public enum GameMode {
     NORMAL,
     ZEN,
-    HIDDEN
+    HIDDEN,
+    SCRAMBLE
   }
 
   public enum Difficulty {

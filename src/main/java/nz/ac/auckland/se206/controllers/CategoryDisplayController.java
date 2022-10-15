@@ -1,7 +1,6 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -18,14 +17,10 @@ import nz.ac.auckland.se206.words.WordHolder;
 
 public class CategoryDisplayController implements SwitchInListener {
 
-  @FXML
-  private Label categoryLabel;
-  @FXML
-  private Label accuracyDisplay;
-  @FXML
-  private Label timeDisplay;
-  @FXML
-  private VBox userInstructions;
+  @FXML private Label categoryLabel;
+  @FXML private Label accuracyDisplay;
+  @FXML private Label timeDisplay;
+  @FXML private VBox userInstructions;
 
   /**
    * Changes from category display to the canvas when user wants to start
@@ -39,7 +34,7 @@ public class CategoryDisplayController implements SwitchInListener {
     GameMode gameMode = ProfileHolder.getInstance().getCurrentProfile().getGameMode();
     // switch to the game mode user has selected
     switch (gameMode) {
-      // go to correct game mode
+        // go to correct game mode
       case HIDDEN:
         // hidden word game mode
         SceneManager.changeScene(event, AppUi.HIDDEN_CANVAS);
@@ -47,6 +42,10 @@ public class CategoryDisplayController implements SwitchInListener {
       case NORMAL:
         // normal game mode
         SceneManager.changeScene(event, AppUi.NORMAL_CANVAS);
+        break;
+      case SCRAMBLE:
+        // normal game mode
+        SceneManager.changeScene(event, AppUi.SCRAMBLE_CANVAS);
         break;
       case ZEN:
         // zen game mode
@@ -57,24 +56,27 @@ public class CategoryDisplayController implements SwitchInListener {
     }
   }
 
-  /**
-   * Resets the screen when it is switched to so that words can be updated and
-   * gotten
-   */
+  /** Resets the screen when it is switched to so that words can be updated and gotten */
   @Override
   public void onSwitchIn() {
     // update the text label for the game
     // make sure the text is visible
     userInstructions.setVisible(true);
     // get the current word
-    categoryLabel.setText(WordHolder.getInstance().getCurrentWord());
-    // get current game mode time and accuracy
+    if (ProfileHolder.getInstance().getCurrentProfile().getGameMode() != GameMode.SCRAMBLE) {
+      categoryLabel.setText(WordHolder.getInstance().getCurrentWord());
+    } else {
+      categoryLabel.setText(WordHolder.getInstance().getScrambledWord());
+      // get current game mode time and accuracy
+    }
     GameMode gameMode = ProfileHolder.getInstance().getCurrentProfile().getGameMode();
-    Difficulty time = ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty().get(Setting.TIME);
-    Difficulty accuracy = ProfileHolder.getInstance()
-        .getCurrentProfile()
-        .getSetting2Difficulty()
-        .get(Setting.ACCURACY);
+    Difficulty time =
+        ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty().get(Setting.TIME);
+    Difficulty accuracy =
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .get(Setting.ACCURACY);
     // check for zen mode
     switch (gameMode) {
       case ZEN:
@@ -83,7 +85,8 @@ public class CategoryDisplayController implements SwitchInListener {
         break;
       case HIDDEN:
         try {
-          categoryLabel.setText(DictionaryLookUp.searchWordInfo(WordHolder.getInstance().getCurrentWord()));
+          categoryLabel.setText(
+              DictionaryLookUp.searchWordInfo(WordHolder.getInstance().getCurrentWord()));
         } catch (IOException e) {
           e.printStackTrace();
         }
