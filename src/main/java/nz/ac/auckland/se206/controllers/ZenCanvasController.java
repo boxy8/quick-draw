@@ -46,7 +46,7 @@ public class ZenCanvasController extends CanvasController {
     try {
       // set correct music to play and repeat the sound
       setTimerSoundEffect(new SoundEffects("zen"));
-      getTimerSoundEffect().playRepeateSound();
+      getTimerSoundEffect().playRepeatSound();
     } catch (URISyntaxException e) {
       e.printStackTrace();
     }

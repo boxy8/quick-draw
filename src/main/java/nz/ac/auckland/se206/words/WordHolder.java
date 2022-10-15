@@ -7,7 +7,7 @@ public class WordHolder {
   /**
    * Either create a new instance or return current instance of the word
    *
-   * @return
+   * @return the current word the user has gotten
    */
   public static WordHolder getInstance() {
     if (instance == null) {
@@ -23,7 +23,7 @@ public class WordHolder {
   /**
    * Set the current word to one that is input
    *
-   * @param word
+   * @param word the word you wish to set and give to user
    */
   public void setCurrentWord(String word) {
     this.currentWord = word;
@@ -32,7 +32,7 @@ public class WordHolder {
   /**
    * Get the current word that is input
    *
-   * @return current word
+   * @return current word that is loaded
    */
   public String getCurrentWord() {
     return this.currentWord;

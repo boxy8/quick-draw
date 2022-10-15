@@ -6,7 +6,7 @@ public class ProfileHolder {
   /**
    * Gets the current instance or makes one if it doens't exist
    *
-   * @return current instance
+   * @return current instance of the profile holder
    */
   public static ProfileHolder getInstance() {
     if (instance == null) {
@@ -22,7 +22,7 @@ public class ProfileHolder {
   /**
    * sets the current profile to the one input
    *
-   * @param profile
+   * @param profile the profile that will be loaded
    */
   public void setCurrentProfile(Profile profile) {
     this.currentProfile = profile;
@@ -31,7 +31,7 @@ public class ProfileHolder {
   /**
    * gets the current profile that is stored
    *
-   * @return
+   * @return current profile that is stored
    */
   public Profile getCurrentProfile() {
     return this.currentProfile;

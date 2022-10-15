@@ -39,7 +39,7 @@ public class ProfilePageController implements SwitchInListener {
   @FXML private TableColumn<Game, Integer> lengthCol;
   @FXML private TableColumn<Game, Boolean> wonCol;
 
-  /** Runs when GUI is finished loading from JavaFX, it gets the table colums ready */
+  /** Runs when GUI is finished loading from JavaFX, it gets the table columns ready */
   public void initialize() {
     // Initialize table columns
     wordCol.setCellValueFactory(new PropertyValueFactory<Game, String>("word"));
@@ -48,7 +48,7 @@ public class ProfilePageController implements SwitchInListener {
     wonCol.setCellValueFactory(new PropertyValueFactory<Game, Boolean>("isWin"));
   }
 
-  /** sets the label of the profile to the current username of the profile */
+  /** sets the label of the profile to the current user name of the profile */
   public void setProfileLabel() {
     usernameLabel.setText(ProfileHolder.getInstance().getCurrentProfile().getUsername());
   }
@@ -56,12 +56,13 @@ public class ProfilePageController implements SwitchInListener {
   /** Runs when this page is switched to, It get populates the screen to show user statistics */
   @Override
   public void onSwitchIn() {
-
+    // update the profile label
     setProfileLabel();
 
+    // grab current profile
     Profile profile = ProfileHolder.getInstance().getCurrentProfile();
-    // populate statistics section with profile values
 
+    // populate statistics section with profile values
     int wins = profile.getWins();
     int losses = profile.getLosses();
     int totalGames = wins + losses + profile.getZenGamesPlayed();
