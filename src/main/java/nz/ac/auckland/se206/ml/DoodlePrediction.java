@@ -18,6 +18,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import javax.imageio.ImageIO;
+import nz.ac.auckland.se206.games.Game.GameMode;
+import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.words.WordHolder;
 import org.imgscalr.Scalr;
 
@@ -91,7 +93,9 @@ public class DoodlePrediction {
         if (i == 10) {
           sb.append(i + 1).append(" : ").append(prediction).append(System.lineSeparator());
           // when there is, then have three "."
-        } else if (i > 10) {
+        } else if ((i > 10)
+            && (ProfileHolder.getInstance().getCurrentProfile().getGameMode()
+                != GameMode.SCRAMBLE)) {
           sb.append("...")
               .append(System.lineSeparator())
               .append(i + 1)

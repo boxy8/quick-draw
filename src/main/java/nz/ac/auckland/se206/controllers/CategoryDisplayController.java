@@ -34,6 +34,10 @@ public class CategoryDisplayController implements SwitchInListener {
         // normal game mode
         SceneManager.changeScene(event, AppUi.NORMAL_CANVAS);
         break;
+      case SCRAMBLE:
+        // normal game mode
+        SceneManager.changeScene(event, AppUi.SCRAMBLE_CANVAS);
+        break;
       case ZEN:
         // zen game mode
         SceneManager.changeScene(event, AppUi.ZEN_CANVAS);
@@ -47,6 +51,10 @@ public class CategoryDisplayController implements SwitchInListener {
   @Override
   public void onSwitchIn() {
     // update the text label for the game
-    categoryLabel.setText(WordHolder.getInstance().getCurrentWord());
+    if (ProfileHolder.getInstance().getCurrentProfile().getGameMode() != GameMode.SCRAMBLE) {
+      categoryLabel.setText(WordHolder.getInstance().getCurrentWord());
+    } else {
+      categoryLabel.setText(WordHolder.getInstance().getScrambledWord());
+    }
   }
 }

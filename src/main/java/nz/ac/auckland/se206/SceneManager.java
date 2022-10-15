@@ -15,6 +15,7 @@ public class SceneManager {
     NORMAL_CANVAS,
     ZEN_CANVAS,
     HIDDEN_CANVAS,
+    SCRAMBLE_CANVAS,
     MAIN_MENU,
     CATEGORY_DISPLAY,
     PROFILE_PAGE,

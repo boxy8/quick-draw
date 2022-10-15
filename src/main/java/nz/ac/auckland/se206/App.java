@@ -61,6 +61,7 @@ public class App extends Application {
     SceneManager.addUi(AppUi.NORMAL_CANVAS, getFxmlLoader("normal_canvas"));
     SceneManager.addUi(AppUi.ZEN_CANVAS, getFxmlLoader("zen_canvas"));
     SceneManager.addUi(AppUi.HIDDEN_CANVAS, getFxmlLoader("hidden_word_canvas"));
+    SceneManager.addUi(AppUi.SCRAMBLE_CANVAS, getFxmlLoader("scramble_canvas"));
     // rest of the pages
     SceneManager.addUi(AppUi.CATEGORY_DISPLAY, getFxmlLoader("category_display"));
     SceneManager.addUi(AppUi.PROFILE_PAGE, getFxmlLoader("profile_page"));

@@ -52,7 +52,8 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     }
 
     // Initialize mode spinner
-    ObservableList<String> gameModes = FXCollections.observableArrayList("NORMAL", "HIDDEN", "ZEN");
+    ObservableList<String> gameModes =
+        FXCollections.observableArrayList("NORMAL", "HIDDEN", "ZEN", "SCRAMBLE");
     initializeSpinner(modeSpinner, gameModes);
 
     // When selecting Zen Mode, only word difficulty shows up
@@ -126,6 +127,9 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     // Hidden word gamemode selected
     else if (modeSpinner.getValue().equals("HIDDEN")) {
       ProfileHolder.getInstance().getCurrentProfile().setGameMode(GameMode.HIDDEN);
+      // Scramble game mode
+    } else if (modeSpinner.getValue().equals("SCRAMBLE")) {
+      ProfileHolder.getInstance().getCurrentProfile().setGameMode(GameMode.SCRAMBLE);
     }
     // Zen gamemode selected
     else {
@@ -160,37 +164,72 @@ public class DifficultySelectorController implements Initializable, SwitchInList
 
   /** Sets the next game's word as per the difficulty selected by words spinner */
   private void setWordsDifficulty() {
-    // Easy difficulty selected
-    if (wordsSpinner.getValue().equals("EASY")) {
-      WordHolder.getInstance().setCurrentWord(categorySelector.getEasyCategory());
-      ProfileHolder.getInstance()
-          .getCurrentProfile()
-          .getSetting2Difficulty()
-          .put(Setting.WORDS, Difficulty.EASY);
-    }
-    // Medium difficulty selected
-    else if (wordsSpinner.getValue().equals("MEDIUM")) {
-      WordHolder.getInstance().setCurrentWord(categorySelector.getMediumCategory());
-      ProfileHolder.getInstance()
-          .getCurrentProfile()
-          .getSetting2Difficulty()
-          .put(Setting.WORDS, Difficulty.MEDIUM);
-    }
-    // Hard difficulty selected
-    else if (wordsSpinner.getValue().equals("HARD")) {
-      WordHolder.getInstance().setCurrentWord(categorySelector.getHardCategory());
-      ProfileHolder.getInstance()
-          .getCurrentProfile()
-          .getSetting2Difficulty()
-          .put(Setting.WORDS, Difficulty.HARD);
-    }
-    // Master difficulty selected
-    else {
-      WordHolder.getInstance().setCurrentWord(categorySelector.getMasterCategory());
-      ProfileHolder.getInstance()
-          .getCurrentProfile()
-          .getSetting2Difficulty()
-          .put(Setting.WORDS, Difficulty.MASTER);
+    if (ProfileHolder.getInstance().getCurrentProfile().getGameMode() == GameMode.SCRAMBLE) {
+      // Easy difficulty selected
+      if (wordsSpinner.getValue().equals("EASY")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getEasyCategorySingleWord());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.EASY);
+      }
+      // Medium difficulty selected
+      else if (wordsSpinner.getValue().equals("MEDIUM")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getMediumCategorySingleWord());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.MEDIUM);
+      }
+      // Hard difficulty selected
+      else if (wordsSpinner.getValue().equals("HARD")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getHardCategorySingleWord());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.HARD);
+      }
+      // Master difficulty selected
+      else {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getMasterCategorySingleWord());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.MASTER);
+      }
+    } else {
+      // Easy difficulty selected
+      if (wordsSpinner.getValue().equals("EASY")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getEasyCategory());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.EASY);
+      }
+      // Medium difficulty selected
+      else if (wordsSpinner.getValue().equals("MEDIUM")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getMediumCategory());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.MEDIUM);
+      }
+      // Hard difficulty selected
+      else if (wordsSpinner.getValue().equals("HARD")) {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getHardCategory());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.HARD);
+      }
+      // Master difficulty selected
+      else {
+        WordHolder.getInstance().setCurrentWord(categorySelector.getMasterCategory());
+        ProfileHolder.getInstance()
+            .getCurrentProfile()
+            .getSetting2Difficulty()
+            .put(Setting.WORDS, Difficulty.MASTER);
+      }
     }
   }
 
