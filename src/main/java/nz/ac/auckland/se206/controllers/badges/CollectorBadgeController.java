@@ -5,7 +5,7 @@ import java.io.IOException;
 public class CollectorBadgeController extends BadgeController {
 
   public CollectorBadgeController() {
-    badgeName = "Collector";
+    badgeType = BadgeType.COLLECTOR;
     imageLocation = "progressive/COLLECTOR_BRONZE.png";
 
     // set the controller of the badge component

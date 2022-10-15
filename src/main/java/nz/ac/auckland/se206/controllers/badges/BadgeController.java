@@ -13,7 +13,7 @@ public abstract class BadgeController extends VBox {
   protected FXMLLoader loader;
   protected boolean isAchieved;
 
-  protected String badgeName;
+  protected BadgeType badgeType;
 
   protected String imageLocation;
   @FXML protected VBox badgeBox;
@@ -22,9 +22,30 @@ public abstract class BadgeController extends VBox {
 
   @FXML protected Label badgeLabel;
 
+  public enum BadgeType {
+    WIN_STREAK("Win Streak"),
+    COLLECTOR("Collector"),
+    SNIPER("Sniper"),
+    SPRINTER("Sprinter"),
+    MASTER("Master"),
+    GRANDMASTER("Grandmaster"),
+    FIRST_TRY("First Try");
+
+    private final String badgeName;
+
+    private BadgeType(String badgeName) {
+      this.badgeName = badgeName;
+    }
+
+    @Override
+    public String toString() {
+      return badgeName;
+    }
+  }
+
   public BadgeController() {
     // check if badge is stored as achieved on current user profile
-    if (ProfileHolder.getInstance().getCurrentProfile().getBadges().contains(badgeName)) {
+    if (ProfileHolder.getInstance().getCurrentProfile().getBadges().contains(badgeType)) {
       isAchieved = true;
     }
     loader = new FXMLLoader(getClass().getResource("/fxml/badge.fxml"));
@@ -34,7 +55,7 @@ public abstract class BadgeController extends VBox {
   /** JavaFX calls this method after the constructor. */
   public void initialize() {
     // update gui elements once fields have been initialised
-    badgeLabel.setText(badgeName);
+    badgeLabel.setText(badgeType.toString());
     badgeBox.setVisible(false);
     badgeBox.setManaged(false);
     updateBadge();

@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.profiles;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import nz.ac.auckland.se206.controllers.badges.BadgeController;
 import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.GameMode;
@@ -19,7 +20,7 @@ public class Profile {
   private Map<Game.Setting, Game.Difficulty> setting2difficulty = new HashMap<>();
   private GameMode gameMode;
   // stores the names of all achieved badges
-  private Set<String> badges = new HashSet<>();
+  private Set<BadgeController.BadgeType> badges = new HashSet<>();
 
   public Profile(String username) throws IOException {
     this.username = username;
@@ -150,7 +151,7 @@ public class Profile {
     return setting2difficulty;
   }
 
-  public Set<String> getBadges() {
+  public Set<BadgeController.BadgeType> getBadges() {
     return badges;
   }
   /**

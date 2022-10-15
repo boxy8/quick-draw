@@ -16,7 +16,8 @@ import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.controllers.badges.BadgeController;
-import nz.ac.auckland.se206.controllers.badges.CollectorBadgeController;
+import nz.ac.auckland.se206.controllers.badges.BadgeController.BadgeType;
+import nz.ac.auckland.se206.controllers.badges.BadgeFactory;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.profiles.ProfileLoader;
@@ -62,9 +63,12 @@ public class ProfileListController implements SwitchInListener {
       }
     }
 
-    // Initialise badges
+    // Initialise list of all badges and add to GUI
     List<BadgeController> badges = new ArrayList<>();
-    badges.add(new CollectorBadgeController());
+    BadgeFactory badgeFactory = new BadgeFactory();
+    for (BadgeType badgeType : BadgeType.values()) {
+      badges.add(badgeFactory.createBadge(badgeType));
+    }
     badgesContainer.getChildren().addAll(badges);
   }
 
