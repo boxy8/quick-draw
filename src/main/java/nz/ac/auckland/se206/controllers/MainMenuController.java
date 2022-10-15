@@ -22,7 +22,7 @@ public class MainMenuController implements SwitchInListener {
   /**
    * When play is pushed, takes user to the difficulty selector
    *
-   * @param event
+   * @param event event that triggered this method
    */
   @FXML
   private void onPlay(ActionEvent event) {
@@ -32,7 +32,7 @@ public class MainMenuController implements SwitchInListener {
   /**
    * When chose profile is selected, it takes user to profile list page
    *
-   * @param event
+   * @param event event that triggered this method
    */
   @FXML
   private void onChooseProfile(ActionEvent event) {
@@ -42,7 +42,7 @@ public class MainMenuController implements SwitchInListener {
   /**
    * When show profile is selected, it takes user to the profile page
    *
-   * @param event
+   * @param event event that triggered this method
    */
   @FXML
   private void onShowProfile(ActionEvent event) {
