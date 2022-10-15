@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -15,9 +15,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
-import nz.ac.auckland.se206.controllers.badges.BadgeController;
-import nz.ac.auckland.se206.controllers.badges.BadgeController.BadgeType;
-import nz.ac.auckland.se206.controllers.badges.BadgeFactory;
+import nz.ac.auckland.se206.badges.Badge;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.profiles.ProfileLoader;
@@ -62,14 +60,24 @@ public class ProfileListController implements SwitchInListener {
         addProfileButton(username);
       }
     }
+  }
 
-    // Initialise list of all badges and add to GUI
-    List<BadgeController> badges = new ArrayList<>();
-    BadgeFactory badgeFactory = new BadgeFactory();
-    for (BadgeType badgeType : BadgeType.values()) {
-      badges.add(badgeFactory.createBadge(badgeType));
+  /**
+   * Updates the badges container GUI based on a profile
+   *
+   * @param profile the profile that the badges will be shown from
+   */
+  protected void updateBadgesContainer(Profile profile) {
+    // Using badge from profile, update each badge controller
+    for (Badge badge : profile.getBadges()) {
+      for (Node controller : badgesContainer.getChildren()) {
+        // if the badge type matches, update the controller
+        if (badge.getClass() == ((BadgeController) controller).getBadge().getClass()) {
+          ((BadgeController) controller).setBadge(badge);
+        }
+      }
     }
-    badgesContainer.getChildren().addAll(badges);
+    ;
   }
 
   /**
@@ -165,11 +173,12 @@ public class ProfileListController implements SwitchInListener {
   /** Runs when this is switched to, it shows the current profile that is selected */
   @Override
   public void onSwitchIn() {
+    Profile currentProfile = ProfileHolder.getInstance().getCurrentProfile();
     // pre-select the currently selected profile
-    if (ProfileHolder.getInstance().getCurrentProfile().isGuest()) {
+    if (currentProfile.isGuest()) {
       profilesGroup.selectToggle(null);
     } else {
-      String currentUser = ProfileHolder.getInstance().getCurrentProfile().getUsername();
+      String currentUser = currentProfile.getUsername();
       // select the button that matches current username
       for (ProfileButtonController button : profileButtons) {
         if (button.getToggleText().equals(currentUser)) {
@@ -177,5 +186,6 @@ public class ProfileListController implements SwitchInListener {
         }
       }
     }
+    updateBadgesContainer(currentProfile);
   }
 }
