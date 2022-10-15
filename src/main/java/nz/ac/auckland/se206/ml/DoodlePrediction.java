@@ -108,6 +108,18 @@ public class DoodlePrediction {
     return sb.toString();
   }
 
+  public static String getHiddenPredictions(
+      final List<Classifications.Classification> predictions) {
+    final StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < predictions.size(); i++) {
+      String prediction = predictions.get(i).getClassName().replace("_", " ");
+      if (i < 10) {
+        sb.append(i + 1).append(" : ").append(prediction).append(System.lineSeparator());
+      }
+    }
+    return sb.toString();
+  }
+
   private final ZooModel<Image, Classifications> model;
 
   /**

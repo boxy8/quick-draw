@@ -18,6 +18,7 @@ public class SceneManager {
     SCRAMBLE_CANVAS,
     MAIN_MENU,
     CATEGORY_DISPLAY,
+    CATEGORY_DISPLAY_HIDDEN,
     PROFILE_PAGE,
     PROFILE_LIST,
     MAIN,

@@ -17,6 +17,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.AnchorPane;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.dictionary.DictionaryLookUp;
 import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.GameMode;
 import nz.ac.auckland.se206.games.Game.Setting;
@@ -105,17 +106,23 @@ public class DifficultySelectorController implements Initializable, SwitchInList
    * Sets the users chosen difficulty settings Triggers when ChooseDifficultyButton is pressed
    *
    * @param event the event of triggering this method
+   * @throws IOException
    */
   @FXML
-  private void onChooseDifficulty(ActionEvent event) {
+  private void onChooseDifficulty(ActionEvent event) throws IOException {
     // all difficulty options
     setGameMode();
     setAccuracyDifficulty();
     setWordsDifficulty();
     setTimeDifficulty();
     setConfidenceDifficulty();
+
     // change to required scene
-    SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
+    if (modeSpinner.getValue().equals("HIDDEN")) {
+      SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY_HIDDEN);
+    } else {
+      SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
+    }
   }
 
   /** Set the selected game mode to the profile of the current user */
@@ -230,6 +237,17 @@ public class DifficultySelectorController implements Initializable, SwitchInList
             .getSetting2Difficulty()
             .put(Setting.WORDS, Difficulty.MASTER);
       }
+    }
+
+    // if no dictionary entry for word in hidden mode, find another word
+    try {
+      if (modeSpinner.getValue().equals("HIDDEN")
+          && DictionaryLookUp.searchWordInfo(WordHolder.getInstance().getCurrentWord()) == null) {
+        setWordsDifficulty();
+      }
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
   }
 

@@ -64,6 +64,7 @@ public class App extends Application {
     SceneManager.addUi(AppUi.SCRAMBLE_CANVAS, getFxmlLoader("scramble_canvas"));
     // rest of the pages
     SceneManager.addUi(AppUi.CATEGORY_DISPLAY, getFxmlLoader("category_display"));
+    SceneManager.addUi(AppUi.CATEGORY_DISPLAY_HIDDEN, getFxmlLoader("category_display_hidden"));
     SceneManager.addUi(AppUi.PROFILE_PAGE, getFxmlLoader("profile_page"));
     SceneManager.addUi(AppUi.PROFILE_LIST, getFxmlLoader("profile_list"));
     SceneManager.addUi(AppUi.DIFFICULTY_SELECTOR, getFxmlLoader("difficulty_selector"));

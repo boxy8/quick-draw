@@ -1,11 +1,13 @@
 package nz.ac.auckland.se206.controllers;
 
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.dictionary.DictionaryLookUp;
 import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.GameMode;
 import nz.ac.auckland.se206.games.Game.Setting;
@@ -81,6 +83,13 @@ public class CategoryDisplayController implements SwitchInListener {
         // don't show instructions
         userInstructions.setVisible(false);
         break;
+      case HIDDEN:
+        try {
+          categoryLabel.setText(
+              DictionaryLookUp.searchWordInfo(WordHolder.getInstance().getCurrentWord()));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       default:
         // load correct value for time
         String timeText = null;
