@@ -15,7 +15,8 @@ public class Game {
     EASY,
     MEDIUM,
     HARD,
-    MASTER
+    MASTER,
+    SUPER_EASY
   }
 
   public enum Setting {
