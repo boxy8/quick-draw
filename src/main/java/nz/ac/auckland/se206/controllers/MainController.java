@@ -16,21 +16,6 @@ public class MainController {
 
   @FXML private Button profileButton;
 
-  /**
-   * sets the main content (content below the navigation bar)
-   *
-   * @param appUi
-   */
-  public void setContent(AppUi appUi) {
-    Object controller = SceneManager.getController(appUi);
-    if (controller instanceof SwitchInListener switchListener) {
-      switchListener.onSwitchIn();
-    }
-
-    // switch main content
-    border.setCenter(SceneManager.getUiRoot(appUi));
-  }
-
   /** Sets the profile Button the the current user that is selected */
   public void setProfileButton() {
     profileButton.setText(ProfileHolder.getInstance().getCurrentProfile().getUsername());

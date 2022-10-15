@@ -2,14 +2,7 @@ package nz.ac.auckland.se206.profiles;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import nz.ac.auckland.se206.badges.Badge;
-import nz.ac.auckland.se206.badges.BadgeBook;
+import java.util.*;
 import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.GameMode;
@@ -25,6 +18,8 @@ public class Profile {
   private List<Game> gameHistory = new ArrayList<Game>();
   private Map<Game.Setting, Game.Difficulty> setting2difficulty = new HashMap<>();
   private GameMode gameMode;
+  // stores the names of all achieved badges
+  private Set<String> badges = new HashSet<>();
 
   public Profile(String username) throws IOException {
     this.username = username;
@@ -33,14 +28,15 @@ public class Profile {
     File f = new File(filePath);
     if (f.exists()) {
       // get all required information
-      this.wins = ProfileLoader.read(username).getWins();
-      this.losses = ProfileLoader.read(username).getLosses();
-      this.winStreak = ProfileLoader.read(username).getWinStreak();
-      this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
-      this.wordHistory = ProfileLoader.read(username).getWordHistory();
-      this.gameHistory = ProfileLoader.read(username).getGameHistory();
-      this.setting2difficulty = ProfileLoader.read(username).getSetting2Difficulty();
-      this.gameMode = ProfileLoader.read(username).getGameMode();
+      Profile reading = ProfileLoader.read(username);
+      this.wins = reading.getWins();
+      this.losses = reading.getLosses();
+      this.winStreak = reading.getWinStreak();
+      this.fastestWinTime = reading.getFastestWinTime();
+      this.wordHistory = reading.getWordHistory();
+      this.gameHistory = reading.getGameHistory();
+      this.setting2difficulty = reading.getSetting2Difficulty();
+      this.gameMode = reading.getGameMode();
     }
   }
 
@@ -154,6 +150,9 @@ public class Profile {
     return setting2difficulty;
   }
 
+  public Set<String> getBadges() {
+    return badges;
+  }
   /**
    * Saves the current profile to a file of json format
    *
