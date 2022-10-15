@@ -1,11 +1,14 @@
 package nz.ac.auckland.se206.controllers;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.dictionary.DictionaryLookUp;
 import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.GameMode;
 import nz.ac.auckland.se206.games.Game.Setting;
@@ -15,10 +18,14 @@ import nz.ac.auckland.se206.words.WordHolder;
 
 public class CategoryDisplayController implements SwitchInListener {
 
-  @FXML private Label categoryLabel;
-  @FXML private Label accuracyDisplay;
-  @FXML private Label timeDisplay;
-  @FXML private VBox userInstructions;
+  @FXML
+  private Label categoryLabel;
+  @FXML
+  private Label accuracyDisplay;
+  @FXML
+  private Label timeDisplay;
+  @FXML
+  private VBox userInstructions;
 
   /**
    * Changes from category display to the canvas when user wants to start
@@ -32,7 +39,7 @@ public class CategoryDisplayController implements SwitchInListener {
     GameMode gameMode = ProfileHolder.getInstance().getCurrentProfile().getGameMode();
     // switch to the game mode user has selected
     switch (gameMode) {
-        // go to correct game mode
+      // go to correct game mode
       case HIDDEN:
         // hidden word game mode
         SceneManager.changeScene(event, AppUi.HIDDEN_CANVAS);
@@ -50,7 +57,10 @@ public class CategoryDisplayController implements SwitchInListener {
     }
   }
 
-  /** Resets the screen when it is switched to so that words can be updated and gotten */
+  /**
+   * Resets the screen when it is switched to so that words can be updated and
+   * gotten
+   */
   @Override
   public void onSwitchIn() {
     // update the text label for the game
@@ -60,19 +70,23 @@ public class CategoryDisplayController implements SwitchInListener {
     categoryLabel.setText(WordHolder.getInstance().getCurrentWord());
     // get current game mode time and accuracy
     GameMode gameMode = ProfileHolder.getInstance().getCurrentProfile().getGameMode();
-    Difficulty time =
-        ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty().get(Setting.TIME);
-    Difficulty accuracy =
-        ProfileHolder.getInstance()
-            .getCurrentProfile()
-            .getSetting2Difficulty()
-            .get(Setting.ACCURACY);
+    Difficulty time = ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty().get(Setting.TIME);
+    Difficulty accuracy = ProfileHolder.getInstance()
+        .getCurrentProfile()
+        .getSetting2Difficulty()
+        .get(Setting.ACCURACY);
     // check for zen mode
     switch (gameMode) {
       case ZEN:
         // don't show instructions
         userInstructions.setVisible(false);
         break;
+      case HIDDEN:
+        try {
+          categoryLabel.setText(DictionaryLookUp.searchWordInfo(WordHolder.getInstance().getCurrentWord()));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       default:
         // load correct value for time
         String timeText = null;

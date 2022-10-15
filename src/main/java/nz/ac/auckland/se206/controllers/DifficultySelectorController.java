@@ -17,6 +17,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.AnchorPane;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.dictionary.DictionaryLookUp;
 import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.GameMode;
 import nz.ac.auckland.se206.games.Game.Setting;
@@ -26,20 +27,31 @@ import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.WordHolder;
 
 public class DifficultySelectorController implements Initializable, SwitchInListener {
-  @FXML private Spinner<String> modeSpinner;
-  @FXML private Spinner<String> accuracySpinner;
-  @FXML private Spinner<String> wordsSpinner;
-  @FXML private Spinner<String> timeSpinner;
-  @FXML private Spinner<String> confidenceSpinner;
-  @FXML private AnchorPane wordContainer;
-  @FXML private AnchorPane accuracyContainer;
-  @FXML private AnchorPane timeContainer;
-  @FXML private AnchorPane confidenceContainer;
-  @FXML private Button chooseDifficultyButton;
+  @FXML
+  private Spinner<String> modeSpinner;
+  @FXML
+  private Spinner<String> accuracySpinner;
+  @FXML
+  private Spinner<String> wordsSpinner;
+  @FXML
+  private Spinner<String> timeSpinner;
+  @FXML
+  private Spinner<String> confidenceSpinner;
+  @FXML
+  private AnchorPane wordContainer;
+  @FXML
+  private AnchorPane accuracyContainer;
+  @FXML
+  private AnchorPane timeContainer;
+  @FXML
+  private AnchorPane confidenceContainer;
+  @FXML
+  private Button chooseDifficultyButton;
   private CategorySelector categorySelector;
 
   /**
-   * called when JavaFx is done loading all GUI, this method grabs all the available categories and
+   * called when JavaFx is done loading all GUI, this method grabs all the
+   * available categories and
    * stores them in a HashMap for later use
    */
   @Override
@@ -75,13 +87,11 @@ public class DifficultySelectorController implements Initializable, SwitchInList
             });
 
     // Initialize spinners with "Easy", "Medium", and "Hard" difficulties
-    ObservableList<String> accuracyDifficulties =
-        FXCollections.observableArrayList("EASY", "MEDIUM", "HARD");
+    ObservableList<String> accuracyDifficulties = FXCollections.observableArrayList("EASY", "MEDIUM", "HARD");
     initializeSpinner(accuracySpinner, accuracyDifficulties);
 
     // Initialize spinners with "Easy", "Medium", "Hard", and "Master" difficulties
-    ObservableList<String> difficulties =
-        FXCollections.observableArrayList("EASY", "MEDIUM", "HARD", "MASTER");
+    ObservableList<String> difficulties = FXCollections.observableArrayList("EASY", "MEDIUM", "HARD", "MASTER");
     initializeSpinner(wordsSpinner, difficulties);
     initializeSpinner(timeSpinner, difficulties);
     initializeSpinner(confidenceSpinner, difficulties);
@@ -90,31 +100,38 @@ public class DifficultySelectorController implements Initializable, SwitchInList
   /**
    * Initializes a spinner with relevant difficulties for user selection
    *
-   * @param spinner a spinner on the GUI that the user uses to select the relevant difficulty
+   * @param spinner      a spinner on the GUI that the user uses to select the
+   *                     relevant difficulty
    * @param difficulties all available difficulty strings for the setting
    */
   private void initializeSpinner(Spinner<String> spinner, ObservableList<String> options) {
-    SpinnerValueFactory<String> valueFactory =
-        new SpinnerValueFactory.ListSpinnerValueFactory<String>(options);
+    SpinnerValueFactory<String> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<String>(options);
     valueFactory.setValue(options.get(0));
     spinner.setValueFactory(valueFactory);
   }
 
   /**
-   * Sets the users chosen difficulty settings Triggers when ChooseDifficultyButton is pressed
+   * Sets the users chosen difficulty settings Triggers when
+   * ChooseDifficultyButton is pressed
    *
    * @param event the event of triggering this method
+   * @throws IOException
    */
   @FXML
-  private void onChooseDifficulty(ActionEvent event) {
+  private void onChooseDifficulty(ActionEvent event) throws IOException {
     // all difficulty options
     setGameMode();
     setAccuracyDifficulty();
     setWordsDifficulty();
     setTimeDifficulty();
     setConfidenceDifficulty();
+
     // change to required scene
-    SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
+    if (modeSpinner.getValue().equals("HIDDEN")) {
+      SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY_HIDDEN);
+    } else {
+      SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
+    }
   }
 
   /** Set the selected game mode to the profile of the current user */
@@ -133,7 +150,10 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     }
   }
 
-  /** Sets the next game's accuracy cut off as per the difficulty selected by accuracy spinner */
+  /**
+   * Sets the next game's accuracy cut off as per the difficulty selected by
+   * accuracy spinner
+   */
   private void setAccuracyDifficulty() {
     // Easy difficulty selected
     if (accuracySpinner.getValue().equals("EASY")) {
@@ -158,8 +178,12 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     }
   }
 
-  /** Sets the next game's word as per the difficulty selected by words spinner */
-  private void setWordsDifficulty() {
+  /**
+   * Sets the next game's word as per the difficulty selected by words spinner
+   * 
+   * @throws IOException
+   */
+  private void setWordsDifficulty() throws IOException {
     // Easy difficulty selected
     if (wordsSpinner.getValue().equals("EASY")) {
       WordHolder.getInstance().setCurrentWord(categorySelector.getEasyCategory());
@@ -192,6 +216,13 @@ public class DifficultySelectorController implements Initializable, SwitchInList
           .getSetting2Difficulty()
           .put(Setting.WORDS, Difficulty.MASTER);
     }
+
+    // if no dictionary entry for word in hidden mode, find another word
+    if (modeSpinner.getValue().equals("HIDDEN")
+        && DictionaryLookUp.searchWordInfo(WordHolder.getInstance().getCurrentWord()) == null) {
+      setWordsDifficulty();
+    }
+
   }
 
   /** Sets the time as per the difficulty selected by time spinner */
@@ -226,7 +257,8 @@ public class DifficultySelectorController implements Initializable, SwitchInList
   }
 
   /**
-   * Sets the next game's confidence cut off as per the difficulty selected by confidence spinner
+   * Sets the next game's confidence cut off as per the difficulty selected by
+   * confidence spinner
    */
   private void setConfidenceDifficulty() {
     // Easy difficulty selected
@@ -257,7 +289,10 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     }
   }
 
-  /** Updates the spinner value being displayed as per the profiles previous selection */
+  /**
+   * Updates the spinner value being displayed as per the profiles previous
+   * selection
+   */
   public void setSpinners() {
     Profile profile = ProfileHolder.getInstance().getCurrentProfile();
     GameMode gameMode = profile.getGameMode();

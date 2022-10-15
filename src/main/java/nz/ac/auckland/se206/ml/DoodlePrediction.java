@@ -22,7 +22,8 @@ import nz.ac.auckland.se206.words.WordHolder;
 import org.imgscalr.Scalr;
 
 /**
- * This class is responsible for querying the DL model to get the predictions. Code partially
+ * This class is responsible for querying the DL model to get the predictions.
+ * Code partially
  * adapted from https://github.com/deepjavalibrary/djl-demo.
  */
 public class DoodlePrediction {
@@ -30,9 +31,12 @@ public class DoodlePrediction {
    * Prints the top K predictions of a given image under test.
    *
    * @param args BMP file to predict and the number of top K predictions to print.
-   * @throws ModelException If there is an error in reading the input/output of the DL model.
-   * @throws IOException If the model or image cannot be found on the file system.
-   * @throws TranslateException If there is an error in reading the input/output of the DL model.
+   * @throws ModelException     If there is an error in reading the input/output
+   *                            of the DL model.
+   * @throws IOException        If the model or image cannot be found on the file
+   *                            system.
+   * @throws TranslateException If there is an error in reading the input/output
+   *                            of the DL model.
    */
   public static void main(final String[] args)
       throws ModelException, IOException, TranslateException {
@@ -104,30 +108,40 @@ public class DoodlePrediction {
     return sb.toString();
   }
 
+  public static String getHiddenPredictions(final List<Classifications.Classification> predictions) {
+    final StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < predictions.size(); i++) {
+      String prediction = predictions.get(i).getClassName().replace("_", " ");
+      if (i < 10) {
+        sb.append(i + 1).append(" : ").append(prediction).append(System.lineSeparator());
+      }
+    }
+    return sb.toString();
+  }
+
   private final ZooModel<Image, Classifications> model;
 
   /**
    * Constructs the doodle prediction model by loading it from a file.
    *
-   * @throws ModelException If there is an error in reading the input/output of the DL model.
-   * @throws IOException If the model cannot be found on the file system.
+   * @throws ModelException If there is an error in reading the input/output of
+   *                        the DL model.
+   * @throws IOException    If the model cannot be found on the file system.
    */
   public DoodlePrediction() throws ModelException, IOException {
-    final ImageClassificationTranslator translator =
-        ImageClassificationTranslator.builder()
-            .addTransform(new ToTensor())
-            .optFlag(Image.Flag.GRAYSCALE)
-            .optApplySoftmax(true)
-            .build();
+    final ImageClassificationTranslator translator = ImageClassificationTranslator.builder()
+        .addTransform(new ToTensor())
+        .optFlag(Image.Flag.GRAYSCALE)
+        .optApplySoftmax(true)
+        .build();
 
-    final Criteria<Image, Classifications> criteria =
-        Criteria.builder()
-            .setTypes(Image.class, Classifications.class)
-            // This will not work if the application runs from a JAR.
-            .optModelUrls("src/main/resources/ml/doodle_mobilenet.zip")
-            .optOption("mapLocation", "true")
-            .optTranslator(translator)
-            .build();
+    final Criteria<Image, Classifications> criteria = Criteria.builder()
+        .setTypes(Image.class, Classifications.class)
+        // This will not work if the application runs from a JAR.
+        .optModelUrls("src/main/resources/ml/doodle_mobilenet.zip")
+        .optOption("mapLocation", "true")
+        .optTranslator(translator)
+        .build();
 
     model = ModelZoo.loadModel(criteria);
   }
@@ -136,9 +150,10 @@ public class DoodlePrediction {
    * Predicts the categories of the input image, returning the top K predictions.
    *
    * @param bufImg BufferedImage file to classify.
-   * @param k The number of classes to return.
+   * @param k      The number of classes to return.
    * @return List of classification results and their confidence level.
-   * @throws TranslateException If there is an error in reading the input/output of the DL model.
+   * @throws TranslateException If there is an error in reading the input/output
+   *                            of the DL model.
    */
   public List<Classifications.Classification> getPredictions(BufferedImage bufImg, final int k)
       throws TranslateException {
@@ -146,12 +161,10 @@ public class DoodlePrediction {
     bufImg = invertBlackAndWhite(bufImg);
 
     // The model requires the image to be 65x65 pixels.
-    bufImg =
-        Scalr.resize(
-            bufImg, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH, 65, 65, Scalr.OP_ANTIALIAS);
+    bufImg = Scalr.resize(
+        bufImg, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH, 65, 65, Scalr.OP_ANTIALIAS);
 
-    final Classifications classifications =
-        model.newPredictor().predict(new BufferedImageFactory().fromImage(bufImg));
+    final Classifications classifications = model.newPredictor().predict(new BufferedImageFactory().fromImage(bufImg));
 
     return classifications.topK(k);
   }
@@ -160,10 +173,11 @@ public class DoodlePrediction {
    * Predicts the categories of the input image, returning the top K predictions.
    *
    * @param image BMP image file to classify.
-   * @param k The number of classes to return.
+   * @param k     The number of classes to return.
    * @return List of classification results and their confidence level.
-   * @throws IOException If the image is not found on the filesystem.
-   * @throws TranslateException If there is an error in reading the input/output of the DL model.
+   * @throws IOException        If the image is not found on the filesystem.
+   * @throws TranslateException If there is an error in reading the input/output
+   *                            of the DL model.
    */
   public List<Classifications.Classification> getPredictions(final File image, final int k)
       throws IOException, TranslateException {
