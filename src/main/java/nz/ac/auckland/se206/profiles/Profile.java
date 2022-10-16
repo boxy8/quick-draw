@@ -126,8 +126,7 @@ public class Profile {
       return 60; // default value
     }
     int sum = 0;
-    int numberOfNon
-    Games = 0;
+    int numberOfNonZenGames = 0;
     // sum up game times
     for (Game game : gameHistory) {
       if (game.getMode() != GameMode.ZEN) {
