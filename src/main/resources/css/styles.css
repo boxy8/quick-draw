@@ -255,19 +255,15 @@
 
 /* Difficulty Selector */
 
-#mode-container {
-    -fx-font-size: 24px;
+#modeContainer {
+    -fx-font-size: 20px;
 }
 
-#mode-label {
-    -fx-font-weight: 700;
+#modeContainer .spinner .text-field {
+    -fx-font-size: 20px;
 }
 
-#modeSpinner .text-field {
-    -fx-font-size: 24px;
-}
-
-#loadingContainer {
+#loadingLabel {
     -fx-background-color: white;
     -fx-font-size: 20px;
     -fx-background-radius: 12px;

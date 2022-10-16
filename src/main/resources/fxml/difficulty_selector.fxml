@@ -1,62 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="840.0" styleClass="bg-main" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.DifficultySelectorController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="274.0" layoutY="50.0" prefHeight="516.0">
+      <VBox alignment="CENTER" layoutX="191.0" layoutY="87.0" spacing="60.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="60.0">
          <children>
-            <VBox id="mode-container" alignment="CENTER" prefHeight="110.0" prefWidth="174.0">
+            <Label styleClass="canvas-text" text="Game Settings" />
+            <VBox spacing="20.0">
                <children>
-                  <Label id="mode-label" text="Game Mode" />
-                  <Spinner fx:id="modeSpinner" prefHeight="0.0" prefWidth="300.0" styleClass="split-arrows-horizontal" stylesheets="@../css/styles.css" />
+                  <HBox fx:id="modeContainer" alignment="CENTER_LEFT">
+                     <children>
+                        <Label id="mode-label" text="Game Mode">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Region prefWidth="40.0" HBox.hgrow="ALWAYS" />
+                        <Spinner fx:id="modeSpinner" styleClass="split-arrows-horizontal" stylesheets="@../css/styles.css" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Words">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Region>
+                        <Spinner fx:id="wordsSpinner" styleClass="split-arrows-horizontal" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="timeContainer" alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Time">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Spinner fx:id="timeSpinner" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="split-arrows-horizontal" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="accuracyContainer" alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Accuracy">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Spinner fx:id="accuracySpinner" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="split-arrows-horizontal" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="confidenceContainer" alignment="CENTER_LEFT">
+                     <children>
+                        <Label alignment="CENTER" text="Confidence">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Spinner fx:id="confidenceSpinner" styleClass="split-arrows-horizontal" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
-            <VBox fx:id="wordsContainer" alignment="CENTER" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Label text="Words">
-                     <font>
-                        <Font size="20.0" />
-                     </font></Label>
-                  <Spinner fx:id="wordsSpinner" prefHeight="28.0" prefWidth="150.0" styleClass="split-arrows-horizontal" />
-               </children>
-            </VBox>
-            <VBox fx:id="timeContainer" alignment="CENTER" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Label text="Time">
-                     <font>
-                        <Font size="20.0" />
-                     </font></Label>
-                  <Spinner fx:id="timeSpinner" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="150.0" styleClass="split-arrows-horizontal" />
-               </children>
-            </VBox>
-            <VBox fx:id="accuracyContainer" alignment="CENTER" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Label text="Accuracy">
-                     <font>
-                        <Font size="20.0" />
-                     </font></Label>
-                  <Spinner fx:id="accuracySpinner" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="150.0" styleClass="split-arrows-horizontal" />
-               </children>
-            </VBox>
-            <VBox fx:id="confidenceContainer" alignment="CENTER" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Label alignment="CENTER" text="Confidence">
-                     <font>
-                        <Font size="20.0" />
-                     </font></Label>
-                  <Spinner fx:id="confidenceSpinner" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="150.0" styleClass="split-arrows-horizontal" />
-               </children>
-            </VBox>
-            <Button fx:id="chooseDifficultyButton" mnemonicParsing="false" onAction="#onChooseDifficulty" prefHeight="71.0" styleClass="main-button" text="Choose Settings">
+            <Button fx:id="chooseDifficultyButton" mnemonicParsing="false" onAction="#onChooseDifficulty" styleClass="main-button" text="Choose Settings">
                <graphic>
                   <ImageView fitHeight="111.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -64,14 +88,16 @@
                      </image>
                   </ImageView>
                </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
+            </Button>
          </children>
       </VBox>
-      <AnchorPane fx:id="loadingContainer" layoutX="318.0" layoutY="270.0" prefHeight="95.0" prefWidth="208.0">
+      <AnchorPane fx:id="loadingContainer" layoutX="20.0" layoutY="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="loadingLabel" layoutX="62.0" layoutY="33.0" text="Loading..." />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label fx:id="loadingLabel" text="Loading..." />
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </children>
