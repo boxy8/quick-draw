@@ -6,12 +6,15 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +40,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
   @FXML private AnchorPane timeContainer;
   @FXML private AnchorPane confidenceContainer;
   @FXML private Button chooseDifficultyButton;
+  @FXML private Label loadingLabel;
   private CategorySelector categorySelector;
 
   /**
@@ -112,20 +116,52 @@ public class DifficultySelectorController implements Initializable, SwitchInList
    * @throws IOException
    */
   @FXML
-  private void onChooseDifficulty(ActionEvent event) throws IOException {
-    // all difficulty options
-    setGameMode();
-    setAccuracyDifficulty();
-    setWordsDifficulty();
-    setTimeDifficulty();
-    setConfidenceDifficulty();
+  private void onChooseDifficulty(ActionEvent event1) throws IOException {
+    // Let the user know that the game is loading and turn off selectors
+    loadingLabel.setVisible(true);
+    disableForLoad(true);
+    // run in new thread as it takes a while
+    Task<Void> backgroundTask =
+        new Task<>() {
+          @Override
+          protected Void call() throws Exception {
+            // all difficulty options
+            setGameMode();
+            setAccuracyDifficulty();
+            setWordsDifficulty();
+            setTimeDifficulty();
+            setConfidenceDifficulty();
+            Platform.runLater(
+                () -> {
+                  // change to correct scene
+                  if (modeSpinner.getValue().equals("HIDDEN")) {
+                    SceneManager.changeScene(event1, AppUi.CATEGORY_DISPLAY_HIDDEN);
+                  } else {
+                    SceneManager.changeScene(event1, AppUi.CATEGORY_DISPLAY);
+                  }
+                });
+            return null;
+          }
+        };
+    // run thread
+    Thread backgroundPerson = new Thread(backgroundTask);
+    backgroundPerson.start();
+  }
 
-    // change to required scene
-    if (modeSpinner.getValue().equals("HIDDEN")) {
-      SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY_HIDDEN);
-    } else {
-      SceneManager.changeScene(event, AppUi.CATEGORY_DISPLAY);
-    }
+  /**
+   * Enable or disable spinners depending on if the game is loading or not
+   *
+   * @param disable toggle if the spinners are visible or not
+   */
+  private void disableForLoad(boolean disable) {
+    // toggle if the spinners are disabled or not
+    modeSpinner.setDisable(disable);
+    accuracySpinner.setDisable(disable);
+    wordsSpinner.setDisable(disable);
+    timeSpinner.setDisable(disable);
+    confidenceSpinner.setDisable(disable);
+    // toggle the play button
+    chooseDifficultyButton.setDisable(disable);
   }
 
   /** Set the selected game mode to the profile of the current user */
@@ -358,6 +394,8 @@ public class DifficultySelectorController implements Initializable, SwitchInList
   /** sets the spinners to the correct value required */
   @Override
   public void onSwitchIn() {
+    loadingLabel.setVisible(false);
+    disableForLoad(false);
     setSpinners();
   }
 }
