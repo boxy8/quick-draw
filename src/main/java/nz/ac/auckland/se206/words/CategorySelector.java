@@ -7,11 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 
 public class CategorySelector {
@@ -44,7 +40,7 @@ public class CategorySelector {
    * @return the random category for next game
    */
   private String getRandomCategory(List<String> availableWords) {
-    List<String> usedWords = ProfileHolder.getInstance().getCurrentProfile().getWordHistory();
+    Set<String> usedWords = ProfileHolder.getInstance().getCurrentProfile().getWordHistory();
     int randIndex = new Random().nextInt(availableWords.size());
     while (availableWords.size() > 0) {
       if (usedWords.contains(availableWords.get(randIndex))) {

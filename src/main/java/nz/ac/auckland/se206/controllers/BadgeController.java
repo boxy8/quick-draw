@@ -21,8 +21,8 @@ public class BadgeController extends VBox {
   @FXML protected Label badgeLabel;
 
   /**
-   * Constructs an instance of Badge controller which has a badge FXML component as well as a badge
-   * instance which handles the logic
+   * Constructs an instance of Badge controller which handles the badge FXML component, and holds a
+   * badge instance which handles the logic
    *
    * @param badge a badge instance which handles the badge logic
    */

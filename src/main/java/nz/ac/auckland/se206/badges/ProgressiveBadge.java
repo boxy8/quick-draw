@@ -14,8 +14,8 @@ public abstract class ProgressiveBadge extends Badge {
     BRONZE,
   }
 
-  protected Rank rank;
-  protected int value;
+  private Rank rank;
+  private int value;
   protected Map<Rank, Integer> rankValues = new HashMap<>();
 
   /**
@@ -66,5 +66,13 @@ public abstract class ProgressiveBadge extends Badge {
   }
 
   /** Updates the value the badge is measuring, based on current profile statistics */
-  protected abstract void updateValue();
+  public abstract void updateValue();
+
+  protected int getValue() {
+    return value;
+  }
+
+  protected void setValue(int value) {
+    this.value = value;
+  }
 }

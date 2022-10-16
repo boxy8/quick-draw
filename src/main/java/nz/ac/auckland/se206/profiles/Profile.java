@@ -15,7 +15,7 @@ public class Profile {
   private int losses;
   private int winStreak;
   private int fastestWinTime = 60;
-  private List<String> wordHistory = new ArrayList<String>();
+  private Set<String> wordHistory = new HashSet<>();
   private List<Game> gameHistory = new ArrayList<Game>();
   private Map<Game.Setting, Game.Difficulty> setting2difficulty = new HashMap<>();
   private GameMode gameMode;
@@ -128,7 +128,7 @@ public class Profile {
    *
    * @return word history
    */
-  public List<String> getWordHistory() {
+  public Set<String> getWordHistory() {
     return wordHistory;
   }
 
