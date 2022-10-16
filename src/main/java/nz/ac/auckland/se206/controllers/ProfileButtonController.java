@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.controllers;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +20,7 @@ public class ProfileButtonController extends HBox {
   /** Constructs a profile button instance which has text and a delete button */
   public ProfileButtonController() {
     // loading the profile button
-    FXMLLoader loader =
-        new FXMLLoader(getClass().getResource("/fxml/" + "profile_button" + ".fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profile_button.fxml"));
     loader.setRoot(this);
     loader.setController(this);
     // loading the profile button instance
@@ -68,6 +68,18 @@ public class ProfileButtonController extends HBox {
   }
 
   /**
+   * Updates the badges container in profile list view based on selected (not yet confirmed) profile
+   *
+   * @throws FileNotFoundException
+   */
+  @FXML
+  private void onSelectProfile() throws FileNotFoundException {
+    Profile selectedProfile = ProfileLoader.read(selectButton.getText());
+    ((ProfileListController) SceneManager.getController(AppUi.PROFILE_LIST))
+        .updateBadgesContainer(selectedProfile);
+  }
+
+  /**
    * Deletes the currently selected profile and removes it from the GUI. Warns the user and requires
    * confirmation
    *
@@ -75,12 +87,11 @@ public class ProfileButtonController extends HBox {
    */
   @FXML
   private void onDeleteProfile() throws IOException {
-    ToggleButton button = selectButton;
     // make sure that there is a button selected
-    if (button != null) {
-      Profile selectedProfile = ProfileLoader.read(button.getText());
+    if (selectButton != null) {
+      Profile selectedProfile = ProfileLoader.read(selectButton.getText());
       selectedProfile.delete();
-      deleteProfileLabel(button.getText());
+      deleteProfileLabel(selectButton.getText());
     }
   }
 

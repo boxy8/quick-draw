@@ -56,5 +56,10 @@
             <Button fx:id="chooseDifficultyButton" mnemonicParsing="false" onAction="#onChooseDifficulty" prefHeight="71.0" prefWidth="300.0" styleClass="main-button" text="Choose Settings" />
          </children>
       </VBox>
+      <AnchorPane fx:id="loadingContainer" layoutX="318.0" layoutY="270.0" prefHeight="95.0" prefWidth="208.0">
+         <children>
+            <Label fx:id="loadingLabel" layoutX="62.0" layoutY="33.0" text="Loading..." />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
