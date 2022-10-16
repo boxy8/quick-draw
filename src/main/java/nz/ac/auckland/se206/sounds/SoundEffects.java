@@ -9,6 +9,7 @@ public class SoundEffects {
 
   private static MediaPlayer BackgroundPlayer;
   private static boolean musicPlaying;
+  private static boolean isMute = true;
 
   // SOUND EFFECT CREDIT
   // background sound: https://pixabay.com/music/beautiful-plays-ambient-piano-ampamp-strings-10711/
@@ -48,6 +49,12 @@ public class SoundEffects {
     BackgroundPlayer.stop();
   }
 
+  /** toggles sound on and off */
+  public static void muteToggle() {
+    BackgroundPlayer.setMute(!BackgroundPlayer.isMute());
+    isMute = !isMute;
+  }
+
   private MediaPlayer player;
 
   /**
@@ -75,6 +82,11 @@ public class SoundEffects {
   public void playRepeatSound() throws URISyntaxException {
     player.setCycleCount(MediaPlayer.INDEFINITE);
     player.play();
+  }
+
+  /** checks to see if the sound needs to be muted, and mutes it if so */
+  public void toggleSound() {
+    player.setMute(!isMute);
   }
 
   /** Stop playing the sound that you have chosen */

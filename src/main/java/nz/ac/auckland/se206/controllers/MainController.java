@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
+import nz.ac.auckland.se206.sounds.SoundEffects;
 
 public class MainController {
 
@@ -15,6 +16,8 @@ public class MainController {
   @FXML private Button home;
 
   @FXML private Button profileButton;
+
+  @FXML private Button muteButton;
 
   /**
    * sets the main content (content below the navigation bar)
@@ -43,6 +46,11 @@ public class MainController {
   @FXML
   private void onGoHome(ActionEvent event) {
     SceneManager.changeScene(event, AppUi.MAIN_MENU);
+  }
+
+  @FXML
+  private void onMute() {
+    SoundEffects.muteToggle();
   }
 
   /**

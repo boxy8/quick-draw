@@ -280,8 +280,10 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   }
 
   protected void playGamemodeSoundEffect() {
+
     try {
       setTimerSoundEffect(new SoundEffects("timer"));
+      getTimerSoundEffect().toggleSound();
       getTimerSoundEffect().playRepeatSound();
     } catch (URISyntaxException e) {
       e.printStackTrace();
@@ -294,15 +296,9 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     resetTimer();
     // calling this first to stop initial freezing problem
     getCurrentSnapshot();
-    // play sound effect required by game mode, in this case ticking clock
-    try {
-      timerSoundEffect = new SoundEffects("timer");
-      timerSoundEffect.playRepeatSound();
-    } catch (URISyntaxException e1) {
-      e1.printStackTrace();
-    }
-    // start preditions every second
+    // play sound effect required
     playGamemodeSoundEffect();
+    // start preditions every second
     timeline =
         new Timeline(
             new KeyFrame(
@@ -312,6 +308,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
                   if (drawingStarted) {
                     onPredict(getCurrentSnapshot());
                   }
+                  getTimerSoundEffect().toggleSound();
                   countDown();
                 }));
     // count down value (seconds)
