@@ -371,9 +371,11 @@ public class DifficultySelectorController implements Initializable, SwitchInList
       // update mode
       modeSpinner.getValueFactory().setValue(gameMode.toString());
       // update difficulties
-      accuracySpinner.getValueFactory().setValue(map.get(Setting.ACCURACY).toString());
+      accuracySpinner
+          .getValueFactory()
+          .setValue(map.get(Setting.ACCURACY).toString().replace("_", " "));
       wordsSpinner.getValueFactory().setValue(map.get(Setting.WORDS).toString());
-      timeSpinner.getValueFactory().setValue(map.get(Setting.TIME).toString());
+      timeSpinner.getValueFactory().setValue(map.get(Setting.TIME).toString().replace("_", " "));
       confidenceSpinner.getValueFactory().setValue(map.get(Setting.CONFIDENCE).toString());
     }
   }

@@ -13,6 +13,21 @@ public class ScrambleController extends CanvasController {
     wordLabel.setText(scrambledWord);
   }
 
+  /**
+   * sets the end game button's visibility to value desired and shows user word
+   *
+   * @param visibility whether you want it visible or not
+   */
+  @Override
+  protected void setEndgameVisibility(boolean visibility) {
+    endGameContainer.setVisible(visibility);
+    if (visibility) {
+      // check for game end
+      String currentWord = WordHolder.getInstance().getCurrentWord();
+      wordLabel.setText(currentWord);
+    }
+  }
+
   /** Resets game when switching to this screen by clearing everything */
   @Override
   public void onSwitchIn() {
