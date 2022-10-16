@@ -32,7 +32,7 @@ public class SniperBadge extends ProgressiveBadge {
     // only perform update if the latest game was won
     if (lastGame.getIsWin()) {
       setValue(
-          (int) -(lastGame.getWordPosition() * 100 + lastGame.getPredictionProbability() * 100));
+          (int) (-lastGame.getWordPosition() * 100 + lastGame.getPredictionProbability() * 100));
     }
   }
 }

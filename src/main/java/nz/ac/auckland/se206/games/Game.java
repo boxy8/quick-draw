@@ -1,9 +1,8 @@
 package nz.ac.auckland.se206.games;
 
+import ai.djl.modality.Classifications.Classification;
 import java.util.List;
 import java.util.Map;
-
-import ai.djl.modality.Classifications.Classification;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.words.WordHolder;
 
@@ -53,7 +52,8 @@ public class Game {
   public Game(String word, GameMode mode) {
     this.word = word;
     this.mode = mode;
-    this.settings2Difficulty = ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty();
+    this.settings2Difficulty =
+        ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty();
     this.wasEraserPressed = false;
     this.wasClearPressed = false;
   }
@@ -65,7 +65,7 @@ public class Game {
       if (classification.getClassName().equals(WordHolder.getInstance().getCurrentWord())) {
         this.predictionProbability = classification.getProbability();
         this.wordPosition = count;
-        break;
+        return;
       }
     }
   }
