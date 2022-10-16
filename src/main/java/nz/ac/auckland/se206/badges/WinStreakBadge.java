@@ -22,7 +22,7 @@ public class WinStreakBadge extends ProgressiveBadge {
    * <p>Diamond: 100
    */
   public WinStreakBadge() {
-    super("Win Streak", "WIN_STREAK_BRONZE.png", 100, 50, 25, 10, 3);
+    super("Win Streak", "WIN_STREAK_BRONZE.png", "Hold a lengthy win streak", 100, 50, 25, 10, 3);
   }
 
   @Override

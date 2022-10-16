@@ -4,9 +4,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fx:id="badgeBox" stylesheets="@../css/styles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="badgeBox" alignment="TOP_CENTER" stylesheets="@../css/styles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="badgeLabel" text="Untitled Badge" />
-      <ImageView fx:id="badgeIcon" fitHeight="84.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="badgeLabel" style="-fx-font-size: 16;" text="Word Collector" />
+      <ImageView fx:id="badgeIcon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </fx:root>

@@ -36,12 +36,13 @@ public abstract class ProgressiveBadge extends Badge {
   public ProgressiveBadge(
       String name,
       String imageLocation,
+      String tooltip,
       int diamondValue,
       int platinumValue,
       int goldValue,
       int silverValue,
       int bronzeValue) {
-    super(name, "/progressive/" + imageLocation);
+    super(name, "/progressive/" + imageLocation, tooltip);
     rankValues.put(DIAMOND, diamondValue);
     rankValues.put(PLATINUM, platinumValue);
     rankValues.put(GOLD, goldValue);

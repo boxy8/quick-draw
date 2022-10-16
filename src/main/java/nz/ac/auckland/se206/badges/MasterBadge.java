@@ -13,7 +13,7 @@ public class MasterBadge extends Badge {
    * <p>Badge condition: win a game with any difficulty setting on Master.
    */
   public MasterBadge() {
-    super("Master", "MASTER.png");
+    super("Master", "MASTER.png", "Win a game with any difficulty setting set to MASTER");
   }
 
   @Override

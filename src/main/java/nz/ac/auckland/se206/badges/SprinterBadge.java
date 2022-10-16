@@ -22,7 +22,15 @@ public class SprinterBadge extends ProgressiveBadge {
    * <p>Diamond: 5 seconds
    */
   public SprinterBadge() {
-    super("Sprinter", "SPRINTER_BRONZE.png", -5, -10, -15, -30, -45);
+    super(
+        "Sprinter",
+        "SPRINTER_BRONZE.png",
+        "Win a game in a short timeframe",
+        -5,
+        -10,
+        -15,
+        -30,
+        -45);
   }
 
   @Override

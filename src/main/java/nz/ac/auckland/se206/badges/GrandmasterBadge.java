@@ -14,7 +14,7 @@ public class GrandmasterBadge extends Badge {
    * <p>Badge condition: win a game with difficulty settings Hard, Master, Master, Master.
    */
   public GrandmasterBadge() {
-    super("Grandmaster", "GRANDMASTER.png");
+    super("Grandmaster", "GRANDMASTER.png", "Win a game on the hardest difficulty settings");
   }
 
   @Override
