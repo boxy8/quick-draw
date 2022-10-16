@@ -116,13 +116,11 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     graphic.setLineWidth(7);
     graphic.setLineCap(StrokeLineCap.ROUND);
 
-    /**
-     * @author pelgrim <https://stackoverflow.com/users/8937787/pelgrim>
-     * @copyright 2018 pelgrim
-     * @license CC BY-SA 3.0
-     * @see {@link https://stackoverflow.com/a/47284341/1248177|How to draw a continuous line with
-     *     mouse on JavaFX canvas?}
-     */
+    // @author pelgrim <https://stackoverflow.com/users/8937787/pelgrim>
+    // @copyright 2018 pelgrim
+    // @license CC BY-SA 3.0
+    // @see {@link https://stackoverflow.com/a/47284341/1248177|How to draw a continuous line with
+    // mouse on JavaFX canvas?}
 
     // Start drawing on mouse click smoothly
     canvas.addEventHandler(
@@ -620,10 +618,6 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
             textToSpeech = new TextToSpeech();
             // read the message that is sent to this method
             textToSpeech.speak(msg);
-            Platform.runLater(
-                () -> {
-                  // textToSpeech.terminate();
-                });
             return null;
           }
         };
@@ -673,7 +667,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   }
 
   /**
-   * set the win sound effect
+   * set the win sound effect required
    *
    * @param winSoundEffect set the win sound effect
    */

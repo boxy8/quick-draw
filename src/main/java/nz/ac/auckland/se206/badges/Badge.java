@@ -21,7 +21,7 @@ public abstract class Badge {
   public abstract void updateBadge();
 
   /**
-   * Gets the name of the badge
+   * Gets the name of the badge required
    *
    * @return the name of the badge
    */

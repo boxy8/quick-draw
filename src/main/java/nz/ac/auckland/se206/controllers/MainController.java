@@ -3,6 +3,8 @@ package nz.ac.auckland.se206.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -17,23 +19,12 @@ public class MainController {
 
   @FXML private Button profileButton;
 
-  @FXML private Button muteButton;
+  @FXML private ImageView soundIcon;
 
-  /**
-   * sets the main content (content below the navigation bar)
-   *
-   * @param appUi the app ui they want to switch to
-   */
-  public void setContent(AppUi appUi) {
-    Object controller = SceneManager.getController(appUi);
-    if (controller instanceof SwitchInListener switchListener) {
-      switchListener.onSwitchIn();
-    }
-    // switch main content
-    border.setCenter(SceneManager.getUiRoot(appUi));
-  }
+  private Image mutedIcon = new Image("/images/music_muted.png");
+  private Image unmutedIcon = new Image("/images/music.png");
 
-  /** Sets the profile Button the the current user that is selected */
+  /** Sets the profile Button the current user that is selected */
   public void setProfileButton() {
     profileButton.setText(ProfileHolder.getInstance().getCurrentProfile().getUsername());
   }
@@ -52,6 +43,12 @@ public class MainController {
   @FXML
   private void onMute() {
     SoundEffects.muteToggle();
+    // if muted after toggling set muted icon, otherwise set unmuted icon
+    if (SoundEffects.getIsMute()) {
+      soundIcon.setImage(mutedIcon);
+    } else {
+      soundIcon.setImage(unmutedIcon);
+    }
   }
 
   /**

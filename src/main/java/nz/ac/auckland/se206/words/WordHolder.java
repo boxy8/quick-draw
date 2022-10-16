@@ -23,6 +23,7 @@ public class WordHolder {
   private String currentWord;
   private String scrambledWord;
 
+  /** Create a new word holder so that a word can be stored */
   private WordHolder() {}
 
   /**

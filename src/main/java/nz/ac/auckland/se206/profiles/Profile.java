@@ -2,8 +2,21 @@ package nz.ac.auckland.se206.profiles;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
-import nz.ac.auckland.se206.badges.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import nz.ac.auckland.se206.badges.Badge;
+import nz.ac.auckland.se206.badges.FirstTryBadge;
+import nz.ac.auckland.se206.badges.GrandmasterBadge;
+import nz.ac.auckland.se206.badges.MasterBadge;
+import nz.ac.auckland.se206.badges.SniperBadge;
+import nz.ac.auckland.se206.badges.SprinterBadge;
+import nz.ac.auckland.se206.badges.WinStreakBadge;
+import nz.ac.auckland.se206.badges.WordCollectorBadge;
 import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.GameMode;
@@ -23,6 +36,12 @@ public class Profile {
   // stores the names of all achieved badges (no information regarding rank)
   private List<Badge> badges = new ArrayList<>();
 
+  /**
+   * Creates a profile for the user, saves profile to json file for easy reading and writing
+   *
+   * @param username the user name of the user that wants to play
+   * @throws IOException if there is an error reading or writing to file
+   */
   public Profile(String username) throws IOException {
     this.username = username;
     // setting file path for profile under the profile directory in src folder
@@ -117,9 +136,9 @@ public class Profile {
   }
 
   /**
-   * Gets average time user has played
+   * Gets average amount of time user has played
    *
-   * @return
+   * @return the average amount of time the user has played
    */
   public int getAverageTime() {
     if (gameHistory.size() == 0) {
@@ -167,6 +186,11 @@ public class Profile {
     return reversed;
   }
 
+  /**
+   * Get the latest game played by the user
+   *
+   * @return the latest game played by the user
+   */
   public Game getLatestGame() {
     return getReversedGameHistory().get(0);
   }
@@ -180,9 +204,15 @@ public class Profile {
     return setting2difficulty;
   }
 
+  /**
+   * Get the badges of the user currently playing game
+   *
+   * @return the badges of the user currently playing game
+   */
   public List<Badge> getBadges() {
     return badges;
   }
+
   /**
    * Saves the current profile to a file of json format
    *
@@ -229,7 +259,7 @@ public class Profile {
     gameHistory.add(game);
   }
 
-  /** Deletes profile from system */
+  /** Deletes profile file from system so that it cannot be used again */
   public void delete() {
     String filePath = "profiles/" + username + ".json";
     File f = new File(filePath);

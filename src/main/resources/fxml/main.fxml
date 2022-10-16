@@ -55,9 +55,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="soundIcon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/settings.png" />
+                        <Image url="@../images/music.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

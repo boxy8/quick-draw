@@ -30,9 +30,9 @@ public class SceneManager {
   /**
    * Generate and store all scenes required so they don't have to be reloaded every time
    *
-   * @param appUi the ui being used
-   * @param loader the fxml loader
-   * @throws IOException when the file fails to load
+   * @param appUi the ui being used currently
+   * @param loader the fxml loader used
+   * @throws IOException when the file fails to load or other input output error
    */
   public static void addUi(AppUi appUi, FXMLLoader loader) throws IOException {
     Scene newScene = new Scene(loader);

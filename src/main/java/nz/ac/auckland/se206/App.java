@@ -12,9 +12,9 @@ import nz.ac.auckland.se206.controllers.HiddenWordCanvasController;
 import nz.ac.auckland.se206.controllers.NormalCanvasController;
 import nz.ac.auckland.se206.controllers.ScrambleController;
 import nz.ac.auckland.se206.controllers.SwitchInListener;
+import nz.ac.auckland.se206.controllers.ZenCanvasController;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
-import nz.ac.auckland.se206.controllers.ZenCanvasController;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should

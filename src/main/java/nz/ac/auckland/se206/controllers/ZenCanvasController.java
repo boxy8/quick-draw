@@ -14,7 +14,7 @@ import nz.ac.auckland.se206.sounds.SoundEffects;
 import nz.ac.auckland.se206.words.WordHolder;
 
 public class ZenCanvasController extends CanvasController {
-  private Color currentColor; // American spelling : (
+  private Color currentColor; // American spelling
   private boolean isEraser;
 
   private String[] encouragement = {

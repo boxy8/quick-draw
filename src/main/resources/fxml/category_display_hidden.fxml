@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="840.0" styleClass="bg-main" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CategoryDisplayController">
    <children>
-      <VBox alignment="CENTER" layoutY="-14.0" prefHeight="200.0" prefWidth="100.0" spacing="80.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-14.0">
+      <VBox alignment="CENTER" layoutY="-14.0" prefHeight="200.0" prefWidth="100.0" spacing="80.0" stylesheets="@../css/styles.css" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-14.0">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                <children>
@@ -24,9 +24,9 @@
                   </Label>
                   <HBox alignment="CENTER" spacing="50.0">
                      <children>
-                        <Label fx:id="categoryLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="540.0" styleClass="shadow-text" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque feugiat placerat luctus. Etiam feugiat volutpat enim, vel aliquam mauris consectetur sit amet. Phasellus ultrices, turpis id vestibulum lobortis, neque diam." wrapText="true">
+                        <Label id="category-label" fx:id="categoryLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="540.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque feugiat placerat luctus. Etiam feugiat volutpat enim, vel aliquam mauris consectetur sit amet. Phasellus ultrices, turpis id vestibulum lobortis, neque diam. 12312 31321 3213 21321 3213213213 213213213 21321321321 32132132132132132 13 213 213 21 321 321 32 132 1 321 321" textAlignment="CENTER" wrapText="true">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Italic" size="18.0" />
                            </font>
                         </Label>
                      </children>

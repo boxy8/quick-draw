@@ -25,6 +25,13 @@ public class CategorySelector {
 
   private Map<WordDifficulty, List<String>> difficulty2categories;
 
+  /**
+   * Creates a new category selector so that you can get random words from categories that you want
+   *
+   * @throws IOException if there is an error reading or writing files
+   * @throws CsvException if there is an error in the csv file
+   * @throws URISyntaxException if there is an error in the file path
+   */
   public CategorySelector() throws IOException, CsvException, URISyntaxException {
     difficulty2categories = new HashMap<>();
     // saving in hash map for better performance
