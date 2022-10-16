@@ -55,9 +55,9 @@ public class DoodlePrediction {
    */
   public static void printPredictions(final List<Classifications.Classification> predictions) {
     final StringBuilder sb = new StringBuilder();
-
+    // set counter
     int i = 1;
-
+    // build the string to print
     for (final Classifications.Classification classification : predictions) {
       sb.append("TOP ")
           .append(i)
@@ -66,10 +66,10 @@ public class DoodlePrediction {
           .append(" : ")
           .append(String.format("%.2f%%", 100 * classification.getProbability()))
           .append(System.lineSeparator());
-
+      // increment
       i++;
     }
-
+    // print the built string
     System.out.println(sb);
   }
 
@@ -96,6 +96,7 @@ public class DoodlePrediction {
         } else if ((i > 10)
             && (ProfileHolder.getInstance().getCurrentProfile().getGameMode()
                 != GameMode.SCRAMBLE)) {
+          // check for scramble game mode
           sb.append("...")
               .append(System.lineSeparator())
               .append(i + 1)
@@ -108,15 +109,24 @@ public class DoodlePrediction {
     return sb.toString();
   }
 
+  /**
+   * Get the hidden preditions of the model
+   *
+   * @param predictions the predictions of the ml model
+   * @return a string that shows the hidden preditions of the game
+   */
   public static String getHiddenPredictions(
       final List<Classifications.Classification> predictions) {
+    // new string builder
     final StringBuilder sb = new StringBuilder();
+    // itterate through all
     for (int i = 0; i < predictions.size(); i++) {
       String prediction = predictions.get(i).getClassName().replace("_", " ");
       if (i < 10) {
         sb.append(i + 1).append(" : ").append(prediction).append(System.lineSeparator());
       }
     }
+    // return built string
     return sb.toString();
   }
 

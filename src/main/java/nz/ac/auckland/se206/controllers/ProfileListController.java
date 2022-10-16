@@ -192,6 +192,7 @@ public class ProfileListController implements SwitchInListener {
         }
       }
     }
+    // update the badges for the player
     updateBadgesContainer(currentProfile);
   }
 }

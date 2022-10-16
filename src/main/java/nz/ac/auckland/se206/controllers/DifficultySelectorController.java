@@ -50,7 +50,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    // create a new instance of a catigory selector
+    // create a new instance of a category selector
     try {
       categorySelector = new CategorySelector();
     } catch (IOException | CsvException | URISyntaxException e) {
@@ -81,11 +81,11 @@ public class DifficultySelectorController implements Initializable, SwitchInList
               }
             });
 
-    // Initialize spinners with "Easy", "Medium", and "Hard" difficulties
+    // Initialize spinners with "Super Easy", "Easy", "Medium", and "Hard" difficulties
     ObservableList<String> accuracyDifficulties =
         FXCollections.observableArrayList("SUPER EASY", "EASY", "MEDIUM", "HARD");
     initializeSpinner(accuracySpinner, accuracyDifficulties);
-
+    // Initialize spinners with "Super Easy" "Easy", "Medium", and "Hard" difficulties
     ObservableList<String> timeDifficulties =
         FXCollections.observableArrayList("SUPER EASY", "EASY", "MEDIUM", "HARD", "MASTER");
     initializeSpinner(timeSpinner, timeDifficulties);
@@ -106,6 +106,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
   private void initializeSpinner(Spinner<String> spinner, ObservableList<String> options) {
     SpinnerValueFactory<String> valueFactory =
         new SpinnerValueFactory.ListSpinnerValueFactory<String>(options);
+    // update spinner values
     valueFactory.setValue(options.get(0));
     spinner.setValueFactory(valueFactory);
   }
@@ -114,7 +115,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
    * Sets the users chosen difficulty settings Triggers when ChooseDifficultyButton is pressed
    *
    * @param event the event of triggering this method
-   * @throws IOException
+   * @throws IOException if there was an error reading or writing to a file
    */
   @FXML
   private void onChooseDifficulty(ActionEvent event1) throws IOException {
@@ -132,6 +133,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
             setWordsDifficulty();
             setTimeDifficulty();
             setConfidenceDifficulty();
+            // switch scene after setting everything up
             Platform.runLater(
                 () -> {
                   // change to correct scene
@@ -289,6 +291,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
     try {
       if (modeSpinner.getValue().equals("HIDDEN")
           && DictionaryLookUp.searchWordInfo(WordHolder.getInstance().getCurrentWord()) == null) {
+        // update word until one that works is found
         setWordsDifficulty();
       }
     } catch (IOException e) {
@@ -357,6 +360,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
           .getCurrentProfile()
           .getSetting2Difficulty()
           .put(Setting.CONFIDENCE, Difficulty.HARD);
+      // Master difficulty selected
     } else {
       ProfileHolder.getInstance()
           .getCurrentProfile()

@@ -32,11 +32,12 @@ public class SceneManager {
    *
    * @param appUi the ui being used
    * @param loader the fxml loader
-   * @throws IOException
+   * @throws IOException when the file fails to load
    */
   public static void addUi(AppUi appUi, FXMLLoader loader) throws IOException {
     Scene newScene = new Scene(loader);
-    newScene.getRoot().setUserData(appUi); // node stores what AppUi type it is
+    newScene.getRoot().setUserData(appUi);
+    // node stores what AppUi type it is
     sceneMap.put(appUi, newScene);
   }
 

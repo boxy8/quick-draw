@@ -1,6 +1,10 @@
 package nz.ac.auckland.se206.badges;
 
-import static nz.ac.auckland.se206.badges.ProgressiveBadge.Rank.*;
+import static nz.ac.auckland.se206.badges.ProgressiveBadge.Rank.BRONZE;
+import static nz.ac.auckland.se206.badges.ProgressiveBadge.Rank.DIAMOND;
+import static nz.ac.auckland.se206.badges.ProgressiveBadge.Rank.GOLD;
+import static nz.ac.auckland.se206.badges.ProgressiveBadge.Rank.PLATINUM;
+import static nz.ac.auckland.se206.badges.ProgressiveBadge.Rank.SILVER;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,10 +77,20 @@ public abstract class ProgressiveBadge extends Badge {
   /** Updates the value the badge is measuring, based on current profile statistics */
   public abstract void updateValue();
 
+  /**
+   * Gets the value of the current badge
+   *
+   * @return the value of the current badge
+   */
   protected int getValue() {
     return value;
   }
 
+  /**
+   * set the value of the current badge
+   *
+   * @param value set the value of the current badge
+   */
   protected void setValue(int value) {
     this.value = value;
   }

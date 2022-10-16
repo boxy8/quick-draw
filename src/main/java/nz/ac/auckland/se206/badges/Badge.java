@@ -20,22 +20,47 @@ public abstract class Badge {
   /** Updates whether the badge is achieved or not based on current profile statistics */
   public abstract void updateBadge();
 
+  /**
+   * Gets the name of the badge
+   *
+   * @return the name of the badge
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Gets if the badge has been achieved or not
+   *
+   * @return if the badge has been achieved or not
+   */
   public boolean getIsAchieved() {
     return isAchieved;
   }
 
+  /**
+   * Sets the badge to achieved or not depending on if user has earned it
+   *
+   * @param isAchieved what you wish to set the badge achieved to
+   */
   public void setIsAchieved(boolean isAchieved) {
     this.isAchieved = isAchieved;
   }
 
+  /**
+   * Gets the location of the image of the badge
+   *
+   * @return the location of the image of the badge
+   */
   public String getImageLocation() {
     return imageLocation;
   }
 
+  /**
+   * sets the location of the image of the badge
+   *
+   * @param imageLocation sets the location of the image of the badge
+   */
   public void setImageLocation(String imageLocation) {
     this.imageLocation = imageLocation;
   }
