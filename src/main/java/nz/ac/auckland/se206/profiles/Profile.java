@@ -39,6 +39,7 @@ public class Profile {
       this.setting2difficulty = reading.getSetting2Difficulty();
       this.gameMode = reading.getGameMode();
       this.badges = reading.getBadges();
+      System.out.println(badges);
     } else {
       // Add each badge instance
       badges.add(new FirstTryBadge());

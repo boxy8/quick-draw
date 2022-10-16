@@ -60,7 +60,8 @@ public abstract class ProgressiveBadge extends Badge {
         setIsAchieved(true);
         // update the suffix of the image location
         int n = getImageLocation().lastIndexOf("_");
-        setImageLocation(getImageLocation().substring(0, n) + rank.name());
+        setImageLocation(getImageLocation().substring(0, n + 1) + rank.name() + ".png");
+        System.out.println(getImageLocation());
       }
     }
   }
