@@ -37,6 +37,8 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import nz.ac.auckland.se206.SceneManager;
+import nz.ac.auckland.se206.badges.Badge;
+import nz.ac.auckland.se206.badges.ProgressiveBadge;
 import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.profiles.Profile;
@@ -386,7 +388,17 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     Profile userProfile = ProfileHolder.getInstance().getCurrentProfile();
     userProfile.updateAllStats(game);
 
-    // save to profile json if non-guest user
+    // update badges
+    // badge GUI updates in Profile List controller
+    for (Badge badge : userProfile.getBadges()) {
+      // if badge is a progressive badge then update it's measurement value before performing check
+      if (badge instanceof ProgressiveBadge) {
+        ((ProgressiveBadge) badge).updateValue();
+      }
+      badge.updateBadge();
+    }
+
+    // save changes to profile json if non-guest user
     if (!userProfile.isGuest()) {
       try {
         userProfile.saveToFile();
@@ -434,6 +446,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
             // update gameWon boolean if player has won after the last prediction update
             if (isWin(predictions)) {
               game.setIsWin(true);
+              game.setPredictionAttributes(predictions);
             }
             return null;
           }
@@ -539,12 +552,14 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   protected void onEraseTool() {
     // change to eraser
     graphic.setStroke(Color.WHITE);
+    game.setWasEraserPressed(true);
   }
 
   /** clear the canvas when the clear tool is clicked */
   @FXML
   protected void onClearTool() {
     clearCanvas();
+    game.setWasClearPressed(true);
   }
 
   /** Clears the canvas for the user */

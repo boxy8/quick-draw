@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <fx:root styleClass="profile-button" stylesheets="@../css/styles.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
-   <ToggleButton fx:id="selectButton" mnemonicParsing="false" text="ToggleButton" HBox.hgrow="ALWAYS">
+   <ToggleButton fx:id="selectButton" mnemonicParsing="false" onAction="#onSelectProfile" text="ToggleButton" HBox.hgrow="ALWAYS">
       <styleClass>
          <String fx:value="image-button" />
          <String fx:value="profile-button-text" />

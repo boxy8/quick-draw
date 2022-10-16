@@ -36,9 +36,4 @@ public class ProfileHolder {
   public Profile getCurrentProfile() {
     return this.currentProfile;
   }
-
-  /** sets the current instance to null */
-  public void setInstance() {
-    instance = null;
-  }
 }

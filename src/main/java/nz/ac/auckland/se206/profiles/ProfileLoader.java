@@ -1,11 +1,13 @@
 package nz.ac.auckland.se206.profiles;
 
-import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import nz.ac.auckland.se206.badges.Badge;
+import nz.ac.auckland.se206.badges.BadgeTypeAdapter;
 
 public class ProfileLoader {
 
@@ -17,16 +19,16 @@ public class ProfileLoader {
    */
   public static Profile read(String username) throws FileNotFoundException {
     // create new gson so it can read
-    Gson gson = new Gson();
+    GsonBuilder gson = new GsonBuilder();
+    gson.registerTypeAdapter(Badge.class, new BadgeTypeAdapter());
     // get file and read it
     String filePath = "profiles/" + username + ".json";
     BufferedReader buffReader = new BufferedReader(new FileReader(filePath));
     // read the file and make it into a profile
-    Profile readProfile = gson.fromJson(buffReader, Profile.class);
+    Profile readProfile = gson.create().fromJson(buffReader, Profile.class);
     try {
       buffReader.close();
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return readProfile;
@@ -40,9 +42,11 @@ public class ProfileLoader {
    */
   public static void updateJson(Profile profile) throws IOException {
     String filePath = "profiles/" + profile.getUsername() + ".json";
-    // create json format using gjon with passed in profile
-    Gson gson = new Gson();
-    String json = gson.toJson(profile);
+
+    // create json format using gson with passed in profile
+    GsonBuilder gson = new GsonBuilder();
+    gson.registerTypeAdapter(Badge.class, new BadgeTypeAdapter());
+    String json = gson.create().toJson(profile);
     try {
       // write to a new file at correct path
       FileWriter writer = new FileWriter(filePath);

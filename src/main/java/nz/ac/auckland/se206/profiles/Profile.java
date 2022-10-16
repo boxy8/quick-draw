@@ -2,11 +2,8 @@ package nz.ac.auckland.se206.profiles;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import nz.ac.auckland.se206.badges.*;
 import nz.ac.auckland.se206.games.Game;
 import nz.ac.auckland.se206.games.Game.Difficulty;
 import nz.ac.auckland.se206.games.Game.GameMode;
@@ -19,10 +16,12 @@ public class Profile {
   private int winStreak;
   private int zenGamesPlayed = 0;
   private int fastestWinTime = 60;
-  private List<String> wordHistory = new ArrayList<String>();
+  private Set<String> wordHistory = new HashSet<>();
   private List<Game> gameHistory = new ArrayList<Game>();
   private Map<Game.Setting, Game.Difficulty> setting2difficulty = new HashMap<>();
   private GameMode gameMode;
+  // stores the names of all achieved badges (no information regarding rank)
+  private List<Badge> badges = new ArrayList<>();
 
   public Profile(String username) throws IOException {
     this.username = username;
@@ -31,15 +30,26 @@ public class Profile {
     File f = new File(filePath);
     if (f.exists()) {
       // get all required information
-      this.wins = ProfileLoader.read(username).getWins();
-      this.losses = ProfileLoader.read(username).getLosses();
-      this.winStreak = ProfileLoader.read(username).getWinStreak();
-      this.fastestWinTime = ProfileLoader.read(username).getFastestWinTime();
-      this.wordHistory = ProfileLoader.read(username).getWordHistory();
-      this.gameHistory = ProfileLoader.read(username).getGameHistory();
-      this.setting2difficulty = ProfileLoader.read(username).getSetting2Difficulty();
-      this.gameMode = ProfileLoader.read(username).getGameMode();
+      Profile reading = ProfileLoader.read(username);
+      this.wins = reading.getWins();
+      this.losses = reading.getLosses();
+      this.winStreak = reading.getWinStreak();
+      this.fastestWinTime = reading.getFastestWinTime();
+      this.wordHistory = reading.getWordHistory();
+      this.gameHistory = reading.getGameHistory();
+      this.setting2difficulty = reading.getSetting2Difficulty();
+      this.gameMode = reading.getGameMode();
       this.zenGamesPlayed = ProfileLoader.read(username).getZenGamesPlayed();
+      this.badges = reading.getBadges();
+    } else {
+      // Add each badge instance
+      badges.add(new FirstTryBadge());
+      badges.add(new GrandmasterBadge());
+      badges.add(new MasterBadge());
+      badges.add(new SniperBadge());
+      badges.add(new SprinterBadge());
+      badges.add(new WinStreakBadge());
+      badges.add(new WordCollectorBadge());
     }
   }
 
@@ -133,7 +143,7 @@ public class Profile {
    *
    * @return word history of user
    */
-  public List<String> getWordHistory() {
+  public Set<String> getWordHistory() {
     return wordHistory;
   }
 
@@ -157,6 +167,10 @@ public class Profile {
     return reversed;
   }
 
+  public Game getLatestGame() {
+    return getReversedGameHistory().get(0);
+  }
+
   /**
    * Get settings and difficulty of last game played
    *
@@ -166,6 +180,9 @@ public class Profile {
     return setting2difficulty;
   }
 
+  public List<Badge> getBadges() {
+    return badges;
+  }
   /**
    * Saves the current profile to a file of json format
    *

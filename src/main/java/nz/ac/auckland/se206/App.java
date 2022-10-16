@@ -12,6 +12,8 @@ import nz.ac.auckland.se206.controllers.HiddenWordCanvasController;
 import nz.ac.auckland.se206.controllers.NormalCanvasController;
 import nz.ac.auckland.se206.controllers.ScrambleController;
 import nz.ac.auckland.se206.controllers.SwitchInListener;
+import nz.ac.auckland.se206.profiles.Profile;
+import nz.ac.auckland.se206.profiles.ProfileHolder;
 import nz.ac.auckland.se206.controllers.ZenCanvasController;
 
 /**
@@ -76,6 +78,14 @@ public class App extends Application {
             hiddenController.getTextToSpeech().terminate();
           }
         });
+
+    // set profile to Guest
+    try {
+      // create a guest profile
+      ProfileHolder.getInstance().setCurrentProfile(new Profile("Guest"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     // add scenes to scene manager
     SceneManager.addUi(AppUi.MAIN_MENU, getFxmlLoader("main_menu"));

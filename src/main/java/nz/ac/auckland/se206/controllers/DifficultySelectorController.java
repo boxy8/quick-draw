@@ -41,6 +41,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
   @FXML private AnchorPane confidenceContainer;
   @FXML private Button chooseDifficultyButton;
   @FXML private Label loadingLabel;
+
   private CategorySelector categorySelector;
 
   /**
@@ -100,7 +101,7 @@ public class DifficultySelectorController implements Initializable, SwitchInList
    * Initializes a spinner with relevant difficulties for user selection
    *
    * @param spinner a spinner on the GUI that the user uses to select the relevant difficulty
-   * @param difficulties all available difficulty strings for the setting
+   * @param options all available option strings for the setting
    */
   private void initializeSpinner(Spinner<String> spinner, ObservableList<String> options) {
     SpinnerValueFactory<String> valueFactory =
