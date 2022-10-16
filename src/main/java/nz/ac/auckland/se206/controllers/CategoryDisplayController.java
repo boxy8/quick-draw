@@ -94,6 +94,10 @@ public class CategoryDisplayController implements SwitchInListener {
         // load correct value for time
         String timeText = null;
         switch (time) {
+          case SUPER_EASY:
+            // 60 seconds
+            timeText = "90";
+            break;
           case EASY:
             // 60 seconds
             timeText = "60";
@@ -114,6 +118,10 @@ public class CategoryDisplayController implements SwitchInListener {
         // load correct value for accuracy
         String accuracyText = null;
         switch (accuracy) {
+          case SUPER_EASY:
+            // top 3
+            accuracyText = "5";
+            break;
           case EASY:
             // top 3
             accuracyText = "3";

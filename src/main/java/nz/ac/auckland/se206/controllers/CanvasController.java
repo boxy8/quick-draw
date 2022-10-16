@@ -214,6 +214,9 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
         .getCurrentProfile()
         .getSetting2Difficulty()
         .get(Game.Setting.ACCURACY)) {
+      case SUPER_EASY:
+        accuracyCondition = 5;
+        break;
       case EASY:
         accuracyCondition = 3;
         break;
@@ -233,6 +236,9 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
         .getCurrentProfile()
         .getSetting2Difficulty()
         .get(Game.Setting.TIME)) {
+      case SUPER_EASY:
+        startingTime = 90;
+        break;
       case EASY:
         startingTime = 60;
         break;
@@ -264,6 +270,8 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
         break;
       case MASTER:
         confidenceCondition = 0.5;
+        break;
+      default:
         break;
     }
 

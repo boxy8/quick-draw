@@ -78,14 +78,17 @@ public class DifficultySelectorController implements Initializable, SwitchInList
 
     // Initialize spinners with "Easy", "Medium", and "Hard" difficulties
     ObservableList<String> accuracyDifficulties =
-        FXCollections.observableArrayList("EASY", "MEDIUM", "HARD");
+        FXCollections.observableArrayList("SUPER EASY", "EASY", "MEDIUM", "HARD");
     initializeSpinner(accuracySpinner, accuracyDifficulties);
+
+    ObservableList<String> timeDifficulties =
+        FXCollections.observableArrayList("SUPER EASY", "EASY", "MEDIUM", "HARD", "MASTER");
+    initializeSpinner(timeSpinner, timeDifficulties);
 
     // Initialize spinners with "Easy", "Medium", "Hard", and "Master" difficulties
     ObservableList<String> difficulties =
         FXCollections.observableArrayList("EASY", "MEDIUM", "HARD", "MASTER");
     initializeSpinner(wordsSpinner, difficulties);
-    initializeSpinner(timeSpinner, difficulties);
     initializeSpinner(confidenceSpinner, difficulties);
   }
 
@@ -146,8 +149,14 @@ public class DifficultySelectorController implements Initializable, SwitchInList
 
   /** Sets the next game's accuracy cut off as per the difficulty selected by accuracy spinner */
   private void setAccuracyDifficulty() {
-    // Easy difficulty selected
-    if (accuracySpinner.getValue().equals("EASY")) {
+    // Super easy difficulty selected
+    if (accuracySpinner.getValue().equals("SUPER EASY")) {
+      ProfileHolder.getInstance()
+          .getCurrentProfile()
+          .getSetting2Difficulty()
+          .put(Setting.ACCURACY, Difficulty.SUPER_EASY);
+      // Easy difficulty
+    } else if (accuracySpinner.getValue().equals("EASY")) {
       ProfileHolder.getInstance()
           .getCurrentProfile()
           .getSetting2Difficulty()
@@ -246,15 +255,20 @@ public class DifficultySelectorController implements Initializable, SwitchInList
         setWordsDifficulty();
       }
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
 
   /** Sets the time as per the difficulty selected by time spinner */
   private void setTimeDifficulty() {
-    // Easy difficulty selected
-    if (timeSpinner.getValue().equals("EASY")) {
+    // Super easy difficulty selected
+    if (timeSpinner.getValue().equals("SUPER EASY")) {
+      ProfileHolder.getInstance()
+          .getCurrentProfile()
+          .getSetting2Difficulty()
+          .put(Setting.TIME, Difficulty.SUPER_EASY);
+      // Easy difficulty selected
+    } else if (timeSpinner.getValue().equals("EASY")) {
       ProfileHolder.getInstance()
           .getCurrentProfile()
           .getSetting2Difficulty()
