@@ -8,8 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.controllers.HiddenWordCanvasController;
 import nz.ac.auckland.se206.controllers.NormalCanvasController;
+import nz.ac.auckland.se206.controllers.ScrambleController;
 import nz.ac.auckland.se206.controllers.SwitchInListener;
+import nz.ac.auckland.se206.controllers.ZenCanvasController;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should
@@ -46,10 +49,31 @@ public class App extends Application {
         e -> {
           Platform.exit();
           // Terminate TTS so app closes fully on close
-          NormalCanvasController controller =
+          // loading all controllers of pages
+          NormalCanvasController normalController =
               (NormalCanvasController) SceneManager.getController(AppUi.NORMAL_CANVAS);
-          if (controller.getTextToSpeech() != null) {
-            controller.getTextToSpeech().terminate();
+          ZenCanvasController zenController =
+              (ZenCanvasController) SceneManager.getController(AppUi.ZEN_CANVAS);
+          ScrambleController scrambleController =
+              (ScrambleController) SceneManager.getController(AppUi.SCRAMBLE_CANVAS);
+          HiddenWordCanvasController hiddenController =
+              (HiddenWordCanvasController) SceneManager.getController(AppUi.HIDDEN_CANVAS);
+          // check to see if a text to speech is active
+          if (normalController.getTextToSpeech() != null) {
+            // stop it from running if it is
+            normalController.getTextToSpeech().terminate();
+          }
+          // do the same for zen controller
+          if (zenController.getTextToSpeech() != null) {
+            zenController.getTextToSpeech().terminate();
+          }
+          // do the same for scramble controller
+          if (scrambleController.getTextToSpeech() != null) {
+            scrambleController.getTextToSpeech().terminate();
+          }
+          // do the same for hidden word controller
+          if (hiddenController.getTextToSpeech() != null) {
+            hiddenController.getTextToSpeech().terminate();
           }
         });
 
