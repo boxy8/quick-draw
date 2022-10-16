@@ -152,6 +152,10 @@ public class Profile {
     return reversed;
   }
 
+  public Game getLatestGame() {
+    return getReversedGameHistory().get(0);
+  }
+
   /**
    * Get settings and difficulty of last game played
    *

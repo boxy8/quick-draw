@@ -46,19 +46,25 @@ public abstract class ProgressiveBadge extends Badge {
   }
 
   /** Checks and updates rank based on current profile statistics */
-  protected void updateRank() {
+  @Override
+  public void updateBadge() {
     // highest possible rank
     if (this.rank == DIAMOND) {
       return;
     }
+    updateValue();
     for (Rank rank : Rank.values()) {
       // if we meet the rank condition, update the rank
       if (value >= rankValues.get(rank)) {
         this.rank = rank;
+        setIsAchieved(true);
         // update the suffix of the image location
         int n = getImageLocation().lastIndexOf("_");
         setImageLocation(getImageLocation().substring(0, n) + rank.name());
       }
     }
   }
+
+  /** Updates the value the badge is measuring, based on current profile statistics */
+  protected abstract void updateValue();
 }

@@ -17,6 +17,9 @@ public abstract class Badge {
     this.imageLocation = imageLocation;
   }
 
+  /** Updates whether the badge is achieved or not based on current profile statistics */
+  public abstract void updateBadge();
+
   public String getName() {
     return name;
   }
