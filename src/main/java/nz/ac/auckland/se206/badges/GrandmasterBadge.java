@@ -19,6 +19,10 @@ public class GrandmasterBadge extends Badge {
 
   @Override
   public void updateBadge() {
+    // no need to update if already achieved
+    if (getIsAchieved()) {
+      return;
+    }
     Profile profile = ProfileHolder.getInstance().getCurrentProfile();
     Game lastGame = profile.getLatestGame();
     // only perform check if the latest game was won
