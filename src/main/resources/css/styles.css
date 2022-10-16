@@ -2,7 +2,7 @@
 
 /* General */
 * {
-    -fx-text-fill: #111111;
+    -fx-text-fill: #333333;
     -fx-font-family: 'Balsamiq Sans', cursive;
     -fx-font-weight: 400;
 }
@@ -21,7 +21,6 @@
     -fx-background-insets: 0, 0 0 4 0;
     -fx-background-radius: 12;
     -fx-background-color: #d4d5d5, #f2f2f2;
-    -fx-text-fill: #40396e;
     -fx-font-size: 32px;
 }
 
@@ -121,7 +120,6 @@
     -fx-background-radius: 12;
     -fx-background-color: #f2f2f2;
     -fx-border-style: none;
-    -fx-text-fill: #40396e;
     -fx-alignment: center-left;
     -fx-font-size: 32px;
 }
@@ -130,7 +128,6 @@
     -fx-max-width: Infinity;
     -fx-padding: 8 0 15 15;
     -fx-alignment: center-left;
-    -fx-text-fill: #40396e;
 }
 
 .profile-button-text:selected {
