@@ -171,8 +171,19 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
         });
   }
 
+  /**
+   * sets the end game button's visibility to value desired
+   *
+   * @param visibility whether you want it visible or not
+   */
   protected void setEndgameVisibility(boolean visibility) {
     endGameContainer.setVisible(visibility);
+  }
+
+  /** sets the display word to the word selected */
+  public void setDisplayWord() {
+    String currentWord = WordHolder.getInstance().getCurrentWord();
+    wordLabel.setText(currentWord);
   }
 
   /** Resets game when switching to this screen by clearing everything */
@@ -181,7 +192,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
 
     // display new category
     String currentWord = WordHolder.getInstance().getCurrentWord();
-    wordLabel.setText(currentWord);
+    setDisplayWord();
 
     speak("Good Luck, start drawing");
 
@@ -618,18 +629,38 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     }
   }
 
+  /**
+   * Timer sound effect for the current game mode
+   *
+   * @return the sound effect of the current game mode
+   */
   public SoundEffects getTimerSoundEffect() {
     return timerSoundEffect;
   }
 
+  /**
+   * set the timer sound effect for the game mode
+   *
+   * @param timerSoundEffect the timer sound effect you wish to set for the game mode
+   */
   public void setTimerSoundEffect(SoundEffects timerSoundEffect) {
     this.timerSoundEffect = timerSoundEffect;
   }
 
+  /**
+   * get the sound effect for win
+   *
+   * @return the sound effect for win
+   */
   public SoundEffects getWinSoundEffect() {
     return winSoundEffect;
   }
 
+  /**
+   * set the win sound effect
+   *
+   * @param winSoundEffect set the win sound effect
+   */
   public void setWinSoundEffect(SoundEffects winSoundEffect) {
     this.winSoundEffect = winSoundEffect;
   }

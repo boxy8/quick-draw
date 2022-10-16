@@ -43,6 +43,10 @@ public class CategoryDisplayController implements SwitchInListener {
         // normal game mode
         SceneManager.changeScene(event, AppUi.NORMAL_CANVAS);
         break;
+      case SCRAMBLE:
+        // normal game mode
+        SceneManager.changeScene(event, AppUi.SCRAMBLE_CANVAS);
+        break;
       case ZEN:
         // zen game mode
         SceneManager.changeScene(event, AppUi.ZEN_CANVAS);
@@ -59,8 +63,12 @@ public class CategoryDisplayController implements SwitchInListener {
     // make sure the text is visible
     userInstructions.setVisible(true);
     // get the current word
-    categoryLabel.setText(WordHolder.getInstance().getCurrentWord());
-    // get current game mode time and accuracy
+    if (ProfileHolder.getInstance().getCurrentProfile().getGameMode() != GameMode.SCRAMBLE) {
+      categoryLabel.setText(WordHolder.getInstance().getCurrentWord());
+    } else {
+      categoryLabel.setText(WordHolder.getInstance().getScrambledWord());
+      // get current game mode time and accuracy
+    }
     GameMode gameMode = ProfileHolder.getInstance().getCurrentProfile().getGameMode();
     Difficulty time =
         ProfileHolder.getInstance().getCurrentProfile().getSetting2Difficulty().get(Setting.TIME);

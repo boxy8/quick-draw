@@ -15,6 +15,7 @@ public class SceneManager {
     NORMAL_CANVAS,
     ZEN_CANVAS,
     HIDDEN_CANVAS,
+    SCRAMBLE_CANVAS,
     MAIN_MENU,
     CATEGORY_DISPLAY,
     CATEGORY_DISPLAY_HIDDEN,
@@ -27,10 +28,9 @@ public class SceneManager {
   private static HashMap<AppUi, Scene> sceneMap = new HashMap<>();
 
   /**
-   * Generate and store all scenes required so they don't have to be reloaded
-   * every time
+   * Generate and store all scenes required so they don't have to be reloaded every time
    *
-   * @param appUi  the ui being used
+   * @param appUi the ui being used
    * @param loader the fxml loader
    * @throws IOException
    */
@@ -77,7 +77,8 @@ public class SceneManager {
     // get the node of main
     BorderPane mainBorder = ((BorderPane) scene.getRoot());
     // call switch out method if applicable
-    Object currentController = SceneManager.getController((AppUi) mainBorder.getCenter().getUserData());
+    Object currentController =
+        SceneManager.getController((AppUi) mainBorder.getCenter().getUserData());
     if (currentController instanceof SwitchOutListener switchOutListener) {
       switchOutListener.onSwitchOut();
     }
