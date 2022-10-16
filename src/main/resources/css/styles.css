@@ -156,7 +156,11 @@
 }
 
 #badgesContainer {
-    -fx-background-color: rgba(255, 255, 255, 0.45);
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
+#confirmButton {
+    -fx-max-width: Infinity;
 }
 
 /* Stats */

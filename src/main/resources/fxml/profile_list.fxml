@@ -70,7 +70,7 @@
                   <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                   <VBox>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onConfirmProfile" styleClass="main-button" text="Confirm Profile">
+                        <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirmProfile" styleClass="main-button" text="Confirm Profile">
                            <graphic>
                               <ImageView fitHeight="49.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
