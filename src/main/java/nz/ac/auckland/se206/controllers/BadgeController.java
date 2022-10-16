@@ -47,6 +47,7 @@ public class BadgeController extends VBox {
     badgeLabel.setText(badge.getName());
     // install tooltip based on tooltip description in badge
     Tooltip tooltip = new Tooltip(badge.getTooltip());
+    tooltip.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
     Tooltip.install(badgeIcon, tooltip);
     badgeBox.setVisible(false);
     badgeBox.setManaged(false);
