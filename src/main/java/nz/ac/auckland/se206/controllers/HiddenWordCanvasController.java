@@ -26,7 +26,8 @@ public class HiddenWordCanvasController extends CanvasController {
   public void onSwitchIn() {
     String currentWord = WordHolder.getInstance().getCurrentWord();
     hiddenWord = StringUtils.repeat('_', currentWord.length());
-    wordLabel.setText(hiddenWord); // display new category
+    // display new category
+    wordLabel.setText(hiddenWord);
 
     revealedIndexes.removeAll(revealedIndexes);
 
@@ -109,6 +110,7 @@ public class HiddenWordCanvasController extends CanvasController {
         break;
     }
 
+    // turn off save and reset
     toolsContainer.setDisable(false);
 
     // reset to pen function
@@ -121,7 +123,8 @@ public class HiddenWordCanvasController extends CanvasController {
   @Override
   protected void startTimer() {
     resetTimer();
-    getCurrentSnapshot(); // calling this first seems to stop initial freezing problem
+    // calling this first seems to stop initial freezing problem
+    getCurrentSnapshot();
     playGamemodeSoundEffect();
     timeline =
         new Timeline(
@@ -132,11 +135,14 @@ public class HiddenWordCanvasController extends CanvasController {
                   if (drawingStarted) {
                     onPredict(getCurrentSnapshot());
                   }
+                  // reduce time
                   countDown();
                   if ((this.startingTime - this.timeLeft) % 15 == 0) {
+                    // show letter
                     revealLetter();
                   }
                   if (this.timeLeft == 0) {
+                    // show word at the end
                     wordLabel.setText(WordHolder.getInstance().getCurrentWord());
                   }
                 }));
@@ -144,17 +150,22 @@ public class HiddenWordCanvasController extends CanvasController {
     timeline.play();
   }
 
+  /** Reveals a letter to the player by setting the visible string correctly */
   private void revealLetter() {
     Random rand = new Random();
+    // get current word
     String currentWord = WordHolder.getInstance().getCurrentWord();
+    // find random letter
     int randomIndex = rand.nextInt(0, currentWord.length());
     while (revealedIndexes.contains(randomIndex)) {
       randomIndex = rand.nextInt(0, currentWord.length());
     }
-
+    // build half hidden word
     StringBuilder stringBuilder = new StringBuilder(hiddenWord);
     stringBuilder.setCharAt(randomIndex, currentWord.charAt(randomIndex));
+    // convert back to string
     hiddenWord = stringBuilder.toString();
+    // display to user
     wordLabel.setText(hiddenWord);
     revealedIndexes.add(randomIndex);
   }
@@ -190,7 +201,7 @@ public class HiddenWordCanvasController extends CanvasController {
             wordLabel.setText(WordHolder.getInstance().getCurrentWord());
           }
         });
-
+    // run thread
     Thread backgroundPerson = new Thread(backgroundTask);
     backgroundPerson.start();
   }

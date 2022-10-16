@@ -11,8 +11,8 @@ public class Scene {
   /**
    * Constructor for creating a new scene
    *
-   * @param loader the fxml loader
-   * @throws IOException
+   * @param loader the fxml loader is called
+   * @throws IOException when the file is unable to be loaded
    */
   public Scene(FXMLLoader loader) throws IOException {
     root = loader.load();
@@ -20,7 +20,7 @@ public class Scene {
   }
 
   /**
-   * Get root of the parent
+   * Get root of the parent required
    *
    * @return root the root of the scene
    */
@@ -29,7 +29,7 @@ public class Scene {
   }
 
   /**
-   * Get the current controller
+   * Get the current controller that is being used
    *
    * @return controller the controller of the scene
    */

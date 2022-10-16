@@ -39,6 +39,7 @@ public class MainController {
     SceneManager.changeScene(event, AppUi.MAIN_MENU);
   }
 
+  /** Toggle the mute switch for the game */
   @FXML
   private void onMute() {
     SoundEffects.muteToggle();

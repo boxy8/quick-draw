@@ -49,10 +49,20 @@ public class BadgeController extends VBox {
     updateBadgeGui();
   }
 
+  /**
+   * Gets the current badge for the user
+   *
+   * @return the current badge requested
+   */
   public Badge getBadge() {
     return badge;
   }
 
+  /**
+   * Sets the current badge to one input
+   *
+   * @param badge set the badge that is input
+   */
   public void setBadge(Badge badge) {
     this.badge = badge;
     updateBadgeGui(); // update GUI after setting a new badge
@@ -65,10 +75,11 @@ public class BadgeController extends VBox {
     badgeBox.setManaged(badge.getIsAchieved());
   }
 
-  /** Update badge icon image. */
+  /** Update badge icon image to be displayed */
   protected void updateBadgeIcon() {
     String filePath = null;
     try {
+      // create correct file path
       filePath =
           getClass().getResource("/images/badges/" + badge.getImageLocation()).toURI().toString();
     } catch (URISyntaxException e) {

@@ -9,7 +9,7 @@ import nz.ac.auckland.se206.profiles.ProfileHolder;
 
 public class GrandmasterBadge extends Badge {
   /**
-   * Constructs a Grandmaster instance with name and image location.
+   * Constructs a Grand master instance with name and image location.
    *
    * <p>Badge condition: win a game with difficulty settings Hard, Master, Master, Master.
    */

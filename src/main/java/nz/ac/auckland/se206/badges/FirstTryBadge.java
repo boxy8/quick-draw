@@ -11,7 +11,6 @@ public class FirstTryBadge extends Badge {
    * <p>Badge condition: win a game with no eraser or clear canvas used.
    */
   public FirstTryBadge() {
-    // TODO replace image location
     super("First Try", "MASTER.png");
   }
 

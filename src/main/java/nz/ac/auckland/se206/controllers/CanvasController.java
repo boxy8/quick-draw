@@ -98,8 +98,8 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    *
    * @throws ModelException If there is an error in reading the input/output of the DL model.
    * @throws IOException If the model cannot be found on the file system.
-   * @throws URISyntaxException
-   * @throws CsvException
+   * @throws URISyntaxException if the syntax of the URI is wrong
+   * @throws CsvException If there was a problem loading Csv
    */
   public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
 
@@ -116,13 +116,11 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     graphic.setLineWidth(7);
     graphic.setLineCap(StrokeLineCap.ROUND);
 
-    /**
-     * @author pelgrim <https://stackoverflow.com/users/8937787/pelgrim>
-     * @copyright 2018 pelgrim
-     * @license CC BY-SA 3.0
-     * @see {@link https://stackoverflow.com/a/47284341/1248177|How to draw a continuous line with
-     *     mouse on JavaFX canvas?}
-     */
+    // @author pelgrim <https://stackoverflow.com/users/8937787/pelgrim>
+    // @copyright 2018 pelgrim
+    // @license CC BY-SA 3.0
+    // @see {@link https://stackoverflow.com/a/47284341/1248177|How to draw a continuous line with
+    // mouse on JavaFX canvas?}
 
     // Start drawing on mouse click smoothly
     canvas.addEventHandler(
@@ -141,8 +139,10 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
-            graphic.lineTo(event.getX(), event.getY()); // draw path
-            graphic.stroke(); // fill in path
+            graphic.lineTo(event.getX(), event.getY());
+            // draw path
+            graphic.stroke();
+            // fill in path
             graphic.closePath();
             graphic.beginPath();
             graphic.moveTo(event.getX(), event.getY());
@@ -289,10 +289,12 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     startTimer();
   }
 
+  /** Play the current game mode's sound effect */
   protected void playGamemodeSoundEffect() {
-
     try {
+      // run the correct game soundeffect
       setTimerSoundEffect(new SoundEffects("timer"));
+      // check for mute or not
       getTimerSoundEffect().toggleSound();
       getTimerSoundEffect().playRepeatSound();
     } catch (URISyntaxException e) {
@@ -308,7 +310,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     getCurrentSnapshot();
     // play sound effect required
     playGamemodeSoundEffect();
-    // start preditions every second
+    // start predictions every second
     timeline =
         new Timeline(
             new KeyFrame(
@@ -616,10 +618,6 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
             textToSpeech = new TextToSpeech();
             // read the message that is sent to this method
             textToSpeech.speak(msg);
-            Platform.runLater(
-                () -> {
-                  // textToSpeech.terminate();
-                });
             return null;
           }
         };
@@ -669,7 +667,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   }
 
   /**
-   * set the win sound effect
+   * set the win sound effect required
    *
    * @param winSoundEffect set the win sound effect
    */

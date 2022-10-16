@@ -15,7 +15,7 @@ public class SoundEffects {
   // background sound: https://pixabay.com/music/beautiful-plays-ambient-piano-ampamp-strings-10711/
   // timer, win, lose, zen mode sound: https://mixkit.co/free-sound-effects/
 
-  /** Play the background music */
+  /** Play the background music that is default for every menu except canvas */
   public static void playBackgroundMusic() {
     // check to see if the player is loaded already
     if (BackgroundPlayer == null) {

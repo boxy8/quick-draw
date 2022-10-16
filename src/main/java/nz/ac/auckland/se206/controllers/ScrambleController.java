@@ -39,6 +39,9 @@ public class ScrambleController extends CanvasController {
         .getCurrentProfile()
         .getSetting2Difficulty()
         .get(Game.Setting.ACCURACY)) {
+      case SUPER_EASY:
+        accuracyCondition = 5;
+        break;
       case EASY:
         accuracyCondition = 3;
         break;
@@ -58,6 +61,9 @@ public class ScrambleController extends CanvasController {
         .getCurrentProfile()
         .getSetting2Difficulty()
         .get(Game.Setting.TIME)) {
+      case SUPER_EASY:
+        startingTime = 90;
+        break;
       case EASY:
         startingTime = 60;
         break;
@@ -89,6 +95,8 @@ public class ScrambleController extends CanvasController {
         break;
       case MASTER:
         confidenceCondition = 0.5;
+        break;
+      default:
         break;
     }
 

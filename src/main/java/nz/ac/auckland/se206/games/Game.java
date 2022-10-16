@@ -52,6 +52,7 @@ public class Game {
    * @param mode the game mode
    */
   public Game(String word, GameMode mode) {
+    // constructing the game by setting defaults
     this.word = word;
     this.mode = mode;
     this.settings2Difficulty =
@@ -60,6 +61,11 @@ public class Game {
     this.wasClearPressed = false;
   }
 
+  /**
+   * Set the prediction attributes for the game so that prediction can work correctly
+   *
+   * @param predictions the predictions of the ml model
+   */
   public void setPredictionAttributes(List<Classification> predictions) {
     int count = 0;
     for (Classification classification : predictions) {
@@ -75,34 +81,74 @@ public class Game {
     }
   }
 
+  /**
+   * If the eraser was pressed then return true
+   *
+   * @return if the eraser has been pressed
+   */
   public boolean getWasEraserPressed() {
     return wasEraserPressed;
   }
 
+  /**
+   * Updated if the eraser has been pressed or not
+   *
+   * @param wasEraserPressed if the eraser has been pressed or not
+   */
   public void setWasEraserPressed(boolean wasEraserPressed) {
     this.wasEraserPressed = wasEraserPressed;
   }
 
+  /**
+   * Gets if the clear button was pressed or not
+   *
+   * @return if the clear button was pressed or not
+   */
   public boolean getWasClearPressed() {
     return wasClearPressed;
   }
 
+  /**
+   * set the clear button to pressed
+   *
+   * @param wasClearPressed set if the clear button was pressed
+   */
   public void setWasClearPressed(boolean wasClearPressed) {
     this.wasClearPressed = wasClearPressed;
   }
 
+  /**
+   * Get the prediction probability of the game
+   *
+   * @return the prediction probability of the game
+   */
   public double getPredictionProbability() {
     return predictionProbability;
   }
 
+  /**
+   * set the prediction probability of the game
+   *
+   * @param predictionProbability the prediction probability of the game
+   */
   public void setPredictionProbability(double predictionProbability) {
     this.predictionProbability = predictionProbability;
   }
 
+  /**
+   * get the position of the word in the game
+   *
+   * @return the position of the word in the game
+   */
   public int getWordPosition() {
     return wordPosition;
   }
 
+  /**
+   * set the position of the word in the game
+   *
+   * @param wordPosition the position of the word in the game
+   */
   public void setWordPosition(int wordPosition) {
     this.wordPosition = wordPosition;
   }

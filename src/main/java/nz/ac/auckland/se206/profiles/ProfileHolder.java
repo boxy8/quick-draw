@@ -17,6 +17,7 @@ public class ProfileHolder {
 
   private Profile currentProfile;
 
+  /** Create a new profile holder so that a profile can be stored */
   private ProfileHolder() {}
 
   /**

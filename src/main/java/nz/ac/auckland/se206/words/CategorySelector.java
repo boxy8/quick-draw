@@ -7,7 +7,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
 
 public class CategorySelector {
@@ -20,13 +25,19 @@ public class CategorySelector {
 
   private Map<WordDifficulty, List<String>> difficulty2categories;
 
+  /**
+   * Creates a new category selector so that you can get random words from categories that you want
+   *
+   * @throws IOException if there is an error reading or writing files
+   * @throws CsvException if there is an error in the csv file
+   * @throws URISyntaxException if there is an error in the file path
+   */
   public CategorySelector() throws IOException, CsvException, URISyntaxException {
     difficulty2categories = new HashMap<>();
     // saving in hash map for better performance
     for (WordDifficulty difficulty : WordDifficulty.values()) {
       difficulty2categories.put(difficulty, new ArrayList<>());
     }
-
     for (String[] line : getLines()) {
       difficulty2categories.get(WordDifficulty.valueOf(line[1])).add(line[0]);
     }
@@ -40,16 +51,21 @@ public class CategorySelector {
    * @return the random category for next game
    */
   private String getRandomCategory(List<String> availableWords) {
+    // grab all used words
     Set<String> usedWords = ProfileHolder.getInstance().getCurrentProfile().getWordHistory();
+    // get random number
     int randIndex = new Random().nextInt(availableWords.size());
     while (availableWords.size() > 0) {
+      // check if it has been used or not
       if (usedWords.contains(availableWords.get(randIndex))) {
         availableWords.remove(randIndex);
         randIndex = new Random().nextInt(availableWords.size());
       } else {
+        // get a word that has been found suitable
         return availableWords.get(randIndex);
       }
     }
+    // get a word that has been found suitable
     return availableWords.get(randIndex);
   }
 
