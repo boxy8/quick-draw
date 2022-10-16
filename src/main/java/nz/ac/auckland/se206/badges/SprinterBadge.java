@@ -22,7 +22,7 @@ public class SprinterBadge extends ProgressiveBadge {
    * <p>Diamond: 5 seconds
    */
   public SprinterBadge() {
-    super("Sprinter", "SPRINTER_BRONZE.png", 5, 10, 15, 30, 45);
+    super("Sprinter", "SPRINTER_BRONZE.png", -5, -10, -15, -30, -45);
   }
 
   @Override
@@ -31,7 +31,7 @@ public class SprinterBadge extends ProgressiveBadge {
     Game lastGame = profile.getLatestGame();
     // only perform update if the latest game was won
     if (lastGame.getIsWin()) {
-      setValue(lastGame.getDuration());
+      setValue(-lastGame.getDuration());
     }
   }
 }
