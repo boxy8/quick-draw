@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="840.0" styleClass="bg-main" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CategoryDisplayController">
+   <children>
+      <VBox alignment="CENTER" layoutY="-14.0" prefHeight="200.0" prefWidth="100.0" spacing="80.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-14.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+               <children>
+                  <Label text="Hidden Mode!">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" spacing="50.0">
+                     <children>
+                        <Label fx:id="categoryLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="540.0" styleClass="shadow-text" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque feugiat placerat luctus. Etiam feugiat volutpat enim, vel aliquam mauris consectetur sit amet. Phasellus ultrices, turpis id vestibulum lobortis, neque diam." wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox id="instructions-box" fx:id="userInstructions" alignment="CENTER" prefHeight="100.0" prefWidth="538.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="547.0" text="Use this definition to guess your word!" />
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="460.0">
+                           <children>
+                              <Label text="Get your word in the top " />
+                              <Label fx:id="accuracyDisplay" text="3" />
+                              <Label text=" predictions." />
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0">
+                           <children>
+                              <Label text="You have " />
+                              <Label fx:id="timeDisplay" text="60" />
+                              <Label text=" seconds. Good Luck!" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </VBox>
+            <Button fx:id="startButton" mnemonicParsing="false" onAction="#onStart" styleClass="main-button" text="Start Drawing">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/pencil.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

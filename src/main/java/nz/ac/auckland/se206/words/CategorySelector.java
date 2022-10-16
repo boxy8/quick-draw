@@ -92,7 +92,61 @@ public class CategorySelector {
   }
 
   /**
-   * Gets all words of the difficulties (E, M, H) specified
+   * Gets a random word for when the Words Difficulty is Easy (E) without spaces
+   *
+   * @return random Easy word to draw without spaces
+   */
+  public String getEasyCategorySingleWord() {
+    String wordWithoutSpace = getRandomCategory(difficulty2categories.get(WordDifficulty.E));
+    while (wordWithoutSpace.contains(" ")) {
+      wordWithoutSpace = getRandomCategory(difficulty2categories.get(WordDifficulty.E));
+    }
+    return wordWithoutSpace;
+  }
+
+  /**
+   * Gets a random word for when the Words Difficulty is Medium (E, M) without spaces
+   *
+   * @return random Medium word to draw without spaces
+   */
+  public String getMediumCategorySingleWord() {
+    WordDifficulty[] difficulties = {WordDifficulty.E, WordDifficulty.M};
+    String wordWithoutSpace = getRandomCategory(getAvailableWords(difficulties));
+    while (wordWithoutSpace.contains(" ")) {
+      wordWithoutSpace = getRandomCategory(getAvailableWords(difficulties));
+    }
+    return wordWithoutSpace;
+  }
+
+  /**
+   * Gets a random word for when the Words Difficulty is Hard (E, M, H) without spaces
+   *
+   * @return random Hard word to draw without spaces
+   */
+  public String getHardCategorySingleWord() {
+    WordDifficulty[] difficulties = {WordDifficulty.E, WordDifficulty.M, WordDifficulty.H};
+    String wordWithoutSpace = getRandomCategory(getAvailableWords(difficulties));
+    while (wordWithoutSpace.contains(" ")) {
+      wordWithoutSpace = getRandomCategory(getAvailableWords(difficulties));
+    }
+    return wordWithoutSpace;
+  }
+
+  /**
+   * Gets a random word for when the Words Difficulty is Master (H) without spaces
+   *
+   * @return random Master word to draw without spaces
+   */
+  public String getMasterCategorySingleWord() {
+    String wordWithoutSpace = getRandomCategory(difficulty2categories.get(WordDifficulty.H));
+    while (wordWithoutSpace.contains(" ")) {
+      wordWithoutSpace = getRandomCategory(difficulty2categories.get(WordDifficulty.H));
+    }
+    return wordWithoutSpace;
+  }
+
+  /**
+   * Gets all words of the difficulties (E, M, H) specified without spaces
    *
    * @param difficulties the difficulties (E, M, H) which the list of words is wanted for
    * @return all words tagged as the difficulties specified
@@ -108,10 +162,10 @@ public class CategorySelector {
   /**
    * gets all line from the csv file so that the categories can be separated
    *
-   * @return
-   * @throws IOException
-   * @throws CsvException
-   * @throws URISyntaxException
+   * @return list of a list of strings containing all differnt words form csv
+   * @throws IOException if file cannot be read
+   * @throws CsvException if the file is not working with opencsv
+   * @throws URISyntaxException if given the wrong file path
    */
   protected List<String[]> getLines() throws IOException, CsvException, URISyntaxException {
     // get the csv file

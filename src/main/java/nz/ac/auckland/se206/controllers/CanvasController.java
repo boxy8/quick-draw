@@ -86,11 +86,11 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   protected boolean drawingStarted; // Tells label to update
   protected Timeline timeline;
   protected TextToSpeech textToSpeech;
+  protected int ttsCounter;
 
   private SoundEffects timerSoundEffect;
   private SoundEffects winSoundEffect;
   private SoundEffects loseSoundEffect;
-  private SoundEffects zenMode; // yet to be added in with zen mode
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
@@ -102,13 +102,16 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    * @throws CsvException
    */
   public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
-    winSoundEffect = new SoundEffects("win");
+
+    // load in sound effects
+    setWinSoundEffect(new SoundEffects("win"));
     loseSoundEffect = new SoundEffects("lose");
-
-    predictionsLabel.setWrapText(true); // wrap predictions that are too long
-
+    ttsCounter = 0;
+    // wrap predictions that are too long
+    predictionsLabel.setWrapText(true);
+    // create the ml model
     model = new DoodlePrediction();
-
+    // setup drawing
     graphic = canvas.getGraphicsContext2D();
     graphic.setLineWidth(7);
     graphic.setLineCap(StrokeLineCap.ROUND);
@@ -120,6 +123,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
      * @see {@link https://stackoverflow.com/a/47284341/1248177|How to draw a continuous line with
      *     mouse on JavaFX canvas?}
      */
+
     // Start drawing on mouse click smoothly
     canvas.addEventHandler(
         MouseEvent.MOUSE_PRESSED,
@@ -155,7 +159,6 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
             graphic.closePath();
           }
         });
-
     // Tells label to update when user starts drawing
     // and also start predictions
     canvas.addEventHandler(
@@ -170,11 +173,30 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
         });
   }
 
+  /**
+   * sets the end game button's visibility to value desired
+   *
+   * @param visibility whether you want it visible or not
+   */
+  protected void setEndgameVisibility(boolean visibility) {
+    endGameContainer.setVisible(visibility);
+  }
+
+  /** sets the display word to the word selected */
+  public void setDisplayWord() {
+    String currentWord = WordHolder.getInstance().getCurrentWord();
+    wordLabel.setText(currentWord);
+  }
+
   /** Resets game when switching to this screen by clearing everything */
   @Override
   public void onSwitchIn() {
+
+    // display new category
     String currentWord = WordHolder.getInstance().getCurrentWord();
-    wordLabel.setText(currentWord); // display new category
+    setDisplayWord();
+
+    speak("Good Luck, start drawing");
 
     // stop predictions from taking place
     drawingStarted = false;
@@ -183,16 +205,20 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     resetPredictionLabel();
 
     // hide end game buttons
-    endGameContainer.setVisible(false);
+    setEndgameVisibility(false);
 
     // enable canvas and drawing buttons
     canvas.setDisable(false);
 
     // set Accuracy win condition according to Accuracy difficulty chosen
+    // ranges from accuracy condition 1 to 3
     switch (ProfileHolder.getInstance()
         .getCurrentProfile()
         .getSetting2Difficulty()
         .get(Game.Setting.ACCURACY)) {
+      case SUPER_EASY:
+        accuracyCondition = 5;
+        break;
       case EASY:
         accuracyCondition = 3;
         break;
@@ -207,10 +233,14 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     }
 
     // set starting time according to Time difficulty chosen
+    // ranges from 15 seconds to 60 seconds
     switch (ProfileHolder.getInstance()
         .getCurrentProfile()
         .getSetting2Difficulty()
         .get(Game.Setting.TIME)) {
+      case SUPER_EASY:
+        startingTime = 90;
+        break;
       case EASY:
         startingTime = 60;
         break;
@@ -226,6 +256,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     }
 
     // set Confidence win condition according to Confidence difficulty chosen
+    // ranges from 0.01 to 0.5
     switch (ProfileHolder.getInstance()
         .getCurrentProfile()
         .getSetting2Difficulty()
@@ -242,29 +273,42 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
       case MASTER:
         confidenceCondition = 0.5;
         break;
+      default:
+        break;
     }
 
+    // hide save image and restart
     toolsContainer.setDisable(false);
 
     // reset to pen function
     paintButton.fire();
     game = new Game(currentWord, Game.GameMode.NORMAL);
+
+    // reset canvas and restart timer
     clearCanvas();
     startTimer();
   }
 
+  protected void playGamemodeSoundEffect() {
+
+    try {
+      setTimerSoundEffect(new SoundEffects("timer"));
+      getTimerSoundEffect().toggleSound();
+      getTimerSoundEffect().playRepeatSound();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
+  }
+
   /** Used to start the timer for predictions and also the clock */
   protected void startTimer() {
+    // set timer to required time
     resetTimer();
-    getCurrentSnapshot(); // calling this first seems to stop initial freezing problem
-    try {
-
-      timerSoundEffect = new SoundEffects("timer");
-      timerSoundEffect.playRepeateSound();
-    } catch (URISyntaxException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    }
+    // calling this first to stop initial freezing problem
+    getCurrentSnapshot();
+    // play sound effect required
+    playGamemodeSoundEffect();
+    // start preditions every second
     timeline =
         new Timeline(
             new KeyFrame(
@@ -274,9 +318,11 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
                   if (drawingStarted) {
                     onPredict(getCurrentSnapshot());
                   }
+                  getTimerSoundEffect().toggleSound();
                   countDown();
                 }));
-    timeline.setCycleCount(Animation.INDEFINITE); // countdown value (seconds)
+    // count down value (seconds)
+    timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
   }
 
@@ -313,16 +359,16 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    * screen
    */
   protected void endGame() {
-    timerSoundEffect.stopSound();
+    getTimerSoundEffect().stopSound();
     SoundEffects.playBackgroundMusic();
-    timeline.stop(); // stop timer/prediction updates
+    // stop timer/prediction updates
+    timeline.stop();
     canvas.setDisable(true);
     toolsContainer.setDisable(true);
 
     // display and announce a message based on game result
-
     if (game.getIsWin()) {
-      winSoundEffect.playSound();
+      getWinSoundEffect().playSound();
       resultLabel.setText("You win!");
       speak("Congratulations!");
     } else {
@@ -331,7 +377,8 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
       speak("Maybe next time!");
     }
 
-    endGameContainer.setVisible(true);
+    // show save and reset button
+    setEndgameVisibility(true);
 
     // set game time
     int gameDuration = startingTime - timeLeft;
@@ -364,7 +411,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   /**
    * Takes user to the category display from the canvas screen
    *
-   * @param event
+   * @param event event that has triggered this method
    */
   @FXML
   protected void onNewGame(ActionEvent event) {
@@ -380,6 +427,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
    * @throws TranslateException If there is an error in reading the input/output of the DL model.
    */
   protected void onPredict(BufferedImage canvasImg) {
+    ttsCounter++;
     // run in new thread to make sure GUI does not freeze
     Task<Void> backgroundTask =
         new Task<>() {
@@ -391,6 +439,8 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
                 () -> {
                   // after the prediction is received then update text to show it
                   predictionsLabel.setText(getFormattedPredictions(predictions));
+                  // say top prediction
+                  gamemodeSpeak(predictions.get(0).getClassName().replace("_", " "));
                 });
 
             // update gameWon boolean if player has won after the last prediction update
@@ -409,15 +459,26 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
             endGame();
           }
         });
-
+    // run thread
     Thread backgroundPerson = new Thread(backgroundTask);
     backgroundPerson.start();
+  }
+
+  /**
+   * What the text to speech should say every so often depending on the game mode override this
+   * method to change per method
+   *
+   * @param prediction a string of the top prediction value
+   */
+  protected void gamemodeSpeak(String prediction) {
+    if (ttsCounter % 5 == 1) {
+      speak("I Guess " + prediction);
+    }
   }
 
   /** Save the current snapshot as a file image. */
   @FXML
   protected void onSave(ActionEvent event) {
-
     FileChooser savefile = new FileChooser();
     // set the default options for the file chooser
     savefile.setTitle("Save File");
@@ -457,7 +518,6 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   protected boolean isWin(List<Classifications.Classification> classifications) {
     // go through top predictions determined by accuracy difficulty
     for (int i = 0; i < accuracyCondition; i++) {
-
       // if top word is correct with confidence above the required amount
       if ((classifications.get(i).getProbability() > confidenceCondition)
           && classifications
@@ -466,11 +526,22 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
               .replaceAll("_", " ")
               .equals(WordHolder.getInstance().getCurrentWord())) {
         return true;
+      } else if (((classifications.get(i).getProbability() <= confidenceCondition)
+          && classifications
+              .get(i)
+              .getClassName()
+              .replaceAll("_", " ")
+              .equals(WordHolder.getInstance().getCurrentWord()))) {
+        // tell user that they need to draw better
+        if (ttsCounter % 10 == 2) {
+          speak("I'm not confident enough, improve your drawing");
+        }
       }
     }
     return false;
   }
 
+  /** change the colour of pen to black so the user can draw */
   @FXML
   protected void onPaintTool() {
     graphic.setStroke(Color.BLACK);
@@ -484,13 +555,14 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     game.setWasEraserPressed(true);
   }
 
+  /** clear the canvas when the clear tool is clicked */
   @FXML
   protected void onClearTool() {
     clearCanvas();
     game.setWasClearPressed(true);
   }
 
-  /** Clears the canvas */
+  /** Clears the canvas for the user */
   protected void clearCanvas() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
   }
@@ -521,7 +593,7 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   /**
    * Getter method for text to speech so that it can be stopped at the end of the game
    *
-   * @return
+   * @return current text to speech instance
    */
   public TextToSpeech getTextToSpeech() {
     return textToSpeech;
@@ -544,6 +616,10 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
             textToSpeech = new TextToSpeech();
             // read the message that is sent to this method
             textToSpeech.speak(msg);
+            Platform.runLater(
+                () -> {
+                  // textToSpeech.terminate();
+                });
             return null;
           }
         };
@@ -555,12 +631,49 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
   /** Called when the game is left mid way through stops game from running */
   @Override
   public void onSwitchOut() {
-    // terminate any unfinished game
-    timerSoundEffect.stopSound();
-    SoundEffects.playBackgroundMusic();
 
+    // terminate any unfinished game
+    getTimerSoundEffect().stopSound();
+    SoundEffects.playBackgroundMusic();
+    // stop the predictions
     if (!(timeline.getStatus() == Animation.Status.STOPPED)) {
       timeline.stop();
     }
+  }
+
+  /**
+   * Timer sound effect for the current game mode
+   *
+   * @return the sound effect of the current game mode
+   */
+  public SoundEffects getTimerSoundEffect() {
+    return timerSoundEffect;
+  }
+
+  /**
+   * set the timer sound effect for the game mode
+   *
+   * @param timerSoundEffect the timer sound effect you wish to set for the game mode
+   */
+  public void setTimerSoundEffect(SoundEffects timerSoundEffect) {
+    this.timerSoundEffect = timerSoundEffect;
+  }
+
+  /**
+   * get the sound effect for win
+   *
+   * @return the sound effect for win
+   */
+  public SoundEffects getWinSoundEffect() {
+    return winSoundEffect;
+  }
+
+  /**
+   * set the win sound effect
+   *
+   * @param winSoundEffect set the win sound effect
+   */
+  public void setWinSoundEffect(SoundEffects winSoundEffect) {
+    this.winSoundEffect = winSoundEffect;
   }
 }

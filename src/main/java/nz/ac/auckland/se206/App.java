@@ -8,10 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.controllers.HiddenWordCanvasController;
 import nz.ac.auckland.se206.controllers.NormalCanvasController;
+import nz.ac.auckland.se206.controllers.ScrambleController;
 import nz.ac.auckland.se206.controllers.SwitchInListener;
 import nz.ac.auckland.se206.profiles.Profile;
 import nz.ac.auckland.se206.profiles.ProfileHolder;
+import nz.ac.auckland.se206.controllers.ZenCanvasController;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should
@@ -48,10 +51,31 @@ public class App extends Application {
         e -> {
           Platform.exit();
           // Terminate TTS so app closes fully on close
-          NormalCanvasController controller =
+          // loading all controllers of pages
+          NormalCanvasController normalController =
               (NormalCanvasController) SceneManager.getController(AppUi.NORMAL_CANVAS);
-          if (controller.getTextToSpeech() != null) {
-            controller.getTextToSpeech().terminate();
+          ZenCanvasController zenController =
+              (ZenCanvasController) SceneManager.getController(AppUi.ZEN_CANVAS);
+          ScrambleController scrambleController =
+              (ScrambleController) SceneManager.getController(AppUi.SCRAMBLE_CANVAS);
+          HiddenWordCanvasController hiddenController =
+              (HiddenWordCanvasController) SceneManager.getController(AppUi.HIDDEN_CANVAS);
+          // check to see if a text to speech is active
+          if (normalController.getTextToSpeech() != null) {
+            // stop it from running if it is
+            normalController.getTextToSpeech().terminate();
+          }
+          // do the same for zen controller
+          if (zenController.getTextToSpeech() != null) {
+            zenController.getTextToSpeech().terminate();
+          }
+          // do the same for scramble controller
+          if (scrambleController.getTextToSpeech() != null) {
+            scrambleController.getTextToSpeech().terminate();
+          }
+          // do the same for hidden word controller
+          if (hiddenController.getTextToSpeech() != null) {
+            hiddenController.getTextToSpeech().terminate();
           }
         });
 
@@ -67,14 +91,17 @@ public class App extends Application {
     SceneManager.addUi(AppUi.MAIN_MENU, getFxmlLoader("main_menu"));
     SceneManager.addUi(AppUi.MAIN, getFxmlLoader("main"));
     // these views all use the main border pane
+    // These are for the different game modes
     SceneManager.addUi(AppUi.NORMAL_CANVAS, getFxmlLoader("normal_canvas"));
+    SceneManager.addUi(AppUi.ZEN_CANVAS, getFxmlLoader("zen_canvas"));
+    SceneManager.addUi(AppUi.HIDDEN_CANVAS, getFxmlLoader("hidden_word_canvas"));
+    SceneManager.addUi(AppUi.SCRAMBLE_CANVAS, getFxmlLoader("scramble_canvas"));
+    // rest of the pages
     SceneManager.addUi(AppUi.CATEGORY_DISPLAY, getFxmlLoader("category_display"));
+    SceneManager.addUi(AppUi.CATEGORY_DISPLAY_HIDDEN, getFxmlLoader("category_display_hidden"));
     SceneManager.addUi(AppUi.PROFILE_PAGE, getFxmlLoader("profile_page"));
     SceneManager.addUi(AppUi.PROFILE_LIST, getFxmlLoader("profile_list"));
     SceneManager.addUi(AppUi.DIFFICULTY_SELECTOR, getFxmlLoader("difficulty_selector"));
-    SceneManager.addUi(AppUi.ZEN_CANVAS, getFxmlLoader("zen_canvas"));
-    SceneManager.addUi(AppUi.HIDDEN_CANVAS, getFxmlLoader("hidden_word_canvas"));
-
     scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN), 840, 680);
     // scene will always be main scene
     // change views by setting content of main border pane

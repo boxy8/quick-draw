@@ -41,7 +41,7 @@ public class ProfileListController implements SwitchInListener {
   /**
    * Runs after GUI is ready from JavaFx and sets the path of the profiles to correct location
    *
-   * @throws IOException
+   * @throws IOException if it is unable to read or write to file
    */
   public void initialize() throws IOException {
     // Find all profile files
@@ -105,7 +105,7 @@ public class ProfileListController implements SwitchInListener {
    * Sets the current profile based on the current selected profile, and returns to the main menu
    *
    * @param event the event of activating the Choose Profile Button
-   * @throws FileNotFoundException
+   * @throws FileNotFoundException was unable to find the file specified
    */
   @FXML
   private void onConfirmProfile(ActionEvent event) throws FileNotFoundException {
@@ -134,7 +134,7 @@ public class ProfileListController implements SwitchInListener {
   @FXML
   private void onAddProfile() {
     String username = usernameField.getText();
-    // making sure that a valid username is entered
+    // making sure that a valid user name is entered
     if ((username.length() > 0) && !(isDuplicateUsername(username))) {
       try {
         // create a new profile
@@ -153,7 +153,7 @@ public class ProfileListController implements SwitchInListener {
   /**
    * finds out if there is already a profile with the same name
    *
-   * @param username
+   * @param username the user name you wish to check if it is duplicate or not
    * @return boolean that is true if there is or no if there isn't
    */
   private boolean isDuplicateUsername(String username) {
@@ -169,7 +169,7 @@ public class ProfileListController implements SwitchInListener {
   /**
    * Removes the box from the profile container so the user can no longer see it
    *
-   * @param profileButtonController
+   * @param profileButtonController the controller that storing all the buttons
    */
   public void onDeleteProfileButton(ProfileButtonController profileButtonController) {
     profileContainer.getChildren().remove(profileButtonController);

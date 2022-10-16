@@ -33,5 +33,6 @@
             <Spinner fx:id="confidenceSpinner" layoutX="16.0" layoutY="43.0" styleClass="split-arrows-horizontal" />
          </children>
       </AnchorPane>
+      <Label fx:id="loadingLabel" layoutX="474.0" layoutY="340.0" text="LOADING" />
    </children>
 </AnchorPane>

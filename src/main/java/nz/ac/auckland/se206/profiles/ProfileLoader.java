@@ -14,8 +14,8 @@ public class ProfileLoader {
   /**
    * This creates a new instance of profile and returns the profile so its info can be accessed
    *
-   * @return loaded profile
-   * @throws FileNotFoundException
+   * @return loaded profile that is requested
+   * @throws FileNotFoundException if unable to read the file
    */
   public static Profile read(String username) throws FileNotFoundException {
     // create new gson so it can read
@@ -37,8 +37,8 @@ public class ProfileLoader {
   /**
    * This takes a profile and name of file/user profile as a input and updates the profile
    *
-   * @param profile
-   * @throws IOException
+   * @param profile profile you wish to update
+   * @throws IOException if unable to read/write to file
    */
   public static void updateJson(Profile profile) throws IOException {
     String filePath = "profiles/" + profile.getUsername() + ".json";

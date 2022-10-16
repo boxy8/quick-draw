@@ -50,7 +50,7 @@
                   <String fx:value="image-button" />
                </styleClass>
             </Button>
-            <Button fx:id="settingsButton" mnemonicParsing="false">
+            <Button fx:id="muteButton" mnemonicParsing="false" onAction="#onMute">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

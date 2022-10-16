@@ -14,6 +14,7 @@ public class Profile {
   private int wins;
   private int losses;
   private int winStreak;
+  private int zenGamesPlayed = 0;
   private int fastestWinTime = 60;
   private Set<String> wordHistory = new HashSet<>();
   private List<Game> gameHistory = new ArrayList<Game>();
@@ -38,8 +39,8 @@ public class Profile {
       this.gameHistory = reading.getGameHistory();
       this.setting2difficulty = reading.getSetting2Difficulty();
       this.gameMode = reading.getGameMode();
+      this.zenGamesPlayed = ProfileLoader.read(username).getZenGamesPlayed();
       this.badges = reading.getBadges();
-      System.out.println(badges);
     } else {
       // Add each badge instance
       badges.add(new FirstTryBadge());
@@ -52,10 +53,20 @@ public class Profile {
     }
   }
 
+  /**
+   * gets the game mode of the game
+   *
+   * @return game mode of the game
+   */
   public GameMode getGameMode() {
     return this.gameMode;
   }
 
+  /**
+   * set the game mode of the game
+   *
+   * @param gameMode game mode of the game
+   */
   public void setGameMode(GameMode gameMode) {
     this.gameMode = gameMode;
   }
@@ -63,7 +74,7 @@ public class Profile {
   /**
    * Gets the user name of the profile
    *
-   * @return username
+   * @return username the user name of the profile
    */
   public String getUsername() {
     return username;
@@ -90,7 +101,7 @@ public class Profile {
   /**
    * Gets the win streak of the profile
    *
-   * @return win streak
+   * @return win streak of user
    */
   public int getWinStreak() {
     return winStreak;
@@ -114,20 +125,24 @@ public class Profile {
     if (gameHistory.size() == 0) {
       return 60; // default value
     }
-
     int sum = 0;
+    int numberOfNon
+    Games = 0;
     // sum up game times
     for (Game game : gameHistory) {
-      sum += game.getDuration();
+      if (game.getMode() != GameMode.ZEN) {
+        sum += game.getDuration();
+        numberOfNonZenGames++;
+      }
     }
     // calculate average
-    return Math.round(sum / gameHistory.size());
+    return Math.round(sum / numberOfNonZenGames);
   }
 
   /**
    * Gets the word history of the profile
    *
-   * @return word history
+   * @return word history of user
    */
   public Set<String> getWordHistory() {
     return wordHistory;
@@ -136,7 +151,7 @@ public class Profile {
   /**
    * Gets the game history of the user
    *
-   * @return game history
+   * @return game history of user
    */
   public List<Game> getGameHistory() {
     return gameHistory;
@@ -160,7 +175,7 @@ public class Profile {
   /**
    * Get settings and difficulty of last game played
    *
-   * @return
+   * @return the difficultly of the last played game
    */
   public Map<Setting, Difficulty> getSetting2Difficulty() {
     return setting2difficulty;
@@ -172,7 +187,7 @@ public class Profile {
   /**
    * Saves the current profile to a file of json format
    *
-   * @throws IOException
+   * @throws IOException if unable to read/write to file
    */
   public void saveToFile() throws IOException {
     ProfileLoader.updateJson(this);
@@ -181,7 +196,7 @@ public class Profile {
   /**
    * Checks to see if this is a guest profile or a user created one
    *
-   * @return
+   * @return if the user is guest or not
    */
   public boolean isGuest() {
     return username.equals("Guest");
@@ -194,16 +209,20 @@ public class Profile {
    */
   public void updateAllStats(Game game) {
     // update wins/losses and win streak
-    if (game.getIsWin()) {
-      wins++;
-      winStreak++;
+    if (game.getMode() != GameMode.ZEN) {
+      if (game.getIsWin()) {
+        wins++;
+        winStreak++;
+      } else {
+        losses++;
+        winStreak = 0;
+      }
+      // update fastest win time
+      if (game.getDuration() < fastestWinTime) {
+        fastestWinTime = game.getDuration();
+      }
     } else {
-      losses++;
-      winStreak = 0;
-    }
-    // update fastest wintime
-    if (game.getDuration() < fastestWinTime) {
-      fastestWinTime = game.getDuration();
+      zenGamesPlayed++;
     }
     // update word history
     wordHistory.add(game.getWord());
@@ -218,5 +237,14 @@ public class Profile {
     if (f.exists()) {
       f.delete();
     }
+  }
+
+  /**
+   * number of games played in zen mode
+   *
+   * @return number of games played in zen mode
+   */
+  public int getZenGamesPlayed() {
+    return zenGamesPlayed;
   }
 }

@@ -15,8 +15,10 @@ public class SceneManager {
     NORMAL_CANVAS,
     ZEN_CANVAS,
     HIDDEN_CANVAS,
+    SCRAMBLE_CANVAS,
     MAIN_MENU,
     CATEGORY_DISPLAY,
+    CATEGORY_DISPLAY_HIDDEN,
     PROFILE_PAGE,
     PROFILE_LIST,
     MAIN,
@@ -26,11 +28,10 @@ public class SceneManager {
   private static HashMap<AppUi, Scene> sceneMap = new HashMap<>();
 
   /**
-   * Generate and store all scenes required so they don't have to be reloaded
-   * every time
+   * Generate and store all scenes required so they don't have to be reloaded every time
    *
-   * @param appUi
-   * @param loader
+   * @param appUi the ui being used
+   * @param loader the fxml loader
    * @throws IOException
    */
   public static void addUi(AppUi appUi, FXMLLoader loader) throws IOException {
@@ -42,7 +43,7 @@ public class SceneManager {
   /**
    * Get the parent UI of the scene
    *
-   * @param appUi
+   * @param appUi the ui of the scene
    * @return root of the UI
    */
   public static Parent getUiRoot(AppUi appUi) {
@@ -52,7 +53,7 @@ public class SceneManager {
   /**
    * Get the controller of the scene
    *
-   * @param appUi
+   * @param appUi the ui of the scene
    * @return controller of scene
    */
   public static Object getController(AppUi appUi) {
@@ -62,8 +63,8 @@ public class SceneManager {
   /**
    * Change scene from currently available scenes
    *
-   * @param event
-   * @param appUi
+   * @param event the triggering event
+   * @param appUi the ui being switched to
    */
   public static void changeScene(ActionEvent event, AppUi appUi) {
     // call switch in method if applicable
@@ -76,7 +77,8 @@ public class SceneManager {
     // get the node of main
     BorderPane mainBorder = ((BorderPane) scene.getRoot());
     // call switch out method if applicable
-    Object currentController = SceneManager.getController((AppUi) mainBorder.getCenter().getUserData());
+    Object currentController =
+        SceneManager.getController((AppUi) mainBorder.getCenter().getUserData());
     if (currentController instanceof SwitchOutListener switchOutListener) {
       switchOutListener.onSwitchOut();
     }

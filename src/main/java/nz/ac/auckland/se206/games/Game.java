@@ -11,14 +11,16 @@ public class Game {
   public enum GameMode {
     NORMAL,
     ZEN,
-    HIDDEN
+    HIDDEN,
+    SCRAMBLE
   }
 
   public enum Difficulty {
     EASY,
     MEDIUM,
     HARD,
-    MASTER
+    MASTER,
+    SUPER_EASY
   }
 
   public enum Setting {
@@ -117,7 +119,7 @@ public class Game {
   /**
    * set the duration the game has been played for
    *
-   * @param time
+   * @param time the time the game has been played for
    */
   public void setDuration(int time) {
     this.duration = time;
@@ -135,16 +137,16 @@ public class Game {
   /**
    * set the outcome of the game to won or lost
    *
-   * @param isWin
+   * @param isWin if the user has won or not
    */
   public void setIsWin(boolean isWin) {
     this.isWin = isWin;
   }
 
   /**
-   * Gets the gamemode that the game was played in
+   * Gets the game mode that the game was played in
    *
-   * @return
+   * @return game mode the game was played in
    */
   public GameMode getMode() {
     return mode;
@@ -153,7 +155,7 @@ public class Game {
   /**
    * gets the settings that were used for the game
    *
-   * @return
+   * @return the settings the game was played in
    */
   public Map<Setting, Difficulty> getSettings2Difficulty() {
     return this.settings2Difficulty;
