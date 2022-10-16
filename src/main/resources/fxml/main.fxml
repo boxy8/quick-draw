@@ -53,6 +53,9 @@
                   <String fx:value="navButton" />
                   <String fx:value="image-button" />
                </styleClass>
+               <tooltip>
+                  <Tooltip text="Go to User Statistics" />
+               </tooltip>
             </Button>
             <Button fx:id="muteButton" mnemonicParsing="false" onAction="#onMute">
                <cursor>
@@ -72,6 +75,9 @@
                   <String fx:value="navButton" />
                   <String fx:value="image-button" />
                </styleClass>
+               <tooltip>
+                  <Tooltip text="Toggle Music" />
+               </tooltip>
             </Button>
          </children>
          <padding>
