@@ -341,15 +341,6 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
     Profile userProfile = ProfileHolder.getInstance().getCurrentProfile();
     userProfile.updateAllStats(game);
 
-    // save to profile json if non-guest user
-    if (!userProfile.isGuest()) {
-      try {
-        userProfile.saveToFile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-
     // update badges
     // badge GUI updates in Profile List controller
     for (Badge badge : userProfile.getBadges()) {
@@ -358,6 +349,15 @@ public abstract class CanvasController implements SwitchInListener, SwitchOutLis
         ((ProgressiveBadge) badge).updateValue();
       }
       badge.updateBadge();
+    }
+
+    // save changes to profile json if non-guest user
+    if (!userProfile.isGuest()) {
+      try {
+        userProfile.saveToFile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 
