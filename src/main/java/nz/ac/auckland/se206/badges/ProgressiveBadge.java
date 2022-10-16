@@ -54,12 +54,12 @@ public abstract class ProgressiveBadge extends Badge {
     }
     updateValue();
     for (Rank rank : Rank.values()) {
+      // return if we reach existing rank
+      if (this.rank == rank) {
+        return;
+      }
       // if we meet the rank condition, update the rank
       if (value >= rankValues.get(rank)) {
-        // return if rank hasn't changed
-        if (this.rank == rank) {
-          return;
-        }
         this.rank = rank;
         setIsAchieved(true);
         // update the suffix of the image location

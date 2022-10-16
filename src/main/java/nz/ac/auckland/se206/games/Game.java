@@ -62,7 +62,10 @@ public class Game {
     int count = 0;
     for (Classification classification : predictions) {
       count += 1;
-      if (classification.getClassName().equals(WordHolder.getInstance().getCurrentWord())) {
+      // get prediction without underscores
+      String prediction = classification.getClassName().replace("_", " ");
+      // once the game's word prediction is found, update prediction attributes
+      if (prediction.equals(WordHolder.getInstance().getCurrentWord())) {
         this.predictionProbability = classification.getProbability();
         this.wordPosition = count;
         return;
