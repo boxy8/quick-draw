@@ -248,7 +248,7 @@
             </HBox>
             <AnchorPane fx:id="endGameContainer" prefHeight="80.0" prefWidth="209.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button fx:id="saveButton" layoutX="42.0" layoutY="39.0" mnemonicParsing="false" onAction="#onSave" prefHeight="50.0" prefWidth="209.0" style="-fx-font-size: 24;" styleClass="main-button" text="Save Image">
+                  <Button fx:id="saveButton" layoutX="42.0" layoutY="39.0" mnemonicParsing="false" onAction="#onSave" prefHeight="50.0" prefWidth="209.0" style="-fx-font-size: 26;" styleClass="main-button" text="Save">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

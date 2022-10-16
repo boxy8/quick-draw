@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap');
+
 /* General */
 * {
-    -fx-text-fill: #f2f2f2;
+    -fx-text-fill: #111111;
     -fx-font-family: 'Balsamiq Sans', cursive;
     -fx-font-weight: 400;
 }
 
 .header {
-    -fx-background-color: #db3f2e;
+    -fx-background-color: #ffcd19;
 }
 
 .bg-main {
@@ -36,12 +37,12 @@
 }
 
 .main-container {
-    -fx-background-color: #db3f2e;
+    -fx-background-color: rgb(255, 195, 25);
     -fx-background-radius: 12;
 }
 
-.scroll-pane > .viewport {
-   -fx-background-color: transparent;
+.scroll-pane>.viewport {
+    -fx-background-color: transparent;
 }
 
 .scroll-box {
@@ -50,8 +51,10 @@
 }
 
 .shadow-text {
-    -fx-effect: dropshadow( one-pass-box , rgba(0, 0, 0, .22) , 6 , 1.0 , 1 , 1 );
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, .22), 6, 1.0, 1, 1);
 }
+
+
 
 /* Main Menu */
 
@@ -79,7 +82,8 @@
     -fx-alignment: center;
 }
 
-#brushSizeBox .radio-button:hover, .radio-button:selected {
+#brushSizeBox .radio-button:hover,
+.radio-button:selected {
     -fx-background-color: rgba(0, 0, 0, .15);
 }
 
@@ -89,18 +93,20 @@
     -fx-background-radius: 8;
 }
 
-.tool-icon:hover, .tool-icon:selected {
+.tool-icon:hover,
+.tool-icon:selected {
     -fx-background-color: rgba(0, 0, 0, .15);
 }
 
-.radio-button > .radio {
-  -fx-background-color: transparent;
-  -fx-background-insets: 0;
-  -fx-background-radius: 0px;
-  -fx-padding: 0 0 0 -8;
+.radio-button>.radio {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0px;
+    -fx-padding: 0 0 0 -8;
 }
-.radio-button:selected > .radio > .dot {
-  -fx-background-color: transparent;
+
+.radio-button:selected>.radio>.dot {
+    -fx-background-color: transparent;
 }
 
 #predictionsContainer {
@@ -128,26 +134,26 @@
 }
 
 .profile-button-text:selected {
-    -fx-text-fill: orange;
+    -fx-text-fill: #3296ff;
 }
 
 #textField {
     -fx-background-color: transparent;
     -fx-padding: 0;
     -fx-font-size: 32px;
-    -fx-text-fill: #40396e;
-    -fx-prompt-text-fill: rgba(64, 57, 110, 0.7);
+    -fx-text-fill: #6e5039;
+    -fx-prompt-text-fill: rgba(110, 80, 57, 0.7);
 }
 
 .add-profile-box {
     -fx-padding: 6 14 14 14;
     -fx-background-radius: 12;
     -fx-background-color: rgba(255, 255, 255, 0.5);
-    -fx-text-fill: #40396e;
+    -fx-text-fill: #6e5039;
     -fx-alignment: center-left;
     -fx-font-size: 32px;
     -fx-border-style: dashed;
-    -fx-border-color: #db3f2e;
+    -fx-border-color: #E8A20C;
     -fx-border-width: 3;
     -fx-border-radius: 12;
 }
@@ -188,20 +194,23 @@
 #usernameContainer {
     -fx-border-style: solid;
     -fx-border-width: 4px;
-    -fx-border-color: transparent #2D65BA transparent transparent;
+    -fx-border-color: transparent #f7bb24 transparent transparent;
 
 }
 
 #statsUsername {
     -fx-font-size: 30px;
-    -fx-text-fill: white;
+}
+
+#tableView {
+    -fx-border-color: #ebb222;
 }
 
 #tableView .column-header {
-    -fx-background-color: #377DE6;
+    -fx-background-color: #f7bb24;
     -fx-font-size: 14px;
     -fx-border-style: solid;
-    -fx-border-color: #2D65BA;
+    -fx-border-color: #ebb222;
     -fx-border-width: 1px;
 }
 
@@ -232,4 +241,24 @@
 .category-icon {
     -fx-height: 75px;
     -fx-width: 75px;
+}
+
+/* Difficulty Selector */
+
+#mode-container {
+    -fx-font-size: 24px;
+}
+
+#mode-label {
+    -fx-font-weight: 700;
+}
+
+#modeSpinner .text-field {
+    -fx-font-size: 24px;
+}
+
+#loadingContainer {
+    -fx-background-color: white;
+    -fx-font-size: 20px;
+    -fx-background-radius: 12px;
 }
