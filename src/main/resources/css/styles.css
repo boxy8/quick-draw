@@ -8,7 +8,7 @@
 }
 
 .header {
-    -fx-background-color: ffcd19;
+    -fx-background-color: #ffcd19;
 }
 
 .bg-main {
@@ -268,32 +268,14 @@
 
 /* Difficulty Selector */
 
-.spinner .increment-arrow-button,
-.spinner .decrement-arrow-button {
-    -fx-pref-width: 10px;
-    -fx-pref-height: 10px;
-    -fx-body-color: none;
+#mode-container {
+    -fx-font-size: 24px;
 }
 
-
-.spinner .increment-arrow-button .increment-arrow,
-.spinner .decrement-arrow-button .decrement-arrow {
-    -fx-pref-width: 10px;
-    -fx-pref-height: 10px;
-    -fx-background-color: black;
-}
-
-#modeSpinner {
-    -fx-background-color: rgba(0, 0, 255, 0);
-    -fx-base: rgba(255, 0, 0, 0, 0);
+#mode-label {
+    -fx-font-weight: 700;
 }
 
 #modeSpinner .text-field {
     -fx-font-size: 24px;
 }
-
-#modeSpinner .increment-arrow-button,
-#modeSpinner .decrement-arrow-button {}
-
-#modeSpinner .increment-arrow-button .increment-arrow,
-#modeSpinner .decrement-arrow-button .decrement-arrow {}

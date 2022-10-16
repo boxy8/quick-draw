@@ -5,37 +5,55 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="840.0" styleClass="bg-main" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.DifficultySelectorController">
    <children>
-      <Button fx:id="chooseDifficultyButton" layoutX="291.0" layoutY="507.0" mnemonicParsing="false" onAction="#onChooseDifficulty" styleClass="main-button" text="Choose Settings" />
-      <Spinner fx:id="modeSpinner" layoutX="264.0" layoutY="37.0" prefHeight="71.0" prefWidth="313.0" styleClass="split-arrows-horizontal" stylesheets="@../css/styles.css" />
-      <VBox layoutX="334.0" layoutY="109.0" prefHeight="397.0" prefWidth="174.0">
+      <VBox layoutX="270.0" layoutY="50.0" prefHeight="516.0" prefWidth="300.0">
          <children>
+            <VBox id="mode-container" alignment="CENTER" prefHeight="110.0" prefWidth="174.0">
+               <children>
+                  <Label id="mode-label" text="Mode" />
+                  <Spinner fx:id="modeSpinner" prefHeight="0.0" prefWidth="300.0" styleClass="split-arrows-horizontal" stylesheets="@../css/styles.css" />
+               </children>
+            </VBox>
             <VBox fx:id="wordsContainer" alignment="CENTER" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label text="Words" />
+                  <Label text="Words">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
                   <Spinner fx:id="wordsSpinner" prefHeight="28.0" prefWidth="150.0" styleClass="split-arrows-horizontal" />
                </children>
             </VBox>
             <VBox fx:id="timeContainer" alignment="CENTER" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label text="Time" />
+                  <Label text="Time">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
                   <Spinner fx:id="timeSpinner" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="150.0" styleClass="split-arrows-horizontal" />
                </children>
             </VBox>
             <VBox fx:id="accuracyContainer" alignment="CENTER" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label text="Accuracy" />
+                  <Label text="Accuracy">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
                   <Spinner fx:id="accuracySpinner" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="150.0" styleClass="split-arrows-horizontal" />
                </children>
             </VBox>
             <VBox fx:id="confidenceContainer" alignment="CENTER" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label alignment="CENTER" text="Confidence" />
+                  <Label alignment="CENTER" text="Confidence">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
                   <Spinner fx:id="confidenceSpinner" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="150.0" styleClass="split-arrows-horizontal" />
                </children>
             </VBox>
+            <Button fx:id="chooseDifficultyButton" mnemonicParsing="false" onAction="#onChooseDifficulty" prefHeight="71.0" prefWidth="300.0" styleClass="main-button" text="Choose Settings" />
          </children>
       </VBox>
    </children>
