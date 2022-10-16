@@ -6,7 +6,7 @@
 
 <fx:root fx:id="badgeBox" alignment="TOP_CENTER" stylesheets="@../css/styles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="badgeLabel" style="-fx-font-size: 16;" text="Untitled Badge" />
+      <Label fx:id="badgeLabel" style="-fx-font-size: 16;" text="Word Collector" />
       <ImageView fx:id="badgeIcon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </fx:root>

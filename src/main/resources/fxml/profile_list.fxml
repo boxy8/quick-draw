@@ -66,7 +66,7 @@
             <VBox alignment="TOP_CENTER" layoutX="406.0" prefWidth="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label styleClass="canvas-text" text="Badges" />
-                  <FlowPane fx:id="badgesContainer" columnHalignment="CENTER" hgap="25.0" style="-fx-padding: 15;" styleClass="main-container" vgap="10.0" VBox.vgrow="ALWAYS" />
+                  <FlowPane fx:id="badgesContainer" columnHalignment="CENTER" hgap="20.0" style="-fx-padding: 15;" styleClass="main-container" vgap="10.0" VBox.vgrow="ALWAYS" />
                   <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                   <VBox>
                      <children>
