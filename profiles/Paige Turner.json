@@ -1,0 +1,290 @@
+{
+    "username": "tset",
+    "wins": 10,
+    "losses": 0,
+    "winStreak": 10,
+    "zenGamesPlayed": 0,
+    "fastestWinTime": 1,
+    "wordHistory": [
+        "leaf",
+        "ear",
+        "bicycle",
+        "pig",
+        "butterfly",
+        "anvil",
+        "hand",
+        "hot dog",
+        "skull",
+        "pillow"
+    ],
+    "gameHistory": [
+        {
+            "word": "leaf",
+            "mode": "NORMAL",
+            "settings2Difficulty": {
+                "ACCURACY": "EASY",
+                "WORDS": "EASY",
+                "TIME": "EASY",
+                "CONFIDENCE": "EASY"
+            },
+            "wasEraserPressed": false,
+            "wasClearPressed": true,
+            "duration": 16,
+            "isWin": true,
+            "wordPosition": 2,
+            "predictionProbability": 0.04059038311243057
+        },
+        {
+            "word": "ear",
+            "mode": "NORMAL",
+            "settings2Difficulty": {
+                "ACCURACY": "EASY",
+                "WORDS": "EASY",
+                "TIME": "EASY",
+                "CONFIDENCE": "EASY"
+            },
+            "wasEraserPressed": false,
+            "wasClearPressed": false,
+            "duration": 1,
+            "isWin": true,
+            "wordPosition": 2,
+            "predictionProbability": 0.033727556467056274
+        },
+        {
+            "word": "bicycle",
+            "mode": "NORMAL",
+            "settings2Difficulty": {
+                "ACCURACY": "EASY",
+                "WORDS": "EASY",
+                "TIME": "EASY",
+                "CONFIDENCE": "EASY"
+            },
+            "wasEraserPressed": false,
+            "wasClearPressed": false,
+            "duration": 9,
+            "isWin": true,
+            "wordPosition": 3,
+            "predictionProbability": 0.09027805179357529
+        },
+        {
+            "word": "pig",
+            "mode": "NORMAL",
+            "settings2Difficulty": {
+                "ACCURACY": "EASY",
+                "WORDS": "EASY",
+                "TIME": "EASY",
+                "CONFIDENCE": "EASY"
+            },
+            "wasEraserPressed": false,
+            "wasClearPressed": false,
+            "duration": 3,
+            "isWin": true,
+            "wordPosition": 1,
+            "predictionProbability": 0.11564326286315918
+        },
+        {
+            "word": "butterfly",
+            "mode": "NORMAL",
+            "settings2Difficulty": {
+                "ACCURACY": "EASY",
+                "WORDS": "EASY",
+                "TIME": "EASY",
+                "CONFIDENCE": "EASY"
+            },
+            "wasEraserPressed": false,
+            "wasClearPressed": false,
+            "duration": 5,
+            "isWin": true,
+            "wordPosition": 2,
+            "predictionProbability": 0.04418210685253143
+        },
+        {
+            "word": "anvil",
+            "mode": "NORMAL",
+            "settings2Difficulty": {
+                "ACCURACY": "EASY",
+                "WORDS": "EASY",
+                "TIME": "EASY",
+                "CONFIDENCE": "EASY"
+            },
+            "wasEraserPressed": false,
+            "wasClearPressed": false,
+            "duration": 4,
+            "isWin": true,
+            "wordPosition": 1,
+            "predictionProbability": 0.15243574976921082
+        },
+        {
+            "word": "hand",
+            "mode": "NORMAL",
+            "settings2Difficulty": {
+                "ACCURACY": "EASY",
+                "WORDS": "EASY",
+                "TIME": "EASY",
+                "CONFIDENCE": "EASY"
+            },
+            "wasEraserPressed": false,
+            "wasClearPressed": false,
+            "duration": 3,
+            "isWin": true,
+            "wordPosition": 1,
+            "predictionProbability": 0.2418905347585678
+        },
+        {
+            "word": "hot dog",
+            "mode": "NORMAL",
+            "settings2Difficulty": {
+                "ACCURACY": "EASY",
+                "WORDS": "EASY",
+                "TIME": "EASY",
+                "CONFIDENCE": "EASY"
+            },
+            "wasEraserPressed": false,
+            "wasClearPressed": true,
+            "duration": 10,
+            "isWin": true,
+            "wordPosition": 2,
+            "predictionProbability": 0.03571271523833275
+        },
+        {
+            "word": "skull",
+            "mode": "NORMAL",
+            "settings2Difficulty": {
+                "ACCURACY": "EASY",
+                "WORDS": "EASY",
+                "TIME": "EASY",
+                "CONFIDENCE": "EASY"
+            },
+            "wasEraserPressed": false,
+            "wasClearPressed": false,
+            "duration": 8,
+            "isWin": true,
+            "wordPosition": 1,
+            "predictionProbability": 0.02995344065129757
+        },
+        {
+            "word": "pillow",
+            "mode": "NORMAL",
+            "settings2Difficulty": {
+                "ACCURACY": "EASY",
+                "WORDS": "EASY",
+                "TIME": "EASY",
+                "CONFIDENCE": "EASY"
+            },
+            "wasEraserPressed": false,
+            "wasClearPressed": false,
+            "duration": 5,
+            "isWin": true,
+            "wordPosition": 2,
+            "predictionProbability": 0.05068584904074669
+        }
+    ],
+    "setting2difficulty": {
+        "ACCURACY": "EASY",
+        "WORDS": "EASY",
+        "TIME": "EASY",
+        "CONFIDENCE": "EASY"
+    },
+    "gameMode": "NORMAL",
+    "badges": [
+        {
+            "type": "FirstTryBadge",
+            "properties": {
+                "name": "First Try",
+                "isAchieved": true,
+                "imageLocation": "FIRST_TRY.png",
+                "tooltip": "Win a game with no eraser or clear canvas used"
+            }
+        },
+        {
+            "type": "GrandmasterBadge",
+            "properties": {
+                "name": "Grandmaster",
+                "isAchieved": false,
+                "imageLocation": "GRANDMASTER.png",
+                "tooltip": "Win a game on the hardest difficulty settings"
+            }
+        },
+        {
+            "type": "MasterBadge",
+            "properties": {
+                "name": "Master",
+                "isAchieved": true,
+                "imageLocation": "MASTER.png",
+                "tooltip": "Win a game with any difficulty setting set to MASTER"
+            }
+        },
+        {
+            "type": "SniperBadge",
+            "properties": {
+                "rank": "PLATINUM",
+                "value": -194,
+                "rankValues": {
+                    "PLATINUM": -75,
+                    "SILVER": -100,
+                    "BRONZE": -200,
+                    "GOLD": -90,
+                    "DIAMOND": -50
+                },
+                "name": "Sniper",
+                "isAchieved": true,
+                "imageLocation": "/progressive/SNIPER_PLATINUM.png",
+                "tooltip": "Win a game with a high level prediction"
+            }
+        },
+        {
+            "type": "SprinterBadge",
+            "properties": {
+                "rank": "DIAMOND",
+                "value": -5,
+                "rankValues": {
+                    "PLATINUM": -10,
+                    "SILVER": -30,
+                    "BRONZE": -45,
+                    "GOLD": -15,
+                    "DIAMOND": -5
+                },
+                "name": "Sprinter",
+                "isAchieved": true,
+                "imageLocation": "/progressive/SPRINTER_DIAMOND.png",
+                "tooltip": "Win a game in a short timeframe"
+            }
+        },
+        {
+            "type": "WinStreakBadge",
+            "properties": {
+                "rank": "SILVER",
+                "value": 10,
+                "rankValues": {
+                    "PLATINUM": 50,
+                    "SILVER": 10,
+                    "BRONZE": 3,
+                    "GOLD": 25,
+                    "DIAMOND": 100
+                },
+                "name": "Win Streak",
+                "isAchieved": true,
+                "imageLocation": "/progressive/WIN_STREAK_SILVER.png",
+                "tooltip": "Hold a lengthy win streak"
+            }
+        },
+        {
+            "type": "WordCollectorBadge",
+            "properties": {
+                "rank": "BRONZE",
+                "value": 10,
+                "rankValues": {
+                    "PLATINUM": 100,
+                    "SILVER": 25,
+                    "BRONZE": 10,
+                    "GOLD": 50,
+                    "DIAMOND": 345
+                },
+                "name": "Word Collector",
+                "isAchieved": true,
+                "imageLocation": "/progressive/WORD_COLLECTOR_BRONZE.png",
+                "tooltip": "Win many different words"
+            }
+        }
+    ]
+}
