@@ -11,7 +11,7 @@ public class FirstTryBadge extends Badge {
    * <p>Badge condition: win a game with no eraser or clear canvas used.
    */
   public FirstTryBadge() {
-    super("First Try", "FIRST_TRY.png");
+    super("First Try", "FIRST_TRY.png", "Win a game with no eraser or clear canvas used");
   }
 
   @Override

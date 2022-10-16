@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -44,6 +45,9 @@ public class BadgeController extends VBox {
   public void initialize() {
     // update gui elements once fields have been initialised
     badgeLabel.setText(badge.getName());
+    // install tooltip based on tooltip description in badge
+    Tooltip tooltip = new Tooltip(badge.getTooltip());
+    Tooltip.install(badgeIcon, tooltip);
     badgeBox.setVisible(false);
     badgeBox.setManaged(false);
     updateBadgeGui();

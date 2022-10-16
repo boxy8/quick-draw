@@ -22,7 +22,15 @@ public class SniperBadge extends ProgressiveBadge {
    * <p>Diamond: top 1 + >50% prediction confidence
    */
   public SniperBadge() {
-    super("Sniper", "SNIPER_BRONZE.png", -50, -75, -90, -100, -200);
+    super(
+        "Sniper",
+        "SNIPER_BRONZE.png",
+        "Win a game with a high level prediction",
+        -50,
+        -75,
+        -90,
+        -100,
+        -200);
   }
 
   @Override

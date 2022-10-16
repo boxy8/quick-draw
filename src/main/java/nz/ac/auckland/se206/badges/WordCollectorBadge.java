@@ -22,7 +22,15 @@ public class WordCollectorBadge extends ProgressiveBadge {
    * <p>Diamond: All unique words won
    */
   public WordCollectorBadge() {
-    super("Word Collector", "WORD_COLLECTOR_BRONZE.png", 345, 100, 50, 25, 10);
+    super(
+        "Word Collector",
+        "WORD_COLLECTOR_BRONZE.png",
+        "Win many different words",
+        345,
+        100,
+        50,
+        25,
+        10);
   }
 
   @Override

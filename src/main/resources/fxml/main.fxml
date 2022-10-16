@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -24,7 +25,10 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Go to Home" />
+               </tooltip></Button>
             <Region prefHeight="56.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <Button id="navUsername" fx:id="profileButton" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="39.0" prefWidth="229.0" text="Guest">
                <cursor>

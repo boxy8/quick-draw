@@ -7,6 +7,10 @@
     -fx-font-weight: 400;
 }
 
+.tooltip {
+    -fx-text-fill: white;
+}
+
 .header {
     -fx-background-color: #ffcd19;
 }

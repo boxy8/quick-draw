@@ -5,16 +5,19 @@ public abstract class Badge {
   private final String name;
   private boolean isAchieved;
   private String imageLocation;
+  private String tooltip;
 
   /**
    * Constructs a Badge instance with name and image location
    *
    * @param name the name of the badge
    * @param imageLocation the location to the image (relative to badges folder)
+   * @param tooltip the tooltip description for the image
    */
-  public Badge(String name, String imageLocation) {
+  public Badge(String name, String imageLocation, String tooltip) {
     this.name = name;
     this.imageLocation = imageLocation;
+    this.tooltip = tooltip;
   }
 
   /** Updates whether the badge is achieved or not based on current profile statistics */
@@ -63,5 +66,9 @@ public abstract class Badge {
    */
   public void setImageLocation(String imageLocation) {
     this.imageLocation = imageLocation;
+  }
+
+  public String getTooltip() {
+    return tooltip;
   }
 }
