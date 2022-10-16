@@ -66,20 +66,24 @@
             <VBox alignment="TOP_CENTER" layoutX="406.0" prefWidth="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label styleClass="canvas-text" text="Badges" />
-                  <FlowPane fx:id="badgesContainer" hgap="5.0" style="-fx-padding: 15;" styleClass="main-container" vgap="5.0" VBox.vgrow="ALWAYS" />
+                  <FlowPane fx:id="badgesContainer" columnHalignment="CENTER" hgap="25.0" style="-fx-padding: 15;" styleClass="main-container" vgap="10.0" VBox.vgrow="ALWAYS" />
                   <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" onAction="#onConfirmProfile" styleClass="main-button" text="Confirm Profile">
-                     <graphic>
-                        <ImageView fitHeight="49.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/tick.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
+                  <VBox>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onConfirmProfile" styleClass="main-button" text="Confirm Profile">
+                           <graphic>
+                              <ImageView fitHeight="49.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/tick.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children></AnchorPane>
