@@ -9,7 +9,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="840.0" styleClass="bg-main" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.DifficultySelectorController">
    <children>
       <Button fx:id="chooseDifficultyButton" layoutX="291.0" layoutY="507.0" mnemonicParsing="false" onAction="#onChooseDifficulty" styleClass="main-button" text="Choose Settings" />
-      <Spinner fx:id="modeSpinner" layoutX="346.0" layoutY="64.0" prefHeight="28.0" prefWidth="150.0" styleClass="split-arrows-horizontal" stylesheets="@../css/styles.css" />
+      <Spinner fx:id="modeSpinner" layoutX="264.0" layoutY="37.0" prefHeight="71.0" prefWidth="313.0" styleClass="split-arrows-horizontal" stylesheets="@../css/styles.css" />
       <VBox layoutX="334.0" layoutY="109.0" prefHeight="397.0" prefWidth="174.0">
          <children>
             <VBox fx:id="wordsContainer" alignment="CENTER" prefHeight="100.0" prefWidth="160.0">
